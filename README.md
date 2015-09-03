@@ -27,6 +27,8 @@ Mapping Finland Traffic
   <li><a href="http://www.googlemapstraffic.com/">http://www.googlemapstraffic.com/</a></li>
   <li><a href="http://telemapics.com/">Telemapics</a></li>
   <li><a href="http://en.gtk.fi/informationservices/interface_services/"> Geological Survey of Finland</a></li>
+  <li><a href="http://www.mapquestapi.com/traffic/">MapQuest get traffic</a></li>
+  <li><a href="http://en.ilmatieteenlaitos.fi/open-data-manual">Open Data Meteorological Institute</a></li>
 </ul>
 
 

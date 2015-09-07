@@ -53,7 +53,7 @@ The steps to achieve this are:
   <li><a href="http://en.gtk.fi/informationservices/interface_services/"> Geological Survey of Finland</a></li>
   <li><a href="http://www.mapquestapi.com/traffic/">MapQuest get traffic</a></li>
   <li><a href="http://en.ilmatieteenlaitos.fi/open-data-manual">Open Data Meteorological Institute</a></li>
-  <li><a href="Introduction - jQuery Mobile Demos">JQueryMobile</a></li>
+  <li><a href="http://demos.jquerymobile.com/1.4.5/ - jQuery Mobile Demos">JQueryMobile</a></li>
 </ul>
 
 <b> Frantisek </b>

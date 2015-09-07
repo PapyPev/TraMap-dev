@@ -1,14 +1,38 @@
 # HAMK Map-Project
-Mapping Finland Traffic
+GIS Project - Finland Traffic informations
 
 ### Members
 <ul>
-  <li><b>Janne Rautio></b>: Project tutoori</li>
-  <li><b>Frantisek Kolovský</b>: Exchange Student</li>
-  <li><b>Pierre Vrot</b>: Exchange Student</li>
+  <li><b>Janne Rautio</b>: HAMK Supervisor</li>
+  <li><b>Taina Haapamaki</b>: Ramboll Supervisor</li>
+  <li><b>Frantisek Kolovský</b>: Exchange Student (CZ)</li>
+  <li><b>Pierre Vrot</b>: Exchange Student (FR)</li>
 </ul>
 
-### Sources informations
+### Goals
+
+The ultimate goal is: to achieve an open source GIS for real-time 
+traffic conditions. <br>
+
+The steps to achieve this are: 
+<ul>
+  <li>Build a GIS at the city level </li>
+  <li>Build a GIS at the regional level </li>
+  <li>Build a GIS at the country level </li>
+</ul>
+
+### Data sources
+<ul>
+  <li>Wallpaper Tiles (from OpenStreetMap) </li>
+  <li>The road network (from OpenStreetMap) </li>
+  <li>The weather (sky and temperature - from ??) </li>
+  <li>Demography (of the city, region, country - from ??) </li>
+  <li>A digital elevation model (altitude - from ??) </li>
+  <li>Public or not transport (train, bus - from ??) </li>
+  <li>Travel Habits (car, bicycle, walking - from ??) </li>
+</ul>
+
+### Web informations
 
 <b> Janne </b>
 <ul>
@@ -31,4 +55,8 @@ Mapping Finland Traffic
   <li><a href="http://en.ilmatieteenlaitos.fi/open-data-manual">Open Data Meteorological Institute</a></li>
 </ul>
 
+<b> Frantisek </b>
+<ul>
+  <li><a href="https://www.openstreetmap.org/">https://www.openstreetmap.org/</a></li>
+</ul>
 

@@ -5,26 +5,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- WARN : Be careful with order -->
+
   <!-- === LOAD PERSONNAL CSS ======================================================= -->
-  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/main.css" type="text/css">
+  <link rel="stylesheet" href="./css/map.css" type="text/css">
 
   <!-- === LOAD LIB CSS ============================================================= -->
-  <link rel="stylesheet" href="./lib/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
+  <link rel="stylesheet" href="./lib/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css" type="text/css">
+  <link rel="stylesheet" href="./lib/openlayers-3.8.2/css/ol.css" type="text/css">
 
   <!-- === LOAD LIB JAVASCRIPT ====================================================== -->
   <script src="./lib/jquery/jquery-1.11.3.min.js"></script>
   <script src="./lib/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script src="./lib/openlayers-3.8.2/build/ol.js"></script>
 
 </head>
 <body>
 
   <div data-role="page" id="pageone">
-
-    <!-- === PANEL TOC ============================================================== -->
-    <div data-role="panel" id="myPanel" data-display="overlay" data-position-fixed="true">
-      <h2>Layers</h2><br>
-      <div id="app_toc"></div>
-    </div> <!-- /panel -->
 
     <!-- === HEADER ================================================================= -->
     <div data-role="header">
@@ -34,13 +33,20 @@
 
     <!-- === MAP ==================================================================== -->
     <div data-role="main" class="ui-content">
-      <h4>MAP</h4>
+      <div id="map" class="map"></div>
     </div>
+
+    <!-- === PANEL TOC ============================================================== -->
+    <div data-role="panel" id="myPanel" data-display="overlay" data-position-fixed="true">
+      <h2>Layers</h2><br>
+      <div id="app_toc"></div>
+    </div> <!-- /panel -->
 
   </div> <!-- /page-->
 
 <!-- === LOAD PERSONAL JS =========================================================== -->
 <script src="./js/toc.js"></script>
+<script src="./js/map.js"></script>
 
 </body>
 </html>

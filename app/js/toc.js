@@ -7,8 +7,9 @@ $( document ).ready(function() {
 	// Get JSON from URL
     $.ajax({ 
         type: "GET", 
-        url: "./js/toc.json", 
+        //url: "./js/toc.json", 
         //url: "http://api.geonames.org/citiesJSON?",
+        url: "../srv/samples/json.py",
         dataType:'json',
         success: function(response){
 

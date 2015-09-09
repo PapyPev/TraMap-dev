@@ -9,7 +9,8 @@ $( document ).ready(function() {
         type: "GET", 
         //url: "./js/toc.json", 
         //url: "http://api.geonames.org/citiesJSON?",
-        url: "../srv/samples/json.py",
+        url: "../srv/cgi-bin/json-file.py",
+        contentType: "application/json; charset=utf-8",
         dataType:'json',
         success: function(response){
 
@@ -22,8 +23,12 @@ $( document ).ready(function() {
             }           
 
         },  
-        error: function(){
-            alert("fail load json");
+        error: function(jqXHR, exception) {
+            if (jqXHR.status === 401) {
+                alert('HTTP Error 401 Unauthorized.');
+            } else {
+                alert('Uncaught Error.\n' + jqXHR.responseText);
+            }
         },
     }); 
 

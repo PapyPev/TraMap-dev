@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import json
+import cgitb
+
+# Eneble Debugging
+cgitb.enable()
 
 # JSON variable
 jsonVariable = []
@@ -89,5 +93,8 @@ jsonVariable.append({
    ]
 })
 
+print "Status: 200 Success"
+print 'Content-Type: application/json'
+print #end of headers
 # Print JSON
 print jsonVariable

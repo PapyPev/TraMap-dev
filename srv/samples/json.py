@@ -90,4 +90,4 @@ jsonVariable.append({
 })
 
 # Print JSON
-print json.dumps(jsonVariable)
+print jsonVariable

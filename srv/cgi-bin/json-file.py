@@ -1,100 +1,85 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Filename: json-file.py
+__author__ = "Pev"
 import json
-import cgitb
 
-# Eneble Debugging
-cgitb.enable()
+# #############################################################################
+# FUNCTIONS
+# #############################################################################
 
-# JSON variable
-jsonVariable = []
+def makeJSON():
+   """
+   Create Sample JSON file and write on output
+   """
 
-# Mise en forme du JSON
-jsonVariable.append({
-   "type":"FeatureCollection",
-   "features":[
-      {
-         "type":"Feature",
-         "geometry":{
-            "type":"Point",
-            "coordinates":[
-               102.0,
-               0.5
-            ]
+   # JSON variable
+   jsonVariable = []
+
+   # Mise en forme du JSON
+   jsonVariable.append({
+      "status":"success",
+      "toc":[
+         {
+            "id":0,
+            "pos":1,
+            "attr":"tiles",
+            "alias":"Tiles",
+            "type":"radio",
+            "content":[{
+               "id":1,
+               "pos":1,
+               "attr":"osm-street",
+               "alias":"OSM Street Map",
+               "checked":"checked",
+               "ws":"http://www.google.com"
+            },
+            {
+               "id":0,
+               "pos":0,
+               "attr":"osm-sat",
+               "alias":"OSM Sat Map",
+               "checked":"",
+               "ws":"http://www.google.com"
+            }]
          },
-         "properties":{
-            "prop0":"value0"
+         {
+            "id":1,
+            "pos":0,
+            "attr":"vector",
+            "alias":"Vectors",
+            "type":"checkbox",
+            "content":[{
+               "id":1,
+               "pos":1,
+               "attr":"vect1",
+               "alias":"Vector Data 1",
+               "checked":"checked",
+               "ws":"http://www.google.com"
+            },
+            {
+               "id":0,
+               "pos":1,
+               "attr":"vect2",
+               "alias":"Vector Data 2",
+               "checked":"",
+               "ws":"http://www.google.com"
+            }]
          }
-      },
-      {
-         "type":"Feature",
-         "geometry":{
-            "type":"LineString",
-            "coordinates":[
-               [
-                  102.0,
-                  0.0
-               ],
-               [
-                  103.0,
-                  1.0
-               ],
-               [
-                  104.0,
-                  0.0
-               ],
-               [
-                  105.0,
-                  1.0
-               ]
-            ]
-         },
-         "properties":{
-            "prop0":"value0",
-            "prop1":0.0
-         }
-      },
-      {
-         "type":"Feature",
-         "geometry":{
-            "type":"Polygon",
-            "coordinates":[
-               [
-                  [
-                     100.0,
-                     0.0
-                  ],
-                  [
-                     101.0,
-                     0.0
-                  ],
-                  [
-                     101.0,
-                     1.0
-                  ],
-                  [
-                     100.0,
-                     1.0
-                  ],
-                  [
-                     100.0,
-                     0.0
-                  ]
-               ]
-            ]
-         },
-         "properties":{
-            "prop0":"value0",
-            "prop1":{
-               "this":"that"
-            }
-         }
-      }
-   ]
-})
+      ]
+   })
 
-print "Status: 200 Success"
-print 'Content-Type: application/json'
-print #end of headers
-# Print JSON
-print jsonVariable
+   print "Content-type: application/json; charset=UTF-8"
+   print #end of headers
+   # Print JSON
+   print json.dumps(jsonVariable)
+   pass
+
+
+
+# #############################################################################
+# MAIN
+# #############################################################################
+
+if __name__ == "__main__":
+   makeJSON();

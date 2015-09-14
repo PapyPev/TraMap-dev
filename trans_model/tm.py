@@ -4,14 +4,21 @@ import settings as s
 import numpy as np
 import db
 import multiprocessing as mp
+import time
 
 class TransModel:
-    def __init__(self, o, d, c):
+    def __init__(self, c):
 
-        self.O = o # original
-        self.D = d # destination
+        self.g = MyGraph()
+        self.g.create_graph()
+
+        self.O = self.g.db.getO()
+        self.D = self.g.db.getD()
         self.C = c # cost matrix
         self.T = np.ndarray(shape=(self.O.size, self.D.size)) # transpotation matrix
+
+
+        self.id_map = None
 
     def _model(self, i, j):
         Ti = self.O[i]
@@ -19,6 +26,8 @@ class TransModel:
         return Ti * Tj * self._f(self.C[i][j])
 
     def _f(self, c):
+        if c == 0:
+            return 0
         return c**(-2)
 
     def _for_all_cell_T(self,function):
@@ -30,16 +39,25 @@ class TransModel:
 
     def trip_destination(self):
         self.T = self._for_all_cell_T(self._model)
+        print self.T
 
         nf_row = np.ndarray(shape=(self.T.shape[0]))
 
         delta = 1
+        delta_mid = 1
         numiter = 0
-        while delta > 0.01:
+        while delta_mid > 0.01:
             i = 0
             for row in self.T:
-                nf_row[i] = float(self.O[i]) / sum(row)
+                if sum(row) == 0:
+                    #print int(self.id_map[i])
+                    pass
+                try:
+                    nf_row[i] = self.O[i] / sum(row)
+                except RuntimeWarning:
+                    print self.O[i], sum(row)
                 i += 1
+            #print nf_row
 
             self.T = self._for_all_cell_T(lambda i,j: self.T[i][j] * nf_row[i])
 
@@ -52,12 +70,30 @@ class TransModel:
             self.T = self._for_all_cell_T(lambda i, j: self.T[i][j] * nf_column[j])
 
             delta =  max(abs(nf_column - 1))
+            delta_mid = sum(abs(nf_column - 1)) / len(nf_column)
             numiter += 1
+            print "#iteration is %i and delta is %f and delta mid id %f" %(numiter, delta, delta_mid)
+            print self.T[10]
         print "number of iteration is:", numiter
+
     def writeT(self,filename):
         np.save(filename, self.T)
         print "Ulozeno do: ", filename
 
+    def count_transport(self):
+        zones = self.g.db.getZonesNodeId()
+        i = 0
+        for node_id in zones:
+            paths = self.g.find_paths(node_id, zones)
+            for path in paths:
+                for edge in path[3]:
+                    self.g.edge_property_traffic[edge] += self.T[i][path[4]]
+            i += 1
+            print i
+    def save_traffic(self,filename):
+        np.save(filename+"_id",np.array(list(self.g.edge_property_id.get_array())))
+        np.save(filename+"_traffic",np.array(list(self.g.edge_property_id.get_array())))
+        print "save is succesful!!"
 
 class MyGraph:
     def __init__(self):
@@ -66,6 +102,7 @@ class MyGraph:
         self.edge_property_cost = self.g.new_edge_property("double")
         self.edge_property_id = self.g.new_edge_property("int")
         self.vertex_property_id = self.g.new_vertex_property("int")
+        self.edge_property_traffic = self.g.new_edge_property("double")
         self.min_vertex_id = -1
         self.max_vertex_id = -1
         self.max_count_vertex = 100000000  # max size of graph
@@ -121,7 +158,7 @@ class MyGraph:
         @param t_list: List of target node
         @return:  List of path (source, target, cost, [path])
         """
-        dist_map, pred_map = dijkstra_search(self.g, self.id_to_index(s), self.g.new_edge_property("double"))
+        dist_map, pred_map = dijkstra_search(self.g, self.id_to_index(s), self.edge_property_cost)
         return (dist_map, pred_map)
 
     def one_to_all(self, source):
@@ -134,7 +171,7 @@ class MyGraph:
             dist_map, pred_map = self.dijkstra(zone_node_id)
             j = 0
             for zone_node_id_v in zones:
-                self.C[i][j] = dist_map[self.g.vertex(zone_node_id_v)]
+                self.C[i][j] = dist_map[self.g.vertex(self.id_to_index(zone_node_id_v))]
                 j += 1
             print i
             i += 1
@@ -146,14 +183,32 @@ class MyGraph:
         self.C = np.ndarray(shape=(len(zones), len(zones)))
         interval = int(len(zones) / s.number_threads)
         self._get_row_c(zones, 0, len(zones))
+        np.save("C", self.C)
         return self.C
+
+    def find_paths(self,s , t_list):
+        a = time.time()
+        dist_map, pred_map = self.dijkstra(s)
+        print time.time() - a
+        all_path = []
+        i = 0
+        for t in t_list:
+            t_vertex = self.id_to_index(t)
+            a = time.time()
+            vl, el = shortest_path(self.g, self.id_to_index(s), t_vertex, pred_map = pred_map)
+            print time.time() - a
+            all_path.append((s, t, float(dist_map[t_vertex]), el, i))
+            i += 1
+        return all_path
 
 
 if __name__ == "__main__":
-    dbb = db.Database()
-    g = MyGraph()
-    g.create_graph()
 
-    tm = TransModel(dbb.getO(), dbb.getD(), g.get_c())
-    tm.writeT("T")
-    tm.trip_destination()
+    tm = TransModel(np.load("C.npy"))
+    #tm.id_map = dbb.getIdZones()
+
+    #tm.trip_destination()
+    tm.T = np.load("T.npy")
+    #print tm.g.edge_property_id.get_array()
+    tm.count_transport()
+    tm.save_traffic("traf")

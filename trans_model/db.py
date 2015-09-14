@@ -24,6 +24,12 @@ class Database:
         out = np.array(self.cur.fetchall())
         return out.reshape((len(out)))
 
+    def getIdZones(self):
+        sql = "SELECT id from %s order by id"
+        self.cur.execute(sql% (s.zones_table_name))
+        out = np.array(self.cur.fetchall())
+        return out.reshape((len(out)))
+
     def getZonesNodeId(self):
         sql = "SELECT node_id from %s order by id"
         self.cur.execute(sql % (s.zones_table_name))

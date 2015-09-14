@@ -3,14 +3,15 @@ from graph_tool.all import *
 import settings as s
 import numpy as np
 import db
+import multiprocessing as mp
 
 class TransModel:
-    def __init__(self):
+    def __init__(self, o, d, c):
 
-        self.O = None # original
-        self.D = None # destination
-        self.C = None # cost matrix
-        self.T = None # transpotation matrix
+        self.O = o # original
+        self.D = d # destination
+        self.C = c # cost matrix
+        self.T = np.ndarray(shape=(self.O.size, self.D.size)) # transpotation matrix
 
     def _model(self, i, j):
         Ti = self.O[i]
@@ -53,6 +54,10 @@ class TransModel:
             delta =  max(abs(nf_column - 1))
             numiter += 1
         print "number of iteration is:", numiter
+    def writeT(self,filename):
+        np.save(filename, self.T)
+        print "Ulozeno do: ", filename
+
 
 class MyGraph:
     def __init__(self):
@@ -116,28 +121,39 @@ class MyGraph:
         @param t_list: List of target node
         @return:  List of path (source, target, cost, [path])
         """
-        dist_map, pred_map = dijkstra_search(self.g, self.id_to_index(s), self.edge_property_cost)
+        dist_map, pred_map = dijkstra_search(self.g, self.id_to_index(s), self.g.new_edge_property("double"))
         return (dist_map, pred_map)
 
     def one_to_all(self, source):
         pass
 
-    def getC(self, zones):
-        zones = self.db.getZonesId()
-        np.ndarray(shape=(len(zones),len(zones)))
-        for zone_id in zones:
-            self.dijkstra(zone_id)
+    def _get_row_c(self, zones, f, t):
+        #print f, t
+        i = f
+        for zone_node_id in zones[f:t]:
+            dist_map, pred_map = self.dijkstra(zone_node_id)
+            j = 0
+            for zone_node_id_v in zones:
+                self.C[i][j] = dist_map[self.g.vertex(zone_node_id_v)]
+                j += 1
+            print i
+            i += 1
+            if(i == t):
+                break
+
+    def get_c(self):
+        zones = self.db.getZonesNodeId()
+        self.C = np.ndarray(shape=(len(zones), len(zones)))
+        interval = int(len(zones) / s.number_threads)
+        self._get_row_c(zones, 0, len(zones))
+        return self.C
+
 
 if __name__ == "__main__":
-    tm = TransModel()
-    tm.O = np.array([15, 15])
-    tm.D = np.array([10, 20])
-    tm.T = np.ndarray(shape=(2, 2))
-    tm.C = np.array([[2, 5],
-                     [5, 2]])
-    tm.trip_destination()
-    print tm.T
-
+    dbb = db.Database()
     g = MyGraph()
     g.create_graph()
-    g.dijkstra(1)
+
+    tm = TransModel(dbb.getO(), dbb.getD(), g.get_c())
+    tm.writeT("T")
+    tm.trip_destination()

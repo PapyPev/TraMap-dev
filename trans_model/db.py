@@ -15,20 +15,20 @@ class Database:
     def getO(self):
         sql = "SELECT people from %s order by id"
         self.cur.execute(sql %(s.zones_table_name))
-        out = self.cur.fetchall()
-        return np.array(out.reshape((len(out))))
+        out = np.array(self.cur.fetchall())
+        return out.reshape((len(out)))
 
     def getD(self):
         sql = "SELECT people from %s order by id"
         self.cur.execute(sql% (s.zones_table_name))
-        out = self.cur.fetchall()
-        return np.array(out.reshape((len(out))))
+        out = np.array(self.cur.fetchall())
+        return out.reshape((len(out)))
 
-    def getZonesId(self):
-        sql = "SELECT id from %s order by id"
+    def getZonesNodeId(self):
+        sql = "SELECT node_id from %s order by id"
         self.cur.execute(sql % (s.zones_table_name))
-        out = self.cur.fetchall()
-        return np.array(out.reshape((len(out)))).tolist()
+        out = np.array(self.cur.fetchall(), 'int')
+        return out.reshape((len(out))).tolist()
 
     def getRoads(self):
         sql = "SELECT id, source, target, cost, reverse_cost from %s"

@@ -107,6 +107,9 @@ class MyGraph:
         self.max_vertex_id = -1
         self.max_count_vertex = 100000000  # max size of graph
 
+        self.edge_property_source = self.g.new_edge_property("int")
+        self.edge_property_target = self.g.new_edge_property("int")
+
     def _create_vertex(self,table,cn):
         self.min_vertex_id = table[0][cn["source"]]
         self.max_vertex_id = table[0][cn["source"]]
@@ -192,13 +195,22 @@ class MyGraph:
         print time.time() - a
         all_path = []
         i = 0
+        a = time.time()
+        #============rewrite==============
         for t in t_list:
             t_vertex = self.id_to_index(t)
-            a = time.time()
+
             vl, el = shortest_path(self.g, self.id_to_index(s), t_vertex, pred_map = pred_map)
-            print time.time() - a
+
             all_path.append((s, t, float(dist_map[t_vertex]), el, i))
             i += 1
+        #=============rewrite==============
+        np_t_list = np.array(t_list)
+        np_pred_map = np.array(pred_map)
+        np_id_map = np.array(self.vertex_property_id)
+        self.g.edges(5)
+        #==================================
+        print time.time() - a
         return all_path
 
 

@@ -9,6 +9,10 @@ GIS Project - Finland Traffic informations
   <li><b>Pierre Vrot</b>: Exchange Student (FR)</li>
 </ul>
 
+### Activities
+You can follow our day activities here : <br>
+<a href="https://docs.google.com/spreadsheets/d/1jvHHMdqabpGf975vlxvEoDbC6yT3SY6uP99_pAy3raw/edit?usp=sharing">Google Calc - MapProject Activities</a>
+
 ### Goals
 
 The ultimate goal is: to achieve an open source GIS for real-time 

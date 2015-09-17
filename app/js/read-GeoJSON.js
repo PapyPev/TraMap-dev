@@ -4687,23 +4687,27 @@ var vectorLayer = new ol.layer.Vector({
  * CREATE MAP
  * ********************************************************* */
 
+// Define projection source
+proj4.defs("EPSG:2154","+proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
+
+// Define your layers
+var layers = [
+
+	// Add Tiles
+	new ol.layer.Tile({
+	  source: new ol.source.OSM()
+	}),
+
+	// Add vectors data
+	vectorLayer
+
+]
+
+// Define your map
 var map = new ol.Map({
   
-  // Define layers
-  layers: [
-
-  	// Add Tiles
-    new ol.layer.Tile({
-      source: new ol.source.OSM()
-    }),
-
-    // Add vectors data
-    vectorLayer
-
-  ],
-
-  // Define div id
-  target: 'map',
+  layers: layers, // Layers
+  target: 'map', // Div
 
   // Add controls options
   controls: ol.control.defaults({

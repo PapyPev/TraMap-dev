@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Single image WMS example</title>
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://openlayers.org/en/v3.9.0/css/ol.css" type="text/css">
+<script src="http://openlayers.org/en/v3.9.0/build/ol.js"></script>
+
+</head>
+<body>
+<div class="container-fluid">
+
+<div class="row-fluid">
+  <div class="span12">
+    <div id="map" class="map"></div>
+  </div>
+</div>
+
+</div>
+<script>
+// GET GeoServer Layers
+var layers = [
+  new ol.layer.Tile({
+    source: new ol.source.MapQuest({layer: 'osm'})
+  }),
+  new ol.layer.Image({
+    extent: [-13884991, 2870341, -7455066, 6338219],
+    source: new ol.source.ImageWMS({
+      //url:http://demo.boundlessgeo.com/geoserver/wms,
+      url: 'http://10.211.55.19:8080/geoserver/wms',
+      params: {'LAYERS': 'sf:roads'},
+      serverType: 'geoserver'
+    })
+  })
+];
+var map = new ol.Map({
+  layers: layers,
+  target: 'map',
+  view: new ol.View({
+    center: [-10997148, 4569099],
+    zoom: 4
+  })
+});
+
+</script>
+</body>
+</html>

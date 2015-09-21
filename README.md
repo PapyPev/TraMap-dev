@@ -1,6 +1,13 @@
 # HAMK Map-Project
 GIS Project - Finland Traffic informations
 
+### Background
+
+Prediction of walking and cycling, the number of users there is no standardized methods exist in Finland. In some consultants to have its own prediction models (eg. Strafica Brutus), which is used to work a certain level of accuracy. Identification of the user potential, is a very important project planning and mutual comparison of circumstance. Widely available in Finland spatial data (RHR, YKR) would enable the number of users of the evaluation of spatial analysis. Ramboll Finland Oy has carried out research on the development of demand modeling. Work is still at an early stage and this work would be possible to promote walking and cycling, demand modeling development. The project would link smoothly to one of HAMK ongoing project work (see. Below) and Ramboll development.
+
+### Content of the work
+The trainee tasks would include a description and assessment of appropriate use of spatial data where possible. The work should evaluate which are the key variables in forecasting demand (land use, demographics, infrastructure, etc.). After this step should be to evaluate what data is available in Finland (pay / free), and how well these materials are suitable for predicting in advance the estimated demand potential? After the background of the survey defined evaluation framework to make the actual forecast. The forecast would be made responsible for the area where the project is implemented Lempäälän. This maximizes the information obtained through the theoretical data and computations carried out in the terrain as a good match.
+
 ### Members
 <ul>
   <li><b>Janne Rautio</b>: HAMK Supervisor</li>
@@ -44,7 +51,7 @@ TODO :
   <li>Travel Habits (car, bicycle, walking - from ??) </li>
 </ul>
 
-### Web informations
+### Sources
 
 <b> Janne </b>
 <ul>
@@ -69,6 +76,7 @@ TODO :
   <li><a href="http://www.mapquestapi.com/traffic/">MapQuest get traffic</a></li>
   <li><a href="http://en.ilmatieteenlaitos.fi/open-data-manual">Open Data Meteorological Institute</a></li>
   <li><a href="http://demos.jquerymobile.com/1.4.5/ - jQuery Mobile Demos">JQueryMobile</a></li>
+  <li><a href="http://leafletjs.com/">Leaflet Website</a></li>
 </ul>
 
 <b> Frantisek </b>

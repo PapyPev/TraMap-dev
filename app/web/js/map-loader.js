@@ -1,7 +1,6 @@
 var cities = new L.LayerGroup();
 
-L.marker([60.736622, 24.779603]).bindPopup('This is Littleton, CO.').addTo(cities);
-
+L.marker([60.736622, 24.779603]).bindPopup('Riihimäki').addTo(cities);
 
 var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
 		'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -12,8 +11,8 @@ var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
     streets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr});
 
 var map = L.map('map', {
-	center: [65.407166, 27.085315],
-	zoom: 5,
+	center: [60.736622, 24.779603],
+	zoom: 8,
 	layers: [grayscale, cities]
 });
 
@@ -27,3 +26,25 @@ var overlays = {
 };
 
 L.control.layers(baseLayers, overlays).addTo(map);
+
+var myLines = [{
+    "type": "LineString",
+    "coordinates": [[-100, 40], [-105, 45], [-110, 55]]
+}, {
+    "type": "LineString",
+    "coordinates": [[-105, 40], [-110, 45], [-115, 55]]
+}];
+
+var myStyle = {
+    "color": "#ff7800",
+    "weight": 5,
+    "opacity": 0.65
+};
+
+L.geoJson(myLines, {
+    style: myStyle
+}).addTo(map);
+
+
+
+

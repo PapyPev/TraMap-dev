@@ -1,9 +1,6 @@
 var cities = new L.LayerGroup();
 
-L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.').addTo(cities),
-L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.').addTo(cities),
-L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.').addTo(cities),
-L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.').addTo(cities);
+L.marker([60.736622, 24.779603]).bindPopup('This is Littleton, CO.').addTo(cities);
 
 
 var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
@@ -15,8 +12,8 @@ var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
     streets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr});
 
 var map = L.map('map', {
-	center: [39.73, -104.99],
-	zoom: 10,
+	center: [65.407166, 27.085315],
+	zoom: 5,
 	layers: [grayscale, cities]
 });
 

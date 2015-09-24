@@ -27,7 +27,7 @@ var overlays = {
 
 L.control.layers(baseLayers, overlays).addTo(map);
 
-var myLines = [{
+/*var myLines = [{
     "type": "LineString",
     "coordinates": [[-100, 40], [-105, 45], [-110, 55]]
 }, {
@@ -43,7 +43,16 @@ var myStyle = {
 
 L.geoJson(myLines, {
     style: myStyle
-}).addTo(map);
+}).addTo(map);*/
+
+var mywms = L.tileLayer.wms("http://172.18.138.171/geoserver/sf/ows/", {
+    layers: 'sf:roads',
+    format: 'application/json',
+    transparent: true,
+    version: '1.1.0',
+    attribution: "myattribution"
+});
+mywms.addTo(map);
 
 
 

@@ -1,3 +1,6 @@
+// http://172.18.138.171/geoserver/sf/ows/
+
+
 var cities = new L.LayerGroup();
 
 L.marker([60.736622, 24.779603]).bindPopup('Riihimäki').addTo(cities);
@@ -27,32 +30,42 @@ var overlays = {
 
 L.control.layers(baseLayers, overlays).addTo(map);
 
-/*var myLines = [{
-    "type": "LineString",
-    "coordinates": [[-100, 40], [-105, 45], [-110, 55]]
-}, {
-    "type": "LineString",
-    "coordinates": [[-105, 40], [-110, 45], [-115, 55]]
-}];
+// ---------------------------------------------------
 
-var myStyle = {
-    "color": "#ff7800",
-    "weight": 5,
-    "opacity": 0.65
+
+var owsrootUrl = 'http://172.18.138.171/geoserver/sf/ows';
+
+var defaultParameters = {
+    service : 'WFS',
+    version : '1.0.0',
+    request : 'GetFeature',
+    typeName : 'sf:roads',
+    outputFormat : 'json',
+    format_options : 'callback:getJson',
+    SrsName : 'EPSG:4326'
 };
 
-L.geoJson(myLines, {
-    style: myStyle
-}).addTo(map);*/
+var parameters = L.Util.extend(defaultParameters);
+var URL = owsrootUrl + L.Util.getParamString(parameters);
 
-var mywms = L.tileLayer.wms("http://172.18.138.171/geoserver/sf/ows/", {
-    layers: 'sf:roads',
-    format: 'application/json',
-    transparent: true,
-    version: '1.1.0',
-    attribution: "myattribution"
+var boundaries = null;
+var ajax = $.ajax({
+    url : URL,
+    dataType : 'json',
+    jsonpCallback : 'getJson',
+    success : function (response) {
+    	alert("success");
+        boundaries = L.geoJson(response, {
+            style: function (feature) {
+                return {
+                    stroke: false,
+                    fillColor: 'FFFFFF',
+                    fillOpacity: 0
+                };
+                }
+        });
+    }
 });
-mywms.addTo(map);
 
 
 

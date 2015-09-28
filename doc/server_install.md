@@ -48,33 +48,33 @@ set in postrgesql.conf listen addres from 'localhost' to '*'</p>
 </p>
 
 <h2>PostGIS</h2>
-<b>$</b> <code>sudo add-apt-repozitory ppa:ubuntugis/ubuntugis-unstable</code>
-<b>$</b> <code>sudo apt-get update</code>
-<b>$</b> <code>sudo apt-get install postgis</code>
-<b>$</b> <code>psql postgis</code>
-<b>psql=</b> <code>CREATE EXTESION postgis;</code>
+<b>$</b> <code>sudo add-apt-repozitory ppa:ubuntugis/ubuntugis-unstable</code><br>
+<b>$</b> <code>sudo apt-get update</code><br>
+<b>$</b> <code>sudo apt-get install postgis</code><br>
+<b>$</b> <code>psql postgis</code><br>
+<b>psql=</b> <code>CREATE EXTESION postgis;</code><br>
 
 <h2>tomcat and Geoserver</h2>
 
-	<b>$</b> <code>sudo apt-get install openjdk-jre-7</code>
-	<b>$</b> <code>sudo apt-get install tomcat7</code>
-	<i>dowload latest version of geoserver</i>
-	<i>copy file 'geoserver.war'to tomcat application directory (depend on your configuration)</i>
-	<i>geoserver run on localhost:8080</i>
+<b>$</b> <code>sudo apt-get install openjdk-jre-7</code><br>
+<b>$</b> <code>sudo apt-get install tomcat7</code><br>
+<i>dowload latest version of geoserver</i><br>
+<i>copy file 'geoserver.war'to tomcat application directory (depend on your configuration)</i><br>
+<i>geoserver run on localhost:8080</i><br>
 
 <h2>Apache2</h2>
-	<b>$</b> <code>sudo apt-get install apache2</code><br>
-	<i>add to apache configuration file this lines (to virtual server):</i>
-	<code>
-	ProxyRequests Off
-	ProxyPreserveHost On
-	<Proxy *>
-		Order deny,allow
-		Allow from all
-	</Proxy>
-	ProxyPass /geoserver "http://localhost:8080/geoserver"
-	ProxyPassReverse /geoserver "http://localhost:8080/geoserver"
-	</code>
+<b>$</b> <code>sudo apt-get install apache2</code><br>
+<i>add to apache configuration file this lines (to virtual server):</i><br>
+<code>
+ProxyRequests Off
+ProxyPreserveHost On
+<Proxy *>
+	Order deny,allow
+	Allow from all
+</Proxy>
+ProxyPass /geoserver "http://localhost:8080/geoserver"
+ProxyPassReverse /geoserver "http://localhost:8080/geoserver"
+</code>
 	
 
 

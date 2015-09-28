@@ -9,8 +9,7 @@
 
 <h2>Actualizate System</h2>
 <p>Before any configuration, make sure that the system is correctly updated.</p>
-<code>
-sudo apt-get update # Fetches the list of available updates</code>
+<code>sudo apt-get update # Fetches the list of available updates</code><br>
 <code>sudo apt-get upgrade # Strictly upgrades the current packages</code>
 </code>
 

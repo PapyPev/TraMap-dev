@@ -26,17 +26,25 @@
 set in pg_hba.conf superuser and linten adress (from 127.0.0.1/32 to 0.0.0.0/0)<br>
 set in postrgesql.conf listen addres from 'localhost' to '*'</p>
 
-<p>set usernmae and password for main user:<br>
-
+<p>Set usernmae and password for main user:<br>
 <i>Connexion to postgres user</i><br>
 <b>$</b> <code>sudo su postgres</code><br>
 <i>Create YOUR user</i><br>
 <b>$<i>postgres</i></b> <code>createuser USER_NAME</code><br>
+<i>Open PostgreSQL command</i><br>
+<b>$<i>postgres</i></b> <code>psql</code><br>
 <i>Add password to your username</i><br>
-<b>$<i>postgres</i></b> <code>ALTER ROLE username WITH password 'your password';</code><br>
+<b>$<i>postgres/psql</i></b> <code>ALTER ROLE username WITH password 'your password';</code><br>
 <i>You declare your username as superuser</i><br>
-<b>$<i>postgres</i></b> <code>ALTER ROLE username WITH superuser;</code><br>
+<b>$<i>postgres/psql</i></b> <code>ALTER ROLE username WITH superuser;</code><br>
+<i>Exit psql</i><br>
+<b>$<i>postgres/psql</i></b> <code>\q</code><br>
+<i>Exit postgres user</i><br>
+<b>$<i>postgres</i></b> <code>exit</code><br>
+</p>
 
+<p><i>Create database for PostGIS extension</i>
+<b>$</b> <code>createdb postgis</code><br>
 </p>
 
 postgis

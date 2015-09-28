@@ -16,10 +16,25 @@
 <i>Strictly upgrades the current packages</i><br>
 <b>$</b> <code>sudo apt-get upgrade</code>
 
-postgresql
------------
-	sudo apt-get install postgresql postgresql-client postgresql-common
-	set in pg_hba.conf superuser and linten adress (from 127.0.0.1/32 to 0.0.0.0/0)
+<h2>Database: PostgreSQL</h2>
+<p>To back up our data, attribute and geometric, we need a container of data. PostgreSQL allow us to manage data schemas, users and extensions like PostGIS for the cartographic data.</p>
+<i>Installing PostgreSQL libraries</i><br>
+<b>$</b> <code>sudo apt-get install postgresql postgresql-client postgresql-common</code><br>
+
+<p>set in pg_hba.conf superuser and linten adress (from 127.0.0.1/32 to 0.0.0.0/0)</p>
+<p>set in postrgesql.conf listen addres from 'localhost' to '*'</p>
+
+<p>set usernmae and password for main user:</p>
+
+<i>Connexion to postgres user</i><br>
+<b>$</b> <code>sudo su postgres</code><br>
+<i>Create YOUR user</i><br>
+<b>$<i>postgres</i></b> <code>createuser USER_NAME</code><br>
+<i>Add password to your username</i><br>
+<b>$<i>postgres</i></b> <code>ALTER ROLE username WITH password 'your password';</code><br>
+<i>You declare your username as superuser</i><br>
+<b>$<i>postgres</i></b> <code>ALTER ROLE username WITH superuser;</code><br>
+	
 	set in postrgesql.conf listen addres from 'localhost' to '*'
 	set usernmae and password for main user:
 		sudo su posrgres

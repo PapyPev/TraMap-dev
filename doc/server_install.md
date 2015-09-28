@@ -1,5 +1,7 @@
 <h1>Server Configurations</h1>
 
+<p>This documentation explains how to install a web server, a database, a mapping extension to the database, a map server, and configure the web server to return to the map server.</p>
+
 <h2>Prerequisite</h2>
 
 <p>You must have a server containing at least the following configurations:<ul>
@@ -9,9 +11,10 @@
 
 <h2>Actualizate System</h2>
 <p>Before any configuration, make sure that the system is correctly updated.</p>
-<code>sudo apt-get update # Fetches the list of available updates</code><br>
-<code>sudo apt-get upgrade # Strictly upgrades the current packages</code>
-</code>
+<i>Fetches the list of available updates</i><br>
+<b>$</b> <code>sudo apt-get update</code><br>
+<i>Strictly upgrades the current packages</i><br>
+<b>$</b> <code>sudo apt-get upgrade</code>
 
 postgresql
 -----------

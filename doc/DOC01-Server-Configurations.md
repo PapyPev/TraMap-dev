@@ -116,16 +116,16 @@
 <p>
 	<b>$</b> <code>sudo apt-get install apache2</code><br>
 	<i>add to apache configuration file this lines (to virtual server):</i><br>
-	<code>
-		ProxyRequests Off<br>
-		ProxyPreserveHost On<br>
-		<Proxy *><br>
-			Order deny,allow<br>
-			Allow from all<br>
-		</Proxy><br>
-		ProxyPass /geoserver "http://localhost:8080/geoserver"<br>
+	<pre><code>
+		ProxyRequests Off
+		ProxyPreserveHost On
+		<Proxy *>
+			Order deny,allow
+			Allow from all
+		</Proxy>
+		ProxyPass /geoserver "http://localhost:8080/geoserver"
 		ProxyPassReverse /geoserver "http://localhost:8080/geoserver"
-	</code>
+	</code></pre>
 </p>
 	
 

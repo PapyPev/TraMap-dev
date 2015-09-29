@@ -106,16 +106,16 @@
 	<i>Install Tomcat library</i><br>
 	<b>$</b> <code>sudo apt-get install tomcat7</code><br><br>
 	<i>Dowload latest version of geoserver</i><br>
-	<a href="http://geoserver.org/release/2.7.x/">GeoServer Sources 2.7.x</a><br>
-	<i>copy file 'geoserver.war' to Tomcat application directory (depend on your configuration)</i><br>
-	<i>Geoserver run on :</i><br>
+	<a href="http://geoserver.org/release/2.7.x/">GeoServer Sources 2.7.x</a><br><br>
+	<i>Copy file 'geoserver.war' to Tomcat application directory (depend on your configuration). Now, Geoserver run on :</i><br>
 	<a href="http://localhost:8080/geoserver/">http://localhost:8080/geoserver/</a>
 </p>
 
 <h2>Apache2</h2>
 <p>
-	<b>$</b> <code>sudo apt-get install apache2</code><br>
-	<i>add to apache configuration file this lines (to virtual server):</i><br>
+	<i>Install Apache2 library</i><br>
+	<b>$</b> <code>sudo apt-get install apache2</code><br><br>
+	<i>Add to Apache2 configuration file this lines (to virtual server):</i><br>
 	<pre><code>
 		ProxyRequests Off
 		ProxyPreserveHost On

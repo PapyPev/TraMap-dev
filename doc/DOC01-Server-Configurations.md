@@ -35,17 +35,17 @@ set in postrgesql.conf listen addres from 'localhost' to '*'</p>
 <i>Connexion to postgres user</i><br>
 <b>$</b> <code>sudo su postgres</code><br><br>
 <i>Create YOUR user</i><br>
-<b>$<i>postgres</i></b> <code>createuser USER_NAME</code><br><br>
+<b><i>postgres</i>$</b> <code>createuser USER_NAME</code><br><br>
 <i>Open PostgreSQL command</i><br>
-<b>$<i>postgres</i></b> <code>psql</code><br><br>
+<b><i>postgres</i>$</b> <code>psql</code><br><br>
 <i>Add password to your username</i><br>
-<b>$<i>postgres/psql</i></b> <code>ALTER ROLE username WITH password 'your password';</code><br><br>
+<b><i>postgres/psql</i>$</b> <code>ALTER ROLE username WITH password 'your password';</code><br><br>
 <i>You declare your username as superuser</i><br>
-<b>$<i>postgres/psql</i></b> <code>ALTER ROLE username WITH superuser;</code><br><br>
+<b><i>postgres/psql</i>$</b> <code>ALTER ROLE username WITH superuser;</code><br><br>
 <i>Exit psql</i><br>
-<b>$<i>postgres/psql</i></b> <code>\q</code><br><br>
+<b><i>postgres/psql</i>$</b> <code>\q</code><br><br>
 <i>Exit postgres user</i><br><br>
-<b>$<i>postgres</i></b> <code>exit</code><br>
+<b><i>postgres</i>$</b> <code>exit</code><br>
 </p>
 
 <p><i>Create database for PostGIS extension</i>

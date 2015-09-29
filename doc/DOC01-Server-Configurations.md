@@ -40,21 +40,18 @@
 <p>	
 	<i>Set in pg_hba.conf superuser and linten adress (from 127.0.0.1/32 to 0.0.0.0/0</i><br>
 	<code>
+		# Database administrative login by Unix domain socket<br>
+		local &nbsp; all &nbsp; postgres &nbsp; peer<br>
+		local &nbsp; all &nbsp; YOUR_USERNAME &nbsp; peer<br><br>
+		# TYPE &nbsp; DATABASE &nbsp; USER &nbsp; ADDRESS &nbsp; METHOD<br><br>
+		# "local" is for Unix domain socket connections only<br>
+		local &nbsp; sameuser &nbsp; all &nbsp; peer<br>
+		# IPv4 local connections:<br>
+		host &nbsp; all &nbsp; all &nbsp; 0.0.0.0/0 &nbsp; md5<br><br>
+		# IPv6 local connections:<br>
+		host &nbsp; all &nbsp; all &nbsp; ::1/128 &nbsp; md5<br>
+	</code>
 
-# Database administrative login by Unix domain socket
-local   all             postgres                                peer
-local   all             YOUR_USERNAME                                peer
-
-# TYPE  DATABASE        USER            ADDRESS                 METHOD
-
-# "local" is for Unix domain socket connections only
-local   sameuser             all                                     peer
-# IPv4 local connections:
-host    all             all             0.0.0.0/0           md5
-
-# IPv6 local connections:
-host    all             all             ::1/128                 md5
-</code>
 	<i>Set in postrgesql.conf : Change line :</i><br>
 	<code>#listen_addresses = 'localhost'</code>
 	to<br>

@@ -37,10 +37,28 @@
 </p>
 
 <h4>Configure PostgreSQL</h4>
-<p>
-	<i>Edit PostgreSQL Configuration</i><br>
-	set in pg_hba.conf superuser and linten adress (from 127.0.0.1/32 to 0.0.0.0/0)<br>
-	set in postrgesql.conf listen addres from 'localhost' to '*'
+<p>	
+	<i>Set in pg_hba.conf superuser and linten adress (from 127.0.0.1/32 to 0.0.0.0/0</i><br>
+	<code>
+
+# Database administrative login by Unix domain socket
+local   all             postgres                                peer
+local   all             YOUR_USERNAME                                peer
+
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+
+# "local" is for Unix domain socket connections only
+local   sameuser             all                                     peer
+# IPv4 local connections:
+host    all             all             0.0.0.0/0           md5
+
+# IPv6 local connections:
+host    all             all             ::1/128                 md5
+</code>
+	<i>Set in postrgesql.conf : Change line :</i><br>
+	<code>#listen_addresses = 'localhost'</code>
+	to<br>
+	<code>listen_addresses = '*'</code>
 </p>
 
 <h4>Prepare for PostGIS extension</h4>
@@ -83,7 +101,7 @@
 
 <h2>WebServer : Tomcat and Geoserver</h2>
 <p>
-	Before installing the servers, we need Java JDK for GeoServer. Currently, there are sincompatibilité with version 1.8 of Java, in fact, we will use version 1.7. Then we can install Tomcat and GeoServer.
+	Before installing the servers, we need Java JDK for GeoServer. Currently, there are incompatibility with version 1.8 of Java, in fact, we will use version 1.7. Then we can install Tomcat and GeoServer.
 </p>
 <p>
 	<i>Get Java JDK 1.7</i><br>

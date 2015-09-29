@@ -39,17 +39,16 @@
 <h4>Configure PostgreSQL</h4>
 <p>	
 	<i>Set in pg_hba.conf superuser and linten adress (from 127.0.0.1/32 to 0.0.0.0/0</i><br>
-	<pre><code>
-		> # Database administrative login by Unix domain socket
-		> local &nbsp; all &nbsp; postgres &nbsp; peer
-		> local &nbsp; all &nbsp; YOUR_USERNAME &nbsp; peer
-		> # TYPE &nbsp; DATABASE &nbsp; USER &nbsp; ADDRESS &nbsp; METHOD
-		> # "local" is for Unix domain socket connections only
-		> local &nbsp; sameuser &nbsp; all &nbsp; peer
-		> # IPv4 local connections:
-		> host &nbsp; all &nbsp; all &nbsp; 0.0.0.0/0 &nbsp; md5
-		> # IPv6 local connections:
-		> host &nbsp; all &nbsp; all &nbsp; ::1/128 &nbsp; md5
+	<pre><code># Database administrative login by Unix domain socket
+		local &amp;&nbsp; all &amp;&nbsp; postgres &amp;&nbsp; peer
+		local &amp;&nbsp; all &amp;&nbsp; YOUR_USERNAME &amp;&nbsp; peer
+		# TYPE &amp;&nbsp; DATABASE &amp;&nbsp; USER &amp;&nbsp; ADDRESS &amp;&nbsp; METHOD
+		# "local" is for Unix domain socket connections only
+		local &amp;&nbsp; sameuser &amp;&nbsp; all &amp;&nbsp; peer
+		# IPv4 local connections:
+		host &amp;&nbsp; all &amp;&nbsp; all &amp;&nbsp; 0.0.0.0/0 &amp;&nbsp; md5
+		# IPv6 local connections:
+		host &amp;&nbsp; all &amp;&nbsp; all &amp;&nbsp; ::1/128 &amp;&nbsp; md5
 	</code></pre>
 
 	<i>Set in postrgesql.conf : Change line :</i><br>

@@ -10,6 +10,7 @@
 </ul></p>
 
 <h2>Actualizate System</h2>
+
 <p>Before any configuration, make sure that the system is correctly updated.</p>
 <i>Fetches the list of available updates</i><br>
 <b>$</b> <code>sudo apt-get update</code><br><br>
@@ -17,29 +18,33 @@
 <b>$</b> <code>sudo apt-get upgrade</code>
 
 <h2>Database: PostgreSQL</h2>
+
 <p>To back up our data, attribute and geometric, we need a container of data. PostgreSQL allow us to manage data schemas, users and extensions like PostGIS for the cartographic data.</p>
 
-<p><i>Installing PostgreSQL libraries</i><br>
+<h4>Install PostgreSQL</h4>
+<p><i>Installing libraries</i><br>
 <b>$</b> <code>sudo apt-get install postgresql postgresql-client postgresql-common</code></p>
 
+<h4>Configure PostgreSQL</h4>
 <p><i>Edit PostgreSQL Configuration</i><br>
 set in pg_hba.conf superuser and linten adress (from 127.0.0.1/32 to 0.0.0.0/0)<br>
 set in postrgesql.conf listen addres from 'localhost' to '*'</p>
 
+<h4>Prepare for PostGIS extension</h4>
 <p>Set usernmae and password for main user:<br>
 <i>Connexion to postgres user</i><br>
-<b>$</b> <code>sudo su postgres</code><br>
+<b>$</b> <code>sudo su postgres</code><br><br>
 <i>Create YOUR user</i><br>
-<b>$<i>postgres</i></b> <code>createuser USER_NAME</code><br>
+<b>$<i>postgres</i></b> <code>createuser USER_NAME</code><br><br>
 <i>Open PostgreSQL command</i><br>
-<b>$<i>postgres</i></b> <code>psql</code><br>
+<b>$<i>postgres</i></b> <code>psql</code><br><br>
 <i>Add password to your username</i><br>
-<b>$<i>postgres/psql</i></b> <code>ALTER ROLE username WITH password 'your password';</code><br>
+<b>$<i>postgres/psql</i></b> <code>ALTER ROLE username WITH password 'your password';</code><br><br>
 <i>You declare your username as superuser</i><br>
-<b>$<i>postgres/psql</i></b> <code>ALTER ROLE username WITH superuser;</code><br>
+<b>$<i>postgres/psql</i></b> <code>ALTER ROLE username WITH superuser;</code><br><br>
 <i>Exit psql</i><br>
-<b>$<i>postgres/psql</i></b> <code>\q</code><br>
-<i>Exit postgres user</i><br>
+<b>$<i>postgres/psql</i></b> <code>\q</code><br><br>
+<i>Exit postgres user</i><br><br>
 <b>$<i>postgres</i></b> <code>exit</code><br>
 </p>
 

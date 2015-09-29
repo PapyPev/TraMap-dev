@@ -39,7 +39,7 @@
 <h4>Configure PostgreSQL</h4>
 <p>	
 	<i>Set in pg_hba.conf superuser and linten adress (from 127.0.0.1/32 to 0.0.0.0/0</i><br>
-	<code>
+	<pre><code>
 		> # Database administrative login by Unix domain socket
 		> local &nbsp; all &nbsp; postgres &nbsp; peer
 		> local &nbsp; all &nbsp; YOUR_USERNAME &nbsp; peer
@@ -50,7 +50,7 @@
 		> host &nbsp; all &nbsp; all &nbsp; 0.0.0.0/0 &nbsp; md5
 		> # IPv6 local connections:
 		> host &nbsp; all &nbsp; all &nbsp; ::1/128 &nbsp; md5
-	</code>
+	</code></pre>
 
 	<i>Set in postrgesql.conf : Change line :</i><br>
 	<code>#listen_addresses = 'localhost'</code>

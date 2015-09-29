@@ -31,7 +31,7 @@ set in pg_hba.conf superuser and linten adress (from 127.0.0.1/32 to 0.0.0.0/0)<
 set in postrgesql.conf listen addres from 'localhost' to '*'</p>
 
 <h4>Prepare for PostGIS extension</h4>
-<p>Set usernmae and password for main user:<br>
+<p>To avoid security problems with only one user "postgres", we need to create a new Administrator profile. To do this, we will create a new user, give it the rights, and create a new database for geometric data it will administer.<br><br>
 <i>Connexion to postgres user</i><br>
 <b>$</b> <code>sudo su postgres</code><br><br>
 <i>Create YOUR user</i><br>

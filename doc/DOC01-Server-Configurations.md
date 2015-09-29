@@ -44,13 +44,11 @@ set in postrgesql.conf listen addres from 'localhost' to '*'</p>
 <b><i>postgres/psql</i>$</b> <code>ALTER ROLE username WITH superuser;</code><br><br>
 <i>Exit psql</i><br>
 <b><i>postgres/psql</i>$</b> <code>\q</code><br><br>
-<i>Exit postgres user</i><br><br>
+<i>Exit postgres user</i><br>
 <b><i>postgres</i>$</b> <code>exit</code><br>
 </p>
-
-<p><i>Create database for PostGIS extension</i>
+<i>Create database for PostGIS extension</i><br>
 <b>$</b> <code>createdb postgis</code><br>
-</p>
 
 <h2>PostGIS</h2>
 <b>$</b> <code>sudo add-apt-repozitory ppa:ubuntugis/ubuntugis-unstable</code><br>

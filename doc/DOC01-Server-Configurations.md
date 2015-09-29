@@ -39,28 +39,36 @@ set in postrgesql.conf listen addres from 'localhost' to '*'</p>
 <i>Open PostgreSQL command</i><br>
 <b><i>postgres</i>$</b> <code>psql</code><br><br>
 <i>Add password to your username</i><br>
-<b><i>postgres/psql</i>$</b> <code>ALTER ROLE username WITH password 'your password';</code><br><br>
+<b><i>psql</i>=</b> <code>ALTER ROLE username WITH password 'your password';</code><br><br>
 <i>You declare your username as superuser</i><br>
-<b><i>postgres/psql</i>$</b> <code>ALTER ROLE username WITH superuser;</code><br><br>
+<b><i>psql</i>=</b> <code>ALTER ROLE username WITH superuser;</code><br><br>
 <i>Exit psql</i><br>
-<b><i>postgres/psql</i>$</b> <code>\q</code><br><br>
+<b><i>psql</i>=</b> <code>\q</code><br><br>
 <i>Exit postgres user</i><br>
 <b><i>postgres</i>$</b> <code>exit</code><br>
 </p>
-<i>Create database for PostGIS extension</i><br>
-<b>$</b> <code>createdb postgis</code><br>
+<i>Create YOUR database for PostGIS extension</i><br>
+<b>$</b> <code>createdb DATABASE_NAME</code><br>
 
-<h2>PostGIS</h2>
-<b>$</b> <code>sudo add-apt-repozitory ppa:ubuntugis/ubuntugis-unstable</code><br>
-<b>$</b> <code>sudo apt-get update</code><br>
-<b>$</b> <code>sudo apt-get install postgis</code><br>
-<b>$</b> <code>psql postgis</code><br>
-<b>psql=</b> <code>CREATE EXTESION postgis;</code><br>
+<h2>PostGIS extention</h2>
+
+<p><i>Adding a new repository</i><br>
+<b>$</b> <code>sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable</code><br><br>
+<i>Fetches the list of available updates</i><br>
+<b>$</b> <code>sudo apt-get update</code><br><br>
+<i>Install postgis library</i><br>
+<b>$</b> <code>sudo apt-get install postgis</code><br><br>
+<i>Open your database</i><br>
+<b>$</b> <code>psql DATABASE_NAME</code><br><br>
+<i></i><br>
+<b>psql=</b> <code>CREATE EXTESION postgis;</code><br></p>
 
 <h2>tomcat and Geoserver</h2>
 
-<b>$</b> <code>sudo apt-get install openjdk-jre-7</code><br>
-<b>$</b> <code>sudo apt-get install tomcat7</code><br>
+<b>$</b> <code>sudo apt-get install openjdk-jre-7</code><br><br>
+<i></i>
+<b>$</b> <code>sudo apt-get install tomcat7</code><br><br>
+
 <i>dowload latest version of geoserver</i><br>
 <i>copy file 'geoserver.war'to tomcat application directory (depend on your configuration)</i><br>
 <i>geoserver run on localhost:8080</i><br>

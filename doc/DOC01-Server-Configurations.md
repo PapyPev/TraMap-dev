@@ -119,10 +119,10 @@
 	<pre><code>
 		ProxyRequests Off
 		ProxyPreserveHost On
-		<Proxy *>
+		&lt;Proxy *&gt;
 			Order deny,allow
 			Allow from all
-		</Proxy>
+		&lt;/Proxy&gt;
 		ProxyPass /geoserver "http://localhost:8080/geoserver"
 		ProxyPassReverse /geoserver "http://localhost:8080/geoserver"
 	</code></pre>

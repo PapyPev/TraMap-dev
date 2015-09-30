@@ -11,7 +11,7 @@
  * CONSTANTS
  * =================================================================================== */
 
-var GEO_SRV = 'http://172.18.138.171/geoserver';
+var GEO_SRV = 'http://172.18.138.171/geoserver/ows';
 var PROJ = 'EPSG:3857';
 var TOKEN = 'pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ'
 
@@ -78,7 +78,7 @@ function init () {
     geoserverLayers = getGeoServerLayers(GEO_SRV);
 
     mapLayers.push(tiles_light);
-    
+
     for (var i = 0; i < geoserverLayers.length; i++) {
         mapLayers.push(geoserverLayers[i].content);
     };

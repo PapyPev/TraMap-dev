@@ -82,7 +82,7 @@ function init () {
     /* LOAD GEOSERVER LAYERS
      ----------------------------------------- */
     var geoserverLayers = [];
-    //geoserverLayers = getGeoServerLayers(GEO_SRV);
+    geoserverLayers = getGeoServerLayers(GEO_SRV);
 
 
     /* LOAD MAP CONTENT

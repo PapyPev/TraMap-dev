@@ -18,22 +18,6 @@ var TOKEN = 'pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFm
 var DEFAULT_CENTER = [60.736622, 24.779603];
 var DEFAULT_ZOOM = 7;
 
-/* ======================================================================================
- * CLASS
- * =================================================================================== */
-
-/**
- * Creates an instance of Layers.
- *
- * @constructor
- * @this {Layers}
- * @param {category} r The desired radius of the circle.
- */
-function Circle(r) {
-    /** @private */ this.radius = r;
-    /** @private */ this.circumference = 2 * Math.PI * r;
-}
-
 
 /* ======================================================================================
  * FUNCTIONS
@@ -49,6 +33,8 @@ function init () {
      ----------------------------------------- */
     var tocLayers = [] // Layers by Category
     var listLayers = [] // List of all layers
+
+    var test = new Layer("category", "name", "alias", 1, true, "content");
     
 
     /* LOAD BACKGROUND

@@ -58,9 +58,15 @@ En progress :
 ### Applications API
 
 <ul>
-  <li><a href="http://openlayers.org/">OpenLayers 3</a></li>
   <li><a href="http://leafletjs.com/">Leaflet</a></li>
-  <li><a href="https://jquerymobile.com/">JQueryMobile</a></li>
+  <ul>
+    <li><a href="https://github.com/Turbo87/leaflet-sidebar">Extension - Sidebar</a></li>
+    <li><a href="https://github.com/CliffCloud/Leaflet.EasyButton">Extension - Easy Button</a></li>
+  </ul>
+  <li><a href="http://getbootstrap.com/">Bootstrap</a></li>
+  <ul>
+    <li><a href="http://silviomoreto.github.io/bootstrap-select/">Extension - Select</a></li>
+  </ul>
   <li><a href="https://cordova.apache.org/">Cordova</a></li>
 </ul>
 

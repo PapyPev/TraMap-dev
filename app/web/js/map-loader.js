@@ -3,7 +3,7 @@
  * Initialize Map content
  *
  * @author Pev
- * @version 2.0
+ * @version 2.1
  ************************************************************************************* */
 
 /**
@@ -33,7 +33,7 @@ function init () {
             // Open Sidebar
             sidebar.toggle();
         }
-    );;
+    );
     L.marker([60.173484, 24.941046]).bindPopup('Helsinki').addTo(point_helsinki);
 
 

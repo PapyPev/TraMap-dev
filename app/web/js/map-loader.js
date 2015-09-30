@@ -6,34 +6,53 @@
  * @version 2.1
  ************************************************************************************* */
 
+
+/* ======================================================================================
+ * CONSTANTS
+ * =================================================================================== */
+
+var GEO_SRV = 'http://172.18.138.171/geoserver';
+var PROJ = 'EPSG:3857';
+var TOKEN = 'pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ'
+
+var DEFAULT_CENTER = [60.736622, 24.779603];
+var DEFAULT_ZOOM = 7;
+
+/* ======================================================================================
+ * CLASS
+ * =================================================================================== */
+
 /**
- * TODO : Make some documentation
+ * Creates an instance of Layers.
+ *
+ * @constructor
+ * @this {Layers}
+ * @param {category} r The desired radius of the circle.
  */
+function Circle(r) {
+    /** @private */ this.radius = r;
+    /** @private */ this.circumference = 2 * Math.PI * r;
+}
+
+
+/* ======================================================================================
+ * FUNCTIONS
+ * =================================================================================== */
+
+/**
+ * Initialize map configuration.
+ * Load Tiles, Layers and add Buttons actio
+ * ----------------------------------------------------------------------------------- */
 function init () {
+
+    /* INIT VARIABLES
+     ----------------------------------------- */
+    var tocLayers = [] // Layers by Category
+    var listLayers = [] // List of all layers
     
 
-    /* CONSTANTS
-     ************************************************************************************* */
-
-    var GEO_SRV = 'http://172.18.138.171/geoserver';
-    var PROJ = 'EPSG:3857';
-    var TOKEN = 'pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ'
-
-    /* LOAD DATA
-     ************************************************************************************* */
-
-    // Initialize LayerGroups
-    var point_riihimaki = new L.LayerGroup();
-    var point_helsinki = new L.LayerGroup();
-
-
-    // Add data to LayerGroups
-    L.marker([60.736622, 24.779603]).bindPopup('Riihimäki').addTo(point_riihimaki);
-    L.marker([60.173484, 24.941046]).bindPopup('Helsinki').addTo(point_helsinki);
-
-
     /* LOAD BACKGROUND
-     ************************************************************************************* */
+     ----------------------------------------- */
 
     // Create Copyright
     var tiles_copyright = 'Map data &copy;' 
@@ -55,35 +74,29 @@ function init () {
         attribution: tiles_copyright
     });
 
-    /* CREATE MAP
-     ************************************************************************************* */
+    // Add to TOC and LIST
+    listLayers.push(tiles_light);
+    listLayers.push(tiles_street);
+
+
+    /* LOAD GEOSERVER LAYERS
+     ----------------------------------------- */
+    var geoserverLayers = [];
+    //geoserverLayers = getGeoServerLayers(GEO_SRV);
+
+
+    /* LOAD MAP CONTENT
+     ----------------------------------------- */
 
     var map = L.map('map',{
-        center: [60.736622, 24.779603],
-        zoom: 7,
-        layers: [tiles_street, point_riihimaki]
+        center: DEFAULT_CENTER,
+        zoom: DEFAULT_ZOOM,
+        layers: [tiles_street]
     });
-    //map.setView([51.2, 7], 9);
 
-    /* ADD TOC
-     ************************************************************************************* */
-
-    // Create base Layer for background
-    var baseLayers = {
-        "Light": tiles_light,
-        "Streets": tiles_street
-    };
-
-    // Create checkbox
-    var overlays = {
-        "Riihimaki": point_riihimaki,
-        "Helsinki": point_helsinki
-    };
-
-    L.control.layers(baseLayers, overlays).addTo(map);
-
+    
     /* SIDEBAR CONTROL
-     ************************************************************************************* */
+     ----------------------------------------- */
 
     var sidebar = L.control.sidebar('sidebar', {
         closeButton: true,
@@ -91,43 +104,24 @@ function init () {
     });
     map.addControl(sidebar);
 
-    map.on('click', function () {
-        sidebar.hide();
-    })
 
-    sidebar.on('show', function () {
-        console.log('Sidebar will be visible.');
-    });
-
-    sidebar.on('shown', function () {
-        console.log('Sidebar is visible.');
-    });
-
-    sidebar.on('hide', function () {
-        console.log('Sidebar will be hidden.');
-    });
-
-    sidebar.on('hidden', function () {
-        console.log('Sidebar is hidden.');
-    });
-
-    L.DomEvent.on(sidebar.getCloseButton(), 'click', function () {
-        console.log('Close button clicked.');
-    });
-
-    /* BUTTON CONTROL
-     ************************************************************************************* */
+    /* BUTTONS CONTROL
+     ----------------------------------------- */
 
     L.easyButton( '<span class="easy-button">&equiv;</span>', function(){
         sidebar.toggle(); // OpenSidebar
     }).addTo(map);
-    
+
+    L.easyButton( '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>', function(){
+        alert('search');
+    }).addTo(map);
+
 }
 
+/* ======================================================================================
+ * MAIN
+ * =================================================================================== */
 
 $(document).ready(function(){
-
-    // TODO : Comment
     init();
-
 })

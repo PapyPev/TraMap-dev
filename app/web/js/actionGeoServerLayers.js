@@ -23,7 +23,7 @@ function getGeoServerLayers(url){
 	//=================================L1============================================
 	var alias = "hamk-map-project:fin_2po_4pgr";
 	var baseurl = url+"?service=WFS&version=1.0.0&request=GetFeature&typeName="+alias+"&maxFeatures=100&outputFormat=application/json";
-	var myLayer = new L.GeoJSON.AJAX(url,{
+	var myLayer = new L.GeoJSON.AJAX(baseurl,{
 		style: setStyle
 	});
 	//var myLayer = new L.geoJson(temp,{

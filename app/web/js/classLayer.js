@@ -27,6 +27,17 @@ function Layer(category, name, alias, position, checked, content) {
     /** @private */ this.position = position;
     /** @private */ this.checked = checked;
     /** @private */ this.content = content;
+
+    var attributesToLog = [{
+        category: category, 
+        name: name,
+        alias: alias,
+        position: position,
+        checked:  checked,
+        content: content
+    }];
+    console.log("classLayer:")
+    console.log(attributesToLog);
 }
 
 /* ======================================================================================
@@ -40,7 +51,7 @@ function Layer(category, name, alias, position, checked, content) {
  * @return {category} The category of layer.
  */
 Layer.prototype.getCategory = function(){
-    console.log("getCategory: " + this.category);
+    console.log("Layer.prototype.getCategory(): " + this.category);
     return this.category;
 };
 
@@ -51,7 +62,7 @@ Layer.prototype.getCategory = function(){
  * @return {name} The name of layer.
  */
 Layer.prototype.getName = function(){
-    console.log("getName: " + this.name);
+    console.log("Layer.prototype.getName(): " + this.name);
     return this.name;
 };
 
@@ -62,7 +73,7 @@ Layer.prototype.getName = function(){
  * @return {alias} The alias of layer.
  */
 Layer.prototype.getAlias = function(){
-    console.log("getAlias: " + this.alias);
+    console.log("Layer.prototype.getAlias(): " + this.alias);
     return this.alias;
 };
 
@@ -73,7 +84,7 @@ Layer.prototype.getAlias = function(){
  * @return {position} The position of layer.
  */
 Layer.prototype.getPosition = function(){
-    console.log("getPosition: " + this.position);
+    console.log("Layer.prototype.getPosition(): " + this.position);
     return this.position;
 };
 
@@ -84,7 +95,7 @@ Layer.prototype.getPosition = function(){
  * @return {checked} The checked of layer.
  */
 Layer.prototype.getCheck = function(){
-    console.log("getCheck: " + this.checked);
+    console.log("Layer.prototype.getCheck(): " + this.checked);
     return this.checked;
 };
 
@@ -95,7 +106,7 @@ Layer.prototype.getCheck = function(){
  * @return {content} The content of layer.
  */
 Layer.prototype.getContent = function(){
-    console.log("getContent: " + this.content);
+    console.log("Layer.prototype.getContent(): " + this.content);
     return this.content;
 };
 
@@ -103,11 +114,25 @@ Layer.prototype.getContent = function(){
  * METHOD
  * =================================================================================== */
 
+/**
+ * Find a String representation of the Layer
+ * 
+ * @overide
+ * @this{Layer}
+ * @return {string} Human-readable representation of this Layer.
+ */
 Layer.prototype.toString = function() {
-
-
-
-    console.log(JSON.stringify(jsonToLog));
+	var attributesToLog = [{
+        category: this.category, 
+        name: this.name,
+        alias: this.alias,
+        position: this.position,
+        checked:  this.checked,
+        content: this.content
+    }];
+    console.log("Layer.prototype.toString():")
+    console.log(attributesToLog);
+    return JSON.stringify(attributesToLog)
 }
 
 

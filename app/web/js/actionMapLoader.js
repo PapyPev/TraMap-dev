@@ -24,6 +24,18 @@ var DEFAULT_ZOOM = 7;
  * =================================================================================== */
 
 /**
+ * TODO : sort Layer
+ * ----------------------------------------------------------------------------------- */
+ function sortLayers (listOfLayers) {
+     
+     // Returned variable
+     var sortedList = [];
+
+
+     return sortedList;
+ }
+
+/**
  * Initialize map configuration.
  * Load Tiles, Layers and add Buttons actio
  * ----------------------------------------------------------------------------------- */
@@ -31,11 +43,9 @@ function init () {
 
     /* INIT VARIABLES
      ----------------------------------------- */
-    var tocLayers = [] // Layers by Category
-    var listLayers = [] // List of all layers
+    var tocLayers = []      // All layers from clasLayer for TOC
+    var mapLayers = []      // Only classLayer.content for default MAP
 
-    var test = new Layer("category", "name", "alias", 1, true, "content");
-    
 
     /* LOAD BACKGROUND
      ----------------------------------------- */
@@ -77,7 +87,7 @@ function init () {
     var map = L.map('map',{
         center: DEFAULT_CENTER,
         zoom: DEFAULT_ZOOM,
-        layers: [tiles_street,geoserverLayers[0]]
+        layers: mapLayers // TODO : Don't work
     });
 
     

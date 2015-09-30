@@ -28,12 +28,7 @@ function init () {
 
 
     // Add data to LayerGroups
-    L.marker([60.736622, 24.779603]).bindPopup('Riihimäki').addTo(point_riihimaki).on('click', 
-        function () {
-            // Open Sidebar
-            sidebar.toggle();
-        }
-    );
+    L.marker([60.736622, 24.779603]).bindPopup('Riihimäki').addTo(point_riihimaki);
     L.marker([60.173484, 24.941046]).bindPopup('Helsinki').addTo(point_helsinki);
 
 
@@ -96,10 +91,6 @@ function init () {
     });
     map.addControl(sidebar);
 
-    setTimeout(function () {
-        sidebar.show();
-    }, 500);
-
     map.on('click', function () {
         sidebar.hide();
     })
@@ -123,6 +114,13 @@ function init () {
     L.DomEvent.on(sidebar.getCloseButton(), 'click', function () {
         console.log('Close button clicked.');
     });
+
+    /* BUTTON CONTROL
+     ************************************************************************************* */
+
+    L.easyButton( '<span class="easy-button">&equiv;</span>', function(){
+        sidebar.toggle(); // OpenSidebar
+    }).addTo(map);
     
 }
 

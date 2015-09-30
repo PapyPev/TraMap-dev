@@ -183,7 +183,7 @@ function init () {
         alert('search');
     }).addTo(map);
 
-    loadTableOfContent(mapLayers);
+    loadTableOfContent(geoserverLayers);
 
 }
 

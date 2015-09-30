@@ -91,7 +91,7 @@ function init () {
     var map = L.map('map',{
         center: DEFAULT_CENTER,
         zoom: DEFAULT_ZOOM,
-        layers: [tiles_street]
+        layers: [tiles_street,geoserverLayers[0]]
     });
 
     

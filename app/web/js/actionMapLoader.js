@@ -43,8 +43,8 @@ function init () {
 
     /* INIT VARIABLES
      ----------------------------------------- */
-    var tocLayers = []      // All layers from clasLayer for TOC
-    var mapLayers = []      // Only classLayer.content for default MAP
+    var tocLayers = [];      // All layers from clasLayer for TOC
+    var mapLayers = [];      // Only classLayer.content for default MAP
 
 
     /* LOAD BACKGROUND
@@ -70,15 +70,18 @@ function init () {
         attribution: tiles_copyright
     });
 
-    // Add to TOC and LIST
-    listLayers.push(tiles_light);
-    listLayers.push(tiles_street);
-
 
     /* LOAD GEOSERVER LAYERS
      ----------------------------------------- */
+
     var geoserverLayers = [];
     geoserverLayers = getGeoServerLayers(GEO_SRV);
+
+    mapLayers.push(tiles_light);
+    
+    for (var i = 0; i < geoserverLayers.length; i++) {
+        mapLayers.push(geoserverLayers[i].content);
+    };
 
 
     /* LOAD MAP CONTENT

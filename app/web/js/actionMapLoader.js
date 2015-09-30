@@ -183,6 +183,8 @@ function init () {
         alert('search');
     }).addTo(map);
 
+    loadTableOfContent(mapLayers);
+
 }
 
 /* ======================================================================================
@@ -191,5 +193,4 @@ function init () {
 
 $(document).ready(function(){
     init();
-    loadTableOfContent(mapLayers);
 })

@@ -68,7 +68,7 @@ function init () {
     /* LOAD GEOSERVER LAYERS
      ----------------------------------------- */
     var geoserverLayers = [];
-    //geoserverLayers = getGeoServerLayers(GEO_SRV);
+    geoserverLayers = getGeoServerLayers(GEO_SRV);
 
 
     /* LOAD MAP CONTENT
@@ -77,7 +77,7 @@ function init () {
     var map = L.map('map',{
         center: DEFAULT_CENTER,
         zoom: DEFAULT_ZOOM,
-        layers: [tiles_street]
+        layers: [tiles_street,geoserverLayers[0]]
     });
 
     

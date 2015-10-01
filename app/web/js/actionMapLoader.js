@@ -25,7 +25,11 @@ var TOC_DIV_DESCRIPT = 'toc-description';
 var TOC_TITLE = 'toc-title';
 var TOC_CONTENT = 'toc-content';
 var TOC_DESCRIPT = 'toc-description';
-
+/* ============================================================================
+ * GLOBALS
+ * ========================================================================= */
+var map;
+var listOfLayers;
 
 /* ============================================================================
  * FUNCTIONS
@@ -38,7 +42,7 @@ var TOC_DESCRIPT = 'toc-description';
 function getMapLayers () {
 
   // Prepare output
-  var listOfLayers = [];
+  listOfLayers = [];
 
   //--- BACKGROUND ------
 
@@ -143,7 +147,7 @@ function loadToc (map, listOfLayers) {
           +       '<input type="checkbox" '
           +       'name="'+listOfLayers[i].getName()+'" '
           +       'id="'+listOfLayers[i].getPosition()+'" '
-          +       'onchange="#" '
+          +       'onchange="changeLayer('+i+')" '
           +       check + '>'
           +     '</span>'
           +   '<input type="text" class="form-control" '
@@ -171,7 +175,13 @@ function loadToc (map, listOfLayers) {
   // Write to the HTML div
   $("#"+TOC_DIV_CONTENT+"").html(toc).trigger("create");
 
-} //end loadToc (listOfLayers)
+} 
+
+function changeLayer(i){
+  map.removeLayers(listOfLayer[i].getContent());
+
+}
+//end loadToc (listOfLayers)
 
 /**
  * Initialize map configuration.
@@ -180,7 +190,7 @@ function loadToc (map, listOfLayers) {
 function init () {
 
   //--- Load default Map ------
-  var map = L.map('map',{
+  map = L.map('map',{
     center: DEFAULT_CENTER,
     zoom: DEFAULT_ZOOM
   });
@@ -214,7 +224,7 @@ function init () {
   L.easyButton(
     '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>',
     function(){
-      alert('search');
+      map.removeLayer(mapLayers[0].getContent());
     }
   ).addTo(map);
 

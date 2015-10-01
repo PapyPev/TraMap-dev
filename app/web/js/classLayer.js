@@ -1,26 +1,29 @@
-/** *************************************************************************************
+/** ***************************************************************************
  * Layer Class.
  *
  * @author Pev
  * @version 1.0
- ************************************************************************************* */
+ *************************************************************************** */
 
-/* ======================================================================================
+/* ============================================================================
  * CONSTRUCTOR
- * =================================================================================== */
+ * ========================================================================= */
+
 /**
  * Creates an instance of Layer.
  *
  * @constructor
  * @this {Layers}
- * @param {category} cat The category of layer.
- * @param {name} name The name of layer.
- * @param {alias} alias The alias of layer.
- * @param {position} position The postion of layer.
- * @param {checked} check The default selection of layer.
- * @param {content} content The layer.
+ * @param {string} type The type of layer.
+ * @param {string} cat The category of layer.
+ * @param {string} name The name of layer.
+ * @param {string} alias The alias of layer.
+ * @param {number} position The postion of layer.
+ * @param {boolean} check The default selection of layer.
+ * @param {Object} content The layer.
  */
-function Layer(category, name, alias, position, checked, content) {
+function Layer(type, category, name, alias, position, checked, content) {
+    /** @private */ this.type = type;
     /** @private */ this.category = category;
     /** @private */ this.name = name;
     /** @private */ this.alias = alias;
@@ -36,19 +39,30 @@ function Layer(category, name, alias, position, checked, content) {
         checked:  checked,
         content: content
     }];
-    console.log("classLayer:")
+    console.log("Constructor classLayer:")
     console.log(attributesToLog);
 }
 
-/* ======================================================================================
+/* ============================================================================
  * GETTERS
- * =================================================================================== */
+ * ========================================================================= */
+
+/**
+ * Get Layer's Type.
+ *
+ * @this {Layer}
+ * @return {string} The type of layer.
+ */
+Layer.prototype.getType = function(){
+    console.log("Layer.prototype.getCategory(): " + this.type);
+    return this.type;
+};
 
 /**
  * Get Layer's Category.
  *
  * @this {Layer}
- * @return {category} The category of layer.
+ * @return {string} The category of layer.
  */
 Layer.prototype.getCategory = function(){
     console.log("Layer.prototype.getCategory(): " + this.category);
@@ -59,7 +73,7 @@ Layer.prototype.getCategory = function(){
  * Get Layer's Name.
  *
  * @this {Layer}
- * @return {name} The name of layer.
+ * @return {string} The name of layer.
  */
 Layer.prototype.getName = function(){
     console.log("Layer.prototype.getName(): " + this.name);
@@ -70,7 +84,7 @@ Layer.prototype.getName = function(){
  * Get Layer's Alias.
  *
  * @this {Layer}
- * @return {alias} The alias of layer.
+ * @return {string} The alias of layer.
  */
 Layer.prototype.getAlias = function(){
     console.log("Layer.prototype.getAlias(): " + this.alias);
@@ -81,7 +95,7 @@ Layer.prototype.getAlias = function(){
  * Get Layer's Position.
  *
  * @this {Layer}
- * @return {position} The position of layer.
+ * @return {number} The position of layer.
  */
 Layer.prototype.getPosition = function(){
     console.log("Layer.prototype.getPosition(): " + this.position);
@@ -92,7 +106,7 @@ Layer.prototype.getPosition = function(){
  * Get Layer's Check.
  *
  * @this {Layer}
- * @return {checked} The checked of layer.
+ * @return {boolean} The checked of layer.
  */
 Layer.prototype.getCheck = function(){
     console.log("Layer.prototype.getCheck(): " + this.checked);
@@ -103,16 +117,16 @@ Layer.prototype.getCheck = function(){
  * Get Layer's Content.
  *
  * @this {Layer}
- * @return {content} The content of layer.
+ * @return {Object} The content of layer.
  */
 Layer.prototype.getContent = function(){
     console.log("Layer.prototype.getContent(): " + this.content);
     return this.content;
 };
 
-/* ======================================================================================
- * METHOD
- * =================================================================================== */
+/* ============================================================================
+ * METHODS
+ * ========================================================================= */
 
 /**
  * Find a String representation of the Layer
@@ -134,5 +148,6 @@ Layer.prototype.toString = function() {
     console.log(attributesToLog);
     return JSON.stringify(attributesToLog)
 }
+
 
 

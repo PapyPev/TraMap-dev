@@ -42,7 +42,7 @@ function getGeoServerLayers(url){
 	});
 
 	var l1 = new Layer("Vector", 
-        "traffic", "Traffic", alias, 1, true, myLayer);
+        "Traffic Information", "traffic", alias, 1, true, myLayer);
 
 	return [l1];
 

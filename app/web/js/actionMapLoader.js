@@ -26,7 +26,6 @@ var TOC_TITLE = 'toc-title';
 var TOC_CONTENT = 'toc-content';
 var TOC_DESCRIPT = 'toc-description';
 
-var MAP;
 
 /* ============================================================================
  * FUNCTIONS
@@ -144,12 +143,14 @@ function loadToc (map, listOfLayers) {
           +       '<input type="checkbox" '
           +       'name="'+listOfLayers[i].getName()+'" '
           +       'id="'+listOfLayers[i].getPosition()+'" '
+          +       'onchange="#" '
           +       check + '>'
           +     '</span>'
           +   '<input type="text" class="form-control" '
           +       'value="'+listOfLayers[i].getAlias()+'" readonly>'
           + '</div>'
         break;
+        alert(toc);
       default:
         // Nothing
         break;

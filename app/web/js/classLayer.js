@@ -14,7 +14,7 @@
  *
  * @constructor
  * @this {Layers}
- * @param {string} type The type of layer.
+ * @param {string} type The type of layer (Tile, Vector).
  * @param {string} cat The category of layer.
  * @param {string} name The name of layer.
  * @param {string} alias The alias of layer.

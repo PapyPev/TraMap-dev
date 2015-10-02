@@ -30,6 +30,7 @@ var TOC_DESCRIPT = 'toc-description';
  * ========================================================================= */
 var map;
 var mapLayers;
+var endIndexBaseLayers;
 
 /* ============================================================================
  * FUNCTIONS
@@ -134,7 +135,7 @@ function loadToc (map, listOfLayers) {
           +       '<input type="radio" '
           +       'name="'+listOfLayers[i].getCategory()+'" '
           +       'id="'+listOfLayers[i].getPosition()+'" '
-          +       'onclick="changeLayer('+i+')" '
+          +       'onclick="changeBaseLayer('+i+')" '
           +       check + '>'
           +     '</span>'
           +   '<input type="text" class="form-control" '
@@ -186,10 +187,24 @@ function changeLayer(i){
   } else {
     map.addLayer(mapLayers[i].getContent());
     mapLayers[i].setCheck(true);
+  }
+};
+
+function changeBaseLayer(i){
+  if (mapLayers[i].getCheck()) {
+    map.removeLayer(mapLayers[i].getContent());
+    mapLayers[i].setCheck(false);
+  } else {
+    map.addLayer(mapLayers[i].getContent());
+    mapLayers[i].setCheck(true);
   };
-    
-  
-}
+  for (var j = 0; j < endIndexBaseLayers + 1; j++) {
+    if (j != i) {
+      mapLayers[j].setCheck(false);
+      map.removeLayer(mapLayers[j].getContent());
+    };
+  }; 
+};
 
 /**
  * Initialize map configuration.
@@ -206,6 +221,7 @@ function init () {
   //--- Load Layers ------
   mapLayers = [];
   mapLayers = getMapLayers();
+  endIndexBaseLayers = mapLayers.length - 1;
 
   //--- Add Layers
   for (var i = 0; i < mapLayers.length; i++) {
@@ -244,4 +260,4 @@ function init () {
 
 $(document).ready(function(){
   init();
-})
+});

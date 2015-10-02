@@ -25,12 +25,17 @@ var TOC_DIV_DESCRIPT = 'toc-description';
 var TOC_TITLE = 'toc-title';
 var TOC_CONTENT = 'toc-content';
 var TOC_DESCRIPT = 'toc-description';
+
+var POPUP = [
+  ['contact', 'glyphicon-envelope'], 
+  ['informations', 'glyphicon-info-sign']
+];
+
 /* ============================================================================
  * GLOBAL VARIABLES
  * ========================================================================= */
 var map;
 var mapLayers;
-var endIndexBaseLayers;
 
 /* ============================================================================
  * FUNCTIONS
@@ -217,6 +222,34 @@ function changeLayer (i, type) {
 }; //--- end changeLayer (i)
 
 /**
+ * Open a Popup over the map after close the sidebar
+ * @param {string} type Type of the Popup
+ * @param {sidebar} sidebar The TOC sidebar
+ --------------------------------------------------------------------------- */
+function openPopup (type, sidebar) {
+
+  // Close the sidebar
+  sidebar.hide();
+
+  // Action per type
+  switch(type){
+    case 'contact':
+      $('#contactPopup').modal('show');
+      break;
+    case 'informations':
+      $('#informationsPopup').modal('show');
+      break;
+    case 'search':
+      $('#searchPopup').modal('show');
+      break;
+    default:
+      alert(type);
+      break;
+  }
+
+};
+
+/**
  * Initialize map configuration.
  * Load all Default Map component
  --------------------------------------------------------------------------- */
@@ -258,11 +291,28 @@ function init () {
   L.easyButton(
     '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>',
     function(){
-      map.removeLayer(mapLayers[0].getContent());
+      alert("searchButton");
+      console.log("searchButton");
     }
   ).addTo(map);
 
+  //--- Load Popup Content ------
+
+  loadPopup(POPUP);
+  
+  for (var j = 0; j < POPUP.length; j++) {
+    L.easyButton(
+      '<span class="glyphicon '+POPUP[j][1]+'" id="'+j+'Span" aria-hidden="true"></span>',
+      function(){
+        // TODO : Finish it 
+        //openPopup(POPUP[j][0], sidebar);
+        //console.log(POPUP[j][0] + "Popup");
+      }
+    ).addTo(map);
+  };
+
 }; //---end init()
+
 
 /* ============================================================================
  * MAIN

@@ -26,10 +26,10 @@ var TOC_TITLE = 'toc-title';
 var TOC_CONTENT = 'toc-content';
 var TOC_DESCRIPT = 'toc-description';
 /* ============================================================================
- * GLOBALS
+ * GLOBAL VARIABLES
  * ========================================================================= */
 var map;
-var listOfLayers;
+var mapLayers;
 
 /* ============================================================================
  * FUNCTIONS
@@ -134,6 +134,7 @@ function loadToc (map, listOfLayers) {
           +       '<input type="radio" '
           +       'name="'+listOfLayers[i].getCategory()+'" '
           +       'id="'+listOfLayers[i].getPosition()+'" '
+          +       'onclick="changeLayer('+i+')" '
           +       check + '>'
           +     '</span>'
           +   '<input type="text" class="form-control" '
@@ -176,12 +177,19 @@ function loadToc (map, listOfLayers) {
   $("#"+TOC_DIV_CONTENT+"").html(toc).trigger("create");
 
 } 
+//end loadToc (listOfLayers)
 
 function changeLayer(i){
-  map.removeLayers(listOfLayer[i].getContent());
-
+  if (mapLayers[i].getCheck()) {
+    map.removeLayer(mapLayers[i].getContent());
+    mapLayers[i].setCheck(false);
+  } else {
+    map.addLayer(mapLayers[i].getContent());
+    mapLayers[i].setCheck(true);
+  };
+    
+  
 }
-//end loadToc (listOfLayers)
 
 /**
  * Initialize map configuration.
@@ -196,7 +204,7 @@ function init () {
   });
 
   //--- Load Layers ------
-  var mapLayers = [];
+  mapLayers = [];
   mapLayers = getMapLayers();
 
   //--- Add Layers

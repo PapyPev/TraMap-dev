@@ -123,6 +123,19 @@ Layer.prototype.getContent = function(){
     console.log("Layer.prototype.getContent(): " + this.content);
     return this.content;
 };
+/* ============================================================================
+ * SETERS
+ * ========================================================================= */
+ /**
+ * Set Layer's Checked.
+ *
+ * @this {Layer}
+ * @param {Boolean} check Boolean for check.  
+ */
+ Layer.prototype.setCheck = function(check){
+    this.checked = check;
+    console.log("Layer.prototype.setCheck(): " + this.checked);
+};
 
 /* ============================================================================
  * METHODS

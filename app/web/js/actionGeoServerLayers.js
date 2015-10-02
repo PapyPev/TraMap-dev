@@ -41,7 +41,7 @@ function getGeoServerLayers(url){
 		style: setStyle
 	});
 
-	var l1 = new Layer("Vector", 
+	var l1 = new Layer("Checkbox", 
         "Traffic Information", "traffic", alias, 1, true, myLayer);
 
 	return [l1];

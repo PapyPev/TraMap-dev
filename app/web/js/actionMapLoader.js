@@ -15,7 +15,7 @@ var GEO_SRV = 'http://172.18.138.171/geoserver/ows';
 var PROJ = 'EPSG:3857';
 var TOKEN = 'pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ'
 
-var DEFAULT_CENTER = [60.736622, 24.779603];
+var DEFAULT_CENTER = [50.075537, 14.425112];
 var DEFAULT_ZOOM = 7;
 
 var TOC_DIV_TITLE = 'toc-title';
@@ -62,19 +62,25 @@ function getMapLayers () {
     id: 'mapbox.light', 
     attribution: tiles_copyright
   })
+  var bgDark = L.tileLayer(mbUrl, {
+    id: 'mapbox.dark', 
+    attribution: tiles_copyright
+  })
   var bgStreet = L.tileLayer(mbUrl, {
     id: 'mapbox.streets', 
     attribution: tiles_copyright
   });
 
   // Create metadata layer
-  var bgLightM = new Layer("Tiles", "Background", 
+  var bgLightM = new Layer("Radio", "Background", 
     "bgLight", "MapBox : Light", 0, true, bgLight);
-  var bgStreetM = new Layer("Tiles", "Background", 
-    "bgStreet", "MapBox : Street", 1, false, bgStreet);
+  var bgDarktM = new Layer("Radio", "Background", 
+    "bgDark", "MapBox : Dark", 1, false, bgDark);
+  var bgStreetM = new Layer("Radio", "Background", 
+    "bgStreet", "MapBox : Street", 2, false, bgStreet);
 
   // Add Tiles to default loaded map layers
-  listOfLayers.push(bgLightM, bgStreetM);
+  listOfLayers.push(bgLightM, bgDarktM, bgStreetM);
 
 
   //--- GEOSERVER ------
@@ -129,27 +135,29 @@ function loadToc (map, listOfLayers) {
 
     // Test type of data 
     switch(listOfLayers[i].getType()){
-      case "Tiles":
+      case "Radio":
         toc +=  '<div class="input-group">'
           +     '<span class="input-group-addon">'
           +       '<input type="radio" '
           +       'name="'+listOfLayers[i].getCategory()+'" '
           +       'id="'+listOfLayers[i].getPosition()+'" '
-          +       'onclick="changeBaseLayer('+i+')" '
+          +       'onclick="changeLayer('+i+',\''
+          +           listOfLayers[i].getType()+'\')" '
           +       check + '>'
           +     '</span>'
           +   '<input type="text" class="form-control" '
           +       'value="'+listOfLayers[i].getAlias()+'" readonly>'
           + '</div>'
         break;
-      case "Vector":
+      case "Checkbox":
         // Create layer row
         toc +=  '<div class="input-group">'
           +     '<span class="input-group-addon">'
           +       '<input type="checkbox" '
           +       'name="'+listOfLayers[i].getName()+'" '
           +       'id="'+listOfLayers[i].getPosition()+'" '
-          +       'onchange="changeLayer('+i+')" '
+          +        'onchange="changeLayer('+i+',\''
+          +           listOfLayers[i].getType()+'\')" '
           +       check + '>'
           +     '</span>'
           +   '<input type="text" class="form-control" '
@@ -177,34 +185,36 @@ function loadToc (map, listOfLayers) {
   // Write to the HTML div
   $("#"+TOC_DIV_CONTENT+"").html(toc).trigger("create");
 
-} 
-//end loadToc (listOfLayers)
+};  //end loadToc (listOfLayers)
 
-function changeLayer(i){
+/**
+ * TOC action on the checkbox or radio button
+ * @param {number} i Index of the layer in listOfLayer
+ * @param {string} type Type of layer (Radio, Checkbox)
+ --------------------------------------------------------------------------- */
+function changeLayer (i, type) {
+
+  console.log('actionMapLoader.changeLayer(' 
+    + i + ',' + mapLayers[i].getType() +') -> ' + mapLayers[i].getName());
+
+  // If the layer is viewable
   if (mapLayers[i].getCheck()) {
-    map.removeLayer(mapLayers[i].getContent());
-    mapLayers[i].setCheck(false);
+    map.removeLayer(mapLayers[i].getContent()); // unload map layer
+    mapLayers[i].setCheck(false); // unload TOC layer
   } else {
-    map.addLayer(mapLayers[i].getContent());
-    mapLayers[i].setCheck(true);
+    map.addLayer(mapLayers[i].getContent()); // load map layer
+    mapLayers[i].setCheck(true); // load TOC layer
   }
-};
 
-function changeBaseLayer(i){
-  if (mapLayers[i].getCheck()) {
-    map.removeLayer(mapLayers[i].getContent());
-    mapLayers[i].setCheck(false);
-  } else {
-    map.addLayer(mapLayers[i].getContent());
-    mapLayers[i].setCheck(true);
-  };
-  for (var j = 0; j < endIndexBaseLayers + 1; j++) {
-    if (j != i) {
+  for (var j = 0; j < mapLayers.length; j++) {
+    if (mapLayers[j].getCategory()==mapLayers[i].getCategory()
+      && j != i) {
       mapLayers[j].setCheck(false);
       map.removeLayer(mapLayers[j].getContent());
     };
-  }; 
-};
+  };
+
+}; //--- end changeLayer (i)
 
 /**
  * Initialize map configuration.
@@ -252,7 +262,7 @@ function init () {
     }
   ).addTo(map);
 
-} //end init()
+}; //---end init()
 
 /* ============================================================================
  * MAIN

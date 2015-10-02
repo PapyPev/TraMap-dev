@@ -305,8 +305,8 @@ function init () {
       '<span class="glyphicon '+POPUP[j][1]+'" id="'+j+'Span" aria-hidden="true"></span>',
       function(){
         // TODO : Finish it 
-        //openPopup(POPUP[j][0], sidebar);
-        //console.log(POPUP[j][0] + "Popup");
+        openPopup(POPUP[1][0], sidebar);
+        console.log(POPUP[1][0] + "Popup");
       }
     ).addTo(map);
   };

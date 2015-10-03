@@ -356,13 +356,13 @@ function init () {
         // Get button id
         var title = data.overTheMap[i].id.toString();
 
+        // Create and load content and event
         loadPopupEvent(data.overTheMap[i].icon, 
           data.overTheMap[i].name + data.overTheMap[i].type,
           sidebar);
 
       }; // end loop 
     },
-
     error: function(data){
       if (jqXHR.status === 401) {
         console.log('HTTP Error 401 Unauthorized.');
@@ -373,7 +373,6 @@ function init () {
 
   });
 
-  console.log(test);
 }; //--- end init ()
 
 /* ============================================================================

@@ -1,36 +1,12 @@
 body {
-    overflow: hidden;
+    padding: 0;
+    margin: 0;
 }
 
-.ui-panel {
-    top: -1px;
-}
-
-.ui-panel .ui-panel-inner,
-.ui-panel-wrapper .ui-content {
-    overflow-y: auto;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 1px;
-    -webkit-overflow-scrolling: touch;
-}
-
-.ui-panel-dismiss-open,
-.ui-panel-page-content-open .ui-content {
-    overflow-y: hidden;
-}
-
-.ui-panel-wrapper {
+html, body, #map {
     height: 100%;
-    top: -1px;
-    margin-bottom: -2px;
 }
 
-.ui-page {
-    height: 100%;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+.easy-button{
+  font-size: 1.5em;
 }

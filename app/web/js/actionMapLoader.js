@@ -277,13 +277,13 @@ function changeLayer (i, type) {
  --------------------------------------------------------------------------- */
 function loadPopupEvent (glyph, popupName, sidebar) {
   console.log('actionMapLoader.loadPopupEvent(' 
-    + glyph + ','+popupName+','+sidebar);
+    + glyph + ','+popupName+','+sidebar+')');
   L.easyButton(
     '<span class="glyphicon '+glyph+'" aria-hidden="true"></span>',
     function(){
       sidebar.hide(); // close sidebar
-      // /!\ Be careful : only if json is on the same order
-      $('#'+popupName).modal('show');
+      $('#'+popupName).modal('show'); // load content
+      console.log('actionMapLoader.loadPopupEvent(...) #'+popupName);
     }, popupName // For event
   ).addTo(map);
 } //--- loadPopupEvent (glyph, popupName, sidebar)

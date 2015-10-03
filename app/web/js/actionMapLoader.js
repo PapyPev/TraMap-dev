@@ -3,39 +3,48 @@
  * Initialize Map content
  *
  * @author Pev
- * @version 2.2
+ * @version 3.0
  *************************************************************************** */
-
 
 /* ============================================================================
  * CONSTANTS
  * ========================================================================= */
 
+// URL for GeoServer access
 var GEO_SRV = 'http://172.18.138.171/geoserver/ows';
+// Default Map projection
 var PROJ = 'EPSG:3857';
+// MapBox Token for 
 var TOKEN = 'pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ'
 
+// Default Map center
 var DEFAULT_CENTER = [50.075537, 14.425112];
+// Default Zoom scale
 var DEFAULT_ZOOM = 7;
 
+// Div (on index.html) will receive TOC and popup content
 var TOC_DIV_TITLE = 'toc-title';
 var TOC_DIV_CONTENT = 'toc-content';
 var TOC_DIV_DESCRIPT = 'toc-description';
+var POPUP_DIV_CONTENT = 'popup-content';
 
-var TOC_TITLE = 'toc-title';
-var TOC_CONTENT = 'toc-content';
-var TOC_DESCRIPT = 'toc-description';
+// Side bar position
+var SIDEBAR_POS = 'left';
 
-var POPUP = [
-  ['contact', 'glyphicon-envelope'], 
-  ['informations', 'glyphicon-info-sign']
-];
+// JSON Popup file
+var POPUP_JSON = './js/contentPopup.json';
+
 
 /* ============================================================================
- * GLOBAL VARIABLES
+ * GLOBALS
  * ========================================================================= */
+
+// Leaflet Map container
 var map;
+
+// Leaflet Map Layers
 var mapLayers;
+
 
 /* ============================================================================
  * FUNCTIONS
@@ -46,11 +55,12 @@ var mapLayers;
  * @return {array} List of Layer (classLayer).
  --------------------------------------------------------------------------- */
 function getMapLayers () {
+  console.log('actionMapLoader.getMapLayers()');
 
   // Prepare output
   listOfLayers = [];
 
-  //--- BACKGROUND ------
+  //---------- BACKGROUND
 
   // Create Copyright
   var tiles_copyright = 'Map data &copy;' 
@@ -88,7 +98,7 @@ function getMapLayers () {
   listOfLayers.push(bgLightM, bgDarktM, bgStreetM);
 
 
-  //--- GEOSERVER ------
+  //---------- GEOSERVER
 
   // Get GeoServer Layer
   var listGeoServerLayer = [];
@@ -105,18 +115,19 @@ function getMapLayers () {
 
   // Return the layer's list
   return listOfLayers;
-
-} // end getLayers
+}; //--- end getLayers
 
 /**
  * Load content of Table Of Content (TOC).
+ * @param {map} map Current leaflet Map
  * @param {list} listOfLayers A sorted list of classLayer
  --------------------------------------------------------------------------- */
 function loadToc (map, listOfLayers) {
+  console.log('actionMapLoader.loadToc(map, listOfLayers)');
 
   // Add TOC title and description
-  $("#"+TOC_DIV_TITLE+"").html(TOC_TITLE).trigger("create");
-  $("#"+TOC_DIV_DESCRIPT+"").html(TOC_DESCRIPT).trigger("create");
+  $("#"+TOC_DIV_TITLE+"").html(TOC_DIV_TITLE).trigger("create");
+  $("#"+TOC_DIV_DESCRIPT+"").html(TOC_DIV_DESCRIPT).trigger("create");
 
   // Prepare TOC content
   var toc = "";
@@ -189,8 +200,41 @@ function loadToc (map, listOfLayers) {
 
   // Write to the HTML div
   $("#"+TOC_DIV_CONTENT+"").html(toc).trigger("create");
+}; //--- loadToc (map, listOfLayers)
 
-};  //end loadToc (listOfLayers)
+/**
+ * Load Popup content from JSON file (url)
+ * @param {json} data Popup json
+ --------------------------------------------------------------------------- */
+function loadPopup (data) {
+  console.log('actionMapLoader.loadPopup()');
+
+  // Prepare HTML content
+  var html = "";
+  
+  // Loop object
+  for (var i = 0; i < data.overTheMap.length; i++) {
+
+    switch(data.overTheMap[i].type){
+
+      case 'popup':
+        // Init container
+        html  += '<div class="modal fade" '
+                + 'id="'+data.overTheMap[i].name+data.overTheMap[i].type+'" tabindex="-1" role="dialog" aria-labelledby="contactLabel">'
+                  + '<div class="modal-dialog" role="document">'
+                    + '<div class="modal-content">'
+        // Content
+        html += data.overTheMap[i].content;
+        // End container
+        html += '</div></div></div>'
+        break;
+
+      default:
+        statements_def
+        break;
+    };
+  };
+} //--- loadPopup (url)
 
 /**
  * TOC action on the checkbox or radio button
@@ -198,7 +242,6 @@ function loadToc (map, listOfLayers) {
  * @param {string} type Type of layer (Radio, Checkbox)
  --------------------------------------------------------------------------- */
 function changeLayer (i, type) {
-
   console.log('actionMapLoader.changeLayer(' 
     + i + ',' + mapLayers[i].getType() +') -> ' + mapLayers[i].getName());
 
@@ -218,72 +261,42 @@ function changeLayer (i, type) {
       map.removeLayer(mapLayers[j].getContent());
     };
   };
-
 }; //--- end changeLayer (i)
 
 /**
- * Open a Popup over the map after close the sidebar
- * @param {string} type Type of the Popup
- * @param {sidebar} sidebar The TOC sidebar
- --------------------------------------------------------------------------- */
-function openPopup (type, sidebar) {
-
-  // Close the sidebar
-  sidebar.hide();
-
-  // Action per type
-  switch(type){
-    case 'contact':
-      $('#contactPopup').modal('show');
-      break;
-    case 'informations':
-      $('#informationsPopup').modal('show');
-      break;
-    case 'search':
-      $('#searchPopup').modal('show');
-      break;
-    default:
-      alert(type);
-      break;
-  }
-
-};
-
-/**
- * Initialize map configuration.
- * Load all Default Map component
+ * Loading all the necessary components of the card
  --------------------------------------------------------------------------- */
 function init () {
+  console.log('actionMapLoader.init()');
 
-  //--- Load default Map ------
+  //---------- Load default Map
   map = L.map('map',{
     center: DEFAULT_CENTER,
     zoom: DEFAULT_ZOOM
   });
 
-  //--- Load Layers ------
+  //---------- Load Layers (classLayer)
   mapLayers = [];
   mapLayers = getMapLayers();
-  endIndexBaseLayers = mapLayers.length - 1;
 
-  //--- Add Layers
+  //---------- Add Layers (leaflet) to List
   for (var i = 0; i < mapLayers.length; i++) {
     if (mapLayers[i].getCheck()) {
       map.addLayer(mapLayers[i].getContent());
     };
   };
 
-  //--- Load Sidebar Component ------
+  //---------- Load Sidebar Component
   var sidebar = L.control.sidebar('sidebar', {
     closeButton: true,
-    position: 'left'
+    position: SIDEBAR_POS
   });
   map.addControl(sidebar);
 
-  //--- Load Sidebar TOC ------
+  //---------- Load Sidebar TOC
   loadToc(map, mapLayers);
 
-  //--- Load Buttons ------
+  //---------- Load Actions Buttons
   L.easyButton( '<span class="easy-button">&equiv;</span>', function(){
     sidebar.toggle(); // Open-Close sidebar
   }).addTo(map);
@@ -296,28 +309,48 @@ function init () {
     }
   ).addTo(map);
 
-  //--- Load Popup Content ------
-
-  loadPopup(POPUP);
-  
-  for (var j = 0; j < POPUP.length; j++) {
-    L.easyButton(
-      '<span class="glyphicon '+POPUP[j][1]+'" id="'+j+'Span" aria-hidden="true"></span>',
-      function(){
-        // TODO : Finish it 
-        openPopup(POPUP[1][0], sidebar);
-        console.log(POPUP[1][0] + "Popup");
+  //---------- Load Popup Buttons
+  // Ajax request
+  var test = $.ajax({
+    // GET Parameters
+    type: 'GET',
+    url: POPUP_JSON,
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success: function(data){
+      // Load HTML Popup content
+      loadPopup(data);
+      // Load Buttons
+      for (var i = 0; i < data.overTheMap.length; i++) {
+        L.easyButton(
+          '<span class="glyphicon '+data.overTheMap[i].icon+'" aria-hidden="true"></span>',
+          function(){
+            alert(data.overTheMap[i].name);
+          }
+        ).addTo(map);
+      };
+    },
+    error: function(data){
+      if (jqXHR.status === 401) {
+        console.log('HTTP Error 401 Unauthorized.');
+      } else {
+        console.log('Uncaught Error.\n' + jqXHR.responseText);
       }
-    ).addTo(map);
-  };
+    }
+  });
 
-}; //---end init()
+  console.log(test);
+}; //--- end init ()
 
 
 /* ============================================================================
  * MAIN
  * ========================================================================= */
 
+/**
+ * Action performed when the page is fully loaded
+ --------------------------------------------------------------------------- */
 $(document).ready(function(){
   init();
-});
+}); //--$(document).ready()
+

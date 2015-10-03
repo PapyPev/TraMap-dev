@@ -204,7 +204,7 @@ function loadToc (map, listOfLayers) {
 
   // Write to the HTML div
   $("#"+TOC_DIV_CONTENT+"").html(toc).trigger("create");
-}; //--- loadToc (map, listOfLayers)
+}; //--- end loadToc (map, listOfLayers)
 
 /**
  * Load Popup content from JSON file (url)
@@ -231,18 +231,17 @@ function loadPopup (data) {
         html += data.overTheMap[i].content;
         // End container
         html += '</div></div></div>'
-
         // Write on the div
         $("#"+POPUP_DIV_CONTENT+"").html(html).trigger("create");
-
         break;
 
       default:
-        // Nothing
+        alert('actionMapLoader.loadPopup : error');
         break;
-    };
-  };
-} //--- loadPopup (url)
+
+    }; //end Switch
+  }; //end Loop object
+} //--- end loadPopup (url)
 
 /**
  * TOC action on the checkbox or radio button
@@ -252,7 +251,6 @@ function loadPopup (data) {
 function changeLayer (i, type) {
   console.log('actionMapLoader.changeLayer(' 
     + i + ',' + mapLayers[i].getType() +') -> ' + mapLayers[i].getName());
-
   // If the layer is viewable
   if (mapLayers[i].getCheck()) {
     map.removeLayer(mapLayers[i].getContent()); // unload map layer
@@ -261,7 +259,7 @@ function changeLayer (i, type) {
     map.addLayer(mapLayers[i].getContent()); // load map layer
     mapLayers[i].setCheck(true); // load TOC layer
   }
-
+  // Loop Layers
   for (var j = 0; j < mapLayers.length; j++) {
     if (mapLayers[j].getCategory()==mapLayers[i].getCategory()
       && j != i) {
@@ -270,6 +268,25 @@ function changeLayer (i, type) {
     };
   };
 }; //--- end changeLayer (i)
+
+/**
+ * Create button and load popup content onclick
+ * @param {string} glyph Icon on the button
+ * @param {string} popupName Name of the popup container (name+type)
+ * @param {sidebar} sidebar TOC content will hide on event
+ --------------------------------------------------------------------------- */
+function loadPopupEvent (glyph, popupName, sidebar) {
+  console.log('actionMapLoader.loadPopupEvent(' 
+    + glyph + ','+popupName+','+sidebar);
+  L.easyButton(
+    '<span class="glyphicon '+glyph+'" aria-hidden="true"></span>',
+    function(){
+      sidebar.hide(); // close sidebar
+      // /!\ Be careful : only if json is on the same order
+      $('#'+popupName).modal('show');
+    }, popupName // For event
+  ).addTo(map);
+} //--- loadPopupEvent (glyph, popupName, sidebar)
 
 /**
  * Loading all the necessary components of the card
@@ -339,16 +356,9 @@ function init () {
         // Get button id
         var title = data.overTheMap[i].id.toString();
 
-        // Generate button
-        L.easyButton(
-          '<span class="glyphicon '+data.overTheMap[i].icon+'" aria-hidden="true"></span>',
-          function(){
-            sidebar.hide(); // close sidebar
-
-            // /!\ Be careful : only if json is on the same order
-            $('#'+data.overTheMap[this.button.title].name+data.overTheMap[this.button.title].type+'').modal('show');
-          }, title // For event
-        ).addTo(map);
+        loadPopupEvent(data.overTheMap[i].icon, 
+          data.overTheMap[i].name + data.overTheMap[i].type,
+          sidebar);
 
       }; // end loop 
     },

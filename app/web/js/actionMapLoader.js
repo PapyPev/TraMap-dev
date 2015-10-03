@@ -334,8 +334,6 @@ function init () {
 
         // Get button id
         var title = data.overTheMap[i].id.toString();
-        var ident = i.toString();
-        alert(ident)
 
         // Generate button
         L.easyButton(

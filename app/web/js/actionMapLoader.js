@@ -88,9 +88,9 @@ function getMapLayers () {
 
   // Create metadata layer
   var bgLightM = new Layer("Radio", "Background", 
-    "bgLight", "MapBox : Light", 0, true, bgLight);
+    "bgLight", "MapBox : Light", 0, false, bgLight);
   var bgDarktM = new Layer("Radio", "Background", 
-    "bgDark", "MapBox : Dark", 1, false, bgDark);
+    "bgDark", "MapBox : Dark", 1, true, bgDark);
   var bgStreetM = new Layer("Radio", "Background", 
     "bgStreet", "MapBox : Street", 2, false, bgStreet);
 
@@ -227,14 +227,23 @@ function loadPopup (data) {
         html += data.overTheMap[i].content;
         // End container
         html += '</div></div></div>'
+
+        // Write on the div
+        $("#"+POPUP_DIV_CONTENT+"").html(html).trigger("create");
+
         break;
 
       default:
-        statements_def
+        // Nothing
         break;
     };
   };
 } //--- loadPopup (url)
+
+
+function toto () {
+  console.log(arguments.callee.caller.name);
+}
 
 /**
  * TOC action on the checkbox or radio button
@@ -297,39 +306,54 @@ function init () {
   loadToc(map, mapLayers);
 
   //---------- Load Actions Buttons
-  L.easyButton( '<span class="easy-button">&equiv;</span>', function(){
-    sidebar.toggle(); // Open-Close sidebar
-  }).addTo(map);
+  L.easyButton( '<span class="easy-button">&equiv;</span>', 
+    function(){
+      sidebar.toggle(); // Open-Close sidebar
+    }, 'Table of Content'
+  ).addTo(map);
 
   L.easyButton(
     '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>',
     function(){
       alert("searchButton");
       console.log("searchButton");
-    }
+    }, 'Search'
   ).addTo(map);
 
   //---------- Load Popup Buttons
   // Ajax request
   var test = $.ajax({
+
     // GET Parameters
     type: 'GET',
     url: POPUP_JSON,
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success: function(data){
+
       // Load HTML Popup content
       loadPopup(data);
+
       // Load Buttons
       for (var i = 0; i < data.overTheMap.length; i++) {
+
+        // Get button id
+        var title = data.overTheMap[i].id.toString();
+
+        // Generate button
         L.easyButton(
           '<span class="glyphicon '+data.overTheMap[i].icon+'" aria-hidden="true"></span>',
           function(){
-            alert(data.overTheMap[i].name);
-          }
+            sidebar.hide(); // close sidebar
+
+            // /!\ Be careful : only if json is on the same order
+            $('#'+data.overTheMap[this.button.title].name+data.overTheMap[this.button.title].type+'').modal('show');
+          }, title // For event
         ).addTo(map);
-      };
+
+      }; // end loop 
     },
+
     error: function(data){
       if (jqXHR.status === 401) {
         console.log('HTTP Error 401 Unauthorized.');
@@ -337,6 +361,7 @@ function init () {
         console.log('Uncaught Error.\n' + jqXHR.responseText);
       }
     }
+
   });
 
   console.log(test);

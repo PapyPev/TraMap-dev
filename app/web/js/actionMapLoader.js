@@ -240,11 +240,6 @@ function loadPopup (data) {
   };
 } //--- loadPopup (url)
 
-
-function toto () {
-  console.log(arguments.callee.caller.name);
-}
-
 /**
  * TOC action on the checkbox or radio button
  * @param {number} i Index of the layer in listOfLayer
@@ -339,6 +334,8 @@ function init () {
 
         // Get button id
         var title = data.overTheMap[i].id.toString();
+        var ident = i.toString();
+        alert(ident)
 
         // Generate button
         L.easyButton(
@@ -366,7 +363,6 @@ function init () {
 
   console.log(test);
 }; //--- end init ()
-
 
 /* ============================================================================
  * MAIN

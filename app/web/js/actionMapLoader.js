@@ -11,7 +11,7 @@
  * ========================================================================= */
 
 // URL for GeoServer access
-var GEO_SRV = 'http://172.18.138.171/geoserver/ows';
+var GEO_SRV = 'http://172.18.138.171/geoserver';
 // Default Map projection
 var PROJ = 'EPSG:3857';
 // MapBox Token for 
@@ -383,6 +383,15 @@ function init () {
  * Action performed when the page is fully loaded
  --------------------------------------------------------------------------- */
 $(document).ready(function(){
-  init();
+
+  var request = OpenLayers.Request.GET({
+    url: GEO_SRV+"/rest/workspaces/myws/featuretypes.json",
+    callback: function(request) {
+      // Code here to handle the response, the request object contains the data
+      console.log(request);
+    }
+  });
+
+  //init();
 }); //--$(document).ready()
 

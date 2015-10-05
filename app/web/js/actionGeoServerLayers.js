@@ -59,8 +59,12 @@ function getGeoServerLayers(url){
 
     success: function(data){
 
+      alert("Success")
+
       // Loop Layer properties
       for (var i = 0; i < data.featureTypes.featureType.length; i++) {
+
+        console.log(data.featureTypes.featureType[i].name);
 
         // Get GeoJSON layer content
           var layerContent = new L.GeoJSON.AJAX(

@@ -57,7 +57,7 @@ function getGeoServerLayers(url){
     success: function(data){
 
       alert("success");
-      console.log(data.featureType.length);
+      console.log(data);
 
     },
     error: function(jqXHR, exception){

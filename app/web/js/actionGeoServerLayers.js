@@ -45,6 +45,7 @@ function setStyle(feature) {
 function getGeoServerLayers(url){
   console.log("actionGeoServerLayers.getGeoServerLayers("+url+")");
 
+  /*
   // Return value : list of layers
   var listOfLayers = [];
 
@@ -91,7 +92,7 @@ function getGeoServerLayers(url){
       };
 
     },
-    
+
     error: function(jqXHR, exception){
       if (jqXHR.status === 401) {
         console.log('HTTP Error 401 Unauthorized.');
@@ -104,6 +105,8 @@ function getGeoServerLayers(url){
 
   console.log("list:");
   console.log(listOfLayers);
+
+  */
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -135,8 +138,10 @@ function getGeoServerLayers(url){
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    // Return tab of classLayers
-	//return [l1];
-  return listOfLayers;
+  // Return temp classLayer  
+	return [l1];
+
+  // Return tab of classLayers
+  //return listOfLayers;
 }; //--- end getGeoServerLayers(url){
 

@@ -45,8 +45,11 @@ function setStyle(feature) {
 function getGeoServerLayers(url){
   console.log("actionGeoServerLayers.getGeoServerLayers("+url+")");
 
+  // Return value : list of layers
+  var listOfLayers = [];
+
   // Ajax request
-  var allLayers = $.ajax({
+  $.ajax({
 
     // GET Parameters
     type: 'GET',
@@ -58,7 +61,31 @@ function getGeoServerLayers(url){
 
       // Loop Layer properties
       for (var i = 0; i < data.featureTypes.featureType.length; i++) {
-        console.log(data.featureTypes.featureType[i].name)
+
+        // Get GeoJSON layer content
+          var layerContent = new L.GeoJSON.AJAX(
+            url
+            +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
+            +"hamk-map-project:"+data.featureTypes.featureType[i].name
+            +"&maxFeatures=100&outputFormat=application/json",
+            {
+              style: setStyle
+            }
+          );
+
+        // Current classLayer
+        var layer = new Layer(
+          "Checkbox", 
+          "Data", 
+          data.featureTypes.featureType[i].name,
+          data.featureTypes.featureType[i].name,
+          i,
+          true,
+          layerContent)
+
+        // Add to listfLayers
+        listOfLayers.push(layer);
+
       };
 
     },
@@ -71,6 +98,8 @@ function getGeoServerLayers(url){
     }
 
   });
+
+  console.log(listOfLayers);
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

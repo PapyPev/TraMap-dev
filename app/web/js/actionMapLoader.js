@@ -384,11 +384,42 @@ function init () {
  --------------------------------------------------------------------------- */
 $(document).ready(function(){
 
-  var request = OpenLayers.Request.GET({
-    url: GEO_SRV+"/rest/workspaces/myws/featuretypes.json",
-    callback: function(request) {
-      // Code here to handle the response, the request object contains the data
-      console.log(request);
+  var owsrootUrl = GEO_SRV+'/ows';
+
+var defaultParameters = {
+    service : 'WFS',
+    version : '2.0',
+    request : 'GetFeature',
+    typeName : '<WORKSPACE:LAYERNAME - CHANGEME>',
+    outputFormat : 'text/javascript',
+    format_options : 'callback:getJson',
+    SrsName : 'EPSG:4326'
+};
+
+var parameters = L.Util.extend(defaultParameters);
+var URL = owsrootUrl + L.Util.getParamString(parameters);
+
+var WFSLayer = null;
+var ajax = $.ajax({
+    url : URL,
+    dataType : 'jsonp',
+    jsonpCallback : 'getJson',
+    success : function (response) {
+        WFSLayer = L.geoJson(response, {
+            style: function (feature) {
+              console.log(feature);
+                return {
+                    stroke: false,
+                    fillColor: 'FFFFFF',
+                    fillOpacity: 0
+                };
+            },
+            onEachFeature: function (feature, layer) {
+                popupOptions = {maxWidth: 200};
+                layer.bindPopup("Popup text, access attributes with feature.properties.ATTRIBUTE_NAME"
+                    ,popupOptions);
+            }
+        }).addTo(map);
     }
   });
 

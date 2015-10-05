@@ -363,7 +363,7 @@ function init () {
 
       }; // end loop 
     },
-    error: function(data){
+    error: function(jqXHR, exception){
       if (jqXHR.status === 401) {
         console.log('HTTP Error 401 Unauthorized.');
       } else {

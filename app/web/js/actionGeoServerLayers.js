@@ -34,12 +34,12 @@ function getGeoServerLayers(url){
 	//=================================L1======================================
 	var alias = "hamk-map-project:fin_2po_4pgr";
 	var baseurl = url+"?service=WFS&version=1.0.0&request=GetFeature&typeName="+alias+"&maxFeatures=100&outputFormat=application/json";
-	// var myLayer = new L.GeoJSON.AJAX(baseurl,{
-	// 	style: setStyle
-	// });
-	var myLayer = new L.geoJson(temp,{
+	var myLayer = new L.GeoJSON.AJAX(baseurl,{
 		style: setStyle
 	});
+	// var myLayer = new L.geoJson(temp,{
+	// 	style: setStyle
+	// });
 
 	var l1 = new Layer("Checkbox", 
         "Traffic Information", "traffic", alias, 1, true, myLayer);

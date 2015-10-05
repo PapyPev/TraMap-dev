@@ -38,6 +38,7 @@ function getGeoServerLayers(url){
     var myLayer = new L.GeoJSON.AJAX("http://172.18.138.171/geoserver/hamk-map-project/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=hamk-map-project:osm_buildings&maxFeatures=100&outputFormat=application/json",{
 		style: setStyle
 	});
+    console.log(myLayer);
 	// var myLayer = new L.geoJson(temp,{
 	// 	style: setStyle
 	// });

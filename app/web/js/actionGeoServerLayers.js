@@ -103,6 +103,7 @@ function getGeoServerLayers(url){
 
   });
 
+  console.log("list:");
   console.log(listOfLayers);
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -137,6 +137,7 @@ function getGeoServerLayers(url){
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     // Return tab of classLayers
-	return [l1];
+	//return [l1];
+  return listOfLayers;
 }; //--- end getGeoServerLayers(url){
 

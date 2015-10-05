@@ -403,6 +403,7 @@ $(document).ready(function(){
         console.log('Uncaught Error.\n' + jqXHR.responseText);
       }
     }
+  });
 
   //init();
 }); //--$(document).ready()

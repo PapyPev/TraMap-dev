@@ -34,7 +34,8 @@ function getGeoServerLayers(url){
 	//=================================L1======================================
 	var alias = "hamk-map-project:fin_2po_4pgr";
 	var baseurl = url+"?service=WFS&version=1.0.0&request=GetFeature&typeName="+alias+"&maxFeatures=100&outputFormat=application/json";
-	var myLayer = new L.GeoJSON.AJAX(baseurl,{
+	//var myLayer = new L.GeoJSON.AJAX(baseurl,{
+    var myLayer = new L.GeoJSON.AJAX("http://172.18.138.171/geoserver/hamk-map-project/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=hamk-map-project:osm_buildings&maxFeatures=100&outputFormat=application/json",{
 		style: setStyle
 	});
 	// var myLayer = new L.geoJson(temp,{

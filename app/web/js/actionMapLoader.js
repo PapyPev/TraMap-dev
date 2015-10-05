@@ -113,6 +113,8 @@ function getMapLayers () {
     listOfLayers.push(listGeoServerLayer[i]);
   };
 
+  console.log("loadTOC -- list of layers");
+  console.log(listOfLayers);
 
   // TODO : sort layers by category
 
@@ -128,8 +130,6 @@ function getMapLayers () {
  --------------------------------------------------------------------------- */
 function loadToc (map, listOfLayers) {
   console.log('actionMapLoader.loadToc(map, listOfLayers)');
-  console.log('actionMapLoader.loadToc - listOfLayers :');
-  console.log(listOfLayers);
 
   // Add TOC title and description
   $("#"+TOC_DIV_TITLE+"").html(TOC_TITLE).trigger("create");

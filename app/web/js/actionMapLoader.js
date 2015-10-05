@@ -128,6 +128,8 @@ function getMapLayers () {
  --------------------------------------------------------------------------- */
 function loadToc (map, listOfLayers) {
   console.log('actionMapLoader.loadToc(map, listOfLayers)');
+  console.log('actionMapLoader.loadToc - listOfLayers :');
+  console.log(listOfLayers);
 
   // Add TOC title and description
   $("#"+TOC_DIV_TITLE+"").html(TOC_TITLE).trigger("create");

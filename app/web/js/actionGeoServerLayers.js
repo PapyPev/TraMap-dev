@@ -59,8 +59,6 @@ function getGeoServerLayers(url){
 
     success: function(data){
 
-      alert("Success")
-
       // Loop Layer properties
       for (var i = 0; i < data.featureTypes.featureType.length; i++) {
 
@@ -85,7 +83,7 @@ function getGeoServerLayers(url){
           data.featureTypes.featureType[i].name,
           i,
           true,
-          layerContent)
+          layerContent);
 
         // Add to listfLayers
         listOfLayers.push(layer);
@@ -93,6 +91,7 @@ function getGeoServerLayers(url){
       };
 
     },
+    
     error: function(jqXHR, exception){
       if (jqXHR.status === 401) {
         console.log('HTTP Error 401 Unauthorized.');

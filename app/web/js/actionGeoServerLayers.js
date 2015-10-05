@@ -43,35 +43,60 @@ function setStyle(feature) {
  * @preturn {Layer} Return a classLayer object with his properties 
  --------------------------------------------------------------------------- */
 function getGeoServerLayers(url){
-    console.log("actionGeoServerLayers.getGeoServerLayers("+url+")");
+  console.log("actionGeoServerLayers.getGeoServerLayers("+url+")");
 
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // Ajax request
+  var allLayers = $.ajax({
 
-    // TODO : Loop to get all layers
+    // GET Parameters
+    type: 'GET',
+    url: url+"/rest/workspaces/hamk-map-project/featuretypes.json",
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+
+    success: function(data){
+
+      alert("success");
+      console.log(data.featureType.length);
+
+    },
+    error: function(jqXHR, exception){
+      if (jqXHR.status === 401) {
+        console.log('HTTP Error 401 Unauthorized.');
+      } else {
+        console.log('Uncaught Error.\n' + jqXHR.responseText);
+      }
+    }
+
+  });
+
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  // TODO : Loop to get all layers
 
 	var alias = "hamk-map-project:fin_2po_4pgr";
 	var baseurl = url+"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="+alias+"&maxFeatures=100&outputFormat=application/json";
 
-    // Get layer from GeoServer
+  // Get layer from GeoServer
 	// var myLayer = new L.GeoJSON.AJAX(baseurl,{
 	// 	style: setStyle
 	// });
 
-    // Get layer from temp contant
+  // Get layer from temp contant
 	var myLayer = new L.geoJson(temp,{
 		style: setStyle
 	});
 
     // Prepare classLayer's attribute
 	var l1 = new Layer(
-        "Checkbox", 
-        "Traffic Information", 
-        "traffic", 
-        alias, 
-        1, 
-        true, 
-        myLayer
-    );
+    "Checkbox", 
+    "Traffic Information", 
+    "traffic", 
+    alias, 
+    1, 
+    true, 
+    myLayer
+  );
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -383,28 +383,6 @@ function init () {
  * Action performed when the page is fully loaded
  --------------------------------------------------------------------------- */
 $(document).ready(function(){
-
-  // Ajax request
-  var test = $.ajax({
-
-    // GET Parameters
-    type: 'GET',
-    url: GEO_SRV+"/rest/workspaces/hamk-map-project/featuretypes.json",
-    contentType: 'application/json; charset=utf-8',
-    dataType: 'json',
-    success: function(data){
-      alert("success");
-      console.log(data);
-    },
-    error: function(jqXHR, exception){
-      if (jqXHR.status === 401) {
-        console.log('HTTP Error 401 Unauthorized.');
-      } else {
-        console.log('Uncaught Error.\n' + jqXHR.responseText);
-      }
-    }
-  });
-
-  //init();
+  init();
 }); //--$(document).ready()
 

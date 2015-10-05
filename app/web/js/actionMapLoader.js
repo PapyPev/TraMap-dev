@@ -405,6 +405,7 @@ var ajax = $.ajax({
     dataType : 'jsonp',
     jsonpCallback : 'getJson',
     success : function (response) {
+      console.log("success");
         WFSLayer = L.geoJson(response, {
             style: function (feature) {
               console.log(feature);
@@ -420,6 +421,9 @@ var ajax = $.ajax({
                     ,popupOptions);
             }
         }).addTo(map);
+    },
+    error : function (response) {
+      console.log("error");
     }
   });
 

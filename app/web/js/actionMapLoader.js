@@ -422,8 +422,12 @@ var ajax = $.ajax({
             }
         }).addTo(map);
     },
-    error : function (response) {
-      console.log("error");
+    error: function(jqXHR, exception){
+      if (jqXHR.status === 401) {
+        console.log('HTTP Error 401 Unauthorized.');
+      } else {
+        console.log('Uncaught Error.\n' + jqXHR.responseText);
+      }
     }
   });
 

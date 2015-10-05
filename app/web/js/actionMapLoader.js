@@ -384,43 +384,17 @@ function init () {
  --------------------------------------------------------------------------- */
 $(document).ready(function(){
 
-  var owsrootUrl = GEO_SRV+'/ows';
+  // Ajax request
+  var test = $.ajax({
 
-var defaultParameters = {
-    service : 'WFS',
-    version : '2.0',
-    request : 'GetFeature',
-    typeName : '<WORKSPACE:LAYERNAME - CHANGEME>',
-    outputFormat : 'text/javascript',
-    format_options : 'callback:getJson',
-    SrsName : 'EPSG:4326'
-};
-
-var parameters = L.Util.extend(defaultParameters);
-var URL = owsrootUrl + L.Util.getParamString(parameters);
-
-var WFSLayer = null;
-var ajax = $.ajax({
-    url : URL,
-    dataType : 'jsonp',
-    jsonpCallback : 'getJson',
-    success : function (response) {
-      console.log("success");
-        WFSLayer = L.geoJson(response, {
-            style: function (feature) {
-              console.log(feature);
-                return {
-                    stroke: false,
-                    fillColor: 'FFFFFF',
-                    fillOpacity: 0
-                };
-            },
-            onEachFeature: function (feature, layer) {
-                popupOptions = {maxWidth: 200};
-                layer.bindPopup("Popup text, access attributes with feature.properties.ATTRIBUTE_NAME"
-                    ,popupOptions);
-            }
-        }).addTo(map);
+    // GET Parameters
+    type: 'GET',
+    url: GEO_SRV+"/rest/workspaces/hamk-map-project/featuretypes.json",
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success: function(data){
+      alert("success");
+      console.log(data);
     },
     error: function(jqXHR, exception){
       if (jqXHR.status === 401) {
@@ -429,7 +403,6 @@ var ajax = $.ajax({
         console.log('Uncaught Error.\n' + jqXHR.responseText);
       }
     }
-  });
 
   //init();
 }); //--$(document).ready()

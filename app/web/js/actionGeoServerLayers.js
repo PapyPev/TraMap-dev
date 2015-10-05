@@ -56,8 +56,10 @@ function getGeoServerLayers(url){
 
     success: function(data){
 
-      alert("success");
-      console.log(data.featureTypes.featureType.length);
+      // Loop Layer properties
+      for (var i = 0; i < data.featureTypes.featureType.length; i++) {
+        console.log(data.featureTypes.featureType[i].name)
+      };
 
     },
     error: function(jqXHR, exception){

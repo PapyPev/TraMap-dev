@@ -108,6 +108,9 @@ function getMapLayers () {
   var listGeoServerLayer = [];
   listGeoServerLayer = getGeoServerLayers(GEO_SRV);
 
+  console.log("listOfGeoServerLayers:");
+  console.log(listGeoServerLayer);
+
   // Loop for adding to listOfLayers
   for (var i = 0; i < listGeoServerLayer.length; i++) {
     listOfLayers.push(listGeoServerLayer[i]);
@@ -253,7 +256,7 @@ function loadPopup (data) {
 function changeLayer (i, type) {
   console.log('actionMapLoader.changeLayer(' 
     + i + ',' + mapLayers[i].getType() +') -> ' + mapLayers[i].getName());
-  
+
   // If the layer is viewable
   if (mapLayers[i].getCheck()) {
     map.removeLayer(mapLayers[i].getContent()); // unload map layer

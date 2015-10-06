@@ -207,7 +207,7 @@ function loadToc (map, listOfLayers) {
   // Write to the HTML div
   $("#"+TOC_DIV_CONTENT+"").html(toc).trigger("create");
   console.log('actionMapLoader.loadToc() [html]');
-  console.log(html);
+  console.log(toc);
 }; //--- end loadToc (map, listOfLayers)
 
 /**

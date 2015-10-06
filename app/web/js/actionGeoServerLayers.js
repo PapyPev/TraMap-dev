@@ -23,7 +23,7 @@ var temp = {"type":"FeatureCollection","totalFeatures":1451275,"features":[{"typ
  * @return {json} Style properties
  --------------------------------------------------------------------------- */
 function setStyle(feature) {
-  console.log("actionGeoServerLayers.setStyle("+feature+")");
+  //console.log("actionGeoServerLayers.setStyle("+feature+")");
 
 	// Switch on class properties
     switch (feature.properties.clazz) {

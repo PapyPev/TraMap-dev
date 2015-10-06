@@ -45,63 +45,67 @@ function setStyle(feature) {
 function getGeoServerLayers(url){
   console.log("actionGeoServerLayers.getGeoServerLayers("+url+")");
 
-  
   // Return value : list of layers
   var listOfLayers = [];
 
-  // Ajax request
-  $.ajax({
+  // Waiting End of request
+  setTimeout(function () { 
+  
+    // Ajax request
+    $.ajax({
 
-    // GET Parameters
-    type: 'GET',
-    url: url+"/rest/workspaces/hamk-map-project/featuretypes.json",
-    contentType: 'application/json; charset=utf-8',
-    dataType: 'json',
+      // GET Parameters
+      type: 'GET',
+      url: url+"/rest/workspaces/hamk-map-project/featuretypes.json",
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
 
-    success: function(data){
+      success: function(data){
 
-      // Loop Layer properties
-      for (var i = 0; i < data.featureTypes.featureType.length; i++) {
+        // Loop Layer properties
+        for (var i = 0; i < data.featureTypes.featureType.length; i++) {
 
-        console.log(data.featureTypes.featureType[i].name);
+          console.log(data.featureTypes.featureType[i].name);
 
-        // Get GeoJSON layer content
-        var layerContent = new L.GeoJSON.AJAX(
-          url
-          +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
-          +"hamk-map-project:"+data.featureTypes.featureType[i].name
-          +"&maxFeatures=100&outputFormat=application/json",
-          {
-            style: setStyle
-          }
-        );
+          // Get GeoJSON layer content
+          var layerContent = new L.GeoJSON.AJAX(
+            url
+            +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
+            +"hamk-map-project:"+data.featureTypes.featureType[i].name
+            +"&maxFeatures=100&outputFormat=application/json",
+            {
+              style: setStyle
+            }
+          );
 
-        // Current classLayer
-        var layer = new Layer(
-          "Checkbox", 
-          "Data", 
-          data.featureTypes.featureType[i].name,
-          data.featureTypes.featureType[i].name,
-          i,
-          true,
-          layerContent);
+          // Current classLayer
+          var layer = new Layer(
+            "Checkbox", 
+            "Data", 
+            data.featureTypes.featureType[i].name,
+            data.featureTypes.featureType[i].name,
+            i,
+            true,
+            layerContent);
 
-        // Add to listfLayers
-        listOfLayers.push(layer);
+          // Add to listfLayers
+          listOfLayers.push(layer);
 
-      };
+        };
 
-    },
+      },
 
-    error: function(jqXHR, exception){
-      if (jqXHR.status === 401) {
-        console.log('HTTP Error 401 Unauthorized.');
-      } else {
-        console.log('Uncaught Error.\n' + jqXHR.responseText);
+      error: function(jqXHR, exception){
+        if (jqXHR.status === 401) {
+          console.log('HTTP Error 401 Unauthorized.');
+        } else {
+          console.log('Uncaught Error.\n' + jqXHR.responseText);
+        }
       }
-    }
 
-  });
+    });
+
+  }, 2000); 
 
   console.log("list:");
   console.log(listOfLayers);

@@ -39,7 +39,7 @@ function Layer(type, category, name, alias, position, checked, content) {
         checked:  checked,
         content: content
     }];
-    console.log("Constructor classLayer:" + name);
+    console.log('classLayer.Layer(' + name);
     console.log(attributesToLog);
 }
 
@@ -54,7 +54,7 @@ function Layer(type, category, name, alias, position, checked, content) {
  * @return {string} The type of layer.
  */
 Layer.prototype.getType = function(){
-    console.log("Layer.prototype.getCategory(): " + this.type);
+    console.log("classLayer.getCategory(): " + this.type);
     return this.type;
 };
 
@@ -65,7 +65,7 @@ Layer.prototype.getType = function(){
  * @return {string} The category of layer.
  */
 Layer.prototype.getCategory = function(){
-    console.log("Layer.prototype.getCategory(): " + this.category);
+    console.log("classLayer.getCategory(): " + this.category);
     return this.category;
 };
 
@@ -76,7 +76,7 @@ Layer.prototype.getCategory = function(){
  * @return {string} The name of layer.
  */
 Layer.prototype.getName = function(){
-    console.log("Layer.prototype.getName(): " + this.name);
+    console.log("classLayer.getName(): " + this.name);
     return this.name;
 };
 
@@ -87,7 +87,7 @@ Layer.prototype.getName = function(){
  * @return {string} The alias of layer.
  */
 Layer.prototype.getAlias = function(){
-    console.log("Layer.prototype.getAlias(): " + this.alias);
+    console.log("classLayer.getAlias(): " + this.alias);
     return this.alias;
 };
 
@@ -98,7 +98,7 @@ Layer.prototype.getAlias = function(){
  * @return {number} The position of layer.
  */
 Layer.prototype.getPosition = function(){
-    console.log("Layer.prototype.getPosition(): " + this.position);
+    console.log("classLayer.getPosition(): " + this.position);
     return this.position;
 };
 
@@ -109,7 +109,7 @@ Layer.prototype.getPosition = function(){
  * @return {boolean} The checked of layer.
  */
 Layer.prototype.getCheck = function(){
-    console.log("Layer.prototype.getCheck(): " + this.checked);
+    console.log("classLayer.getCheck(): " + this.checked);
     return this.checked;
 };
 
@@ -120,7 +120,7 @@ Layer.prototype.getCheck = function(){
  * @return {Object} The content of layer.
  */
 Layer.prototype.getContent = function(){
-    console.log("Layer.prototype.getContent(): " + this.content);
+    console.log("classLayer.getContent(): " + this.content);
     return this.content;
 };
 /* ============================================================================
@@ -134,7 +134,7 @@ Layer.prototype.getContent = function(){
  */
  Layer.prototype.setCheck = function(check){
     this.checked = check;
-    console.log("Layer.prototype.setCheck(): " + this.checked);
+    console.log("classLayer.setCheck(): " + this.checked);
 };
 
 /* ============================================================================
@@ -157,7 +157,7 @@ Layer.prototype.toString = function() {
         checked:  this.checked,
         content: this.content
     }];
-    console.log("Layer.prototype.toString():")
+    console.log("classLayer.toString():")
     console.log(attributesToLog);
     return JSON.stringify(attributesToLog)
 }

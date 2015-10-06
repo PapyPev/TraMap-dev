@@ -17,28 +17,13 @@ var temp = {"type":"FeatureCollection","totalFeatures":1451275,"features":[{"typ
  * FUNCTIONS
  * ========================================================================= */
 
-function ajaxLayerRequest(url) {
-
-  // Ajax request
-  return $.ajax({
-
-    // GET Parameters
-    type: 'GET',
-    url: url+"/rest/workspaces/hamk-map-project/featuretypes.json",
-    contentType: 'application/json; charset=utf-8',
-    dataType: 'json'
-
-  });
-
-};
-
 /**
  * This function gives a visual style to data
  * @param {number} feature Type's number of feature
  * @return {json} Style properties
  --------------------------------------------------------------------------- */
 function setStyle(feature) {
-  //console.log("actionGeoServerLayers.setStyle("+feature+")");
+  console.log("actionGeoServerLayers.setStyle("+feature+")");
 
 	// Switch on class properties
     switch (feature.properties.clazz) {
@@ -63,48 +48,72 @@ function getGeoServerLayers(url){
   // Return value : list of layers
   var listOfLayers = [];
 
-  $.when(ajaxLayerRequest(url).done(function(data){
+  // Ajax request
+  $.ajax({
 
-    // Loop Layer properties
-    for (var i = 0; i < data.featureTypes.featureType.length; i++) {
+    // GET Parameters
+    type: 'GET',
+    url: url+"/rest/workspaces/hamk-map-project/featuretypes.json",
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
 
-      console.log(data.featureTypes.featureType[i].name);
+    success: function(data){
 
-      // Get GeoJSON layer content
-      var layerContent = new L.GeoJSON.AJAX(
-        url
-        +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
-        +"hamk-map-project:"+data.featureTypes.featureType[i].name
-        +"&maxFeatures=100&outputFormat=application/json",
-        {
-          style: setStyle
-        }
-      );
+      // Loop Layer properties
+      for (var i = 0; i < data.featureTypes.featureType.length; i++) {
 
-      // Current classLayer
-      var layer = new Layer(
-        "Checkbox", 
-        "Data", 
-        data.featureTypes.featureType[i].name,
-        data.featureTypes.featureType[i].name,
-        i,
-        true,
-        layerContent);
+        // Get GeoJSON layer content
+        var layerContent = new L.GeoJSON.AJAX(
+          url
+          +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
+          +"hamk-map-project:"+data.featureTypes.featureType[i].name
+          +"&maxFeatures=100&outputFormat=application/json",
+          {
+            style: setStyle
+          }
+        );
 
-      // Add to listfLayers
-      listOfLayers.push(layer);
+        console.log('actionGeoServerLayers.getGeoServerLayers() ['
+          + data.featureTypes.featureType[i].name + '].content');
+        console.log(layerContent);
 
-    };
+        // Current classLayer
+        var layer = new Layer(
+          "Checkbox", 
+          "Data", 
+          data.featureTypes.featureType[i].name,
+          data.featureTypes.featureType[i].name,
+          i,
+          true,
+          layerContent);
 
-  }));
+        console.log('actionGeoServerLayers.getGeoServerLayers() ['
+          + data.featureTypes.featureType[i].name + '] classLayer');
+        console.log(layerContent);
 
-  console.log("list:");
+        // Add to listfLayers
+        listOfLayers.push(layer);
+
+      };
+
+    },
+
+    error: function(jqXHR, exception){
+      if (jqXHR.status === 401) {
+        console.log('HTTP Error 401 Unauthorized.');
+      } else {
+        console.log('Uncaught Error.\n' + jqXHR.responseText);
+      }
+    }
+
+  });
+
+  console.log('actionGeoServerLayers.getGeoServerLayers() [listOfLayers]'); 
   console.log(listOfLayers);
-
-  
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+  /*
   // TODO : Loop to get all layers
 
 	var alias = "hamk-map-project:fin_2po_4pgr";
@@ -132,6 +141,7 @@ function getGeoServerLayers(url){
   );
 
   //listOfLayers.push(l1);
+  */
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -20,7 +20,7 @@ var TOKEN = 'pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFm
 // Default Map center
 var DEFAULT_CENTER = [60.631808, 24.857865];
 // Default Zoom scale
-var DEFAULT_ZOOM = 8;
+var DEFAULT_ZOOM = 10;
 
 // Div (on index.html) will receive TOC and popup content
 var TOC_DIV_TITLE = 'toc-title';
@@ -94,9 +94,9 @@ function getMapLayers () {
   var bgLightM = new Layer("Radio", "Background", 
     "bgLight", "MapBox : Light", 0, false, bgLight);
   var bgDarktM = new Layer("Radio", "Background", 
-    "bgDark", "MapBox : Dark", 1, true, bgDark);
+    "bgDark", "MapBox : Dark", 1, false, bgDark);
   var bgStreetM = new Layer("Radio", "Background", 
-    "bgStreet", "MapBox : Street", 2, false, bgStreet);
+    "bgStreet", "MapBox : Street", 2, true, bgStreet);
 
   // Add Tiles to default loaded map layers
   listOfLayers.push(bgLightM, bgDarktM, bgStreetM);
@@ -108,15 +108,12 @@ function getMapLayers () {
   var listGeoServerLayer = [];
   listGeoServerLayer = getGeoServerLayers(GEO_SRV);
 
-  console.log("listOfGeoServerLayers:");
-  console.log(listGeoServerLayer);
-
   // Loop for adding to listOfLayers
   for (var i = 0; i < listGeoServerLayer.length; i++) {
     listOfLayers.push(listGeoServerLayer[i]);
   };
 
-  console.log("loadTOC -- list of layers");
+  console.log("actionMapLoader.getMapLayers() [listOfLayers]:");
   console.log(listOfLayers);
 
   // TODO : sort layers by category
@@ -209,6 +206,8 @@ function loadToc (map, listOfLayers) {
 
   // Write to the HTML div
   $("#"+TOC_DIV_CONTENT+"").html(toc).trigger("create");
+  console.log('actionMapLoader.loadToc() [html]');
+  console.log(html);
 }; //--- end loadToc (map, listOfLayers)
 
 /**
@@ -378,7 +377,6 @@ function init () {
     }
 
   });
-
 }; //--- end init ()
 
 /* ============================================================================

@@ -108,6 +108,8 @@ function getMapLayers () {
   var listGeoServerLayer = [];
   listGeoServerLayer = getGeoServerLayers(GEO_SRV);
 
+  sleep(2000);
+
   console.log("listOfGeoServerLayers:");
   console.log(listGeoServerLayer);
 

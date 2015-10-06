@@ -18,9 +18,9 @@ var PROJ = 'EPSG:3857';
 var TOKEN = 'pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ'
 
 // Default Map center
-var DEFAULT_CENTER = [50.075537, 14.425112];
+var DEFAULT_CENTER = [60.631808, 24.857865];
 // Default Zoom scale
-var DEFAULT_ZOOM = 7;
+var DEFAULT_ZOOM = 8;
 
 // Div (on index.html) will receive TOC and popup content
 var TOC_DIV_TITLE = 'toc-title';

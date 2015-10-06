@@ -17,6 +17,21 @@ var temp = {"type":"FeatureCollection","totalFeatures":1451275,"features":[{"typ
  * FUNCTIONS
  * ========================================================================= */
 
+function ajaxLayerRequest(url) {
+
+  // Ajax request
+  return $.ajax({
+
+    // GET Parameters
+    type: 'GET',
+    url: url+"/rest/workspaces/hamk-map-project/featuretypes.json",
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json'
+
+  });
+
+};
+
 /**
  * This function gives a visual style to data
  * @param {number} feature Type's number of feature
@@ -48,64 +63,40 @@ function getGeoServerLayers(url){
   // Return value : list of layers
   var listOfLayers = [];
 
-  // Waiting End of request
-  setTimeout(function () { 
-  
-    // Ajax request
-    $.ajax({
+  $.when(ajaxLayerRequest(url).done(function(data){
 
-      // GET Parameters
-      type: 'GET',
-      url: url+"/rest/workspaces/hamk-map-project/featuretypes.json",
-      contentType: 'application/json; charset=utf-8',
-      dataType: 'json',
+    // Loop Layer properties
+    for (var i = 0; i < data.featureTypes.featureType.length; i++) {
 
-      success: function(data){
+      console.log(data.featureTypes.featureType[i].name);
 
-        // Loop Layer properties
-        for (var i = 0; i < data.featureTypes.featureType.length; i++) {
-
-          console.log(data.featureTypes.featureType[i].name);
-
-          // Get GeoJSON layer content
-          var layerContent = new L.GeoJSON.AJAX(
-            url
-            +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
-            +"hamk-map-project:"+data.featureTypes.featureType[i].name
-            +"&maxFeatures=100&outputFormat=application/json",
-            {
-              style: setStyle
-            }
-          );
-
-          // Current classLayer
-          var layer = new Layer(
-            "Checkbox", 
-            "Data", 
-            data.featureTypes.featureType[i].name,
-            data.featureTypes.featureType[i].name,
-            i,
-            true,
-            layerContent);
-
-          // Add to listfLayers
-          listOfLayers.push(layer);
-
-        };
-
-      },
-
-      error: function(jqXHR, exception){
-        if (jqXHR.status === 401) {
-          console.log('HTTP Error 401 Unauthorized.');
-        } else {
-          console.log('Uncaught Error.\n' + jqXHR.responseText);
+      // Get GeoJSON layer content
+      var layerContent = new L.GeoJSON.AJAX(
+        url
+        +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
+        +"hamk-map-project:"+data.featureTypes.featureType[i].name
+        +"&maxFeatures=100&outputFormat=application/json",
+        {
+          style: setStyle
         }
-      }
+      );
 
-    });
+      // Current classLayer
+      var layer = new Layer(
+        "Checkbox", 
+        "Data", 
+        data.featureTypes.featureType[i].name,
+        data.featureTypes.featureType[i].name,
+        i,
+        true,
+        layerContent);
 
-  }, 2000); 
+      // Add to listfLayers
+      listOfLayers.push(layer);
+
+    };
+
+  }
 
   console.log("list:");
   console.log(listOfLayers);

@@ -45,7 +45,7 @@ function setStyle(feature) {
 function getGeoServerLayers(url){
   console.log("actionGeoServerLayers.getGeoServerLayers("+url+")");
 
-  /*
+  
   // Return value : list of layers
   var listOfLayers = [];
 
@@ -106,7 +106,7 @@ function getGeoServerLayers(url){
   console.log("list:");
   console.log(listOfLayers);
 
-  */
+  
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -139,9 +139,9 @@ function getGeoServerLayers(url){
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   // Return temp classLayer  
-	return [l1];
+	//return [l1];
 
   // Return tab of classLayers
-  //return listOfLayers;
+  return listOfLayers;
 }; //--- end getGeoServerLayers(url){
 

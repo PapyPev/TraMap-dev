@@ -39,7 +39,7 @@ function Layer(type, category, name, alias, position, checked, content) {
         checked:  checked,
         content: content
     }];
-    console.log("Constructor classLayer:")
+    console.log("Constructor classLayer:" + name);
     console.log(attributesToLog);
 }
 

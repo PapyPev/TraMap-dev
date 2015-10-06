@@ -136,7 +136,7 @@ function getGeoServerLayers(url){
     myLayer
   );
 
-  listOfLayers.push(l1);
+  //listOfLayers.push(l1);
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -96,7 +96,7 @@ function getGeoServerLayers(url){
 
     };
 
-  });
+  }));
 
   console.log("list:");
   console.log(listOfLayers);

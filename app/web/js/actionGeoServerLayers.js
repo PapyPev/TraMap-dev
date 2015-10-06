@@ -136,6 +136,8 @@ function getGeoServerLayers(url){
     myLayer
   );
 
+  listOfLayers.push(l1);
+
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   // Return temp classLayer  

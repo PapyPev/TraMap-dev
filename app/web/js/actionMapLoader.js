@@ -253,6 +253,7 @@ function loadPopup (data) {
 function changeLayer (i, type) {
   console.log('actionMapLoader.changeLayer(' 
     + i + ',' + mapLayers[i].getType() +') -> ' + mapLayers[i].getName());
+  
   // If the layer is viewable
   if (mapLayers[i].getCheck()) {
     map.removeLayer(mapLayers[i].getContent()); // unload map layer

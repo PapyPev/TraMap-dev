@@ -23,7 +23,7 @@ var temp = {"type":"FeatureCollection","totalFeatures":1451275,"features":[{"typ
  * @return {json} Style properties
  --------------------------------------------------------------------------- */
 function setStyle(feature) {
-    console.log("actionGeoServerLayers.setStyle("+feature+")");
+  //console.log("actionGeoServerLayers.setStyle("+feature+")");
 
 	// Switch on class properties
     switch (feature.properties.clazz) {
@@ -66,15 +66,15 @@ function getGeoServerLayers(url){
         console.log(data.featureTypes.featureType[i].name);
 
         // Get GeoJSON layer content
-          var layerContent = new L.GeoJSON.AJAX(
-            url
-            +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
-            +"hamk-map-project:"+data.featureTypes.featureType[i].name
-            +"&maxFeatures=100&outputFormat=application/json",
-            {
-              style: setStyle
-            }
-          );
+        var layerContent = new L.GeoJSON.AJAX(
+          url
+          +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
+          +"hamk-map-project:"+data.featureTypes.featureType[i].name
+          +"&maxFeatures=100&outputFormat=application/json",
+          {
+            style: setStyle
+          }
+        );
 
         // Current classLayer
         var layer = new Layer(

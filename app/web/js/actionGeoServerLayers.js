@@ -68,7 +68,7 @@ function getGeoServerLayers(url, user, password, repository){
     var x=xmlDoc.getElementsByTagName("FeatureTypeList");
     for (i=0;i<x.length;i++)
     { 
-        console.log(document.write(x[i].getElementsByTagName("FeatyreType")[0].childNodes[0].nodeValue));
+        console.log(x[i]);
     }
   }
 

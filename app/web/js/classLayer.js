@@ -39,7 +39,7 @@ function Layer(type, category, name, alias, position, checked, content) {
         checked:  checked,
         content: content
     }];
-    console.log('classLayer.Layer(' + name);
+    console.log('classLayer.Layer(' + name + ')');
     console.log(attributesToLog);
 }
 

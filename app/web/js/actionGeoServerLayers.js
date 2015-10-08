@@ -64,7 +64,7 @@ function getGeoServerLayers(url, user, password, repository){
 
       console.log(data);
 
-      
+      console.log(document.getElementById("#document"));
 
     },
 

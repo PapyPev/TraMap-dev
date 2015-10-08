@@ -231,6 +231,9 @@ function getGeoServerLayers(url, user, password, repository){
   // Return temp classLayer  
 	//return [l1];
 
+  console.log(">>listOfLayers");
+  console.log(listOfLayers);
+
   // Return tab of classLayers
   return listOfLayers;
 }; //--- end getGeoServerLayers(url){

@@ -51,6 +51,7 @@ function getGeoServerLayers(url, user, password, repository){
   // Return value : list of layers
   var listOfLayers = [];
 
+  // Prepare POST Request to Geoserver for GetCapabilities XML File
   if (window.XMLHttpRequest)
   {// code for IE7+, Firefox, Chrome, Opera, Safari
       xmlhttp=new XMLHttpRequest();
@@ -60,32 +61,50 @@ function getGeoServerLayers(url, user, password, repository){
       xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
   }
 
+  // Callback function after sent the request
   xmlhttp.onload = function() {
 
+    // Prepare the xmlVariable
     var xmlDoc = new DOMParser().parseFromString(
       xmlhttp.responseText,'text/xml');
 
-    console.log(xmlDoc);
-
+    // Get layer list
     var x = xmlDoc.getElementsByTagName("FeatureTypeList");
 
-    for (i=0;i<x.length;i++)
-    { 
-        console.log(x[i]);
+    // Loop Layer Layer's list
+    for (i=0;i<x.length;i++){ 
 
-        var y = x[i].getElementsByTagName("FeatureType");
+      // Get layer child on the layer's list
+      var y = x[i].getElementsByTagName("FeatureType");
 
-        console.log(y);
+      // Loop on layer's properties
+      for (var i = 0; i < y.length; i++) {
 
-        for (var i = 0; i < y.length; i++) {
-          console.log(y[i].getElementsByTagName("Title")[0].childNodes[0].nodeValue);
-        };
+        // Save layer Name
+        var layerName = y[i].getElementsByTagName("Title")[0].childNodes[0].nodeValue;
 
-    }
-  }
+        // Get GeoJSON layer content
+        var layerContent = new L.GeoJSON.AJAX(
+          url
+          +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
+          +repository+layerName
+          +"&maxFeatures=100&outputFormat=application/json",
+          {
+            style: setStyle
+          }
+        );
 
+        console.log('layerContent');
+        console.log(layerContent);
+
+      };
+    }; // end Loop Layer Layer's list
+
+  } // end xmlhttp.onload = function()
+
+  // Request for GetCapabilities
   xmlhttp.open(
-    "GET",
+    "POST",
     url+'/'+repository+'/ows?SERVICE=WFS&REQUEST=GetCapabilities',
     true, 
     user, 

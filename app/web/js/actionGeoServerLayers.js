@@ -106,7 +106,7 @@ function getGeoServerLayers(url, user, password, repository){
         );
 
         // Add to list of layers
-        listOfLayers.push(layerContent);
+        listOfLayers.push(layer);
 
       };
     }; // end Loop Layer Layer's list

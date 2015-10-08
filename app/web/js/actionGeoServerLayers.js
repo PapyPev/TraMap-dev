@@ -78,7 +78,7 @@ function getGeoServerLayers(url, user, password, repository){
         console.log(y);
 
         for (var i = 0; i < y.length; i++) {
-          console.log(y[i].getElementsByTagName("Title")[0].text);
+          console.log(y[i].getElementsByTagName("Title").value);
         };
 
     }

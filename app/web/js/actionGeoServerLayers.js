@@ -53,7 +53,7 @@ function getGeoServerLayers(url, user, password){
 
     // GET Parameters
     type: 'GET',
-    url: url+'/rest/workspaces/hamk-map-project/featuretypes.json?user='+user+'&password='password,
+    url: url+'/rest/workspaces/hamk-map-project/featuretypes.json?user='+user+'&password='+password,
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
 

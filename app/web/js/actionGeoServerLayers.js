@@ -48,6 +48,35 @@ function getGeoServerLayers(url, user, password){
   // Return value : list of layers
   var listOfLayers = [];
 
+  $.ajax({
+
+    // POST Parameters
+    type: 'POST',
+    url: url+'/rest/workspaces/hamk-map-project/featuretypes.json?user='+user+'&password='+password,
+    contentType: 'text/xml; charset=utf-8',
+    dataType: 'xml',
+
+    success: function (data) {
+
+      alert('success');
+      console.log(data);
+
+    },
+
+    error: function(jqXHR, exception){
+      if (jqXHR.status === 401) {
+        console.log('HTTP Error 401 Unauthorized.');
+      } else {
+        console.log('Uncaught Error.\n' + jqXHR.responseText);
+      }
+    }
+
+  });
+
+
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~ NOK ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  /*
   // Ajax request
   $.ajax({
 
@@ -110,6 +139,10 @@ function getGeoServerLayers(url, user, password){
 
   console.log('actionGeoServerLayers.getGeoServerLayers() [listOfLayers]'); 
   console.log(listOfLayers);
+
+  */
+
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~ NOK ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

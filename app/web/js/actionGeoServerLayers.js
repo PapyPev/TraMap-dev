@@ -87,7 +87,7 @@ function getGeoServerLayers(url, user, password, repository){
         var layerContent = new L.GeoJSON.AJAX(
           url
           +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
-          +repository+layerName
+          +repository+":"+layerName
           +"&maxFeatures=100&outputFormat=application/json",
           {
             style: setStyle

@@ -83,6 +83,8 @@ function getGeoServerLayers(url, user, password, repository){
         // Save layer Name
         var layerName = y[i].getElementsByTagName("Title")[0].childNodes[0].nodeValue;
 
+        console.log(layerName);
+
         // Get GeoJSON layer content
         var layerContent = new L.GeoJSON.AJAX(
           url

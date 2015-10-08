@@ -64,7 +64,16 @@ function getGeoServerLayers(url, user, password, repository){
 
       console.log(data);
 
-      console.log(data.getElementsByTagName("FeatureTypeList")[0].childNodes[0].text);
+      // use the tool to parse the data
+      var response = (formatter.read(data));
+
+      // this object contains all the GetCapabilities data
+      var capability = response.capability;
+
+      // I want a list of names to use in my queries
+      for(var i = 0; i < capability.layers.length; i ++){
+          layers.push(capability.layers[i].name);
+      }
 
     },
 

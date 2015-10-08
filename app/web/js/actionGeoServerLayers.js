@@ -51,8 +51,6 @@ function getGeoServerLayers(url, user, password, repository){
   // Return value : list of layers
   var listOfLayers = [];
 
-  
-
   // Prepare POST Request to Geoserver for GetCapabilities XML File
   if (window.XMLHttpRequest)
   {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -100,7 +98,6 @@ function getGeoServerLayers(url, user, password, repository){
           }
         );
 
-        setTimeout(function() {
         // Add to list of layers
         listOfLayers.push(new Layer(
           "Checkbox", 
@@ -111,8 +108,6 @@ function getGeoServerLayers(url, user, password, repository){
           true,
           layerContent
         ));
-
-        }, 10000);
 
       }; // end Loop on layer's properties
 
@@ -128,7 +123,10 @@ function getGeoServerLayers(url, user, password, repository){
     user, 
     password
   );
+
+  setTimeout(function() {
   xmlhttp.send();
+  }, 10000);
 
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

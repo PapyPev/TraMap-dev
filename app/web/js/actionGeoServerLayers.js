@@ -52,7 +52,7 @@ function getGeoServerLayers(url, user, password){
 
     // POST Parameters
     type: 'POST',
-    url: url+'/ows?SERVICE=WFS&REQUEST=GetCapabilities?user=\''+user+'\'&password=\''+password+'\'',
+    url: url+'/ows?SERVICE=WFS&REQUEST=GetCapabilities&user=\''+user+'\'&password=\''+password+'\'',
     contentType: 'text/xml; charset=utf-8',
     dataType: 'xml',
 

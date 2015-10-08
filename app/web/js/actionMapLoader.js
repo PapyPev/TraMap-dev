@@ -110,8 +110,8 @@ function getMapLayers () {
 
   // Get GeoServer Layer
   var listGeoServerLayer = [];
-  listGeoServerLayer = getGeoServerLayers(
-    GEO_SRV, GEO_USER, GEO_PASS, GEO_REPO);
+  listGeoServerLayer = getGeoServerLayers(GEO_SRV, 
+    GEO_USER, GEO_PASS, GEO_REPO);
 
   // Loop for adding to listOfLayers
   for (var i = 0; i < listGeoServerLayer.length; i++) {

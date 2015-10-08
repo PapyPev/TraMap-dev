@@ -64,9 +64,9 @@ function getGeoServerLayers(url, user, password, repository){
   xmlhttp.send();
 
   var xmlDoc = xmlhttp.responseXML;
-  var root = xmlDoc.getElementsByTagName('FeatureTypeList');
+  //var root = xmlDoc.getElementsByTagName('FeatureTypeList');
 
-  console.log(root);
+  console.log(xmlDoc);
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ NOK ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

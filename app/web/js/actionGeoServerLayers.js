@@ -94,8 +94,8 @@ function getGeoServerLayers(url, user, password, repository){
           }
         );
 
-        // Create the classLayer
-        var layer = new Layer(
+        // Add to list of layers
+        listOfLayers.push(new Layer(
           "Checkbox", 
           "Data", 
           layerName,
@@ -103,10 +103,7 @@ function getGeoServerLayers(url, user, password, repository){
           i,
           true,
           layerContent
-        );
-
-        // Add to list of layers
-        listOfLayers.push(layer);
+        ));
 
       }; // end Loop on layer's properties
 

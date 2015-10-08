@@ -94,8 +94,19 @@ function getGeoServerLayers(url, user, password, repository){
           }
         );
 
-        console.log('layerContent');
-        console.log(layerContent);
+        // Create the classLayer
+        var layer = new Layer(
+          "Checkbox", 
+          "Data", 
+          layerName,
+          layerName,
+          i,
+          true,
+          layerContent
+        );
+
+        // Add to list of layers
+        listOfLayers.push(layerContent);
 
       };
     }; // end Loop Layer Layer's list

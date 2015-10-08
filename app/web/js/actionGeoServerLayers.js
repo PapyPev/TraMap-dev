@@ -40,9 +40,12 @@ function setStyle(feature) {
 /**
  * This function gives a visual style to data
  * @param {string} url GeoServer OWS access
+ * @param {string} user Username
+ * @param {string} password User password
+ * @param {string) repository Project repository on Geoserver
  * @preturn {Layer} Return a classLayer object with his properties 
  --------------------------------------------------------------------------- */
-function getGeoServerLayers(url, user, password){
+function getGeoServerLayers(url, user, password, repository){
   console.log("actionGeoServerLayers.getGeoServerLayers("+url+")");
 
   // Return value : list of layers
@@ -52,7 +55,8 @@ function getGeoServerLayers(url, user, password){
 
     // POST Parameters
     type: 'POST',
-    url: url+'/ows?SERVICE=WFS&REQUEST=GetCapabilities&user=\''+user+'\'&password=\''+password+'\'',
+    url: url+'/'+repository+'/ows?SERVICE=WFS&REQUEST=GetCapabilities&user=\''
+      +user+'\'&password=\''+password+'\'',
     contentType: 'text/xml; charset=utf-8',
     dataType: 'xml',
 

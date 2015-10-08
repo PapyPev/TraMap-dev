@@ -12,6 +12,7 @@
 
 // Geoserver parameters
 var GEO_SRV = 'http://172.18.138.171/geoserver';
+var GEO_REPO = 'hamk-map-project';
 var GEO_USER = 'admin';
 var GEO_PASS = 'geoserver';
 
@@ -109,7 +110,8 @@ function getMapLayers () {
 
   // Get GeoServer Layer
   var listGeoServerLayer = [];
-  listGeoServerLayer = getGeoServerLayers(GEO_SRV, GEO_USER, GEO_PASS);
+  listGeoServerLayer = getGeoServerLayers(
+    GEO_SRV, GEO_USER, GEO_PASS, GEO_REPO);
 
   // Loop for adding to listOfLayers
   for (var i = 0; i < listGeoServerLayer.length; i++) {

@@ -126,7 +126,7 @@ function getGeoServerLayers(url, user, password, repository){
 
   setTimeout(function() {
   xmlhttp.send();
-  }, 10000);
+  
 
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -171,7 +171,7 @@ function getGeoServerLayers(url, user, password, repository){
 
   // Return tab of classLayers
   return listOfLayers;
-
+  }, 10000);
 
 }; //--- end getGeoServerLayers(url){
 

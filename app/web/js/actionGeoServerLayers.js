@@ -55,8 +55,7 @@ function getGeoServerLayers(url, user, password, repository){
 
   xmlhttp.open(
     "POST",
-    url+'/'+repository
-      +'/ows?SERVICE=WFS&REQUEST=GetCapabilities',
+    url+'/'+repository+'/ows?SERVICE=WFS&REQUEST=GetCapabilities',
     true, 
     user, 
     password
@@ -67,12 +66,7 @@ function getGeoServerLayers(url, user, password, repository){
   var xmlDoc = xmlhttp.responseXML;
   var root = xmlDoc.getElementsByTagName('FeatureTypeList');
 
-  for(var i=0, i<root[0].childNodes.length,i++){
-      //Create a new row for tbody
-      var tr = document.createElement('tr');
-      document.getElementById('tbody').appendChild(tr);
-      console.log(root[0].childNodes.name);
-  }
+  console.log(root);
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ NOK ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

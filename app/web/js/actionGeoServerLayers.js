@@ -51,35 +51,28 @@ function getGeoServerLayers(url, user, password, repository){
   // Return value : list of layers
   var listOfLayers = [];
 
-  $.ajax({
+  xmlhttp = new XMLHttpRequest();
 
-    // POST Parameters
-    type: 'POST',
-    url: url+'/'+repository+'/ows?SERVICE=WFS&REQUEST=GetCapabilities&user=\''
-      +user+'\'&password=\''+password+'\'',
-    contentType: 'text/xml; charset=utf-8',
-    dataType: 'xml',
+  xmlhttp.open(
+    "POST",
+    url+'/'+repository
+      +'/ows?SERVICE=WFS&REQUEST=GetCapabilities',
+    true, 
+    user, 
+    password
+  );
 
-    success: function (data) {
+  xmlhttp.send();
 
-      console.log(data);
+  var xmlDoc = xmlhttp.responseXML;
+  var root = xmlDoc.getElementsByTagName('FeatureTypeList');
 
-      txt = data.getElementsByTagName("WFS_Capabilities")[0].childNodes[0].nodeValue;
-
-      console.log (txt);
-
-    },
-
-    error: function(jqXHR, exception){
-      if (jqXHR.status === 401) {
-        console.log('HTTP Error 401 Unauthorized.');
-      } else {
-        console.log('Uncaught Error.\n' + jqXHR.responseText);
-      }
-    }
-
-  });
-
+  for(var i=0, i<root[0].childNodes.length,i++){
+      //Create a new row for tbody
+      var tr = document.createElement('tr');
+      document.getElementById('tbody').appendChild(tr);
+      console.log(root[0].childNodes.name);
+  }
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ NOK ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

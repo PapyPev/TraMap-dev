@@ -114,6 +114,7 @@ function getMapLayers () {
 
   // Loop for adding to listOfLayers
   for (var i = 0; i < listGeoServerLayer.length; i++) {
+    console.log(listGeoServerLayer[i]);
     listOfLayers.push(listGeoServerLayer[i]);
   };
 

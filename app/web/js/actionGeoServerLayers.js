@@ -62,7 +62,8 @@ function getGeoServerLayers(url, user, password, repository){
 
   xmlhttp.onload = function() {
 
-    var xmlDoc = new DOMParser().parseFromString(xmlhttp.responseText,'text/xml');
+    var xmlDoc = new DOMParser().parseFromString(
+      xmlhttp.responseText,'text/xml');
 
     console.log(xmlDoc);
 
@@ -76,11 +77,20 @@ function getGeoServerLayers(url, user, password, repository){
 
         console.log(y);
 
+        for (var i = 0; i < y.length; i++) {
+          console.log(y[i]);
+        };
+
     }
   }
 
-
-  xmlhttp.open("GET",url+'/'+repository+'/ows?SERVICE=WFS&REQUEST=GetCapabilities',true, user, password);
+  xmlhttp.open(
+    "GET",
+    url+'/'+repository+'/ows?SERVICE=WFS&REQUEST=GetCapabilities',
+    true, 
+    user, 
+    password
+  );
   xmlhttp.send();
 
 

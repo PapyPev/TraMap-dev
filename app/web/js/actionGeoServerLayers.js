@@ -124,76 +124,6 @@ function getGeoServerLayers(url, user, password, repository){
   xmlhttp.send();
 
 
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~ NOK ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  /*
-  // Ajax request
-  $.ajax({
-
-    // GET Parameters
-    type: 'GET',
-    url: url+'/rest/workspaces/hamk-map-project/featuretypes.json?user='+user+'&password='+password,
-    contentType: 'application/json; charset=utf-8',
-    dataType: 'json',
-
-    success: function(data){
-
-      // Loop Layer properties
-      for (var i = 0; i < data.featureTypes.featureType.length; i++) {
-
-        // Get GeoJSON layer content
-        var layerContent = new L.GeoJSON.AJAX(
-          url
-          +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
-          +"hamk-map-project:"+data.featureTypes.featureType[i].name
-          +"&maxFeatures=100&outputFormat=application/json",
-          {
-            style: setStyle
-          }
-        );
-
-        console.log('actionGeoServerLayers.getGeoServerLayers() ['
-          + data.featureTypes.featureType[i].name + '].content');
-        console.log(layerContent);
-
-        // Current classLayer
-        var layer = new Layer(
-          "Checkbox", 
-          "Data", 
-          data.featureTypes.featureType[i].name,
-          data.featureTypes.featureType[i].name,
-          i,
-          true,
-          layerContent);
-
-        console.log('actionGeoServerLayers.getGeoServerLayers() ['
-          + data.featureTypes.featureType[i].name + '] classLayer');
-        console.log(layerContent);
-
-        // Add to listfLayers
-        listOfLayers.push(layer);
-
-      };
-
-    },
-
-    error: function(jqXHR, exception){
-      if (jqXHR.status === 401) {
-        console.log('HTTP Error 401 Unauthorized.');
-      } else {
-        console.log('Uncaught Error.\n' + jqXHR.responseText);
-      }
-    }
-
-  });
-
-  console.log('actionGeoServerLayers.getGeoServerLayers() [listOfLayers]'); 
-  console.log(listOfLayers);
-
-  */
-
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~ NOK ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   /*
@@ -235,6 +165,6 @@ function getGeoServerLayers(url, user, password, repository){
   console.log(listOfLayers);
 
   // Return tab of classLayers
-  return listOfLayers;
+  return [listOfLayers];
 }; //--- end getGeoServerLayers(url){
 

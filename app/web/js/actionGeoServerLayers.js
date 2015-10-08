@@ -51,22 +51,33 @@ function getGeoServerLayers(url, user, password, repository){
   // Return value : list of layers
   var listOfLayers = [];
 
-  xmlhttp = new XMLHttpRequest();
+  $.ajax({
 
-  xmlhttp.open(
-    "POST",
-    url+'/'+repository+'/ows?SERVICE=WFS&REQUEST=GetCapabilities',
-    true, 
-    user, 
-    password
-  );
+    // POST Parameters
+    type: 'POST',
+    url: url+'/'+repository+'/ows?SERVICE=WFS&REQUEST=GetCapabilities&user=\''
+      +user+'\'&password=\''+password+'\'',
+    contentType: 'text/xml; charset=utf-8',
+    dataType: 'xml',
 
-  xmlhttp.send();
+    success: function (data) {
 
-  var xmlDoc = xmlhttp.responseXML;
-  //var root = xmlDoc.getElementsByTagName('FeatureTypeList');
+      console.log(data);
 
-  console.log(xmlDoc);
+      //console.log(data.getElementsByName(WFS_))
+
+    },
+
+    error: function(jqXHR, exception){
+      if (jqXHR.status === 401) {
+        console.log('HTTP Error 401 Unauthorized.');
+      } else {
+        console.log('Uncaught Error.\n' + jqXHR.responseText);
+      }
+    }
+
+  });
+
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ NOK ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

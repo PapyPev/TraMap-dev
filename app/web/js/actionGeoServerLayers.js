@@ -65,10 +65,10 @@ function getGeoServerLayers(url, user, password, repository){
       console.log(data);
 
       // use the tool to parse the data
-      var response = (formatter.read(data));
+      //var response = (formatter.read(data));
 
       // this object contains all the GetCapabilities data
-      var capability = response.capability;
+      var capability = data.capability;
 
       // I want a list of names to use in my queries
       for(var i = 0; i < capability.layers.length; i ++){

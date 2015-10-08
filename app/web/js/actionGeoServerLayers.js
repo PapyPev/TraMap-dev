@@ -51,6 +51,8 @@ function getGeoServerLayers(url, user, password, repository){
   // Return value : list of layers
   var listOfLayers = [];
 
+  setTimeout(function() {
+
   // Prepare POST Request to Geoserver for GetCapabilities XML File
   if (window.XMLHttpRequest)
   {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -168,5 +170,7 @@ function getGeoServerLayers(url, user, password, repository){
 
   // Return tab of classLayers
   return listOfLayers;
+
+}, 10000);
 }; //--- end getGeoServerLayers(url){
 

@@ -115,10 +115,7 @@ function getMapLayers () {
   // Loop for adding to listOfLayers
   for (var i = 0; i < listGeoServerLayer.length; i++) {
     console.log(listGeoServerLayer[i]);
-    setTimeout(function() {
-      listOfLayers.push(listGeoServerLayer[i]);
-    }, 3000);
-    
+    listOfLayers.push(listGeoServerLayer[i]);
   };
 
   console.log("actionMapLoader.getMapLayers() [listOfLayers]:");

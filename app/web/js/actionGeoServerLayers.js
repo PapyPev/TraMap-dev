@@ -108,7 +108,8 @@ function getGeoServerLayers(url, user, password, repository){
         // Add to list of layers
         listOfLayers.push(layer);
 
-      };
+      }; // end Loop on layer's properties
+
     }; // end Loop Layer Layer's list
 
   } // end xmlhttp.onload = function()
@@ -164,7 +165,9 @@ function getGeoServerLayers(url, user, password, repository){
   console.log(">>listOfLayers");
   console.log(listOfLayers);
 
+  var test = new Array(listOfLayers);
+
   // Return tab of classLayers
-  return listOfLayers;
+  return test;
 }; //--- end getGeoServerLayers(url){
 

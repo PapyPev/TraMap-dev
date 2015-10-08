@@ -10,8 +10,11 @@
  * CONSTANTS
  * ========================================================================= */
 
-// URL for GeoServer access
+// Geoserver parameters
 var GEO_SRV = 'http://172.18.138.171/geoserver';
+var GEO_USER = 'admin';
+var GEO_PASS = 'geoserver';
+
 // Default Map projection
 var PROJ = 'EPSG:3857';
 // MapBox Token for 
@@ -106,7 +109,7 @@ function getMapLayers () {
 
   // Get GeoServer Layer
   var listGeoServerLayer = [];
-  listGeoServerLayer = getGeoServerLayers(GEO_SRV);
+  listGeoServerLayer = getGeoServerLayers(GEO_SRV, GEO_USER, GEO_PASS);
 
   // Loop for adding to listOfLayers
   for (var i = 0; i < listGeoServerLayer.length; i++) {

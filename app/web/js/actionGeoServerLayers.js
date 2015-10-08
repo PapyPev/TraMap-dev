@@ -42,7 +42,7 @@ function setStyle(feature) {
  * @param {string} url GeoServer OWS access
  * @preturn {Layer} Return a classLayer object with his properties 
  --------------------------------------------------------------------------- */
-function getGeoServerLayers(url){
+function getGeoServerLayers(url, user, password){
   console.log("actionGeoServerLayers.getGeoServerLayers("+url+")");
 
   // Return value : list of layers
@@ -53,7 +53,7 @@ function getGeoServerLayers(url){
 
     // GET Parameters
     type: 'GET',
-    url: url+"/rest/workspaces/hamk-map-project/featuretypes.json",
+    url: url+'/rest/workspaces/hamk-map-project/featuretypes.json?user='+user+'&password='password,
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
 

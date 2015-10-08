@@ -102,7 +102,7 @@ function getGeoServerLayers(url, user, password, repository){
           layerName,
           i,
           true,
-          JSON.stringify(layerContent)
+          layerContent
         );
 
         // Add to list of layers

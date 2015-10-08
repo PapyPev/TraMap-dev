@@ -64,7 +64,7 @@ function getGeoServerLayers(url, user, password, repository){
 
       console.log(data);
 
-      console.log(document.getElementById("wfs:WFS_Capabilities").DOCUMENT_NODE);
+      console.log(data.DOCUMENT_NODE);
 
     },
 

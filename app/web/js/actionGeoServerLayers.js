@@ -65,10 +65,9 @@ function getGeoServerLayers(url, user, password, repository){
       console.log(data);
 
       var xml = data,
-        xmlDoc = $.parseXML( xml ),
-        $xml = $( xmlDoc );
+        xmlDoc = $.parseXML( xml );
 
-      console.log($xml);
+      console.log(xmlDoc);
 
     },
 

@@ -64,7 +64,7 @@ function getGeoServerLayers(url, user, password, repository){
 
       console.log(data);
 
-      //console.log(data.getElementsByName(WFS_))
+      console.log(data.getElementsByName('WFS_Capabilities')[0]);
 
     },
 

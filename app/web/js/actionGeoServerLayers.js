@@ -49,7 +49,7 @@ function getGeoServerLayers(url, user, password, repository){
   console.log("actionGeoServerLayers.getGeoServerLayers("+url+")");
 
   // Return value : list of layers
-  var listOfLayers = [new Layer(null, null, null, null, null, null, null)];
+  var listOfLayers = [];
 
   // Prepare POST Request to Geoserver for GetCapabilities XML File
   if (window.XMLHttpRequest)
@@ -67,6 +67,8 @@ function getGeoServerLayers(url, user, password, repository){
     // Prepare the xmlVariable
     var xmlDoc = new DOMParser().parseFromString(
       xmlhttp.responseText,'text/xml');
+
+    listOfLayers.push(new Layer(null, null, null, null, null, null, null));
 
     // Get layer list
     var x = xmlDoc.getElementsByTagName("FeatureTypeList");

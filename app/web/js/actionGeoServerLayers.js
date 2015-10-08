@@ -64,11 +64,11 @@ function getGeoServerLayers(url, user, password, repository){
       var x, i, attnode, xmlDoc, txt;
       xmlDoc = xml.responseXML;
       txt = "";
-      x = xmlDoc.getElementsByTagName('title');
+      x = xmlDoc.getElementsByTagName('wfs:WFS_Capabilities');
       for (i = 0; i < x.length; i++) {
           txt += x[i].childNodes[0].nodeValue + "<br>";
       }
-      document.getElementById("demo").innerHTML = txt;
+      document.getElementById("FeatureTypeList").innerHTML = txt;
   }
 
   /*$.ajax({

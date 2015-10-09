@@ -50,30 +50,6 @@ function getGeoServerLayers(url, user, password, repository){
 
   // Return value : list of layers
   var listOfLayers = [];
-/*
-  $.ajax({
-
-    // GET Parameters
-    type: 'POST',
-    url: url+'/'+repository+'/ows?SERVICE=WFS&REQUEST=GetCapabilities?user='+user+'&pass='password,
-    contentType: 'application/json; charset=utf-8',
-    dataType: 'xml',
-    success: function(data){
-
-       
-    },
-    error: function(jqXHR, exception){
-      if (jqXHR.status === 401) {
-        console.log('HTTP Error 401 Unauthorized.');
-      } else {
-        console.log('Uncaught Error.\n' + jqXHR.responseText);
-      }
-    }
-
-  });*/
-
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~ NOT TOTALLY WORKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
   
   // Prepare POST Request to Geoserver for GetCapabilities XML File
   if (window.XMLHttpRequest)
@@ -91,8 +67,6 @@ function getGeoServerLayers(url, user, password, repository){
     // Prepare the xmlVariable
     var xmlDoc = new DOMParser().parseFromString(
       xmlhttp.responseText,'text/xml');
-
-    listOfLayers.push(new Layer(null, null, null, null, null, null, null));
 
     // Get layer list
     var x = xmlDoc.getElementsByTagName("FeatureTypeList");
@@ -116,7 +90,7 @@ function getGeoServerLayers(url, user, password, repository){
           url
           +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
           +repository+":"+layerName
-          +"&maxFeatures=100&outputFormat=application/json",
+          +"&maxFeatures=1000&outputFormat=application/json",
           {
             style: setStyle
           }
@@ -143,17 +117,12 @@ function getGeoServerLayers(url, user, password, repository){
   xmlhttp.open(
     "POST",
     url+'/'+repository+'/ows?SERVICE=WFS&REQUEST=GetCapabilities',
-    false, 
+    false, // True=async and False=synchronous
     user, 
     password
   );
 
   xmlhttp.send();
-  //xmlhttp.waitonfullyloaded
-
-  
-
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~ NOT TOTALLY WORKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -187,17 +156,12 @@ function getGeoServerLayers(url, user, password, repository){
   //listOfLayers.push(l1);
   */
 
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   // Return temp classLayer  
 	//return [l1];
 
-  console.log(">>listOfLayers");
-  console.log(listOfLayers);
-
   // Return tab of classLayers
   return listOfLayers;
-
-
 }; //--- end getGeoServerLayers(url){
 

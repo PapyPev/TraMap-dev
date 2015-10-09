@@ -89,7 +89,7 @@ function getGeoServerLayers(url, user, password, repository, projection){
           url
           +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
           +repository+":"+layerName
-          +"&srsName="+proj
+          +"&srsName="+projection
           +"&maxFeatures=1000&outputFormat=application/json"//,
           // {
           //   style: setStyle

@@ -50,7 +50,31 @@ function getGeoServerLayers(url, user, password, repository){
 
   // Return value : list of layers
   var listOfLayers = [];
+/*
+  $.ajax({
 
+    // GET Parameters
+    type: 'POST',
+    url: url+'/'+repository+'/ows?SERVICE=WFS&REQUEST=GetCapabilities?user='+user+'&pass='password,
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'xml',
+    success: function(data){
+
+       
+    },
+    error: function(jqXHR, exception){
+      if (jqXHR.status === 401) {
+        console.log('HTTP Error 401 Unauthorized.');
+      } else {
+        console.log('Uncaught Error.\n' + jqXHR.responseText);
+      }
+    }
+
+  });*/
+
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~ NOT TOTALLY WORKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  
   // Prepare POST Request to Geoserver for GetCapabilities XML File
   if (window.XMLHttpRequest)
   {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -119,12 +143,17 @@ function getGeoServerLayers(url, user, password, repository){
   xmlhttp.open(
     "POST",
     url+'/'+repository+'/ows?SERVICE=WFS&REQUEST=GetCapabilities',
-    true, 
+    false, 
     user, 
     password
   );
 
   xmlhttp.send();
+  //xmlhttp.waitonfullyloaded
+
+  
+
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~ NOT TOTALLY WORKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

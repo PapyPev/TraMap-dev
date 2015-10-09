@@ -396,6 +396,7 @@ function init () {
   map.on('moveend', function() { 
     mapBoundingBox = map.getBounds().toBBoxString();
     alert(map.getBounds());
+    // READ : http://stackoverflow.com/questions/15440216/update-leaflet-geojson-layer-with-data-inside-bounding-box
   });
 
 }; //--- end init ()

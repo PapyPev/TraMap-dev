@@ -157,7 +157,7 @@ function getGeoServerLayers(url, user, password, repository){
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  
+  /*
   // TODO : Loop to get all layers
 
 	var alias = "hamk-map-project:fin_2po_4pgr";
@@ -185,18 +185,18 @@ function getGeoServerLayers(url, user, password, repository){
   );
 
   //listOfLayers.push(l1);
-  
+  */
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   // Return temp classLayer  
-	return [l1];
+	//return [l1];
 
   console.log(">>listOfLayers");
   console.log(listOfLayers);
 
   // Return tab of classLayers
-  //return listOfLayers;
+  return listOfLayers;
 
 
 }; //--- end getGeoServerLayers(url){

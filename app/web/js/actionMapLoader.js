@@ -112,14 +112,17 @@ function getMapLayers () {
   var listGeoServerLayer = [];
   listGeoServerLayer = getGeoServerLayers(GEO_SRV, GEO_USER, GEO_PASS, GEO_REPO);
 
+  console.log("actionMapLoader.getMapLayers() [listGeoServerLayer]");
+  console.log(listGeoServerLayer);
+
   // Loop for adding to listOfLayers
   for (var i = 0; i < listGeoServerLayer.length; i++) {
-    console.log(listGeoServerLayer[i]);
     listOfLayers.push(listGeoServerLayer[i]);
   };
 
   console.log("actionMapLoader.getMapLayers() [listOfLayers]:");
   console.log(listOfLayers);
+
 
   // TODO : sort layers by category
 

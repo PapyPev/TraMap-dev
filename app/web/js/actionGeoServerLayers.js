@@ -68,7 +68,7 @@ function getGeoServerLayers(url, user, password, repository){
     var xmlDoc = new DOMParser().parseFromString(
       xmlhttp.responseText,'text/xml');
 
-    //listOfLayers.push(new Layer(null, null, null, null, null, null, null));
+    listOfLayers.push(new Layer(null, null, null, null, null, null, null));
 
     // Get layer list
     var x = xmlDoc.getElementsByTagName("FeatureTypeList");

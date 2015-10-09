@@ -29,10 +29,10 @@ function setStyle(feature) {
     switch (feature.properties.clazz) {
 
     	// TODO : Comment
-        case 31: return {color: "orange", weight: 17, opacity: 0.5};
+      case 31: return {color: "orange", weight: 17, opacity: 0.5};
 
-        // TODO : Comment
-        case 32: return {color: "#0000ff", weight: 17, opacity: 0.5};
+      // TODO : Comment
+      case 32: return {color: "#0000ff", weight: 17, opacity: 0.5};
 
     } //end switch(feature.properties.clazz)
 };
@@ -83,17 +83,15 @@ function getGeoServerLayers(url, user, password, repository){
         // Save layer Name
         var layerName = y[i].getElementsByTagName("Title")[0].childNodes[0].nodeValue;
 
-        //console.log(layerName);
-
         // Get GeoJSON layer content
         var layerContent = new L.GeoJSON.AJAX(
           url
           +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
           +repository+":"+layerName
-          +"&maxFeatures=1000&outputFormat=application/json",
-          {
-            style: setStyle
-          }
+          +"&maxFeatures=1000&outputFormat=application/json"//,
+          // {
+          //   style: setStyle
+          // }
         );
 
         // Add to list of layers

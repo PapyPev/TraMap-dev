@@ -43,9 +43,10 @@ function setStyle(feature) {
  * @param {string} user Username
  * @param {string} password User password
  * @param {string) repository Project repository on Geoserver
- * @preturn {Layer} Return a classLayer object with his properties 
+ * @param {string} projection The default projection of Layers
+ * @return {Layer} Return a classLayer object with his properties 
  --------------------------------------------------------------------------- */
-function getGeoServerLayers(url, user, password, repository){
+function getGeoServerLayers(url, user, password, repository, projection){
   console.log("actionGeoServerLayers.getGeoServerLayers("+url+")");
 
   // Return value : list of layers
@@ -88,6 +89,7 @@ function getGeoServerLayers(url, user, password, repository){
           url
           +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
           +repository+":"+layerName
+          +"&srsName="+proj
           +"&maxFeatures=1000&outputFormat=application/json"//,
           // {
           //   style: setStyle

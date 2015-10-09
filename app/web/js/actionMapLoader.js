@@ -110,7 +110,7 @@ function getMapLayers () {
 
   // Get GeoServer Layer
   var listGeoServerLayer = [];
-  listGeoServerLayer = getGeoServerLayers(GEO_SRV, GEO_USER, GEO_PASS, GEO_REPO);
+  listGeoServerLayer = getGeoServerLayers(GEO_SRV, GEO_USER, GEO_PASS, GEO_REPO, PROJ);
 
   console.log("actionMapLoader.getMapLayers() [listGeoServerLayer]");
   console.log(listGeoServerLayer);

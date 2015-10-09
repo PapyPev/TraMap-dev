@@ -328,7 +328,7 @@ function init () {
   };
 
   //---------- Determine map bounding box
-  mapBoundingBox = map.getBounds();
+  mapBoundingBox = map.getBounds().toBBoxString();
   alert(mapBoundingBox);
 
   //---------- Load Sidebar Component
@@ -394,7 +394,7 @@ function init () {
   });
 
   map.on('moveend', function() { 
-    mapBoundingBox = map.getBounds();
+    mapBoundingBox = map.getBounds().toBBoxString();
     alert(map.getBounds());
   });
 

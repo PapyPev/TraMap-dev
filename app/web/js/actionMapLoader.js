@@ -17,7 +17,7 @@ var GEO_USER = 'admin';
 var GEO_PASS = 'geoserver';
 
 // Default Map projection
-var PROJ = 'EPSG:3857';
+var PROJ = 'epsg:4326'; //LatLong
 // MapBox Token for 
 var TOKEN = 'pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ'
 

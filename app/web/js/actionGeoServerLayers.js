@@ -44,9 +44,10 @@ function setStyle(feature) {
  * @param {string} password User password
  * @param {string) repository Project repository on Geoserver
  * @param {string} projection The default projection of Layers
+ * @param {string} bbox The current map Bounding Box (map extent)
  * @return {Layer} Return a classLayer object with his properties 
  --------------------------------------------------------------------------- */
-function getGeoServerLayers(url, user, password, repository, projection){
+function getGeoServerLayers(url, user, password, repository, projection, bbox){
   console.log("actionGeoServerLayers.getGeoServerLayers("+url+")");
 
   // Return value : list of layers
@@ -90,7 +91,8 @@ function getGeoServerLayers(url, user, password, repository, projection){
           +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
           +repository+":"+layerName
           +"&srsName="+projection
-          +"&maxFeatures=1000&outputFormat=application/json"//,
+          +"&bbox="+bbox
+          +"&maxFeatures=100&outputFormat=application/json"//,
           // {
           //   style: setStyle
           // }

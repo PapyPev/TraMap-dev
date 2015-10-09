@@ -106,7 +106,7 @@ function getGeoServerLayers(url, user, password, repository){
           layerName,
           i,
           true,
-          layerContent
+          temp
         ));
 
       }; // end Loop on layer's properties

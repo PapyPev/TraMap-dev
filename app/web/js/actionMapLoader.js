@@ -53,6 +53,9 @@ var map;
 // Leaflet Map Layers
 var mapLayers;
 
+// Leaflet Map Bounding box
+var mapBoundingBox;
+
 
 /* ============================================================================
  * FUNCTIONS
@@ -324,6 +327,10 @@ function init () {
     };
   };
 
+  //---------- Determine map bounding box
+  mapBoundingBox = map.getBounds();
+  alert(mapBoundingBox);
+
   //---------- Load Sidebar Component
   var sidebar = L.control.sidebar('sidebar', {
     closeButton: true,
@@ -387,6 +394,7 @@ function init () {
   });
 
   map.on('moveend', function() { 
+    mapBoundingBox = map.getBounds();
     alert(map.getBounds());
   });
 

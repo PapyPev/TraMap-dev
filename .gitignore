@@ -1,0 +1,8 @@
+*.qgs~
+*.qgs
+*.pyc
+srv/transp-model/.idea
+*.npy
+srv/transp-model/settings.py
+srv/transp-model/cache
+

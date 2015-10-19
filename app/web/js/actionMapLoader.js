@@ -329,7 +329,7 @@ function init () {
 
   //---------- Determine map bounding box
   mapBoundingBox = map.getBounds().toBBoxString();
-  alert(mapBoundingBox);
+  //alert(mapBoundingBox);
 
   //---------- Load Sidebar Component
   var sidebar = L.control.sidebar('sidebar', {
@@ -395,7 +395,7 @@ function init () {
 
   map.on('moveend', function() { 
     mapBoundingBox = map.getBounds().toBBoxString();
-    alert(map.getBounds());
+    //alert(map.getBounds());
     // READ : http://stackoverflow.com/questions/15440216/update-leaflet-geojson-layer-with-data-inside-bounding-box
   });
 

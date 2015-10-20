@@ -10,6 +10,13 @@
  * FUNCTIONS
  * ========================================================================= */
 
+function converLLMerc (lat, lng) {
+  var x = lon * 20037508.34 / 180;
+  var y = Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);
+  y = y * 20037508.34 / 180;
+  return [x, y]
+}
+
 /**
  * This function gives a visual style to data
  * @param {number} feature Type's number of feature
@@ -40,6 +47,12 @@ function setStyle(feature) {
  --------------------------------------------------------------------------- */
 function getGeoServerLayers(url, repository, projection, bbox){
   console.log("actionGeoServerLayers.getGeoServerLayers()");
+
+  var southWest = converLLMerc(bbox._southWest.lat, bbox._southWest.lng);
+  var northEast = converLLMerc(bbox._northEast.lat, bbox._northEast.lng);
+
+  console.log(southWest);
+  console.log(northEast);
 
   // Return value : list of layers
   var listOfLayers = [];
@@ -82,10 +95,11 @@ function getGeoServerLayers(url, repository, projection, bbox){
           +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
           +repository+":"+layerName
           +"&srsName="+projection
-          //+"&SRS=epsg:4326"
-          //+"&bbox="+bbox._southWest.lng+","+bbox._southWest.lat+","
-          //+bbox._northEast.lng+","+bbox._northEast.lat
-          +"&maxFeatures=100&outputFormat=application/json"//,
+          +"&SRS="+projection
+          +"&bbox="+bbox._southWest.lng+","+bbox._southWest.lat+","
+          +bbox._northEast.lng+","+bbox._northEast.lat
+          +"&maxFeatures=100"
+          +"&outputFormat=application/json"//,
           // {
           //   style: setStyle
           // }

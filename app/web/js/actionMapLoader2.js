@@ -381,11 +381,11 @@ function init () {
   //---------- Load Popup
   loadPopup(sidebar);
 
-  //---------- Load Default GeoServer layer 
-  loadGeoServerLayers(map.getBounds());
-
   //---------- Load TOC
   loadTOC();
+
+  //---------- Load Default GeoServer layer 
+  loadGeoServerLayers(map.getBounds());
 
   //----------- Moving Map view, refresh GeoServerLayer
   map.on('moveend', function() { 

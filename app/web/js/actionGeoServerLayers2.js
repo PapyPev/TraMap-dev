@@ -82,8 +82,9 @@ function getGeoServerLayers(url, repository, projection, bbox){
           +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
           +repository+":"+layerName
           +"&srsName="+projection
-          +"&bbox="+bbox._northEast.lat+","+bbox._northEast.lng+","
-          +bbox._southWest.lat+","+bbox._southWest.lng
+          +"&SRS=epsg:4326"
+          +"&bbox="+bbox._southWest.lat+","+bbox._southWest.lng+","
+          +bbox._northEast.lat+","+bbox._northEast.lng
           +"&maxFeatures=100&outputFormat=application/json"//,
           // {
           //   style: setStyle

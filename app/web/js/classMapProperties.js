@@ -26,12 +26,8 @@ function MapProperties (name, filePath) {
   /** @private */ this.center = mapParameters.center;
   /** @private */ this.zoom = mapParameters.zoom;
   /** @private */ this.projection = mapParameters.projection;
-  /** @private */ this.mapboxToken = mapParameters.mabox_token;
+  /** @private */ this.mapboxToken = mapParameters.mapbox_token;
   /** @private */ this.sidebarPos = mapParameters.sidebar_pos;
-  /** @private */ this.map = L.map(name,{
-    center: [mapParameters.center[0], mapParameters.center[1]],
-    zoom: mapParameters.zoom
-  });
 
   // Log console
   var attributesToLog = [{
@@ -40,8 +36,7 @@ function MapProperties (name, filePath) {
     "zoom": this.zoom,
     "projection": this.projection,
     "mapboxToken":  this.mapboxToken,
-    "sidebarPos": this.sidebarPos,
-    "map": this.map
+    "sidebarPos": this.sidebarPos
   }];
   console.log('classMapProperties.MapProperties('+name+')');
   console.log(attributesToLog);
@@ -106,28 +101,6 @@ MapProperties.prototype.getSidebarPos = function () {
   return this.sidebarPos;
 };
 
-/**
- * Get Map object.
- * @this {MapProperties}
- * @return {map} The map.
- */
-MapProperties.prototype.getMap = function () {
-  return this.map;
-};
-
-/* ============================================================================
- * SETTERS
- * ========================================================================= */
-
-/**
- * Set Map object.
- * @this {MapProperties}
- * @param {map} The new map
- */
-MapProperties.prototype.setMap = function (map) {
-  this.map = map;
-};
-
 /* ============================================================================
  * METHODS
  * ========================================================================= */
@@ -145,8 +118,7 @@ MapProperties.prototype.toString = function() {
     zoom: zoom,
     projection: projection,
     mapboxToken:  mapboxToken,
-    sidebarPos: sidebarPos,
-    map: map
+    sidebarPos: sidebarPos
   }];
   console.log('classMapProperties.toString():');
   console.log(attributesToLog);

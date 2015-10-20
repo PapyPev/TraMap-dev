@@ -120,8 +120,8 @@ function getGeoServerLayers(url, user, password, repository, projection, bbox){
     "POST",
     url+'/'+repository+'/ows?SERVICE=WFS&REQUEST=GetCapabilities',
     false, // True=async and False=synchronous
-    null, 
-    null
+    user, 
+    password
   );
 
   xmlhttp.send();

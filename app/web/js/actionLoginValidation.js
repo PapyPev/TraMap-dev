@@ -11,6 +11,8 @@ function loginValidation () {
     var user = document.getElementById("login-user").value;
     var pass = document.getElementById("login-password").value;
 
-    alert(user + "," + pass);
+    alert("login")
+
+    //TODO : Something
 
 };

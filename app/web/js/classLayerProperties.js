@@ -128,7 +128,7 @@ LayerProperties.prototype.getContent = function(){
  */
 LayerProperties.prototype.setCheck = function(check){
   this.checked = check;
-  console.log("classLayerProperties.setCheck(): " + this.checked);
+  //console.log("classLayerProperties.setCheck(): " + this.checked);
 };
 
 /* ============================================================================

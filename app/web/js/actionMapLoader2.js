@@ -3,34 +3,287 @@
  * Initialize Map content
  *
  * @author Pev
- * @version 4.0
+ * @version 4.1
  *************************************************************************** */
+
+/* ============================================================================
+ * CONSTANTS
+ * ========================================================================= */
+
+MAP_PROP = './config/configMap.json';
+GEO_PROP = './config/configGeoServer.json';
+CON_PROP = './config/configContent.json';
 
 /* ============================================================================
  * GLOBALS
  * ========================================================================= */
 
-// MapProperties
+// Current map
+var map;
+
+// Properties
 var mapProperties;
+var geoServerProperties;
+var contentProperties;
 
 // Leaflet Map Layers
 var mapLayers;
+
+// Sidebar
+var sidebar;
 
 /* ============================================================================
  * FUNCTIONS
  * ========================================================================= */
 
 /**
- * Recovery of all data sources.
- * @return {array} List of LayerProperties (classLayerProperties).
+ * Load GeoServer Layers with Bounding box query
  --------------------------------------------------------------------------- */
-function getMapLayers () {
-  console.log('actionMapLoader.getMapLayers()');
+function loadGeoServerLayers (mapBoundingBox) {
+  console.log('actionMapLoader.loadGeoServerLayers(...)');
+  console.log(mapBoundingBox);
 
-  // Prepare output
+  alert(mapBoundingBox._southWest.lat)
+
+  // Get GeoServer Layer
+  var listGeoServerLayer = [];
+  listGeoServerLayer = getGeoServerLayers(
+    geoServerProperties.getAddress(), 
+    geoServerProperties.getRepository(),
+    mapBoundingBox.toBBoxString());
+
+  console.log("actionMapLoader.getMapLayers() [listGeoServerLayer]");
+  console.log(listGeoServerLayer);
+
+}; //--- end loadGeoServerLayers(mapBoundingBox)
+
+/**
+ * TOC action on the checkbox or radio button
+ * @param {number} i Index of the layer in listOfLayer
+ * @param {string} type Type of layer (Radio, Checkbox)
+ --------------------------------------------------------------------------- */
+function changeLayer (i, type) {
+  console.log('actionMapLoader.changeLayer(' 
+    + i + ',' + mapLayers[i].getType() +') -> ' + mapLayers[i].getName());
+
+  // If the layer is viewable
+  if (mapLayers[i].getCheck()) {
+    map.removeLayer(mapLayers[i].getContent()); // unload map layer
+    mapLayers[i].setCheck(false); // unload TOC layer
+  } else {
+    map.addLayer(mapLayers[i].getContent()); // load map layer
+    mapLayers[i].setCheck(true); // load TOC layer
+  }
+  // Loop Layers
+  for (var j = 0; j < mapLayers.length; j++) {
+    if (mapLayers[j].getCategory()==mapLayers[i].getCategory()
+      && j != i) {
+      mapLayers[j].setCheck(false);
+      map.removeLayer(mapLayers[j].getContent());
+    };
+  };
+}; //--- end changeLayer (i)
+
+/**
+ * Load content of Table Of Content (TOC).
+ --------------------------------------------------------------------------- */
+function loadTOC () {
+  console.log('actionMapLoader.loadTOC()');
+
+  // Add TOC title and description
+  $("#"+contentProperties.getDivTocTitle()+"").html(
+    contentProperties.getContentTocTitle()
+  ).trigger("create");
+  $("#"+contentProperties.getDivTocDescript()+"").html(
+    contentProperties.getContentTocDescript()
+  ).trigger("create");
+
+  // Prepare TOC content
+  var toc = "";
+
+  // Layers Loop
+  for (var i = 0; i < mapLayers.length; i++) {
+
+    // Test if it's the first category or a new
+    if (i==0 
+      || mapLayers[i].getCategory()!=mapLayers[i-1].getCategory()) {
+      toc += '<div class="panel panel-default">'
+        + '<div class="panel-heading">'
+        +   '<h6 class="panel-title">'+mapLayers[i].getCategory()+'</h6>'
+        + '</div>'
+        + '<div class="panel-body">'
+    };
+
+    // Test if checkbox is checked
+    var check = "";
+    if (mapLayers[i].getCheck()==true) {check="checked"};
+
+    // Test type of data 
+    switch(mapLayers[i].getType()){
+      case "Radio":
+        toc +=  '<div class="input-group">'
+          +     '<span class="input-group-addon">'
+          +       '<input type="radio" '
+          +       'name="'+mapLayers[i].getCategory()+'" '
+          +       'id="'+mapLayers[i].getPosition()+'" '
+          +       'onclick="changeLayer('+i+',\''
+          +           mapLayers[i].getType()+'\')" '
+          +       check + '>'
+          +     '</span>'
+          +   '<input type="text" class="form-control" '
+          +       'value="'+mapLayers[i].getAlias()+'" readonly>'
+          + '</div>'
+        break;
+      case "Checkbox":
+        // Create layer row
+        toc +=  '<div class="input-group">'
+          +     '<span class="input-group-addon">'
+          +       '<input type="checkbox" '
+          +       'name="'+mapLayers[i].getName()+'" '
+          +       'id="'+mapLayers[i].getPosition()+'" '
+          +        'onchange="changeLayer('+i+',\''
+          +           mapLayers[i].getType()+'\')" '
+          +       check + '>'
+          +     '</span>'
+          +   '<input type="text" class="form-control" '
+          +       'value="'+mapLayers[i].getAlias()+'" readonly>'
+          + '</div>'
+        break;
+      default:
+        // Nothing
+        break;
+    }
+
+    // Test if it's not the latest layer
+    if (i!=mapLayers.length-1) {
+      // Test if we need to close category
+      if (mapLayers[i].getCategory()!=mapLayers[i+1].getCategory()) {
+        toc += '</div></div>';
+      };
+    } else{
+      toc += '</div></div>';
+    };
+
+  };
+
+  // Write to the HTML div
+  $("#"+contentProperties.getDivTocContent()+"").html(toc).trigger("create");
+  // console.log('actionMapLoader.loadToc() [html]');
+  // console.log(toc);
+}; //--- end loadTOC()
+
+/**
+ * Create button and load popup content onclick
+ * @param {string} glyph Icon on the button
+ * @param {string} popupName Name of the popup container (name+type)
+ * @param {sidebar} sidebar TOC content will hide on event
+ --------------------------------------------------------------------------- */
+function loadPopupEvent (glyph, popupName, sidebar) {
+  console.log('actionMapLoader.loadPopupEvent(' 
+    + glyph + ','+popupName+','+sidebar+')');
+
+  L.easyButton(
+    '<span class="glyphicon '+glyph+'" aria-hidden="true"></span>',
+    function(){
+      sidebar.hide(); // close sidebar
+      $('#'+popupName).modal('show'); // load content
+      console.log('actionMapLoader.loadPopupEvent(...) #'+popupName);
+    }, popupName // For event
+  ).addTo(map);
+} //--- loadPopupEvent (glyph, popupName, sidebar)
+
+/**
+ * Load Popup content from JSON file (url)
+ * @param {json} data Popup json
+ --------------------------------------------------------------------------- */
+function loadPopupContent (data) {
+  console.log('actionMapLoader.loadPopupContent()');
+
+  // Prepare HTML content
+  var html = "";
+  
+  // Loop object
+  for (var i = 0; i < data.content_overTheMap.length; i++) {
+
+    switch(data.content_overTheMap[i].type){
+
+      case 'popup':
+        // Init container
+        html  += '<div class="modal fade" '
+                + 'id="'+data.content_overTheMap[i].name+data.content_overTheMap[i].type+'" tabindex="-1" role="dialog" aria-labelledby="contactLabel">'
+                  + '<div class="modal-dialog" role="document">'
+                    + '<div class="modal-content">'
+        // Content
+        html += data.content_overTheMap[i].content;
+        // End container
+        html += '</div></div></div>'
+        // Write on the div
+        $("#"+data.popup_div_content+"").html(html).trigger("create");
+        break;
+
+      default:
+        alert('actionMapLoader.loadPopup : error');
+        break;
+
+    }; //end Switch
+  }; //end Loop object
+} //--- end loadPopup (data)
+
+/**
+ * Load all popup contains on JSON file
+ --------------------------------------------------------------------------- */
+function loadPopup () {
+  console.log('actionMapLoader.loadPopup()');
+
+  // Ajax request
+  $.ajax({
+
+    // GET Parameters
+    type: 'GET',
+    url: CON_PROP,
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success: function(data){
+
+      // Load Content Properties
+      contentProperties = data;
+
+      // Load HTML Popup content
+      loadPopupContent(data);
+
+      // Load Buttons
+      for (var i = 0; i < data.content_overTheMap.length; i++) {
+
+        // Get button id
+        var title = data.content_overTheMap[i].id.toString();
+
+        // Create and load content and event
+        loadPopupEvent(data.content_overTheMap[i].icon, 
+          data.content_overTheMap[i].name + data.content_overTheMap[i].type,
+          sidebar);
+
+      }; // end loop 
+    },
+    error: function(jqXHR, exception){
+      if (jqXHR.status === 401) {
+        console.log('HTTP Error 401 Unauthorized.');
+      } else {
+        console.log('Uncaught Error.\n' + jqXHR.responseText);
+      }
+    }
+
+  });
+}; //--- end loadPopup()
+
+/**
+ * Add Tiles background to mapLayers
+ * @return {array} List of tiles LayerProperties (classLayerProperties).
+ --------------------------------------------------------------------------- */
+function loadTiles () {
+  console.log('actionMapLoader.loadTiles()');
+
+  // Returned value
   listOfLayers = [];
-
-  //---------- BACKGROUND
 
   // Create Copyright
   var tiles_copyright = 'Map data &copy;' 
@@ -67,33 +320,9 @@ function getMapLayers () {
   // Add Tiles to default loaded map layers
   listOfLayers.push(bgLightM, bgDarktM, bgStreetM);
 
-
-  //---------- GEOSERVER
-
-  // Get GeoServer Layer
-  var listGeoServerLayer = [];
-  listGeoServerLayer = getGeoServerLayers(GEO_SRV, GEO_USER, GEO_PASS, GEO_REPO, PROJ, mapBoundingBox);
-
-  console.log("actionMapLoader.getMapLayers() [listGeoServerLayer]");
-  console.log(listGeoServerLayer);
-
-  // Loop for adding to listOfLayers
-  for (var i = 0; i < listGeoServerLayer.length; i++) {
-    listOfLayers.push(listGeoServerLayer[i]);
-  };
-
-  console.log("actionMapLoader.getMapLayers() [listOfLayers]:");
-  console.log(listOfLayers);
-
-
-  // TODO : sort layers by category
-
-
-  // Return the layer's list
+  // Return Value
   return listOfLayers;
-}; //--- end getLayers
-
-
+}; //--- end loadTiles()
 
 /**
  * Loading all the necessary components of the card
@@ -101,19 +330,62 @@ function getMapLayers () {
 function init () {
   console.log('actionMapLoader.init()');
 
-  //---------- Load Map Properties
-  mapProperties = new MapProperties('map', './config/configMap.json');
+  //---------- Load Layers, GeoServer, Content Properties
+  mapProperties = new MapProperties('map', MAP_PROP);
+  geoServerProperties = new GeoServerProperties(GEO_PROP);
+  contentProperties = new ContentProperties(CON_PROP);
+
+  //---------- Load Default map
+  map = L.map('map', {
+    center: [mapProperties.getCenter()[0], mapProperties.getCenter()[1]],
+    zoom: mapProperties.getZoom()
+  });
+
+  //---------- Load Default Background to map
+  mapLayers = loadTiles();
+  for (var i = 0; i < mapLayers.length; i++) {
+    if (mapLayers[i].getCheck()) {
+      map.addLayer(mapLayers[i].getContent());
+    };
+  };
 
   //---------- Load Sidebar Component
-  var sidebar = L.control.sidebar('sidebar', {
+  sidebar = L.control.sidebar('sidebar', {
     closeButton: true,
     position: mapProperties.getSidebarPos()
   });
-  mapProperties.getMap().addControl(sidebar);
+  map.addControl(sidebar);
 
-  //---------- Load Layers (classLayer)
-  mapLayers = [];
-  mapLayers = getMapLayers();
+  //---------- Load Actions Buttons
+  L.easyButton( '<span class="easy-button">&equiv;</span>', 
+    function(){
+      sidebar.toggle(); // Open-Close sidebar
+    }, 'Table of Content'
+  ).addTo(map);
+
+  L.easyButton(
+    '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>',
+    function(){
+      alert("searchButton");
+      console.log("searchButton");
+    }, 'Search'
+  ).addTo(map);
+
+  //---------- Load Popup
+  loadPopup(sidebar);
+
+  //---------- Load TOC
+  loadTOC();
+
+  //---------- Load Default GeoServer layer 
+  loadGeoServerLayers(map.getBounds());
+
+  //----------- Moving Map view, refresh GeoServerLayer
+  map.on('moveend', function() { 
+    loadGeoServerLayers(map.getBounds());
+    // READ : http://stackoverflow.com/questions/15440216/update-leaflet-geojson-layer-with-data-inside-bounding-box
+  });
+
 
 };
 

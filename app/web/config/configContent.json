@@ -1,11 +1,11 @@
 {
-  "toc_div_title" : "toc-title",
-  "toc_div_content" : "toc-content",
-  "toc_div_descript" : "toc-description",
-  "popu_div_content" : "popup-content",
-  "toc_title" : "Toc title",
-  "toc_descript" : "Toc description",
-  "overTheMap": [
+  "div_toc_title" : "toc-title",
+  "div_toc_content" : "toc-content",
+  "div_toc_descript" : "toc-description",
+  "div_popup_content" : "popup-content",
+  "content_toc_title" : "Toc title",
+  "content_toc_descript" : "Toc description",
+  "content_overTheMap": [
     {
       "id":0,
       "type":"popup",

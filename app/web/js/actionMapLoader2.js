@@ -51,7 +51,8 @@ function loadGeoServerLayers (mapBoundingBox) {
     geoServerProperties.getAddress(), 
     geoServerProperties.getRepository(),
     mapProperties.getProjection(),
-    mapBoundingBox.toBBoxString());
+    mapBoundingBox);
+    //mapBoundingBox.toBBoxString());
 
   console.log("actionMapLoader.getMapLayers() [listGeoServerLayer]");
   console.log(listGeoServerLayer);

@@ -43,13 +43,14 @@ function loadGeoServerLayers (mapBoundingBox) {
   console.log('actionMapLoader.loadGeoServerLayers(...)');
   console.log(mapBoundingBox);
 
-  alert(mapBoundingBox._southWest.lat)
+  //alert(mapBoundingBox._southWest.lat)
 
   // Get GeoServer Layer
   var listGeoServerLayer = [];
   listGeoServerLayer = getGeoServerLayers(
     geoServerProperties.getAddress(), 
     geoServerProperties.getRepository(),
+    mapProperties.getProjection(),
     mapBoundingBox.toBBoxString());
 
   console.log("actionMapLoader.getMapLayers() [listGeoServerLayer]");

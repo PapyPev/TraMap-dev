@@ -34,10 +34,11 @@ function setStyle(feature) {
  * This function gives a visual style to data
  * @param {string} url The GeoServer address
  * @param {string} repository The GeoServer repository
+ * @param {string} projection The default map projection
  * @param {string} bbox The current map Bounding Box (map extent)
  * @return {LayerProperties} Return a classLayerProperties object 
  --------------------------------------------------------------------------- */
-function getGeoServerLayers(url, repository, bbox){
+function getGeoServerLayers(url, repository, projection, bbox){
   console.log("actionGeoServerLayers.getGeoServerLayers()");
 
   // Return value : list of layers

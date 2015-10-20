@@ -83,8 +83,8 @@ function getGeoServerLayers(url, repository, projection, bbox){
           +repository+":"+layerName
           +"&srsName="+projection
           +"&SRS=epsg:4326"
-          +"&bbox="+bbox._southWest.lat+","+bbox._southWest.lng+","
-          +bbox._northEast.lat+","+bbox._northEast.lng
+          +"&bbox="+bbox._southWest.lng+","+bbox._southWest.lat+","
+          +bbox._northEast.lng+","+bbox._northEast.lat
           +"&maxFeatures=100&outputFormat=application/json"//,
           // {
           //   style: setStyle

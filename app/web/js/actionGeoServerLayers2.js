@@ -52,8 +52,8 @@ function setStyle(feature) {
 function getGeoServerLayers(url, repository, projection, bbox){
   console.log("actionGeoServerLayers.getGeoServerLayers()");
 
-  var xy = LatLonToMercator(bbox._southWest.lat,bbox._southWest.lng);
-  console.log(xy);
+  var southWest = LatLonToMercator(bbox._southWest.lat,bbox._southWest.lng);
+  var northEast = LatLonToMercator(bbox._northEast.lat,bbox._northEast.lng);
 
   // Return value : list of layers
   var listOfLayers = [];
@@ -97,8 +97,8 @@ function getGeoServerLayers(url, repository, projection, bbox){
           +repository+":"+layerName
           +"&srsName="+projection
           +"&SRS="+projection
-          //+"&bbox="+bbox._southWest.lng+","+bbox._southWest.lat+","
-          //+bbox._northEast.lng+","+bbox._northEast.lat
+          +"&bbox="+southWest.y+","+southWest.x+","
+          +northEast.y+","+northEast.x
           +"&maxFeatures=100"
           +"&outputFormat=application/json"//,
           // {

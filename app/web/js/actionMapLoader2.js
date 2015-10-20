@@ -381,14 +381,15 @@ function init () {
   //---------- Load Popup
   loadPopup(sidebar);
 
-  //---------- Load TOC
-  loadTOC();
-
   //---------- Load Default GeoServer layer 
   loadGeoServerLayers(map.getBounds());
 
+  //---------- Load TOC
+  loadTOC();
+
   //----------- Moving Map view, refresh GeoServerLayer
   map.on('moveend', function() { 
+    console.log('actionMapLoader.map.on(moveend)')
     loadGeoServerLayers(map.getBounds());
     // READ : http://stackoverflow.com/questions/15440216/update-leaflet-geojson-layer-with-data-inside-bounding-box
   });

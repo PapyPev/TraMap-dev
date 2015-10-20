@@ -57,6 +57,11 @@ function loadGeoServerLayers (mapBoundingBox) {
   console.log("actionMapLoader.getMapLayers() [listGeoServerLayer]");
   console.log(listGeoServerLayer);
 
+  for (var i = 0; i < listGeoServerLayer.length; i++) {
+    mapLayers.push(listGeoServerLayer[i]);
+    map.addLayer(listGeoServerLayer[i].getContent());
+  };
+
 }; //--- end loadGeoServerLayers(mapBoundingBox)
 
 /**
@@ -376,11 +381,11 @@ function init () {
   //---------- Load Popup
   loadPopup(sidebar);
 
-  //---------- Load TOC
-  loadTOC();
-
   //---------- Load Default GeoServer layer 
   loadGeoServerLayers(map.getBounds());
+
+  //---------- Load TOC
+  loadTOC();
 
   //----------- Moving Map view, refresh GeoServerLayer
   map.on('moveend', function() { 

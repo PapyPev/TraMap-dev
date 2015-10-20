@@ -10,6 +10,17 @@
  * FUNCTIONS
  * ========================================================================= */
 
+function LatLonToMercator(lat, lon) {
+ 
+    var rMajor = 6378137; //Equatorial Radius, WGS84
+    var shift  = Math.PI * rMajor;
+    var x      = lon * shift / 180;
+    var y      = Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);
+    y = y * shift / 180;
+ 
+    return {'X': x, 'Y': y};
+}
+
 /**
  * This function gives a visual style to data
  * @param {number} feature Type's number of feature
@@ -40,6 +51,9 @@ function setStyle(feature) {
  --------------------------------------------------------------------------- */
 function getGeoServerLayers(url, repository, projection, bbox){
   console.log("actionGeoServerLayers.getGeoServerLayers()");
+
+  var xy = LatLonToMercator(bbox._southWest.lat,bbox._southWest.lng);
+  console.log(xy);
 
   // Return value : list of layers
   var listOfLayers = [];
@@ -104,9 +118,7 @@ function getGeoServerLayers(url, repository, projection, bbox){
         ));
 
       }; // end Loop on layer's properties
-
     }; // end Loop Layer Layer's list
-
   } // end xmlhttp.onload = function()
 
   // Request for GetCapabilities
@@ -122,22 +134,21 @@ function getGeoServerLayers(url, repository, projection, bbox){
 
   /*
   // TODO : Loop to get all layers
-
-    var alias = "hamk-map-project:fin_2po_4pgr";
-    var baseurl = url+"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="+alias+"&maxFeatures=100&outputFormat=application/json";
+  var alias = "hamk-map-project:fin_2po_4pgr";
+  var baseurl = url+"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="+alias+"&maxFeatures=100&outputFormat=application/json";
 
   // Get layer from GeoServer
-    // var myLayer = new L.GeoJSON.AJAX(baseurl,{
-    //  style: setStyle
-    // });
+  // var myLayer = new L.GeoJSON.AJAX(baseurl,{
+  //  style: setStyle
+  // });
 
   // Get layer from temp contant
-    var myLayer = new L.geoJson(temp,{
-        style: setStyle
-    });
+  var myLayer = new L.geoJson(temp,{
+      style: setStyle
+  });
 
-    // Prepare classLayer's attribute
-    var l1 = new Layer(
+  // Prepare classLayer's attribute
+  var l1 = new Layer(
     "Checkbox", 
     "Traffic Information", 
     "traffic", 
@@ -148,12 +159,11 @@ function getGeoServerLayers(url, repository, projection, bbox){
   );
 
   //listOfLayers.push(l1);
-  */
-
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+  
   // Return temp classLayer  
-    //return [l1];
+  //return [l1];
+  */
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   // Return tab of classLayers
   return listOfLayers;

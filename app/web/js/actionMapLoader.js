@@ -60,12 +60,12 @@ function loadGeoServerLayers (mapBoundingBox) {
   };
 
   // Add all GeoServer Layers
-  // for (var i = 0; i < listGeoServerLayer.length; i++) {
-  //   mapLayers.push(listGeoServerLayer[i]);
-  //   if (listGeoServerLayer[i].getCheck()) {
-  //     map.addLayer(listGeoServerLayer[i].getContent());
-  //   };
-  // };
+  for (var i = 0; i < listGeoServerLayer.length; i++) {
+    mapLayers.push(listGeoServerLayer[i]);
+    //if (listGeoServerLayer[i].getCheck()) {
+      map.addLayer(listGeoServerLayer[i].getContent());
+    //};
+  };
 
 }; //--- end loadGeoServerLayers(mapBoundingBox)
 

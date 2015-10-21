@@ -66,7 +66,6 @@ function loadGeoServerLayers (mapBoundingBox) {
       map.addLayer(listGeoServerLayer[i].getContent());
     //};
   };
-
 }; //--- end loadGeoServerLayers(mapBoundingBox)
 
 /**
@@ -76,7 +75,7 @@ function loadGeoServerLayers (mapBoundingBox) {
  --------------------------------------------------------------------------- */
 function changeLayer (i, type) {
   console.log('actionMapLoader.changeLayer(' 
-    + i + ',' + mapLayers[i].getType() +') -> ' + mapLayers[i].getName());
+    + i + ',' + mapLayers[i].getCheck() +') -> ' + mapLayers[i].getName());
 
   // If the layer is viewable
   if (mapLayers[i].getCheck()) {
@@ -86,6 +85,7 @@ function changeLayer (i, type) {
     map.addLayer(mapLayers[i].getContent()); // load map layer
     mapLayers[i].setCheck(true); // load TOC layer
   }
+
   // Loop Layers - Remove the other layer
   for (var j = 0; j < mapLayers.length; j++) {
     if (mapLayers[j].getCategory()==mapLayers[i].getCategory()

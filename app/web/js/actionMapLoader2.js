@@ -68,8 +68,8 @@ function loadGeoServerLayers (mapBoundingBox) {
  * @param {number} i Index of the layer in listOfLayer
  * @param {string} type Type of layer (Radio, Checkbox)
  --------------------------------------------------------------------------- */
-function changeLayer (i, type) {
-  console.log('actionMapLoader.changeLayer(' 
+function changeRadioLayer (i, type) {
+  console.log('actionMapLoader.changeRadioLayer(' 
     + i + ',' + mapLayers[i].getType() +') -> ' + mapLayers[i].getName());
 
   // If the layer is viewable
@@ -88,7 +88,7 @@ function changeLayer (i, type) {
       map.removeLayer(mapLayers[j].getContent());
     };
   };
-}; //--- end changeLayer (i)
+}; //--- end changeRadioLayer (i)
 
 /**
  * Load content of Table Of Content (TOC).
@@ -132,7 +132,7 @@ function loadTOC () {
           +       '<input type="radio" '
           +       'name="'+mapLayers[i].getCategory()+'" '
           +       'id="'+mapLayers[i].getPosition()+'" '
-          +       'onclick="changeLayer('+i+',\''
+          +       'onclick="changeRadioLayer('+i+',\''
           +           mapLayers[i].getType()+'\')" '
           +       check + '>'
           +     '</span>'

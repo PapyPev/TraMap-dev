@@ -3,7 +3,7 @@
  * Initialize Map content
  *
  * @author Pev
- * @version 4.2
+ * @version 4.3
  *************************************************************************** */
 
 /* ============================================================================
@@ -43,8 +43,6 @@ function loadGeoServerLayers (mapBoundingBox) {
   console.log('actionMapLoader.loadGeoServerLayers(...)');
   console.log(mapBoundingBox);
 
-  console.log(mapProperties.toString());
-
   // Get GeoServer Layer
   var listGeoServerLayer = [];
   listGeoServerLayer = getGeoServerLayers(
@@ -54,17 +52,19 @@ function loadGeoServerLayers (mapBoundingBox) {
     mapProperties.getMaxFeatures(),
     mapBoundingBox);
 
-  // Loop all Curent Layer
+  // Drop all Curent GeoServer Layers
   for (var i = 0; i < mapLayers.length; i++) {
     if (mapLayers[i].getCategory()!='Background') {
       map.removeLayer(mapLayers[i].getContent());
     };
   };
 
-  // Loop all GeoServer Layers
+  // Add all GeoServer Layers
   for (var i = 0; i < listGeoServerLayer.length; i++) {
     mapLayers.push(listGeoServerLayer[i]);
-    map.addLayer(listGeoServerLayer[i].getContent());
+    if (listGeoServerLayer.getCheck()) {
+      map.addLayer(listGeoServerLayer[i].getContent());
+    };
   };
 
 }; //--- end loadGeoServerLayers(mapBoundingBox)

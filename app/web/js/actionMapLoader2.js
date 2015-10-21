@@ -187,6 +187,7 @@ function loadTOC () {
 function loadPopupEvent (glyph, popupName, sidebar) {
   console.log('actionMapLoader.loadPopupEvent(' 
     + glyph + ','+popupName+','+sidebar+')');
+  alert(popupName);
 
   L.easyButton(
     '<span class="glyphicon '+glyph+'" aria-hidden="true"></span>',

@@ -49,6 +49,7 @@ function loadGeoServerLayers (mapBoundingBox) {
     geoServerProperties.getAddress(), 
     geoServerProperties.getRepository(),
     mapProperties.getProjection(),
+    mapProperties.getMaxFeatures(),
     mapBoundingBox);
 
   // Loop all Curent Layer

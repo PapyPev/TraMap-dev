@@ -28,6 +28,7 @@ function MapProperties (name, filePath) {
   /** @private */ this.projection = mapParameters.projection;
   /** @private */ this.mapboxToken = mapParameters.mapbox_token;
   /** @private */ this.sidebarPos = mapParameters.sidebar_pos;
+  /** @private */ this.maxFeatures = mapParameters.maxFeatures;
 
   // Log console
   var attributesToLog = [{
@@ -36,7 +37,8 @@ function MapProperties (name, filePath) {
     "zoom": this.zoom,
     "projection": this.projection,
     "mapboxToken":  this.mapboxToken,
-    "sidebarPos": this.sidebarPos
+    "sidebarPos": this.sidebarPos,
+    "maxFeatures" : this.maxFeatures
   }];
   console.log('classMapProperties.MapProperties('+name+')');
   console.log(attributesToLog);
@@ -99,6 +101,15 @@ MapProperties.prototype.getMapboxToken = function () {
  */
 MapProperties.prototype.getSidebarPos = function () {
   return this.sidebarPos;
+};
+
+/**
+ * Get Map's default maxFeatures.
+ * @this {MapProperties}
+ * @return {number} The max features per query.
+ */
+MapProperties.prototype.getMaxFeatures = function () {
+  return this.maxFeatures;
 };
 
 /* ============================================================================

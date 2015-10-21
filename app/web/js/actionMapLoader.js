@@ -53,6 +53,7 @@ function loadGeoServerLayers (mapBoundingBox) {
 
   // Loop all Curent Layer
   for (var i = 0; i < mapLayers.length; i++) {
+    console.log(mapLayers[i].getType());
     if (mapLayers[i].getType()!='Background') {
       map.removeLayer(mapLayers[i].getContent());
     };

@@ -38,10 +38,18 @@ var sidebar;
 
 /**
  * Load and reload GeoServer Layers with Bounding box query
+ * @param {boundingBox} mapBoundingBox The bounding box of the current map
  --------------------------------------------------------------------------- */
 function loadGeoServerLayers (mapBoundingBox) {
   console.log('actionMapLoader.loadGeoServerLayers(...)');
   console.log(mapBoundingBox);
+
+  // Drop all Curent GeoServer Layers
+  for (var i = 0; i < mapLayers.length; i++) {
+    if (mapLayers[i].getCategory()!='Background') {
+      map.removeLayer(mapLayers[i].getContent());
+    };
+  };
 
   // Get GeoServer Layer
   var listGeoServerLayer = [];
@@ -50,14 +58,8 @@ function loadGeoServerLayers (mapBoundingBox) {
     geoServerProperties.getRepository(),
     mapProperties.getProjection(),
     mapProperties.getMaxFeatures(),
-    mapBoundingBox);
-
-  // Drop all Curent GeoServer Layers
-  for (var i = 0; i < mapLayers.length; i++) {
-    if (mapLayers[i].getCategory()!='Background') {
-      map.removeLayer(mapLayers[i].getContent());
-    };
-  };
+    mapBoundingBox
+  );
 
   // Add all GeoServer Layers
   for (var i = 0; i < listGeoServerLayer.length; i++) {
@@ -397,7 +399,7 @@ function init () {
     console.log('actionMapLoader.map.on(moveend)');
 
     // refresh the map
-    //loadGeoServerLayers(map.getBounds());
+    loadGeoServerLayers(map.getBounds());
     // READ : http://stackoverflow.com/questions/15440216/update-leaflet-geojson-layer-with-data-inside-bounding-box
 
   });

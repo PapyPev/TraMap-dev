@@ -80,10 +80,10 @@ function changeLayer (i, type) {
     map.addLayer(mapLayers[i].getContent()); // load map layer
     mapLayers[i].setCheck(true); // load TOC layer
   }
-  // Loop Layers
+  // Loop Layers - Remove the other layer
   for (var j = 0; j < mapLayers.length; j++) {
     if (mapLayers[j].getCategory()==mapLayers[i].getCategory()
-      && j != i && type=='Checkbox') {
+      && j != i && type=='Radio') {
       mapLayers[j].setCheck(false);
       map.removeLayer(mapLayers[j].getContent());
     };

@@ -46,11 +46,11 @@ function setStyle(feature) {
  * @param {string} url The GeoServer address
  * @param {string} repository The GeoServer repository
  * @param {string} projection The default map projection
+ * @param {number} maxFeatures Number of maxFeatures per query
  * @param {string} bbox The current map Bounding Box (map extent)
- * @param {nulber} maxFeatures Number of maxFeatures per query
  * @return {LayerProperties} Return a classLayerProperties object 
  --------------------------------------------------------------------------- */
-function getGeoServerLayers(url, repository, projection, bbox, maxFeatures){
+function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
   console.log("actionGeoServerLayers.getGeoServerLayers()");
 
   var southWest = LatLonToMercator(bbox._southWest.lat,bbox._southWest.lng);

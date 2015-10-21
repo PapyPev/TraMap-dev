@@ -43,7 +43,7 @@ function loadGeoServerLayers (mapBoundingBox) {
   console.log('actionMapLoader.loadGeoServerLayers(...)');
   console.log(mapBoundingBox);
 
-  console.log(">>" + mapProperties.getMaxFeatures());
+  console.log(mapProperties.toString());
 
   // Get GeoServer Layer
   var listGeoServerLayer = [];

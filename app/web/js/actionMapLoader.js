@@ -223,10 +223,8 @@ function loadPopupContent (data) {
         html += data.content_overTheMap[i].content;
         // End container
         html += '</div></div></div>';
-        console.log(html);
-        console.log(data);
         // Write on the div
-        $("#"+data.popup_div_content+"").html(html).trigger("create");
+        $("#"+data.div_popup_content+"").html(html).trigger("create");
         break;
 
       default:

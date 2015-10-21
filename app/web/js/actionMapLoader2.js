@@ -192,7 +192,6 @@ function loadPopupEvent (glyph, popupName, sidebar) {
     '<span class="glyphicon '+glyph+'" aria-hidden="true"></span>',
     function(){
       sidebar.hide(); // close sidebar
-      alert(popupName);
       $('#'+popupName).modal('show'); // load content
       console.log('actionMapLoader.loadPopupEvent(...) #'+popupName);
     }, popupName // For event
@@ -223,7 +222,8 @@ function loadPopupContent (data) {
         // Content
         html += data.content_overTheMap[i].content;
         // End container
-        html += '</div></div></div>'
+        html += '</div></div></div>';
+        console.log(html);
         // Write on the div
         $("#"+data.popup_div_content+"").html(html).trigger("create");
         break;

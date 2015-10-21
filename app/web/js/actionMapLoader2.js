@@ -364,6 +364,12 @@ function init () {
   });
   map.addControl(sidebar);
 
+  //---------- Load Default GeoServer layer 
+  loadGeoServerLayers(map.getBounds());
+
+  //---------- Load TOC
+  loadTOC();
+
   //---------- Load Actions Buttons
   L.easyButton( '<span class="easy-button">&equiv;</span>', 
     function(){
@@ -381,12 +387,6 @@ function init () {
 
   //---------- Load Popup
   loadPopup(sidebar);
-
-  //---------- Load Default GeoServer layer 
-  loadGeoServerLayers(map.getBounds());
-
-  //---------- Load TOC
-  loadTOC();
 
   //----------- Moving Map view, refresh GeoServerLayer
   map.on('moveend', function() { 

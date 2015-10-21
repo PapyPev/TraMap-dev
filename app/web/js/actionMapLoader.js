@@ -3,7 +3,7 @@
  * Initialize Map content
  *
  * @author Pev
- * @version 4.1
+ * @version 4.2
  *************************************************************************** */
 
 /* ============================================================================
@@ -53,7 +53,6 @@ function loadGeoServerLayers (mapBoundingBox) {
 
   // Loop all Curent Layer
   for (var i = 0; i < mapLayers.length; i++) {
-    console.log(mapLayers[i].getType());
     if (mapLayers[i].getCategory()!='Background') {
       map.removeLayer(mapLayers[i].getContent());
     };

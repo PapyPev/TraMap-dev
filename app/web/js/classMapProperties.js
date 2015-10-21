@@ -134,7 +134,7 @@ MapProperties.prototype.toString = function() {
   }];
   console.log('classMapProperties.toString():');
   console.log(attributesToLog);
-  return JSON.stringify(attributesToLog)
+  return attributesToLog;
 };
 
 /* ============================================================================

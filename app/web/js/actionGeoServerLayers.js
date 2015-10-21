@@ -99,7 +99,7 @@ function getGeoServerLayers(url, repository, projection, bbox){
           +"&SRS="+projection
           +"&bbox="+southWest.X+","+southWest.Y+","
           +northEast.X+","+northEast.Y
-          +"&maxFeatures=100"
+          +"&maxFeatures=1000"
           +"&outputFormat=application/json"//,
           // {
           //   style: setStyle

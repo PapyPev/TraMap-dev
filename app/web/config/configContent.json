@@ -1,0 +1,24 @@
+{
+  "div_toc_title" : "toc-title",
+  "div_toc_content" : "toc-content",
+  "div_toc_descript" : "toc-description",
+  "div_popup_content" : "popup-content",
+  "content_toc_title" : "Toc title",
+  "content_toc_descript" : "Toc description",
+  "content_overTheMap": [
+    {
+      "id":0,
+      "type":"popup",
+      "icon":"glyphicon-envelope",
+      "name":"contact",
+      "content":"<div class=\"modal-header\"><button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><h4 class=\"modal-title\" id=\"contactLabel\">Contact Us</h4></div><div class=\"modal-body\"><form><label for=\"message-text\" class=\"control-label\">Your email:</label><div class=\"form-group\"><div class=\"input-group\"><span class=\"input-group-addon\">@</span><input type=\"email\" class=\"form-control\" id=\"contactEmail\"></div> <br /><div class=\"form-group\"><label for=\"message-text\" class=\"control-label\">Message:</label><textarea class=\"form-control\" id=\"message-text\" id=\"contactMessage\"></textarea></div></div></form></div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button><button type=\"button\" class=\"btn btn-primary disabled\">Send message</button></div>"
+    },
+    {
+      "id":1,
+      "type":"popup",
+      "icon":"glyphicon-info-sign",
+      "name":"informations",
+      "content":"<div class=\"modal-header\"><button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><h4 class=\"modal-title\" id=\"contactLabel\">Informations</h4></div><div class=\"modal-body\"><div class=\"media\"><div class=\"media-left\"><a href=\"#\"><img class=\"media-object\" src=\"./img/fanda.png\" alt=\"Fanda\"></a></div><div class=\"media-body\"><h4 class=\"media-heading\">Fanda</h4>Description of Fanda</div></div><div class=\"media\"><div class=\"media-left\"><a href=\"#\"><img class=\"media-object\" src=\"./img/pev.png\" alt=\"Pev\"></a></div><div class=\"media-body\"><h4 class=\"media-heading\">Pev</h4>Description of Pev</div><div class=\"media\"><div class=\"media-left\"><a href=\"#\"><img class=\"media-object\" src=\"./img/github.png\" alt=\"Fanda\"></a></div><div class=\"media-body\"><h4 class=\"media-heading\">Github Sources</h4>You can Follow our activities on Github -> <a href=\"https://github.com/PapyPev/hamk-map-project\">sources</a></div></div></div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button></div>"
+    }
+  ]
+}

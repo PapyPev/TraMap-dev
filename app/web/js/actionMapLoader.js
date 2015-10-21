@@ -37,13 +37,11 @@ var sidebar;
  * ========================================================================= */
 
 /**
- * Load GeoServer Layers with Bounding box query
+ * Load and reload GeoServer Layers with Bounding box query
  --------------------------------------------------------------------------- */
 function loadGeoServerLayers (mapBoundingBox) {
   console.log('actionMapLoader.loadGeoServerLayers(...)');
   console.log(mapBoundingBox);
-
-  //alert(mapBoundingBox._southWest.lat)
 
   // Get GeoServer Layer
   var listGeoServerLayer = [];
@@ -53,9 +51,14 @@ function loadGeoServerLayers (mapBoundingBox) {
     mapProperties.getProjection(),
     mapBoundingBox);
 
-  console.log("actionMapLoader.getMapLayers() [listGeoServerLayer]");
-  console.log(listGeoServerLayer);
+  // Loop all Curent Layer
+  for (var i = 0; i < mapLayers.length; i++) {
+    if (mapLayers[i].getType()!='Background') {
+      map.removeLayer(mapLayers[i].getContent());
+    };
+  };
 
+  // Loop all GeoServer Layers
   for (var i = 0; i < listGeoServerLayer.length; i++) {
     mapLayers.push(listGeoServerLayer[i]);
     map.addLayer(listGeoServerLayer[i].getContent());
@@ -388,9 +391,12 @@ function init () {
 
   //----------- Moving Map view, refresh GeoServerLayer
   map.on('moveend', function() { 
-    console.log('actionMapLoader.map.on(moveend)')
-    //loadGeoServerLayers(map.getBounds());
+    console.log('actionMapLoader.map.on(moveend)');
+
+    // refresh the map
+    loadGeoServerLayers(map.getBounds());
     // READ : http://stackoverflow.com/questions/15440216/update-leaflet-geojson-layer-with-data-inside-bounding-box
+
   });
 
 

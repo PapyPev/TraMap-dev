@@ -224,6 +224,7 @@ function loadPopupContent (data) {
         // End container
         html += '</div></div></div>';
         console.log(html);
+        console.log(data);
         // Write on the div
         $("#"+data.popup_div_content+"").html(html).trigger("create");
         break;

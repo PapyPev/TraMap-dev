@@ -11,11 +11,9 @@ This table contains roadlink (topology clean)
 <br>id - identificator
 <br>osm_id - OSM identificator
 <br>osm_name - OSM name
-<br>osm_source_id - OSM source node identification
-<br>osm target_id - OSM target node identificator
 <br>type - type of roads (number) more information in srv/data/osm2po.config
-<br>source - source node of edge (FK)
-<br>target - target node of edge (FK)
+<br>source_id - source node of edge (FK)
+<br>target_id - target node of edge (FK)
 <br>length - edge (link) length in km
 <br>speed - avarage speed (not accurate)
 <br>cost - cost for shortest path search (computed from speed and length)
@@ -29,6 +27,7 @@ contains all nodes in graph (all junkers)
 
 <br>id - identificator
 <br>geometry - geometry of node
+<br>osm_id - OSM node ID
 
 zones
 -----
@@ -40,7 +39,7 @@ This table contains point of interest for transport modeling like shop, school, 
 <br>num_of_people - number of people who live in the zones (for type home) or travel to the zones (for other type)
 <br>type - zones type
 <br>subtype - zones subtype
-<br>age_FROM_TO - number of people split by age category [0,1] (sum of all category must be 1)
+<br>age_FROM_TO - number of people(in %) split by age category (sum of all category must be 1)
 <br>geometry - point
 
 traffic
@@ -57,8 +56,8 @@ od_pairs
 This table contains number of trip from origin to destination zones
 
 <br>id - identificator
-<br>origin - origin zone (O)
-<br>destination - destination zone (D)
+<br>origin_id - origin zone (O)
+<br>destination_id - destination zone (D)
 <br>num_of_trip - number of trip from O to D
 
 general_area_information

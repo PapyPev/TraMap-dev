@@ -64,7 +64,7 @@ MapProperties.prototype.getName = function () {
  * @return {list} The default map's center.
  */
 MapProperties.prototype.getCenter = function () {
-  return this.center;
+  return [this.center[0], this.center[1]];
 };
 
 /**
@@ -124,13 +124,13 @@ MapProperties.prototype.getMaxFeatures = function () {
  */
 MapProperties.prototype.toString = function() {
   var attributesToLog = [{
-    name: name, 
-    center: [center[0], center[1]],
-    zoom: zoom,
-    projection: projection,
-    mapboxToken:  mapboxToken,
-    sidebarPos: sidebarPos,
-    maxFeatures: maxFeatures
+    name: this.name, 
+    center: [this.center[0], this.center[1]],
+    zoom: this.zoom,
+    projection: this.projection,
+    mapboxToken:  this.mapboxToken,
+    sidebarPos: this.sidebarPos,
+    maxFeatures: this.maxFeatures
   }];
   console.log('classMapProperties.toString():');
   console.log(attributesToLog);

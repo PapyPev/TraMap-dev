@@ -47,7 +47,7 @@ function setStyle(feature) {
  * @param {string} repository The GeoServer repository
  * @param {string} projection The default map projection
  * @param {string} bbox The current map Bounding Box (map extent)
- * @param {nulber} maxFeatures Number of maxFeature per query
+ * @param {nulber} maxFeatures Number of maxFeatures per query
  * @return {LayerProperties} Return a classLayerProperties object 
  --------------------------------------------------------------------------- */
 function getGeoServerLayers(url, repository, projection, bbox, maxFeatures){

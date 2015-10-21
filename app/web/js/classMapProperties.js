@@ -129,7 +129,8 @@ MapProperties.prototype.toString = function() {
     zoom: zoom,
     projection: projection,
     mapboxToken:  mapboxToken,
-    sidebarPos: sidebarPos
+    sidebarPos: sidebarPos,
+    maxFeatures: maxFeatures
   }];
   console.log('classMapProperties.toString():');
   console.log(attributesToLog);

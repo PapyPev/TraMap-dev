@@ -52,7 +52,6 @@ function loadGeoServerLayers (mapBoundingBox) {
     geoServerProperties.getRepository(),
     mapProperties.getProjection(),
     mapBoundingBox);
-    //mapBoundingBox.toBBoxString());
 
   console.log("actionMapLoader.getMapLayers() [listGeoServerLayer]");
   console.log(listGeoServerLayer);
@@ -390,7 +389,7 @@ function init () {
   //----------- Moving Map view, refresh GeoServerLayer
   map.on('moveend', function() { 
     console.log('actionMapLoader.map.on(moveend)')
-    loadGeoServerLayers(map.getBounds());
+    //loadGeoServerLayers(map.getBounds());
     // READ : http://stackoverflow.com/questions/15440216/update-leaflet-geojson-layer-with-data-inside-bounding-box
   });
 

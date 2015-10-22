@@ -44,7 +44,7 @@ function buttonSearch () {
   });
 
   // Remove cursor style
-  $('.leaflet-container').css('cursor','');
+  //$('.leaflet-container').css('cursor','');
 
 }; //--- end buttonSearch()
 

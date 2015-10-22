@@ -56,7 +56,7 @@ function refreshGeoServerLayers (mapBoundingBox) {
       // Create the URL query
       var url = mapLayers[i].getURL() +"&bbox="+sw.X+","+sw.Y+","+ne.X+","+ne.Y;
 
-      if (mapLayers.getCategory()!='Background') {
+      if (mapLayers[i].getCategory()!='Background') {
         // Refresh
         mapLayers[i].getContent().refresh(url);
       };

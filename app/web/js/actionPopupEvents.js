@@ -37,7 +37,8 @@ function buttonFocus () {
 function buttonSearch () {
 
   // Change cursor symbol
-  document.body.style.cursor = "pointer";
+  //document.body.style.cursor = "pointer";
+  $('.leaflet-container').css('cursor','cell');
 
   map.on('click', function(e) {
     alert(e.containerPoint.toString() + ', ' + e.latlng.toString());

@@ -414,8 +414,6 @@ function init () {
   L.easyButton(
     '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>',
     function(){
-      alert("searchButton");
-      console.log("searchButton");
       buttonSearch();
     }, 'Search'
   ).addTo(map);

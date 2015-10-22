@@ -46,21 +46,25 @@ function buttonSearch () {
   map.on('click', function(e) {
     alert(e.containerPoint.toString() + ', ' + e.latlng.toString());
     listOD.push(e.latlng);
-    console.log("latlong");
-    console.log(listOD);
+    // If we have 2 points
+    if (listOD.length == 2) {
+      console.log("latlong");
+      console.log(listOD);
+      // Remove click event
+        map.off('click');
+      // Remove cursor style
+      $('.leaflet-container').css('cursor','');
+    };
   });
 
   // If esc is pressed
   $(document).keyup(function(e) {
      if (e.keyCode == 27) {
-
         // Remove click event
         map.off('click');
-
         // Remove cursor style
         $('.leaflet-container').css('cursor','');
     }
-
   });
 
 }; //--- end buttonSearch()

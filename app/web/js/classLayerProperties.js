@@ -131,6 +131,16 @@ LayerProperties.prototype.setCheck = function(check){
   //console.log("classLayerProperties.setCheck(): " + this.checked);
 };
 
+/**
+ * Set LayerProperties's Content.
+ * @this {LayerProperties}
+ * @param {Object} content The content of Layer.  
+ */
+LayerProperties.prototype.setContent = function(content){
+  this.content = content;
+  //console.log("classLayerProperties.setCheck(): " + this.checked);
+};
+
 /* ============================================================================
 * METHODS
 * ========================================================================= */

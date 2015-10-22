@@ -45,11 +45,11 @@ function loadGeoServerLayers (mapBoundingBox) {
   console.log(mapBoundingBox);
 
   // Drop all Curent GeoServer Layers
-  for (var i = 0; i < mapLayers.length; i++) {
-    if (mapLayers[i].getCategory()!='Background') {
-      map.removeLayer(mapLayers[i].getContent());
-    };
-  };
+  // for (var i = 0; i < mapLayers.length; i++) {
+  //   if (mapLayers[i].getCategory()!='Background') {
+  //     map.removeLayer(mapLayers[i].getContent());
+  //   };
+  // };
 
   // Get GeoServer Layer
   var listGeoServerLayer = [];
@@ -63,9 +63,19 @@ function loadGeoServerLayers (mapBoundingBox) {
 
   // Add all GeoServer Layers
   for (var i = 0; i < listGeoServerLayer.length; i++) {
-    mapLayers.push(listGeoServerLayer[i]);
+
+    // All curent Layers
+    for (var j = 0; j < mapLayers.length; j++) {
+      
+      if (listGeoServerLayer[i].getName()==mapLayers[j].getName()) {
+        mapLayers[j].setContent(listGeoServerLayer[i].getContent());
+      };
+
+    };
+
+    //mapLayers.push(listGeoServerLayer[i]);
     //if (listGeoServerLayer[i].getCheck()) {
-      map.addLayer(listGeoServerLayer[i].getContent());
+      //map.addLayer(listGeoServerLayer[i].getContent());
     //};
   };
 }; //--- end loadGeoServerLayers(mapBoundingBox)

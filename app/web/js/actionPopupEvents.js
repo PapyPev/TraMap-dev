@@ -17,6 +17,17 @@ var listOD;
  * ========================================================================= */
 
 /**
+ * Find itinerary betwin origin and destination
+ * @param {Object} origin Origin contains lat and long coordinates
+ * @param {Object} destination Destination contains lat and long coordinates
+ --------------------------------------------------------------------------- */
+function findItinerary (origin, destination) {
+  console.log("actionPopupEvents.findItinerary(...)");
+  console.log("From:"+origin.toString()+" - To:"+destination.toString());
+
+}; //--- end findItinerary (origin, destination)
+
+/**
  * Get form value from focus popup and focus on values
  --------------------------------------------------------------------------- */
 function buttonFocus () {
@@ -44,17 +55,21 @@ function buttonSearch () {
 
   // Active click on the map
   map.on('click', function(e) {
-    alert(e.containerPoint.toString() + ', ' + e.latlng.toString());
+    //alert(e.containerPoint.toString() + ', ' + e.latlng.toString());
+
+    // Add point on list
     listOD.push(e.latlng);
+
     // If we have 2 points
     if (listOD.length == 2) {
-      console.log("latlong");
-      console.log(listOD);
       // Remove click event
         map.off('click');
       // Remove cursor style
       $('.leaflet-container').css('cursor','');
+      // Run itinerary alorithm
+      findItinerary(listOD[0], listOD[1]);
     };
+
   });
 
   // If esc is pressed

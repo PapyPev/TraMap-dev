@@ -393,7 +393,7 @@ function init () {
     position: mapProperties.getSidebarPos()
   });
   map.addControl(sidebar);
-  sidebar.show();
+  //sidebar.show();
 
   //---------- Load Default GeoServer layer 
   loadGeoServerLayers(map.getBounds());

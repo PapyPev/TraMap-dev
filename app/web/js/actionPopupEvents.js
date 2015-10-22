@@ -14,3 +14,11 @@ function buttonFocus () {
   alert(key + " " + lat + " "+ lon);
 
 };
+
+function buttonSearch () {
+
+  map.on('click', function(e) {
+    alert(e.containerPoint.toString() + ', ' + e.latlng.toString());
+  });
+
+};

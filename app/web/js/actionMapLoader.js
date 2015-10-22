@@ -428,10 +428,6 @@ function init () {
     refreshGeoServerLayers(map.getBounds());
   });
 
-  map.on('click', function(e) {
-    alert(e.containerPoint.toString() + ', ' + e.latlng.toString());
-  });
-
 };
 
 /* ============================================================================

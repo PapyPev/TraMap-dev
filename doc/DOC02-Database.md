@@ -1,12 +1,18 @@
-Database model
-=============
+<h1>Database model</h1>
+<p>
+    In this documentation we will explain how the data are structured and how it's use for the application. We will describe their structure, types and field names. This database model contains six tables.
+</p>
 
-Database model contains 6 table.
+<h2>Table : roads</h2>
+<p>
+    This table contains roadlink (topology clean)
+</p>
 
-roads
-------
-
-This table contains roadlink (topology clean)
+| Attribute     | Type          | Description  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
 
 <br>id - identificator
 <br>osm_id - OSM identificator

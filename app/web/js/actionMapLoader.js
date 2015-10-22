@@ -96,6 +96,7 @@ function changeLayer (i, type) {
       map.removeLayer(mapLayers[j].getContent());
     };
   };
+
 }; //--- end changeLayer (i)
 
 /**

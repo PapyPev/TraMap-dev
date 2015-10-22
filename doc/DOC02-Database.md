@@ -9,53 +9,58 @@
 </p>
 
 | Attribute     | Type      | Description           |
-| ------------- |:---------:| ---------------------:|
-| id            | PK        | identificator |
+| ------------- |:---------:| --------------------- |
+| id            | PK integer| identificator |
 | osm_id        | bigint    | OSM identificator |
 | osm_name      | char      | OSM name |
 | type          | integer   | type of roads |
-| source_id     | integer   | source node of edge |
-| target_id     | integer   | target node of edge |
+| source_id     | FK integer| source node of edge |
+| target_id     | FK integer| target node of edge |
 | length        | double    | edge (link) length in km |
 | speed         | integer   | avarage speed (not accurate) |
 | cost          | double    | cost for shortest path search |
 | reverse_cost  | double    | cost in reverse direction |
 | X1 .. Y2      | double    | node coordinates for A* search |
-| geometry      | gemotery  | geometry of edge |
+| geometry      | gemotery  | line |
 
-<br>id - identificator
-<br>osm_id - OSM identificator
-<br>osm_name - OSM name
-<br>type - type of roads (number) more information in srv/data/osm2po.config
-<br>source_id - source node of edge (FK)
-<br>target_id - target node of edge (FK)
-<br>length - edge (link) length in km
-<br>speed - avarage speed (not accurate)
-<br>cost - cost for shortest path search (computed from speed and length)
-<br>reverse_cost - cost in reverse direction
-<br>X1 .. Y2 - node coordinates for A* search
-<br>geometry - geometry of edge
+<u>Information</u> :<br> 
+<ul>
+    <li>type : more information in <code>srv/data/osm2po.config</code></li>
+    <li>cost : computed from speed and length</li>
+</ul>
 
-nodes
-------
-contains all nodes in graph (all junkers)
+<h2>Table : nodes</h2>
+<p>
+    This table contains all nodes in graph (all junkers)
+</p>
 
-<br>id - identificator
-<br>geometry - geometry of node
-<br>osm_id - OSM node ID
+| Attribute     | Type      | Description           |
+| ------------- |:---------:| --------------------- |
+| id            | PK bigint | identificator         |
+| geometry      | geometry  | gemotery of node      |
+| osm_id        | bigint    | OSM node ID           |
 
-zones
------
-This table contains point of interest for transport modeling like shop, school, ... and home type point (for living)
 
-<br>id - identificator
-<br>node_id - id of node (nearest node) (FK)
-<br>name - node name
-<br>num_of_people - number of people who live in the zones (for type home) or travel to the zones (for other type)
-<br>type - zones type
-<br>subtype - zones subtype
-<br>age_FROM_TO - number of people(in %) split by age category (sum of all category must be 1)
-<br>geometry - point
+<h2>Table : zones</h2>
+<p>
+    This table contains point of interest for transport modeling like shop, school, ... and home type point (for living)
+</p>
+
+| Attribute     | Type      | Description           |
+| ------------- |:---------:| --------------------- |
+| id            | PK integer| identificator |
+| node_id       | FK bigint | id of node (nearest node) |
+| names         | text      | node name |
+| num_of_people | integer   | number of people who live in the zones |
+| type          | char      | zones type |
+| subtype       | char      | zones subtype |
+| age_FROM_TO   | double    | percentage of people split by age category |
+| geometry      | geometry  | point |
+
+<u>Information</u> : <br>
+<ul>
+    <li>num_of_people : number of people who live in the zones (for type home) or travel to the zones (for other type)</li>
+</ul>
 
 traffic
 --------

@@ -9,7 +9,7 @@
 </p>
 
 | Attribute     | Type      | Description           |
-| ------------- |:---------:| --------------------- |
+| ------------- | --------- | --------------------- |
 | id            | PK integer| identificator |
 | osm_id        | bigint    | OSM identificator |
 | osm_name      | char      | OSM name |
@@ -35,7 +35,7 @@
 </p>
 
 | Attribute     | Type      | Description           |
-| ------------- |:---------:| --------------------- |
+| ------------- | --------- | --------------------- |
 | id            | PK bigint | identificator         |
 | geometry      | geometry  | gemotery of node      |
 | osm_id        | bigint    | OSM node ID           |
@@ -47,7 +47,7 @@
 </p>
 
 | Attribute     | Type      | Description           |
-| ------------- |:---------:| --------------------- |
+| ------------- | --------- | --------------------- |
 | id            | PK integer| identificator |
 | node_id       | FK bigint | id of node (nearest node) |
 | names         | text      | node name |
@@ -62,30 +62,47 @@
     <li>num_of_people : number of people who live in the zones (for type home) or travel to the zones (for other type)</li>
 </ul>
 
-traffic
---------
-Trafic for roads.
+<h2> Table : traffic</h2>
+<p>
+    This table contains Trafic for roads.
+</p>
 
-<br>id - identificator
-<br>road_id - road edge (FK)
-<br>traffic - traffic value
-<br>direction - true - posutive direction , false - reverse direction
+| Attribute     | Type      | Description           |
+| ------------- | --------- | --------------------- |
+| id            | PK integer| identificator |
+| road_id       | FK integer| road edge |
+| traffic       | double    | traffic value |
+| direction     | boolean   | positive or reverse direction |
 
-od_pairs
----------
-This table contains number of trip from origin to destination zones
+<u>Information</u> : <br>
+<ul>
+    <li>traffic : number of trip per day</li>
+    <li>direction : true - positive direction , false - reverse direction</li>
+</ul>
 
-<br>id - identificator
-<br>origin_id - origin zone (O)
-<br>destination_id - destination zone (D)
-<br>num_of_trip - number of trip from O to D
+<h2> Table : od_pairs</h2>
+<p>
+    This table contains number of trip from origin to destination zones
+</p>
 
-general_area_information
-------------------------
-<br>Information about area for transport modeling.
-<br>id - identificator
-<br>name - area name
-<br>walking - number of trip per day on one person (by foot)
-<br>cycling - number of trip per day on one person (by bike)
-<br>driver - number of trip per day on one person (by car)
-<br>geometry - area definition (Polygon)
+| Attribute     | Type      | Description           |
+| ------------- | --------- | --------------------- |
+| id            | PK integer| identificator |
+| origin_id     | FK integer| origin zone |
+| destination   | FK integer| destination zone |
+| num_of_trip   | double    | number of trip from Origin to Destination |
+
+<h2> Table : general_area_information</h2>
+<p>
+    This table contains informations about area for transport modeling. 
+</p>
+
+| Attribute     | Type      | Description           |
+| ------------- | --------- | --------------------- |
+| id            | PK integer| identificator |
+| name          | text      | area name |
+| walking       | double    | number of trip per day on one person (by foot) |
+| cycling       | double    | number of trip per day on one person (by bike) |
+| driver        | double    | number of trip per day on one person (by car) |
+| geometry      | geometry  | area definition, polygon |
+

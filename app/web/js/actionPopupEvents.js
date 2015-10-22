@@ -7,10 +7,10 @@
 
 function buttonFocus () {
 
-  var key = document.getElementById("focusKeyword").value;
-  var lat = document.getElementById("focusLatLong-Lat").value;
-  var lon = document.getElementById("focusLatLong-Long").value;
+  var key = document.getElementById("focusKeyword");
+  var lat = document.getElementById("focusLatLong-Lat");
+  var lon = document.getElementById("focusLatLong-Long");
 
-  alert(key, lat, lon);
+  alert(key.innerHTML, lat.innerHTML, lon.innerHTML);
 
 };

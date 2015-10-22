@@ -37,11 +37,14 @@ function buttonFocus () {
 function buttonSearch () {
 
   // Change cursor symbol
-  //document.body.style.cursor = "pointer";
-  $('.leaflet-container').css('cursor','cell');
+  $('.leaflet-container').css('cursor','crosshair');
 
   map.on('click', function(e) {
     alert(e.containerPoint.toString() + ', ' + e.latlng.toString());
   });
 
+  // Remove cursor style
+  $('.leaflet-container').css('cursor','');
+
 }; //--- end buttonSearch()
+

@@ -36,20 +36,8 @@ var sidebar;
  * FUNCTIONS
  * ========================================================================= */
 
-/**
- * Load and reload GeoServer Layers with Bounding box query
- * @param {boundingBox} mapBoundingBox The bounding box of the current map
- --------------------------------------------------------------------------- */
-function loadGeoServerLayers (mapBoundingBox) {
-  console.log('actionMapLoader.loadGeoServerLayers(...)');
-  console.log(mapBoundingBox);
 
-  // Drop all Curent GeoServer Layers
-  // for (var i = 0; i < mapLayers.length; i++) {
-  //   if (mapLayers[i].getCategory()!='Background') {
-  //     map.removeLayer(mapLayers[i].getContent());
-  //   };
-  // };
+function refreshGeoServerLayers (mapBoundingBox) {
 
   // Get GeoServer Layer
   var listGeoServerLayer = [];
@@ -61,7 +49,7 @@ function loadGeoServerLayers (mapBoundingBox) {
     mapBoundingBox
   );
 
-  console.log("listGeoServerLayer");
+  console.log("refresh.listGeoServerLayer");
   console.log(listGeoServerLayer);
 
   // Add all GeoServer Layers
@@ -76,11 +64,37 @@ function loadGeoServerLayers (mapBoundingBox) {
 
     };
 
-    //mapLayers.push(listGeoServerLayer[i]);
-    //if (listGeoServerLayer[i].getCheck()) {
-      //map.addLayer(listGeoServerLayer[i].getContent());
-    //};
   };
+
+};
+
+/**
+ * Load and reload GeoServer Layers with Bounding box query
+ * @param {boundingBox} mapBoundingBox The bounding box of the current map
+ --------------------------------------------------------------------------- */
+function loadGeoServerLayers (mapBoundingBox) {
+  console.log('actionMapLoader.loadGeoServerLayers(...)');
+  console.log(mapBoundingBox);
+
+
+  // Get GeoServer Layer
+  var listGeoServerLayer = [];
+  listGeoServerLayer = getGeoServerLayers(
+    geoServerProperties.getAddress(), 
+    geoServerProperties.getRepository(),
+    mapProperties.getProjection(),
+    mapProperties.getMaxFeatures(),
+    mapBoundingBox
+  );
+
+  // Add all GeoServer Layers
+  for (var i = 0; i < listGeoServerLayer.length; i++) {
+    mapLayers.push(listGeoServerLayer[i]);
+    if (listGeoServerLayer[i].getCheck()) {
+      map.addLayer(listGeoServerLayer[i].getContent());
+    };
+  };
+
 }; //--- end loadGeoServerLayers(mapBoundingBox)
 
 /**
@@ -413,7 +427,7 @@ function init () {
     console.log('actionMapLoader.map.on(moveend)');
 
     // refresh the map
-    loadGeoServerLayers(map.getBounds());
+    refreshGeoServerLayers(map.getBounds());
     // READ : http://stackoverflow.com/questions/15440216/update-leaflet-geojson-layer-with-data-inside-bounding-box
 
   });

@@ -19,16 +19,18 @@
  * @param {string} name The name of layer.
  * @param {string} alias The alias of layer.
  * @param {number} position The postion of layer.
- * @param {boolean} check The default selection of layer.
+ * @param {boolean} checked The default selection of layer.
+ * @param {string} url The GeoServer URL for this layer.
  * @param {Object} content The layer.
  */
-function LayerProperties(type, category, name, alias, position, checked, content) {
+function LayerProperties(type, category, name, alias, position, checked, url, content) {
   /** @private */ this.type = type;
   /** @private */ this.category = category;
   /** @private */ this.name = name;
   /** @private */ this.alias = alias;
   /** @private */ this.position = position;
   /** @private */ this.checked = checked;
+  /** @private */ this.url = url;
   /** @private */ this.content = content;
 
   var attributesToLog = [{
@@ -37,6 +39,7 @@ function LayerProperties(type, category, name, alias, position, checked, content
     alias: alias,
     position: position,
     checked:  checked,
+    url: url,
     content: content
   }];
   console.log('classLayerProperties.LayerProperties('+name+')');
@@ -108,6 +111,16 @@ LayerProperties.prototype.getCheck = function(){
 };
 
 /**
+ * Get LayerProperties's GeoServer URL.
+ * @this {LayerProperties}
+ * @return {string} The url layer address.
+ */
+LayerProperties.prototype.getURL = function(){
+  //console.log("classLayerProperties.getContent(): " + this.content);
+  return this.url;
+};
+
+/**
  * Get LayerProperties's Content.
  * @this {LayerProperties}
  * @return {Object} The content of layer.
@@ -158,6 +171,7 @@ LayerProperties.prototype.toString = function() {
     alias: this.alias,
     position: this.position,
     checked:  this.checked,
+    url: this.url,
     content: this.content
   }];
   console.log("classLayerProperties.toString():")

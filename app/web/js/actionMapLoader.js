@@ -36,6 +36,34 @@ var sidebar;
  * FUNCTIONS
  * ========================================================================= */
 
+function refreshGeoServerLayers (mapBoundingBox) {
+
+  console.log("actionMapLoader.refreshGeoServerLayers(...)");
+
+  for (var i = 0; i < mapLayers.length; i++) {
+    if (mapLayers[i].getCheck()) {
+
+      // Reprojection coordinate system
+      var sw = LatLonToMercator(
+        mapBoundingBox._southWest.lat,
+        mapBoundingBox._southWest.lng
+      );
+      var ne = LatLonToMercator(
+        mapBoundingBox._northEast.lat,
+        mapBoundingBox._northEast.lng
+      );
+
+      // Create the URL query
+      var url = mapLayers.getURL() +"&bbox="+sw.X+","+sw.Y+","+ne.X+","+ne.Y;
+
+      // Refresh
+      mapLayers[i].getContent().refresh(url);
+
+    };
+  };
+
+};
+
 /**
  * Load and reload GeoServer Layers with Bounding box query
  * @param {boundingBox} mapBoundingBox The bounding box of the current map
@@ -43,13 +71,6 @@ var sidebar;
 function loadGeoServerLayers (mapBoundingBox) {
   console.log('actionMapLoader.loadGeoServerLayers(...)');
   console.log(mapBoundingBox);
-
-  // Drop all Curent GeoServer Layers
-  for (var i = 0; i < mapLayers.length; i++) {
-    if (mapLayers[i].getCategory()!='Background') {
-      map.removeLayer(mapLayers[i].getContent());
-    };
-  };
 
   // Get GeoServer Layer
   var listGeoServerLayer = [];
@@ -64,9 +85,9 @@ function loadGeoServerLayers (mapBoundingBox) {
   // Add all GeoServer Layers
   for (var i = 0; i < listGeoServerLayer.length; i++) {
     mapLayers.push(listGeoServerLayer[i]);
-    //if (listGeoServerLayer[i].getCheck()) {
+    if (listGeoServerLayer[i].getCheck()) {
       map.addLayer(listGeoServerLayer[i].getContent());
-    //};
+    };
   };
 }; //--- end loadGeoServerLayers(mapBoundingBox)
 
@@ -326,11 +347,11 @@ function loadTiles () {
 
   // Create metadata layer
   var bgLightM = new LayerProperties("Radio", "Background", 
-    "bgLight", "MapBox : Light", 0, false, bgLight);
+    "bgLight", "MapBox : Light", 0, false, "", bgLight);
   var bgDarktM = new LayerProperties("Radio", "Background", 
-    "bgDark", "MapBox : Dark", 1, false, bgDark);
+    "bgDark", "MapBox : Dark", 1, false, "", bgDark);
   var bgStreetM = new LayerProperties("Radio", "Background", 
-    "bgStreet", "MapBox : Street", 2, true, bgStreet);
+    "bgStreet", "MapBox : Street", 2, true, "", bgStreet);
 
   // Add Tiles to default loaded map layers
   listOfLayers.push(bgLightM, bgDarktM, bgStreetM);
@@ -397,10 +418,10 @@ function init () {
 
   //----------- Moving Map view, refresh GeoServerLayer
   map.on('moveend', function() { 
-    console.log('actionMapLoader.map.on(moveend)');
+    console.log('>> actionMapLoader.map.on(moveend)');
 
     // refresh the map
-    loadGeoServerLayers(map.getBounds());
+    refreshGeoServerLayers(map.getBounds());
     // READ : http://stackoverflow.com/questions/15440216/update-leaflet-geojson-layer-with-data-inside-bounding-box
 
   });

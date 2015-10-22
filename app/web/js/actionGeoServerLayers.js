@@ -91,17 +91,21 @@ function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
         // Save layer Name
         var layerName = y[i].getElementsByTagName("Title")[0].childNodes[0].nodeValue;
 
-        // Get GeoJSON layer content
-        var layerContent = new L.GeoJSON.AJAX(
-          url
+        // The layer url
+        var layerUrl = url
           +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
           +repository+":"+layerName
           +"&srsName="+projection
           +"&SRS="+projection
+          +"&maxFeatures="+maxFeatures
+          +"&outputFormat=application/json"
+          
+        // Get GeoJSON layer content
+        var layerContent = new L.GeoJSON.AJAX(
+          layerUrl
           +"&bbox="+southWest.X+","+southWest.Y+","
           +northEast.X+","+northEast.Y
-          +"&maxFeatures="+maxFeatures
-          +"&outputFormat=application/json"//,
+          //,
           // {
           //   style: setStyle
           // }
@@ -115,6 +119,7 @@ function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
           layerName,
           i,
           true,
+          layerUrl,
           layerContent
         ));
 

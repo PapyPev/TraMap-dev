@@ -61,6 +61,9 @@ function loadGeoServerLayers (mapBoundingBox) {
     mapBoundingBox
   );
 
+  console.log("listGeoServerLayer");
+  console.log(listGeoServerLayer);
+
   // Add all GeoServer Layers
   for (var i = 0; i < listGeoServerLayer.length; i++) {
 

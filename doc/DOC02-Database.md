@@ -8,11 +8,20 @@
     This table contains roadlink (topology clean)
 </p>
 
-| Attribute     | Type          | Description  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+| Attribute     | Type      | Description           |
+| ------------- |:---------:| ---------------------:|
+| id            | PK        | identificator |
+| osm_id        | bigint    | OSM identificator |
+| osm_name      | char      | OSM name |
+| type          | integer   | type of roads |
+| source_id     | integer   | source node of edge |
+| target_id     | integer   | target node of edge |
+| length        | double    | edge (link) length in km |
+| speed         | integer   | avarage speed (not accurate) |
+| cost          | double    | cost for shortest path search |
+| reverse_cost  | double    | cost in reverse direction |
+| X1 .. Y2      | double    | node coordinates for A* search |
+| geometry      | gemotery  | geometry of edge |
 
 <br>id - identificator
 <br>osm_id - OSM identificator

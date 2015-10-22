@@ -395,7 +395,7 @@ function init () {
   map.addControl(sidebar);
   sidebar.show();
 
-  sidebar2 = L.control.sidebar('sidebar', {
+  sidebar2 = L.control.sidebar('sidebar2', {
     closeButton: true,
     position: "right"
   });

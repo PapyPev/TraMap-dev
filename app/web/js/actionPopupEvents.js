@@ -37,8 +37,7 @@ function buttonFocus () {
 function buttonSearch () {
 
   // Change cursor symbol
-  var whichSelected = pointer.selectedIndex;
-  document.body.style.cursor = pointer.options[whichSelected].text;
+  document.body.style.cursor = "pointer";
 
   map.on('click', function(e) {
     alert(e.containerPoint.toString() + ', ' + e.latlng.toString());

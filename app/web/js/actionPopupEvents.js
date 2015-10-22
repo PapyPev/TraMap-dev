@@ -2,7 +2,7 @@
  * Popup Events.
  *
  * @author Pev
- * @version 1.0
+ * @version 1.1
  *************************************************************************** */
 
 /* ============================================================================
@@ -24,6 +24,8 @@ var listOD;
 function findItinerary (origin, destination) {
   console.log("actionPopupEvents.findItinerary(...)");
   console.log("From:"+origin.toString()+" - To:"+destination.toString());
+
+  // TODO : algo
 
 }; //--- end findItinerary (origin, destination)
 
@@ -55,7 +57,7 @@ function buttonSearch () {
 
   // Active click on the map
   map.on('click', function(e) {
-    //alert(e.containerPoint.toString() + ', ' + e.latlng.toString());
+    alert(e.containerPoint.toString() + ', ' + e.latlng.toString());
 
     // Add point on list
     listOD.push(e.latlng);

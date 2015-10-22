@@ -395,6 +395,13 @@ function init () {
   map.addControl(sidebar);
   sidebar.show();
 
+  sidebar2 = L.control.sidebar('sidebar', {
+    closeButton: true,
+    position: "right"
+  });
+  map.addControl(sidebar2);
+  sidebar2.show();
+
   //---------- Load Default GeoServer layer 
   loadGeoServerLayers(map.getBounds());
 
@@ -422,11 +429,7 @@ function init () {
   //----------- Moving Map view, refresh GeoServerLayer
   map.on('moveend', function() { 
     console.log('>> actionMapLoader.map.on(moveend)');
-
-    // refresh the map
     refreshGeoServerLayers(map.getBounds());
-    // READ : http://stackoverflow.com/questions/15440216/update-leaflet-geojson-layer-with-data-inside-bounding-box
-
   });
 
 

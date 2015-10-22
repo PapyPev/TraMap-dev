@@ -395,13 +395,6 @@ function init () {
   map.addControl(sidebar);
   sidebar.show();
 
-  sidebar2 = L.control.sidebar('sidebar2', {
-    closeButton: true,
-    position: "right"
-  });
-  map.addControl(sidebar2);
-  sidebar2.show();
-
   //---------- Load Default GeoServer layer 
   loadGeoServerLayers(map.getBounds());
 
@@ -431,7 +424,6 @@ function init () {
     console.log('>> actionMapLoader.map.on(moveend)');
     refreshGeoServerLayers(map.getBounds());
   });
-
 
 };
 

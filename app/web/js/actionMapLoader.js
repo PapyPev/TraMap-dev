@@ -416,6 +416,7 @@ function init () {
     function(){
       alert("searchButton");
       console.log("searchButton");
+      buttonSearch();
     }, 'Search'
   ).addTo(map);
 

@@ -36,8 +36,11 @@ var sidebar;
  * FUNCTIONS
  * ========================================================================= */
 
+/**
+ * Refresh the existing GeoServer Layers
+ * @param {bbox} mapBoundingBox The current bounding box of the map
+ --------------------------------------------------------------------------- */
 function refreshGeoServerLayers (mapBoundingBox) {
-
   console.log("actionMapLoader.refreshGeoServerLayers(...)");
 
   for (var i = 0; i < mapLayers.length; i++) {
@@ -54,17 +57,17 @@ function refreshGeoServerLayers (mapBoundingBox) {
       );
 
       // Create the URL query
-      var url = mapLayers[i].getURL() +"&bbox="+sw.X+","+sw.Y+","+ne.X+","+ne.Y;
+      var url = mapLayers[i].getURL() 
+        +"&bbox="+sw.X+","+sw.Y+","+ne.X+","+ne.Y;
 
+      // if it's not a Tiles layer
       if (mapLayers[i].getCategory()!='Background') {
-        // Refresh
         mapLayers[i].getContent().refresh(url);
       };
 
-    };
-  };
-
-};
+    }; // end if check
+  }; // end for mapLayers
+}; //--- end refreshGeoServerLayers (mapBoundingBox)
 
 /**
  * Load and reload GeoServer Layers with Bounding box query

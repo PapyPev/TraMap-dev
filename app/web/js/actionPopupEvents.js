@@ -9,8 +9,8 @@
  * GLOBALS
  * ========================================================================= */
 
-// Number of clicks for buttonSearch
-var nbClick;
+// List : origin destination
+var listOD;
 
 /* ============================================================================
  * FUNCTIONS
@@ -20,6 +20,7 @@ var nbClick;
  * Get form value from focus popup and focus on values
  --------------------------------------------------------------------------- */
 function buttonFocus () {
+  console.log("actionPopupEvents.buttonFocus()");
 
   var key = document.getElementById("textFocusKeyword").value;
   var lat = document.getElementById("textFocusLatLong-Lat").value;
@@ -33,6 +34,10 @@ function buttonFocus () {
  * Active mouse click and wait two points : origin and destination.
  --------------------------------------------------------------------------- */
 function buttonSearch () {
+  console.log("actionPopupEvents.buttonSearch()");
+
+  // Init list origin-destination
+  listOD = [];
 
   // Change cursor symbol
   $('.leaflet-container').css('cursor','crosshair');
@@ -40,16 +45,14 @@ function buttonSearch () {
   // Active click on the map
   map.on('click', function(e) {
     alert(e.containerPoint.toString() + ', ' + e.latlng.toString());
+    listOD.push(e.latlng);
+    console.log("latlong");
+    console.log(listOD);
   });
-
-  // Remove cursor style
-  //$('.leaflet-container').css('cursor','');
 
   // If esc is pressed
   $(document).keyup(function(e) {
      if (e.keyCode == 27) {
-
-        alert('ESC');
 
         // Remove click event
         map.off('click');

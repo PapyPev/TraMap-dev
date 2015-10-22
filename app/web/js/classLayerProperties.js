@@ -2,7 +2,7 @@
  * LayerProperties Class.
  *
  * @author Pev
- * @version 1.2
+ * @version 1.3
  *************************************************************************** */
 
 /* ============================================================================
@@ -131,8 +131,8 @@ LayerProperties.prototype.getContent = function(){
 };
 
 /* ============================================================================
-* SETERS
-* ========================================================================= */
+ * SETERS
+ * ========================================================================= */
 
 /**
  * Set LayerProperties's Checked.
@@ -155,8 +155,8 @@ LayerProperties.prototype.setContent = function(content){
 };
 
 /* ============================================================================
-* METHODS
-* ========================================================================= */
+ * METHODS
+ * ========================================================================= */
 
 /**
  * String representation of the LayerProperties
@@ -176,6 +176,6 @@ LayerProperties.prototype.toString = function() {
   }];
   console.log("classLayerProperties.toString():")
   console.log(attributesToLog);
-  return JSON.stringify(attributesToLog)
+  return JSON.stringify(attributesToLog);
 }
 

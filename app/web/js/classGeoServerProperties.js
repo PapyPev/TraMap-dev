@@ -2,7 +2,7 @@
  * GeoServerProperties Class.
  *
  * @author Pev
- * @version 1.0
+ * @version 1.1
  *************************************************************************** */
 
 /* ============================================================================
@@ -79,6 +79,29 @@ GeoServerProperties.prototype.getPassword = function () {
   return this.password;
 };
 
+/* ============================================================================
+ * METHODS
+ * ========================================================================= */
+
+/**
+ * String representation of the GeoServerProperties
+ * @overide
+ * @this{GeoServerProperties}
+ * @return {string} Human-readable representation of this GeoServerProperties.
+ */
+GeoServerProperties.prototype.toString = function() {
+  // Log console
+  var attributesToLog = [{
+    "address": this.address, 
+    "repository": this.repository,
+    "user": this.user,
+    //"password": this.password
+  }];
+  console.log("classLayerProperties.toString():");
+  console.log(attributesToLog);
+  return JSON.stringify(attributesToLog);
+}
+
 
 /* ============================================================================
  * FUNCTIONS
@@ -116,3 +139,4 @@ function getGeoServerConfig (filePath) {
 
   return geoServerConfig;
 };
+

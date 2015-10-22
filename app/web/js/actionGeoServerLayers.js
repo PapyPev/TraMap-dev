@@ -3,13 +3,19 @@
  * Geoserver functions
  *
  * @author Fanda/Pev
- * @version 2.1
+ * @version 2.3
  *************************************************************************** */
 
 /* ============================================================================
  * FUNCTIONS
  * ========================================================================= */
 
+/**
+ * Convert coordinate Lat/Long to Mercator projection
+ * @param {number} lat Latitude coordinate
+ * @param {number} lon Longitude coordinate
+ * @return {json} Json with X and Y Mercator projection
+ --------------------------------------------------------------------------- */
 function LatLonToMercator(lat, lon) {
  
     var rMajor = 6378137; //Equatorial Radius, WGS84
@@ -53,6 +59,7 @@ function setStyle(feature) {
 function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
   console.log("actionGeoServerLayers.getGeoServerLayers()");
 
+  // Get bbox on Mercator projection (from Lat/Long)
   var southWest = LatLonToMercator(bbox._southWest.lat,bbox._southWest.lng);
   var northEast = LatLonToMercator(bbox._northEast.lat,bbox._northEast.lng);
 
@@ -91,7 +98,7 @@ function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
         // Save layer Name
         var layerName = y[i].getElementsByTagName("Title")[0].childNodes[0].nodeValue;
 
-        // The layer url
+        // Prepare the URL for getting vector data
         var layerUrl = url
           +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
           +repository+":"+layerName
@@ -99,10 +106,9 @@ function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
           +"&SRS="+projection
           +"&maxFeatures="+maxFeatures
           +"&outputFormat=application/json"
-          
+
         // Get GeoJSON layer content
-        var layerContent = new L.GeoJSON.AJAX(
-          layerUrl
+        var layerContent = new L.GeoJSON.AJAX(layerUrl
           +"&bbox="+southWest.X+","+southWest.Y+","
           +northEast.X+","+northEast.Y
           //,
@@ -127,49 +133,13 @@ function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
     }; // end Loop Layer Layer's list
   } // end xmlhttp.onload = function()
 
-  // Request for GetCapabilities
+  // Request for GetCapabilities - After request : callbac function
   xmlhttp.open(
     "POST",
     url+'/'+repository+'/ows?SERVICE=WFS&REQUEST=GetCapabilities',
     false // True=async and False=synchronous
   );
-
   xmlhttp.send();
-
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  /*
-  // TODO : Loop to get all layers
-  var alias = "hamk-map-project:fin_2po_4pgr";
-  var baseurl = url+"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="+alias+"&maxFeatures=100&outputFormat=application/json";
-
-  // Get layer from GeoServer
-  // var myLayer = new L.GeoJSON.AJAX(baseurl,{
-  //  style: setStyle
-  // });
-
-  // Get layer from temp contant
-  var myLayer = new L.geoJson(temp,{
-      style: setStyle
-  });
-
-  // Prepare classLayer's attribute
-  var l1 = new Layer(
-    "Checkbox", 
-    "Traffic Information", 
-    "traffic", 
-    alias, 
-    1, 
-    true, 
-    myLayer
-  );
-
-  //listOfLayers.push(l1);
-  
-  // Return temp classLayer  
-  //return [l1];
-  */
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~ ONLY ONE LAYER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   // Return tab of classLayers
   return listOfLayers;

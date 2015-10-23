@@ -37,6 +37,28 @@ var sidebar;
  * ========================================================================= */
 
 /**
+ * Load Popup Focus list option filters
+ --------------------------------------------------------------------------- */
+function loadPopupFocusOptions () {
+  console.log('actionMapLoader.loadPopupFocusOptions()')
+
+  divFocusListOfTables = 'optionsFocusListOfTables';
+  divFocusListOfFilters = 'optionsFocusListOfFilters';
+
+  var listOfTables = '<option>Mustard</option>'
+    + '<option>Ketchup</option>'
+    + '<option>Relish</option>';
+
+  var listOfFilters = '<option>Apple</option>'
+    + '<option>Orange</option>'
+    + '<option>Banana</option>'
+
+  $("#"+divFocusListOfTables+"").html(listOfTables).trigger("create");
+  $("#"+divFocusListOfFilters+"").html(listOfFilters).trigger("create");
+
+}; //--- end loadPopupFocusOptions ()
+
+/**
  * Refresh the existing GeoServer Layers
  * @param {bbox} mapBoundingBox The current bounding box of the map
  --------------------------------------------------------------------------- */
@@ -420,6 +442,9 @@ function init () {
 
   //---------- Load Popup
   loadPopup(sidebar);
+
+  //---------- Load Popup Focus Options
+  loadPopupFocusOptions();
 
   //----------- Moving Map view, refresh GeoServerLayer
   map.on('moveend', function() { 

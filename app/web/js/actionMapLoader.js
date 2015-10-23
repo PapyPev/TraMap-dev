@@ -412,9 +412,9 @@ function init () {
   ).addTo(map);
 
   L.easyButton(
-    '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>',
+    '<span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span>',
     function(){
-      buttonSearch();
+      buttonSearchByPointer();
     }, 'Search'
   ).addTo(map);
 
@@ -437,5 +437,8 @@ function init () {
  --------------------------------------------------------------------------- */
 $(document).ready(function(){
   console.log('actionMapLoader.$document.ready()');
+
+  // initialize all the components of the map
   init();
+
 }); //--$(document).ready()

@@ -46,7 +46,7 @@ function buttonFocus () {
 /**
  * Active mouse click and wait two points : origin and destination.
  --------------------------------------------------------------------------- */
-function buttonSearch () {
+function buttonSearchByPointer () {
   console.log("actionPopupEvents.buttonSearch()");
 
   // Init list origin-destination
@@ -84,5 +84,5 @@ function buttonSearch () {
     }
   });
 
-}; //--- end buttonSearch()
+}; //--- end buttonSearchByPointer()
 

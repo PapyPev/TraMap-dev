@@ -423,7 +423,6 @@ function init () {
 
   //----------- Moving Map view, refresh GeoServerLayer
   map.on('moveend', function() { 
-    console.log('>> actionMapLoader.map.on(moveend)');
     refreshGeoServerLayers(map.getBounds());
   });
 

@@ -222,20 +222,20 @@ function loadPopupFocusPOI (tableName) {
   // TODO : Update list of filter from selected table
   divFocusListOfFilters = 'optionsFocusListOfFilters';
 
-  var listOfFilters = '<select class="selectpicker" id="listOfFilters">';
+  var htmlListOfFilters = '<select class="selectpicker" id="listOfFilters">';
 
   if (tableName=='Mustard') {
-    listOfFilters+='<option>Banana</option>';
+    htmlListOfFilters+='<option>Banana</option>';
   };
   if (tableName=='Ketchup') {
-    console.log('ketchup ok');
-    listOfFilters+='<option>Tomato</option>';
+    htmlListOfFilters+='<option>Tomato</option>';
   };
 
-  listOfFilters += '</select>';
+  htmlListOfFilters += '</select>';
+  console.log(htmlListOfFilters);
 
   // Write on HTML content
-  $("#"+divFocusListOfFilters+"").html(listOfFilters).trigger("create");
+  $("#"+divFocusListOfFilters+"").html(htmlListOfFilters).trigger("create");
 
 }; //--- end loadPopupFocusPOI (tableName)
 

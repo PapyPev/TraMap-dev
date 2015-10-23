@@ -330,6 +330,10 @@ function loadPopup () {
           sidebar);
 
       }; // end loop 
+
+      // Load Focus Options
+      loadPopupFocusOptions();
+
     },
     error: function(jqXHR, exception){
       if (jqXHR.status === 401) {
@@ -446,9 +450,6 @@ function init () {
 
   //---------- Load Popup
   loadPopup(sidebar);
-
-  //---------- Load Popup Focus Options
-  loadPopupFocusOptions();
 
   //----------- Moving Map view, refresh GeoServerLayer
   map.on('moveend', function() { 

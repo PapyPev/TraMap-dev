@@ -244,9 +244,9 @@ function loadPopupFocusFilter () {
   divFocusListOfTables = 'optionsFocusListOfTables';
 
   // TODO : Loop all listOfTables and format for the HTML content
-  var listOfTables = '<select class="selectpicker" id="listOfTables">'
-    + '<option onclick="loadPopupFocusPOI(\'Mustard\')">Mustard</option>'
-    + '<option onclick="loadPopupFocusPOI(\'Ketchup\')">Ketchup</option>'
+  var listOfTables = '<select class="selectpicker" id="listOfTables" onchange="loadPopupFocusPOI(this);">'
+    + '<option>Mustard</option>'
+    + '<option>Ketchup</option>'
     + '<option>Relish</option>'
     + '</select>';
 

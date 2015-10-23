@@ -217,15 +217,15 @@ function loadTOC () {
  * Load Popup Focus Point of Interests from tableName by REST service
  --------------------------------------------------------------------------- */
 function loadPopupFocusPOI (tableName) {
-  console.log('actionMapLoader.loadPopupFocusPOI('+tableName+')');
+  console.log('actionMapLoader.loadPopupFocusPOI('+tableName.toString()+')');
 
   // TODO : Update list of filter from selected table
   divFocusListOfFilters = 'optionsFocusListOfFilters';
 
   var listOfFilters = '<select class="selectpicker" id="listOfFilters">';
 
-  if (tableName=='Mustard') {listOfFilters+='<option>Banana</option>'};
-  if (tableName=='Ketchup') {listOfFilters+='<option>Tomato</option>'};
+  if (tableName.toString()=='Mustard') {listOfFilters+='<option>Banana</option>'};
+  if (tableName.toString()=='Ketchup') {listOfFilters+='<option>Tomato</option>'};
 
   listOfFilters += '</select>';
 

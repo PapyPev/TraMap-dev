@@ -224,8 +224,8 @@ function loadPopupFocusPOI (tableName) {
 
   var listOfFilters = '<select class="selectpicker" id="listOfFilters">';
 
-  if (tableName.toString()=='Mustard') {listOfFilters+='<option>Banana</option>'};
-  if (tableName.toString()=='Ketchup') {listOfFilters+='<option>Tomato</option>'};
+  if (tableName=='Mustard') {listOfFilters+='<option>Banana</option>'};
+  if (tableName=='Ketchup') {listOfFilters+='<option>Tomato</option>'};
 
   listOfFilters += '</select>';
 
@@ -244,10 +244,10 @@ function loadPopupFocusFilter () {
   divFocusListOfTables = 'optionsFocusListOfTables';
 
   // TODO : Loop all listOfTables and format for the HTML content
-  var listOfTables = '<select class="selectpicker" id="listOfTables" onchange="loadPopupFocusPOI(this);">'
-    + '<option>Mustard</option>'
-    + '<option>Ketchup</option>'
-    + '<option>Relish</option>'
+  var listOfTables = '<select class="selectpicker" id="listOfTables" onchange="loadPopupFocusPOI(this.value);">'
+    + '<option value="Mustard">Mustard</option>'
+    + '<option value="Ketchup">Ketchup</option>'
+    + '<option value="">PepperSauce</option>'
     + '</select>';
 
   $("#"+divFocusListOfTables+"").html(listOfTables).trigger("create");

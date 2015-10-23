@@ -415,7 +415,7 @@ function init () {
     '<span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span>',
     function(){
       buttonSearchByPointer();
-    }, 'Search'
+    }, 'SearchByPointer'
   ).addTo(map);
 
   //---------- Load Popup

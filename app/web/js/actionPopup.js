@@ -1,8 +1,9 @@
 /** ***************************************************************************
- * Popup Events.
- *
+ * actionPopup.
+ * All popup function (load, refresh, actions, events, ...)
+ * 
  * @author Pev
- * @version 1.1
+ * @version 2.0
  *************************************************************************** */
 
 /* ============================================================================
@@ -16,7 +17,6 @@ var listOD;
  * FUNCTIONS
  * ========================================================================= */
 
- 
 /**
  * Load Popup Focus Point of Interests from tableName by REST service
  * @param {string} tableName Name of the database Table for getting POI list

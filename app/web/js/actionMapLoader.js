@@ -1,9 +1,9 @@
 /** ***************************************************************************
- * Map Loader.
- * Initialize Map content
+ * actionMapLoader.
+ * Initialize map content and all functions for update or map actions
  *
  * @author Pev
- * @version 4.4
+ * @version 4.5
  *************************************************************************** */
 
 /* ============================================================================
@@ -212,7 +212,6 @@ function loadTOC () {
   // console.log('actionMapLoader.loadToc() [html]');
   // console.log(toc);
 }; //--- end loadTOC()
-
 
 /**
  * Add Tiles background to mapLayers

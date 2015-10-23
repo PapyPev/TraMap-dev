@@ -45,13 +45,17 @@ function loadPopupFocusOptions () {
   divFocusListOfTables = 'optionsFocusListOfTables';
   divFocusListOfFilters = 'optionsFocusListOfFilters';
 
-  var listOfTables = '<option>Mustard</option>'
+  var listOfTables = '<select class="selectpicker" id="listOfTables">'
+    + '<option>Mustard</option>'
     + '<option>Ketchup</option>'
-    + '<option>Relish</option>';
+    + '<option>Relish</option>'
+    + '</select>';
 
-  var listOfFilters = '<option>Apple</option>'
+  var listOfFilters = '<select class="selectpicker" id="listOfFilters">'
+    + '<option>Apple</option>'
     + '<option>Orange</option>'
     + '<option>Banana</option>'
+    + '</select>';
 
   $("#"+divFocusListOfTables+"").html(listOfTables).trigger("create");
   $("#"+divFocusListOfFilters+"").html(listOfFilters).trigger("create");

@@ -37,32 +37,6 @@ var sidebar;
  * ========================================================================= */
 
 /**
- * Load Popup Focus list option filters
- --------------------------------------------------------------------------- */
-function loadPopupFocusOptions () {
-  console.log('actionMapLoader.loadPopupFocusOptions()')
-
-  divFocusListOfTables = 'optionsFocusListOfTables';
-  divFocusListOfFilters = 'optionsFocusListOfFilters';
-
-  var listOfTables = '<select class="selectpicker" id="listOfTables">'
-    + '<option>Mustard</option>'
-    + '<option>Ketchup</option>'
-    + '<option>Relish</option>'
-    + '</select>';
-
-  var listOfFilters = '<select class="selectpicker" id="listOfFilters">'
-    + '<option>Apple</option>'
-    + '<option>Orange</option>'
-    + '<option>Banana</option>'
-    + '</select>';
-
-  $("#"+divFocusListOfTables+"").html(listOfTables).trigger("create");
-  $("#"+divFocusListOfFilters+"").html(listOfFilters).trigger("create");
-
-}; //--- end loadPopupFocusOptions ()
-
-/**
  * Refresh the existing GeoServer Layers
  * @param {bbox} mapBoundingBox The current bounding box of the map
  --------------------------------------------------------------------------- */
@@ -240,6 +214,47 @@ function loadTOC () {
 }; //--- end loadTOC()
 
 /**
+ * Load Popup Focus Point of Interests from tableName by REST service
+ --------------------------------------------------------------------------- */
+function loadPopupFocusPOI (tableName) {
+  console.log('actionMapLoader.loadPopupFocusPOI('+tableName+')');
+
+  // TODO : Update list of filter from selected table
+  divFocusListOfFilters = 'optionsFocusListOfFilters';
+
+  var listOfFilters = '<select class="selectpicker" id="listOfFilters">';
+
+  if (tableName=='Mustard') {listOfFilters+='<option>Banana</option>'};
+  if (tableName=='Ketchup') {listOfFilters+='<option>Tomato</option>'};
+
+  listOfFilters += '</select>';
+
+  // Write on HTML content
+  $("#"+divFocusListOfFilters+"").html(listOfFilters).trigger("create");
+
+}; //--- end loadPopupFocusPOI (tableName)
+
+/**
+ * Load Popup Focus Filter after REST service from database
+ --------------------------------------------------------------------------- */
+function loadPopupFocusFilter () {
+  console.log('actionMapLoader.loadPopupFocusOptions()')
+
+  // TODO : Get List of tables from REST service
+  divFocusListOfTables = 'optionsFocusListOfTables';
+
+  // TODO : Loop all listOfTables and format for the HTML content
+  var listOfTables = '<select class="selectpicker" id="listOfTables">'
+    + '<option onclick="loadPopupFocusPOI(\'Mustard\')">Mustard</option>'
+    + '<option onclick="loadPopupFocusPOI(\'Ketchup\')">Ketchup</option>'
+    + '<option>Relish</option>'
+    + '</select>';
+
+  $("#"+divFocusListOfTables+"").html(listOfTables).trigger("create");
+
+}; //--- end loadPopupFocusFilter ()
+
+/**
  * Create button and load popup content onclick
  * @param {string} glyph Icon on the button
  * @param {string} popupName Name of the popup container (name+type)
@@ -331,8 +346,8 @@ function loadPopup () {
 
       }; // end loop 
 
-      // Load Focus Options
-      loadPopupFocusOptions();
+      // Load Focus Filter
+      loadPopupFocusFilter();
 
     },
     error: function(jqXHR, exception){

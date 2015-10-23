@@ -224,8 +224,13 @@ function loadPopupFocusPOI (tableName) {
 
   var listOfFilters = '<select class="selectpicker" id="listOfFilters">';
 
-  if (tableName=='Mustard') {listOfFilters+='<option>Banana</option>'};
-  if (tableName=='Ketchup') {listOfFilters+='<option>Tomato</option>'};
+  if (tableName=='Mustard') {
+    listOfFilters+='<option>Banana</option>';
+  };
+  if (tableName=='Ketchup') {
+    console.log('ketchup ok');
+    listOfFilters+='<option>Tomato</option>';
+  };
 
   listOfFilters += '</select>';
 

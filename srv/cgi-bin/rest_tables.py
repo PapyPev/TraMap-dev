@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*- enable debugging
 
 """
-  restAllTables.py
+  rest_tables.py
   This file is a REST service : return all tables name in database
 """
 
@@ -48,7 +48,7 @@ def get_allTables():
   # Prepare the SQL query
   sql = "SELECT table_name " \
       "FROM information_schema.tables " \
-      "WHERE table_schema='public'"
+      "WHERE table_schema='public' ASC"
   # Execute the query
   rows = db._execute(sql)
 

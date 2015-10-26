@@ -13,6 +13,7 @@ __status__ = "Progress"
 
 # IMPORT
 # =============================================================================
+import cgitb
 import classDatabase
 
 

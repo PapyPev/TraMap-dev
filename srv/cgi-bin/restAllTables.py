@@ -67,7 +67,7 @@ def get_allTables():
     data['result'] = names
 
   # Prepare the JSON object
-  json_data = json.dump(data)
+  json_data = json.dumps(data)
 
   return json_data
     

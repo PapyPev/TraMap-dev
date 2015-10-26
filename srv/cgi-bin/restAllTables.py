@@ -40,6 +40,9 @@ def get_allTables():
     # Execute the query
     res = db._execute(sql)
 
+    # Prepare json return
+    data = []
+
     print res
     
 

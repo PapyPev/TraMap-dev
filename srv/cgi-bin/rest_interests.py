@@ -95,7 +95,7 @@ def get_interests(table):
 
 if __name__ == "__main__":
 
-  # Define as cgi script
+  # Enable debbugging
   cgitb.enable()
 
   # Get Parameters from URL
@@ -110,8 +110,9 @@ if __name__ == "__main__":
     print ("Bad request: missing table in query string.")
 
   else:
-    tableName = params.getvalue("table")
-    print ("Ok ", tableName)
+    print(params)
+    #tableName = params.getvalue("table")
+    #print ("Ok ", tableName)
     #print("Content-Type: application/json")
     print("") # Space End header
     #result = get_interests()

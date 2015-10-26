@@ -94,7 +94,7 @@ def get_allTables():
 
 if __name__ == "__main__":
 
-  # Define as cgi script
+  # Enable debbugging
   cgitb.enable()
 
   # Prepare the header

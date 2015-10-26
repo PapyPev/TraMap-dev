@@ -15,6 +15,8 @@ __status__ = "Progress"
 
 # IMPORT
 # =============================================================================
+import sys
+import os
 import cgitb
 import psycopg2
 
@@ -40,8 +42,9 @@ class Database(object):
         password
           The user password
 
-      :Example:
-      >>> 
+      :Example:$
+      >>> import classDatabase
+      >>> db = Database('localhost', 'postgis', 'james', 'james007')
 
     """
     self.host = host
@@ -174,5 +177,4 @@ if __name__ == '__main__':
   print('Content-Type: text/html;charset=utf-8\n')
   print('\n') # Space End header
   print('classDatabase')
-  db = Database('localhost', 'postgis', 'james', 'james007')
 

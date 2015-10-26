@@ -167,6 +167,9 @@ class Database(object):
     except Exception, e:
       print('Error classDatabase._execute(): ' + e)
       return None
-    
 
+
+if __name__ == "__main__":
+    print('Hello World')
+    db = Database('localhost', 'postgis', 'james', 'james007')
 

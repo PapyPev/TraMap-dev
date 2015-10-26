@@ -66,15 +66,15 @@ class Database(object):
   # GETTER
   # ---------------------------------------------------------------------------
 
-  def get_host():
+  def get_host(self):
     """ Return the database's host. """
     return self.host
 
-  def get_dbname():
+  def get_dbname(self):
     """ Return the database's name. """
     return self.dbName
 
-  def get_user():
+  def get_user(self):
     """ Return the database user's name. """
     return self.user
 
@@ -82,7 +82,7 @@ class Database(object):
   # SETTER
   # ---------------------------------------------------------------------------
 
-  def set_host(host):
+  def set_host(self, host):
     """
       Change the host name.
 
@@ -92,7 +92,7 @@ class Database(object):
     """
     self.host = host
 
-  def set_dbname(dbName):
+  def set_dbname(self, dbName):
     """
       Change the database name.
 
@@ -102,7 +102,7 @@ class Database(object):
     """
     self.dbName = dbName
 
-  def set_user(user):
+  def set_user(self, user):
     """
       Change the user name.
 
@@ -112,7 +112,7 @@ class Database(object):
     """
     self.user = user
 
-  def set_password(password):
+  def set_password(self, password):
     """
       Change the password.
 
@@ -126,7 +126,7 @@ class Database(object):
   # METHODS
   # ---------------------------------------------------------------------------
 
-  def _connect():
+  def _connect(self):
     """ 
       Create the database connection
     """
@@ -145,7 +145,7 @@ class Database(object):
     except Exception, e:
       print('Error classDatabase._connect(): ' + e)
 
-  def _execute(sqlQuery):
+  def _execute(self, sqlQuery):
     """ 
       Return the result of a SQL query.
 

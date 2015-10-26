@@ -104,7 +104,7 @@ if __name__ == "__main__":
   # Test if "table" is not in the URL
   if "table" not in params:
     print ("Status: 400 Bad Request")
-    print ("Content-Type: text/plain")
+    print ("Content-Type: text/html")
     print ("")
     print ("<h1>400 Bad Request</h1>")
     print ("Bad request: missing table in query string.")

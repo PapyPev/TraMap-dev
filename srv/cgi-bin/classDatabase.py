@@ -184,6 +184,6 @@ class Database(object):
 
 if __name__ == '__main__':
   cgitb.enable()
-  print('Content-Type: text/html;charset=utf-8\n')
-  print('\n') # Space End header
-  print('classDatabase\n')
+  print('Content-Type: text/html;charset=utf-8')
+  print('') # Space End header
+  print('classDatabase')

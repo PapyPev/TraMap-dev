@@ -107,7 +107,6 @@ if __name__ == "__main__":
     print ("Content-Type: text/plain")
     print ("")
     print ("Bad request: missing id in query string.")
-    sys.exit()
 
   else:
     print ("Ok")

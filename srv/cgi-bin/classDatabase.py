@@ -8,7 +8,7 @@
 
 __name__ = "classDatabase"
 __author__ = "Pev"
-__version__ = "1.1"
+__version__ = "1.0"
 __email__ = "pev@gmx.fr"
 __status__ = "Progress"
 
@@ -18,7 +18,7 @@ __status__ = "Progress"
 import cgitb
 import psycopg2
 
-# CLASS
+# MAIN CLASS
 # =============================================================================
 
 class Database(object):
@@ -52,8 +52,8 @@ class Database(object):
     self.connect = None
     self.cursor = None
     
-    print("classDatabase.__init__(" \
-      + self.host + ", " + self.dbName + ", " + self.user + ", *****)")
+    print('classDatabase.__init__(' \
+      + self.host + ', ' + self.dbName + ', ' + self.user + ', *****)')
 
 
   # GETTER
@@ -84,7 +84,7 @@ class Database(object):
           The new host name
     """
     self.host = host
-    print("classDatabase.setHost() -> " + self.host)
+    print('classDatabase.setHost() -> ' + self.host)
 
   def set_dbname(dbName):
     """
@@ -95,7 +95,7 @@ class Database(object):
           The new database name (string)
     """
     self.dbName = dbName
-    print("classDatabase.setDbName() -> "+ self.dbName)
+    print('classDatabase.setDbName() -> ' + self.dbName)
 
   def set_user(user):
     """
@@ -106,7 +106,7 @@ class Database(object):
           The new user name (string)
     """
     self.user = user
-    print("classDatabase.setUser() -> " + self.user)
+    print('classDatabase.setUser() -> ' + self.user)
 
   def set_password(password):
     """
@@ -117,7 +117,7 @@ class Database(object):
           The new password (string)
     """
     self.password = password
-    print("classDatabase.setPassword() -> *****")
+    print('classDatabase.setPassword() -> *****')
 
 
   # METHODS
@@ -140,10 +140,10 @@ class Database(object):
       self.cursor = self.connect.cursor()
 
       # Print the result
-      print("classDatabase._connect(): Connected.")
+      print('classDatabase._connect(): Connected.')
 
     except Exception, e:
-      print("Error classDatabase._connect(): " + e)
+      print('Error classDatabase._connect(): ' + e)
 
   def _execute(sqlQuery):
     """ 
@@ -165,15 +165,14 @@ class Database(object):
       return rows
 
     except Exception, e:
-      print("Error classDatabase._execute(): " + e)
+      print('Error classDatabase._execute(): ' + e)
       return None
 
-# MAIN
-# =============================================================================
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   cgitb.enable()
-  print("Content-Type: text/html;charset=utf-8\n")
-  print("\n") # Space End header
-  print("classDatabase.py")
+  print('Content-Type: text/html;charset=utf-8\n')
+  print('\n') # Space End header
+  print('classDatabase')
+  db = Database('localhost', 'postgis', 'james', 'james007')
 

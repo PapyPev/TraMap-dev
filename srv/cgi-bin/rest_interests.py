@@ -24,20 +24,20 @@ import json
 
 def get_interests(table):
   """
-      Return all table's names from database (JSON format).
+    Return all table's names from database (JSON format).
 
-      :Parameters:
-        table
-          The table name
+    :Parameters:
+      table
+        The table name
 
-      :Example:
-      >>> get_interests('osm_amenities')
-      {
-        "status": "ok",
-        "result": [
-          ...
-        ]
-      }
+    :Example:
+    >>> get_interests('osm_amenities')
+    {
+      "status": "ok",
+      "result": [
+        ...
+      ]
+    }
   """
 
   ### ----- DATABASE
@@ -93,9 +93,24 @@ def get_interests(table):
 # =============================================================================
 
 if __name__ == "__main__":
-  cgitb.enable()
-  print("Content-Type: application/json")
-  print("") # Space End header
-  result = get_interests()
-  print result
 
+  # Define as cgi script
+  cgitb.enable()
+
+  # Get Parameters from URL
+  params = cgi.FieldStorage()
+
+  # Test if "table" is not in the URL
+  if "table" not in params:
+    print ("Status: 400 Bad Request")
+    print ("Content-Type: text/plain")
+    print ("")
+    print ("Bad request: missing id in query string.")
+    sys.exit()
+
+  else:
+    print ("Ok")
+    #print("Content-Type: application/json")
+    print("") # Space End header
+    #result = get_interests()
+    #print result

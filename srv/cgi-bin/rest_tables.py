@@ -24,18 +24,18 @@ import json
 
 def get_allTables():
   """
-      Return all table's names from database (JSON format).
+    Return all table's names from database (JSON format).
 
-      :Example:
-      >>> get_allTables()
-      {
-        "status": "ok",
-        "result": [
-          "osm_buildings",
-          "osm_amenities",
-          "osm_transports_points"
-        ]
-      }
+    :Example:
+    >>> get_allTables()
+    {
+      "status": "ok",
+      "result": [
+        "osm_buildings",
+        "osm_amenities",
+        "osm_transports_points"
+      ]
+    }
   """
 
   ### ----- DATABASE
@@ -93,8 +93,16 @@ def get_allTables():
 # =============================================================================
 
 if __name__ == "__main__":
+
+  # Define as cgi script
   cgitb.enable()
+
+  # Prepare the header
   print("Content-Type: application/json")
   print("") # Space End header
+
+  # Get result
   result = get_allTables()
+
+  # Return the result
   print result

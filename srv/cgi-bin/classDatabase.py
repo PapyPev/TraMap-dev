@@ -18,13 +18,6 @@ __status__ = "Progress"
 import cgitb
 import psycopg2
 
-# CONSTANTS
-# =============================================================================
-HOST = "localhost"
-DBNAME = "postgis"
-USER = "james"
-PASSWORD = "james007"
-
 # CLASS
 # =============================================================================
 
@@ -33,7 +26,7 @@ class Database(object):
 
   # CONSTRUCTOR
   # ---------------------------------------------------------------------------
-  def __init__(self, host=HOST, dbName=DBNAME, user=USER, password=PASSWORD):
+  def __init__(self, host, dbName, user, password):
     """
       Database constructor.
 
@@ -174,7 +167,6 @@ class Database(object):
     except Exception, e:
       print("Error classDatabase._execute(): " + e)
       return None
-
 
 # MAIN
 # =============================================================================

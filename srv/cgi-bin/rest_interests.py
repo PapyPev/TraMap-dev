@@ -48,7 +48,8 @@ def get_interests(table):
   db._connect()
 
   # Prepare the SQL query
-  sql = "SELECT DISTINCT type FROM " + table \
+  sql = "SELECT DISTINCT type " \
+    "FROM " + table + \
     "ORDER BY type ASC"
   # Execute the query
   rows = db._execute(sql)

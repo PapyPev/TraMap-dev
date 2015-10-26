@@ -111,7 +111,7 @@
 	<a href="http://localhost:8080/geoserver/">http://localhost:8080/geoserver/</a>
 </p>
 
-<h2>Apache2</h2>
+<h2>Apache2 : Install and redirections</h2>
 <p>
 	<i>Install Apache2 library</i><br>
 	<b>$</b> <code>sudo apt-get install apache2</code><br><br>
@@ -127,6 +127,26 @@
 		ProxyPassReverse /geoserver "http://localhost:8080/geoserver"
 	</code></pre>
 </p>
-	
+
+<h2>Apache 2 : CGI-script configuration</h2>
+<p>
+	<i>Install library for cgi-script</i><br>
+	<code><b>$</b> sudo a2enmod cgi</code><br><br>
+	<i>Move to Apache configuration folder and edit apache2.conf</i><br>
+	<code><b>$</b> cd /etc/apache2/</code><br>
+	<code><b>$</b> sudo nano apache2.conf</code><br><br>
+	<i>Add your web repository</i><br>
+	<pre><code>
+		ScriptAlias /cgi-bin/ /var/www/html/hamk-map-project/srv/cgi-bin/
+	    <Directory "/var/www/html/hamk-map-project/srv/cgi-bin">
+	        AllowOverride None
+	        Options +ExecCGI
+	        Allow from all
+	        AddHandler cgi-script .py
+	    </Directory>
+	</code></pre>
+	<i>Don't forget run this command for each cgi file :</i><br>
+	<code><b>$</b> sudo chmod +x youFile.py</code>
+</p>
 
 

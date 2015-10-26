@@ -61,9 +61,6 @@ class Database(object):
 
     self.connect = None
     self.cursor = None
-    
-    print('classDatabase.__init__(' \
-      + self.host + ', ' + self.dbName + ', ' + self.user + ', *****)')
 
 
   # GETTER
@@ -94,7 +91,6 @@ class Database(object):
           The new host name
     """
     self.host = host
-    print('classDatabase.setHost() -> ' + self.host)
 
   def set_dbname(dbName):
     """
@@ -105,7 +101,6 @@ class Database(object):
           The new database name (string)
     """
     self.dbName = dbName
-    print('classDatabase.setDbName() -> ' + self.dbName)
 
   def set_user(user):
     """
@@ -116,7 +111,6 @@ class Database(object):
           The new user name (string)
     """
     self.user = user
-    print('classDatabase.setUser() -> ' + self.user)
 
   def set_password(password):
     """
@@ -127,7 +121,6 @@ class Database(object):
           The new password (string)
     """
     self.password = password
-    print('classDatabase.setPassword() -> *****')
 
 
   # METHODS
@@ -148,9 +141,6 @@ class Database(object):
 
       # Init the database cursor
       self.cursor = self.connect.cursor()
-
-      # Print the result
-      print('classDatabase._connect(): Connected.')
 
     except Exception, e:
       print('Error classDatabase._connect(): ' + e)

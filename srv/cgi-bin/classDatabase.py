@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*- enable debugging
 
 """
   classDatabase.py
@@ -14,6 +14,7 @@ __status__ = "Progress"
 
 # IMPORT
 # =============================================================================
+import cgitb
 import sys
 import os
 import psycopg2
@@ -53,7 +54,7 @@ class Database(object):
     self.cursor = None
     
     print('classDatabase.__init__(' \
-      + self.host + self.dbName + self.user + '*****)')
+      + self.host + ', ' + self.dbName + ', ' + self.user + ', *****)')
 
 
   # GETTER
@@ -169,7 +170,10 @@ class Database(object):
       return None
 
 
-if __name__ == "__main__":
-    print('Hello World')
-    db = Database('localhost', 'postgis', 'james', 'james007')
+if __name__ == '__main__':
+  cgitb.enable()
+  print('Content-Type: text/html;charset=utf-8')
+  print() # Space End header
+  print('Hello World')
+  db = Database('localhost', 'postgis', 'james', 'james007')
 

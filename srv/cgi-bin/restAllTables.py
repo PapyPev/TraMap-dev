@@ -39,8 +39,8 @@ def get_allTables():
 
     # Execute the query
     rows = db._execute(sql)
-    for row in rows:
-        print("   ", row[1])
+    print(rows)
+    print(type(rows))
 
     #print res
     

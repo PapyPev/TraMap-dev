@@ -72,10 +72,10 @@ def get_allTables():
     # Loops results to get names
     for row in rows:
       if row[0] != 'geography_columns' \
-        or row[0] != 'geometry_columns' \
-        or row[0] != 'spatial_ref_sys' \
-        or row[0] != 'raster_columns' \
-        or row[0] != 'raster_overviews':
+        and row[0] != 'geometry_columns' \
+        and row[0] != 'spatial_ref_sys' \
+        and row[0] != 'raster_columns' \
+        and row[0] != 'raster_overviews':
         print row[0]
         names.append(row[0])
 

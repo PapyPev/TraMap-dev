@@ -24,14 +24,24 @@ import json
 
 def get_allTables():
   """
-      Return all table's names from database (JSON format)
+      Return all table's names from database (JSON format).
+
+      :Example:
+      >>> get_allTables()
+      {
+        "status": "ok",
+        "result": [
+          "osm_buildings",
+          "osm_amenities",
+          "osm_transports_points"
+        ]
+      }
   """
 
   ### ----- DATABASE
 
   # Create default database connexion object
   db = classDatabase.Database()
-
   # Connexion to the database
   db._connect()
 
@@ -39,7 +49,6 @@ def get_allTables():
   sql = "SELECT table_name " \
       "FROM information_schema.tables " \
       "WHERE table_schema='public'"
-
   # Execute the query
   rows = db._execute(sql)
 
@@ -57,11 +66,17 @@ def get_allTables():
 
   # If the list is not empty
   else:
+    # Set status
     data['status'] = 'ok'
 
     # Loops results to get names
     for row in rows:
-      names.append(row[0])
+      if row[0] != 'geography_columns' \
+        or row[0] != 'geometry_columns' \
+        or row[0] != 'spatial_ref_sys' \
+        or row[0] != 'raster_columns' \
+        or row[0] != 'raster_overviews':
+        names.append(row[0])
 
     # Save the result
     data['result'] = names
@@ -69,6 +84,7 @@ def get_allTables():
   # Prepare the JSON object
   json_data = json.dumps(data)
 
+  # Return the json object
   return json_data
     
 

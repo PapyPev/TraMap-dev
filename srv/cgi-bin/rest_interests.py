@@ -106,10 +106,12 @@ if __name__ == "__main__":
     print ("Status: 400 Bad Request")
     print ("Content-Type: text/plain")
     print ("")
-    print ("Bad request: missing id in query string.")
+    print ("<h1>400 Bad Request</h1>")
+    print ("Bad request: missing table in query string.")
 
   else:
-    print ("Ok")
+    tableName = params.getvalue("table")
+    print ("Ok ", tableName)
     #print("Content-Type: application/json")
     print("") # Space End header
     #result = get_interests()

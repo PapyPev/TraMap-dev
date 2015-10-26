@@ -6,7 +6,6 @@
   This class contains all database informations and methods
 """
 
-__name__ = "classDatabase"
 __author__ = "Pev"
 __version__ = "1.0"
 __email__ = "pev@gmx.fr"
@@ -15,9 +14,9 @@ __status__ = "Progress"
 
 # IMPORT
 # =============================================================================
+import cgitb
 import sys
 import os
-import cgitb
 import psycopg2
 
 # MAIN CLASS
@@ -42,9 +41,8 @@ class Database(object):
         password
           The user password
 
-      :Example:$
-      >>> import classDatabase
-      >>> db = Database('localhost', 'postgis', 'james', 'james007')
+      :Example:
+      >>> 
 
     """
     self.host = host
@@ -176,5 +174,6 @@ if __name__ == '__main__':
   cgitb.enable()
   print('Content-Type: text/html;charset=utf-8\n')
   print('\n') # Space End header
-  print('classDatabase')
+  print('Hello World')
+  db = Database('localhost', 'postgis', 'james', 'james007')
 

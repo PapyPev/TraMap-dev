@@ -110,8 +110,8 @@ if __name__ == "__main__":
     print ("Bad request: missing table in query string.")
 
   else:
-    print(params)
-    #tableName = params.getvalue("table")
+    tableName = params.getvalue("table")
+    print(tableName)
     #print ("Ok ", tableName)
     #print("Content-Type: application/json")
     print("") # Space End header

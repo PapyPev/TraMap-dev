@@ -138,12 +138,12 @@
 	<i>Add your web repository</i><br>
 	<pre><code>
 		ScriptAlias /cgi-bin/ /var/www/html/hamk-map-project/srv/cgi-bin/
-	    <Directory "/var/www/html/hamk-map-project/srv/cgi-bin">
+	    &lt;Directory "/var/www/html/hamk-map-project/srv/cgi-bin"&gt;
 	        AllowOverride None
 	        Options +ExecCGI
 	        Allow from all
 	        AddHandler cgi-script .py
-	    </Directory>
+	    &lt;/Directory&gt;
 	</code></pre>
 	<i>Don't forget run this command for each cgi file :</i><br>
 	<code><b>$</b> sudo chmod +x youFile.py</code>

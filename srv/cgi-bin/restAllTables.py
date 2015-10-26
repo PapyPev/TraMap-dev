@@ -38,12 +38,11 @@ def get_allTables():
         "WHERE table_schema='public'"
 
     # Execute the query
-    res = db._execute(sql)
+    rows = db._execute(sql)
+    for row in rows:
+        print("   ", row[1])
 
-    # Prepare json return
-    data = []
-
-    print res
+    #print res
     
 
 # MAIN

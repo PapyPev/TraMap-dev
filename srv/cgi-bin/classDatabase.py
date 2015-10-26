@@ -6,7 +6,6 @@
   This class contains all database informations and methods
 """
 
-__name__ = "classDatabase"
 __author__ = "Pev"
 __version__ = "1.0"
 __email__ = "pev@gmx.fr"

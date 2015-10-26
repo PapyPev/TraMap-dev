@@ -41,7 +41,7 @@ def get_allTables():
     rows = db._execute(sql)
     
     for row in rows:
-      print(row)
+      print(row[0])
 
     #print res
     

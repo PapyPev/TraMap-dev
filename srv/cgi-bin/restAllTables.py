@@ -76,6 +76,7 @@ def get_allTables():
         or row[0] != 'spatial_ref_sys' \
         or row[0] != 'raster_columns' \
         or row[0] != 'raster_overviews':
+        print row[0]
         names.append(row[0])
 
     # Save the result

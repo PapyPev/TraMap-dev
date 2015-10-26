@@ -7,7 +7,7 @@
 """
 
 __author__ = "Pev"
-__version__ = "1.0"
+__version__ = "1.1"
 __email__ = "pev@gmx.fr"
 __status__ = "Progress"
 

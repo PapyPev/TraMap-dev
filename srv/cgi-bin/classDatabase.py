@@ -6,6 +6,7 @@
   This class contains all database informations and methods
 """
 
+__name__ = "classDatabase"
 __author__ = "Pev"
 __version__ = "1.0"
 __email__ = "pev@gmx.fr"
@@ -174,6 +175,6 @@ if __name__ == '__main__':
   cgitb.enable()
   print('Content-Type: text/html;charset=utf-8\n')
   print('\n') # Space End header
-  print('Hello World')
+  print('classDatabase\n')
   db = Database('localhost', 'postgis', 'james', 'james007')
 

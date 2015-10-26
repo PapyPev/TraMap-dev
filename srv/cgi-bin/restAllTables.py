@@ -93,8 +93,7 @@ def get_allTables():
 
 if __name__ == "__main__":
   cgitb.enable()
-  #print("Content-Type: application/json")
-  print('Content-Type: text/html;charset=utf-8')
+  print("Content-Type: application/json")
   print("") # Space End header
   result = get_allTables()
   print result

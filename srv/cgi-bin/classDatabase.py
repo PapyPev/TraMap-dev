@@ -19,7 +19,16 @@ import sys
 import os
 import psycopg2
 
-# MAIN CLASS
+
+# CONSTANTS
+# =============================================================================
+HOST = "localhost"
+DBNAME = "postgis"
+USER = "james"
+PASSWORD = "james007"
+
+
+# CLASS
 # =============================================================================
 
 class Database(object):
@@ -27,7 +36,7 @@ class Database(object):
 
   # CONSTRUCTOR
   # ---------------------------------------------------------------------------
-  def __init__(self, host, dbName, user, password):
+  def __init__(self, host=HOST, dbName=DBNAME, user=USER, password=PASSWORD):
     """
       Database constructor.
 
@@ -42,7 +51,7 @@ class Database(object):
           The user password
 
       :Example:
-      >>> 
+      >>> db = Database('localhost', 'postgis', 'user', 'password')
 
     """
     self.host = host
@@ -170,10 +179,11 @@ class Database(object):
       return None
 
 
+# MAIN
+# =============================================================================
+
 if __name__ == '__main__':
   cgitb.enable()
   print('Content-Type: text/html;charset=utf-8\n')
   print('\n') # Space End header
   print('classDatabase\n')
-  db = Database('localhost', 'postgis', 'james', 'james007')
-

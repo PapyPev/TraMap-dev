@@ -4,12 +4,12 @@
 import web
 
 urls = (
-    'http://172.18.138.171/hamk-map-project/srv/cgi-bin/test.py', 'index'
+    'http://172.18.138.171/hamk-map-project/srv/cgi-bin/', 'index'
 )
 
 class index:
-    def GET(self):
-        return "Hello, world!"
+    def GET(self, value):
+        return "Hello, world!" + value
 
 if __name__ == "__main__":
     app = web.application(urls, globals())

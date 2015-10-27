@@ -57,7 +57,7 @@ app = Flask(__name__)
 
 def api(service='default'):
   result = {
-    'default' : rest_default()
+    'default' : rest_default(),
     'test' : rest_test(),
     'toto' : 'toto',
   }[service]

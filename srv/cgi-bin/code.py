@@ -1,32 +1,30 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- enable debugging
 
-import web
+from flask import Flask
 import json
-from mimerender import mimerender
+import mimerender
+
+mimerender = mimerender.FlaskMimeRender()
 
 render_xml = lambda message: '<message>%s</message>'%message
 render_json = lambda **args: json.dumps(args)
 render_html = lambda message: '<html><body>%s</body></html>'%message
 render_txt = lambda message: message
 
-urls = (
-    '/(.*)', 'greet'
-)
-app = web.application(urls, globals())
+app = Flask(__name__)
 
-class greet:
-    @mimerender(
-        default = 'html',
-        html = render_html,
-        xml  = render_xml,
-        json = render_json,
-        txt  = render_txt
-    )
-    def GET(self, name):
-        if not name: 
-            name = 'world'
-        return {'message': 'Hello, ' + name + '!'}
+@app.route('/')
+@app.route('/<name>')
+@mimerender(
+    default = 'html',
+    html = render_html,
+    xml  = render_xml,
+    json = render_json,
+    txt  = render_txt
+)
+def greet(name='world'):
+    return {'message': 'Hello, ' + name + '!'}
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=8080)

@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*- enable debugging
+
 import web
 
 urls = (

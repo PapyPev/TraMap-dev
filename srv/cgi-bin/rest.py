@@ -40,10 +40,7 @@ render_txt = lambda message: message
 # Init the deamon app
 app = Flask(__name__)
 
-# Get routing from URL
-@app.route('/')
-@app.route('/api/')
-@app.route('/api/<service>')
+# Prepare mimerender for awnser
 @mimerender(
     default = 'html',
     html = render_html,
@@ -52,20 +49,30 @@ app = Flask(__name__)
     txt  = render_txt
 )
 
+# Index default
+@app.route('/')
 def index():
     return {'message': 'Hello!'}
 
+# API index
+@app.route('/api/')
 def api():
     return {'message': 'API!'}
 
-def api(service='toto'):
-    return {'message': 'API!' + service}
+@app.route('/api/<service>')
+def api_service(service):
+    return {'message': 'API!' + service + '!'}
+
+
+
+
+
 
 # ROOTING AWNSERS
 # =============================================================================
 
-def greet(service='world'):
-    return {'message': 'Hello, ' + name + '!'}
+#def greet(service='world'):
+#    return {'message': 'Hello, ' + name + '!'}
 
 
 # MAIN

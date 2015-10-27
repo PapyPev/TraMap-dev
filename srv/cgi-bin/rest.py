@@ -60,13 +60,13 @@ def api(service):
     'test' : rest_test(),
     'toto' : 'toto',
   }.get(service, 'default')
-  return {'message': 'Welcome to the API REST services' + result}
+  print result
+  return {'message': result}
 
 # FUNCTIONS
 # =============================================================================
 
 def rest_test():
-  print('rest_test')
   return 'test ok'
 
 # MAIN

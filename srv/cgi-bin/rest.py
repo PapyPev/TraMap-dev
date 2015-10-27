@@ -172,7 +172,7 @@ def rest_allTables():
     data['result'] = names
 
   # Prepare the JSON object
-  json_data = json.dumps(data)
+  json_data = json.loads(json.dumps(data))
 
   print type(json_data)
 

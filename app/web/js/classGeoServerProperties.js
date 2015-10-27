@@ -137,6 +137,6 @@ function getGeoServerConfig (filePath) {
 
   });
 
-  return geoServerConfig;
+  return geoServerConfig.geoserver;
 };
 

@@ -16,40 +16,63 @@ __email__ = "pev.arfan@gmail.com"
 __status__ = "Progress"
 
 
-import web
-try:
-    import simplejson as json
-except ImportError:
-    import json
+# IMPORT
+# =============================================================================
+
+from flask import Flask
+import json
 import mimerender
+import classDatabase
 
-mimerender = mimerender.WebPyMimeRender()
 
+# INIT
+# =============================================================================
+
+# Create instance of mimerender from Flask framework
+mimerender = mimerender.FlaskMimeRender()
+
+# Prepare prototype of response
 render_xml = lambda message: '<message>%s</message>'%message
 render_json = lambda **args: json.dumps(args)
 render_html = lambda message: '<html><body>%s</body></html>'%message
 render_txt = lambda message: message
 
-urls = (
-    '/(.*)', 'greet'
-)
-app = web.application(urls, globals())
+# Init the deamon app
+app = Flask(__name__)
 
-class greet:
-    @mimerender(
-        default = 'html',
-        html = render_html,
-        xml  = render_xml,
-        json = render_json,
-        txt  = render_txt
-    )
-    def GET(self, name):
-        if not name: 
-            name = 'world'
-        return {'message': 'Hello, ' + name + '!'}
+# Get routing from URL
+@app.route('/')
+@app.route('/api/')
+@app.route('/api/<service>')
+@mimerender(
+    default = 'html',
+    html = render_html,
+    xml  = render_xml,
+    json = render_json,
+    txt  = render_txt
+)
+
+def index():
+    return {'message': 'Hello!'}
+
+def api():
+    return {'message': 'API!'}
+
+def api(service='toto'):
+    return {'message': 'API!' + service}
+
+# ROOTING AWNSERS
+# =============================================================================
+
+def greet(service='world'):
+    return {'message': 'Hello, ' + name + '!'}
+
+
+# MAIN
+# =============================================================================
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=8082)
 
 
 

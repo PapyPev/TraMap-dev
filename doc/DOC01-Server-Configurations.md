@@ -4,7 +4,27 @@
 	This documentation explains how to install a web server, a database, a mapping extension to the database, a map server, and configure the web server to return to the map server.
 </p>
 
-<h2>Prerequisite</h2>
+<h2>Summary</h2>
+<ul>
+	<li><a href="#prerequisite">Prerequisite</a></li>
+	<li><a href="#system">Actualizate System</a></li>
+	<li><a href="#data-pg">Database: PostgreSQL</a></li>
+	<ul>
+		<li><a href="#pgsql-install">Install PostgreSQL</a></li>
+		<li><a href="#pgsql-conf">Configure PostgreSQL</a></li>
+		<li><a href="#pgsql-postgis">Prepare PostGIS extension</a></li>
+	</ul>
+	<li><a href="#postgis">Database : PostGIS extention</a></li>
+	<li><a href="#webserver">WebServer : Tomcat and Geoserver</a></li>
+	<li><a href="#apache">Apache2 : Configurations</a></li>
+	<ul>
+		<li><a href="#apache-install">Install and redirections</a></li>
+		<li><a href="#apache-cgi">CGI-script configuration</a></li>
+	</ul>
+	<li><a href="#cgi">CGI-Script : Libraries</a></li>
+</ul>
+
+<h2 id="prerequisite">Prerequisite</h2>
 
 <p>
 	You must have a server containing at least the following configurations:
@@ -14,7 +34,7 @@
 	</ul>
 </p>
 
-<h2>Actualizate System</h2>
+<h2 id="system">Actualizate System</h2>
 
 <p>
 	Before any configuration, make sure that the system is correctly updated.<br><br>
@@ -24,19 +44,19 @@
 	<b>$</b> <code>sudo apt-get upgrade</code>
 </p>
 
-<h2>Database: PostgreSQL</h2>
+<h2 id="data-pg">Database: PostgreSQL</h2>
 
 <p>
 	To back up our data, attribute and geometric, we need a container of data. PostgreSQL allow us to manage data schemas, users and extensions like PostGIS for the cartographic data.
 </p>
 
-<h4>Install PostgreSQL</h4>
+<h4 id="pgsql-install">Install PostgreSQL</h4>
 <p>
 	<i>Installing libraries</i><br>
 	<b>$</b> <code>sudo apt-get install postgresql postgresql-client postgresql-common</code>
 </p>
 
-<h4>Configure PostgreSQL</h4>
+<h4 id="pgsql-conf">Configure PostgreSQL</h4>
 <p>	
 	<i>Set in pg_hba.conf superuser and linten adress (from 127.0.0.1/32 to 0.0.0.0/0</i><br>
 	<pre><code>
@@ -58,7 +78,7 @@
 	<code>listen_addresses = '*'</code>
 </p>
 
-<h4>Prepare for PostGIS extension</h4>
+<h4 id="pgsql-postgis">Prepare for PostGIS extension</h4>
 <p>
 	To avoid security problems with only one user "postgres", we need to create a new Administrator profile. To do this, we will create a new user, give it the rights, and create a new database for geometric data it will administer.<br><br>
 	<i>Connexion to postgres user</i><br>
@@ -79,7 +99,7 @@
 	<b>$</b> <code>createdb DATABASE_NAME</code><br>
 </p>
 
-<h2>PostGIS extention</h2>
+<h2 id="postgis">Database : PostGIS extention</h2>
 
 <p>
 	<i>Adding a new repository</i><br>
@@ -96,7 +116,7 @@
 	<b><i>psql</i>=</b> <code>\q</code><br>
 </p>
 
-<h2>WebServer : Tomcat and Geoserver</h2>
+<h2 id="webserver">WebServer : Tomcat and Geoserver</h2>
 <p>
 	Before installing the servers, we need Java JDK for GeoServer. Currently, there are incompatibility with version 1.8 of Java, in fact, we will use version 1.7. Then we can install Tomcat and GeoServer.
 </p>
@@ -111,7 +131,8 @@
 	<a href="http://localhost:8080/geoserver/">http://localhost:8080/geoserver/</a>
 </p>
 
-<h2>Apache2 : Install and redirections</h2>
+<h2 id="apache">Apache2 : Configurations</h2>
+<h4 id="apache-install">Install and redirections</h4>
 <p>
 	<i>Install Apache2 library</i><br>
 	<b>$</b> <code>sudo apt-get install apache2</code><br><br>
@@ -128,7 +149,7 @@
 	</code></pre>
 </p>
 
-<h2>Apache 2 : CGI-script configuration</h2>
+<h4 id="apache-cgi">CGI-script configuration</h4>
 <p>
 	<i>Configure apache proxy</i><br>
 	<code><b>$</b> cd /etc/apache2/sites-available/</code><br><br>
@@ -147,7 +168,7 @@
 	</code></pre>
 </p>
 
-<h2>CGI-Script : Libraries</h2>
+<h2 id="cgi">CGI-Script : Libraries</h2>
 <p>
 	<i>Use the <a href="https://pypi.python.org/pypi/mimerender">PyPi</a> library for downloading </i><br>
 	<code><b>$</b> sudo apt-get install python-pip</code><br><br>

@@ -41,7 +41,7 @@ render_txt = lambda message: message
 app = Flask(__name__)
 
 # Get routing from URL
-@app.route('/')
+#@app.route('/')
 @app.route('/api/')
 @app.route('/api/<service>')
 @mimerender(

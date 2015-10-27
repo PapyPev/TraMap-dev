@@ -56,25 +56,45 @@ app = Flask(__name__)
 # =============================================================================
 
 def api(service='default'):
+  """
+    Rooting function, return a message containing REST awnser
+
+    :Parameters:
+      service
+        The REST service name (keyword)
+  """
+
+  # Dictionnary of REST services
+  # keyword : function
   result = {
     'default' : rest_default(),
     'test' : rest_test(),
-    'toto' : 'toto',
   }.get(service, rest_default())
+
+  # Return message
   return {'message': result}
 
-# FUNCTIONS
+
+# REST FUNCTIONS
 # =============================================================================
 
 def rest_default():
-  value = '<h1>API REST Services</h1>Welcome to the API REST Services ! <br>'
+  """
+    REST Service function, return list of all services.
+  """
+  value = '<h1>API REST Services</h1>'
+  value += 'Welcome to the API REST Services ! Check all REST services :'
   value += '<ul>'
-  value += '<li><a href="./test">REST - Test</a></li>'
+  value += '<li><a href="./test">REST-Test</a> : Return a simple text</li>'
   value += '</ul>'
   return value
 
 def rest_test():
-  return 'test ok'
+  """
+    REST Service function, return a simple text.
+  """
+  return 'Test ok'
+
 
 # MAIN
 # =============================================================================

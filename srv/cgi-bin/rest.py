@@ -67,7 +67,11 @@ def api(service='default'):
 # =============================================================================
 
 def rest_default():
-  return 'default'
+  value = '<h1>API REST Services</h1>Welcome to the API REST Services ! <br>'
+  value += '<ul>'
+  value += '<li><a href="./test">REST - Test</a></li>'
+  value += '</ul>'
+  return value
 
 def rest_test():
   return 'test ok'

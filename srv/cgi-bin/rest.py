@@ -202,7 +202,7 @@ def rest_interests(table='default'):
 
   print(table)
 
-  return {'result' = ['default']}
+  return {'result' : ['default']}
 
 # MAIN
 # =============================================================================

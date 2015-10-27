@@ -200,6 +200,8 @@ def rest_interests(table):
     }
   """
 
+  print(table)
+
   # Prepare variables
   names = []  # List of tables names
   data = {}   # Json object to return

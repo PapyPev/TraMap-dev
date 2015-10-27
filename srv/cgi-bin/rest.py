@@ -45,7 +45,7 @@ app = Flask(__name__)
 @app.route('/api/')
 @app.route('/api/<service>')
 @mimerender(
-  default = 'html',
+  default = 'json',
   html = render_html,
   xml  = render_xml,
   json = render_json,

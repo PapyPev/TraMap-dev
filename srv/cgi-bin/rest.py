@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*- enable debugging
 
 """
-  rest.py
-  This file is a REST deamon for server.
-  When you want some informations on database, you call this script from URL.
+rest.py
+This file is a REST deamon for server.
+When you want some informations on database, you call this script from URL.
 
-  :Example:
-  On web browser, URL : http://domain:8082/api/hello
+:Example:
+On web browser, URL : http://domain:8082/api/hello
 """
 
 __author__ = "Pev"
@@ -43,37 +43,36 @@ app = Flask(__name__)
 # Get routing from URL
 #@app.route('/')
 @app.route('/api/')
-@app.route('/api/<name>')
+@app.route('/api/<service>')
 @mimerender(
-    default = 'html',
-    html = render_html,
-    xml  = render_xml,
-    json = render_json,
-    txt  = render_txt
+  default = 'html',
+  html = render_html,
+  xml  = render_xml,
+  json = render_json,
+  txt  = render_txt
 )
 
 # ROOTING FUNCTIONS
 # =============================================================================
 
-def api(name='world'):
-    return {'message': 'Welcome to the API REST services' + name}
-
-def greet(name='world'):
-    return {'message': 'Hello, ' + name + '!'}
+def api(service='world'):
+  result = {
+    'test' : rest_test(),
+    'toto' : 'toto',
+  }[service]
+  return {'message': 'Welcome to the API REST services' + service}
 
 # FUNCTIONS
 # =============================================================================
 
 def rest_test():
-    print('rest_test')
-    return 'test ok'
+  print('rest_test')
+  return 'test ok'
 
 # MAIN
 # =============================================================================
 
 if __name__ == "__main__":
-    app.run(port=8082)
-
-
+  app.run(port=8082)
 
 

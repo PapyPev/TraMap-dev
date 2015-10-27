@@ -200,8 +200,6 @@ def rest_interests(table):
     }
   """
 
-  print(table)
-
   # Prepare variables
   names = []  # List of tables names
   data = {}   # Json object to return
@@ -224,6 +222,8 @@ def rest_interests(table):
     sql = "SELECT DISTINCT type " \
         "FROM " + table + \
         "ORDER BY type ASC"
+
+    print sql
 
     # Execute the query
     rows = db._execute(sql)

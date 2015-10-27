@@ -17,6 +17,29 @@ var listOD;
  * FUNCTIONS
  * ========================================================================= */
 
+function getDatabaseTablesFocus() {
+
+  // Get JSON
+  $.ajax({
+    type: 'GET',
+    url: 'http://172.18.138.171/api/allTables',
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success: function(data){
+      cconsole.log(data)
+    },
+    error: function(jqXHR, exception){
+      if (jqXHR.status === 401) {
+        console.log('HTTP Error 401 Unauthorized.');
+      } else {
+        console.log('Uncaught Error.\n' + jqXHR.responseText);
+      }
+    },
+    async: false
+  });
+
+};
+
 /**
  * Load Popup Focus Point of Interests from tableName by REST service
  * @param {string} tableName Name of the database Table for getting POI list
@@ -60,7 +83,7 @@ function loadPopupFocusFilter () {
   divFocusListOfTables = 'optionsFocusListOfTables';
 
   // TODO : Get list of filter tables
-  // var listOfTables = getDatabaseTablesFocus();
+  var listOfTables = getDatabaseTablesFocus();
 
   // TODO : Loop all listOfTables and format for the HTML content
   var listOfTables = '<select class="selectpicker" id="listOfTables" onchange="loadPopupFocusPOI(this.value);">'

@@ -53,7 +53,7 @@ app = Flask(__name__)
   txt  = render_txt
 )
 
-# ROOTING FUNCTIONS
+# ROOTING FUNCTION
 # =============================================================================
 
 def api(service='default', param=''):
@@ -64,7 +64,6 @@ def api(service='default', param=''):
       service
         The REST service name (keyword)
   """
-  print('Param:', param)
 
   # Dictionnary of REST services
   # keyword : function
@@ -81,6 +80,8 @@ def api(service='default', param=''):
 # REST FUNCTIONS
 # =============================================================================
 
+# REST - API
+# -----------------------------------------------------------------------------
 def rest_default():
   """
     REST Service function, return list of all services.
@@ -91,21 +92,25 @@ def rest_default():
       '<li><a href="./">/api</a></li>' \
         '<ul><li>Return HTML message</li></ul>' \
       '<li><a href="./simpleText">/api/simpleText</a></li>' \
-        '<ul><li>Return Text message</li></ul>' \
-      '<li><a href="./simpleJson">/api/simpleJson</a></li>' \
-        '<ul><li>Return Json message</li></ul>' \
+        '<ul><li>Return a simple Text message</li></ul>' \
+      '<li><a href="./allTables">/api/allTables</a></li>' \
+        '<ul><li>Return all table\'s names from database</li></ul>' \
     '</ul>'
   return value
 
+# REST - SIMPLE TEXT
+# -----------------------------------------------------------------------------
 def rest_simpleText():
   """
     REST Service function, return a simple text.
   """
   return 'Test ok'
 
+# REST - ALL TABLES
+# -----------------------------------------------------------------------------
 def rest_allTables():
   """
-    Return all table's names from database (JSON format).
+    Return all table's names from database.
 
     :Example:
     >>> get_allTables()
@@ -169,6 +174,8 @@ def rest_allTables():
   # Return the json object
   return json_data
 
+# REST - INTERESTs BY TABLE
+# -----------------------------------------------------------------------------
 
 # MAIN
 # =============================================================================

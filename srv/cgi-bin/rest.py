@@ -41,9 +41,9 @@ render_txt = lambda message: message
 app = Flask(__name__)
 
 # Get routing from URL
-@app.route('/')
-#@app.route('/api/')
-#@app.route('/api/<name>')
+#@app.route('/')
+@app.route('/api/')
+@app.route('/api/<name>')
 @mimerender(
     default = 'html',
     html = render_html,
@@ -55,8 +55,8 @@ app = Flask(__name__)
 # ROOTING FUNCTIONS
 # =============================================================================
 
-def api():
-    return {'message': 'Welcome to the API REST services'}
+def api(name='world'):
+    return {'message': 'Welcome to the API REST services' + name}
 
 def greet(name='world'):
     return {'message': 'Hello, ' + name + '!'}

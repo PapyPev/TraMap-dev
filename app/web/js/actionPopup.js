@@ -26,7 +26,7 @@ function getDatabaseTablesFocus() {
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success: function(data){
-      cconsole.log(data)
+      console.log(data)
     },
     error: function(jqXHR, exception){
       if (jqXHR.status === 401) {

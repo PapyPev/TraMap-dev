@@ -70,7 +70,7 @@ def api(service='default', param=''):
   result = {
     'default' : rest_default(),
     'simpleText' : rest_simpleText(),
-    'allTables' : rest_allTables(),
+    'metatables' : rest_metatables(),
     'interests' : rest_interests(param),
   }.get(service, rest_default())
 
@@ -94,8 +94,10 @@ def rest_default():
         '<ul><li>Return HTML message</li></ul>' \
       '<li><a href="./simpleText">/api/simpleText</a></li>' \
         '<ul><li>Return a simple Text message</li></ul>' \
-      '<li><a href="./allTables">/api/allTables</a></li>' \
+      '<li><a href="./metatables">/api/metatables</a></li>' \
         '<ul><li>Return all table\'s names from database</li></ul>' \
+      '<li><a href="./interests/default">/api/interests/[table]</a></li>' \
+        '<ul><li>Return points of interests from the table</li></ul>' \
     '</ul>'
   return value
 
@@ -110,9 +112,9 @@ def rest_simpleText():
 
 # REST - ALL TABLES
 # -----------------------------------------------------------------------------
-def rest_allTables():
+def rest_metatables():
   """
-    Return all table's names from database.
+    Return all table's names from database without geographic tables.
 
     :Example:
     >>> get_allTables()
@@ -180,9 +182,9 @@ def rest_allTables():
 # REST - INTERESTS BY TABLE
 # -----------------------------------------------------------------------------
 
-def rest_interests(table):
+def rest_interests(table='default'):
   """
-    Return all table's names from database.
+    Return points of interests from the table in parameter.
 
     :Parameters:
       table
@@ -199,6 +201,8 @@ def rest_interests(table):
   """
 
   print(table)
+
+  return {'result' = ['default']}
 
 # MAIN
 # =============================================================================

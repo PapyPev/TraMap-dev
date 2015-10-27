@@ -11,7 +11,7 @@
  * ========================================================================= */
 
 MAP_PROP = './config/configMap.json';
-GEO_PROP = './config/configServer.json';
+SRV_PROP = './config/configServer.json';
 CON_PROP = './config/configContent.json';
 
 /* ============================================================================
@@ -270,7 +270,7 @@ function init () {
 
   //---------- Load Layers, GeoServer, Content Properties
   mapProperties = new MapProperties('map', MAP_PROP);
-  geoServerProperties = new GeoServerProperties(GEO_PROP);
+  geoServerProperties = new GeoServerProperties(SRV_PROP);
   contentProperties = new ContentProperties(CON_PROP);
 
   //---------- Load Default map

@@ -126,8 +126,10 @@
 	<i>Install Tomcat library</i><br>
 	<b>$</b> <code>sudo apt-get install tomcat7</code><br><br>
 	<i>Dowload latest version of geoserver</i><br>
-	<a href="http://geoserver.org/release/2.7.x/">GeoServer Sources 2.7.x</a><br><br>
-	<i>Copy file 'geoserver.war' to Tomcat application directory (depend on your configuration). Now, Geoserver run on :</i><br>
+	<a href="http://geoserver.org/release/2.7.x/">GeoServer Sources 2.7.x</a> on ~/Download/<br><br>
+	<i>Copy file 'geoserver.war' to Tomcat application directory. This directory depend on your configuration. If you use the same configuration as us, you can write the next command.</i><br>
+	<code><b>$</b> sudo cp ~/Download/geoserver.war /var/lib/tomcat7/webapps/</code><br><br>
+	<i>Now, Geoserver run on :</i><br>
 	<a href="http://localhost:8080/geoserver/">http://localhost:8080/geoserver/</a>
 </p>
 

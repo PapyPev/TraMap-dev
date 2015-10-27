@@ -115,7 +115,7 @@ GeoServerProperties.prototype.toString = function() {
 function getGeoServerConfig (filePath) {
 
   // Returned value
-  var geoServerConfig;
+  var serverConfig;
 
   // Get JSON
   $.ajax({
@@ -124,7 +124,7 @@ function getGeoServerConfig (filePath) {
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success: function(data){
-      geoServerConfig = data;
+      serverConfig = data;
     },
     error: function(jqXHR, exception){
       if (jqXHR.status === 401) {
@@ -137,6 +137,6 @@ function getGeoServerConfig (filePath) {
 
   });
 
-  return geoServerConfig.geoserver;
+  return serverConfig.geoserver;
 };
 

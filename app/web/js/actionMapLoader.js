@@ -11,7 +11,7 @@
  * ========================================================================= */
 
 MAP_PROP = './config/configMap.json';
-GEO_PROP = './config/configGeoServer.json';
+GEO_PROP = './config/configServer.json';
 CON_PROP = './config/configContent.json';
 
 /* ============================================================================

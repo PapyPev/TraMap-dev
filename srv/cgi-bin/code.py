@@ -14,7 +14,7 @@ render_txt = lambda message: message
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('http://172.18.138.171:8080/hamk-map-project/srv/cgi-bin/')
 @app.route('/<name>')
 @mimerender(
     default = 'html',

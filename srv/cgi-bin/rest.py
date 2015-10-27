@@ -60,7 +60,7 @@ def api(service='default'):
     'default' : rest_default(),
     'test' : rest_test(),
     'toto' : 'toto',
-  }[service]
+  }.get(service, rest_default())
   return {'message': result}
 
 # FUNCTIONS

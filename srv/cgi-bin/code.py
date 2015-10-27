@@ -14,7 +14,7 @@ render_txt = lambda message: message
 
 app = Flask(__name__)
 
-@app.route('/api/')
+@app.route('/')
 @app.route('/<name>')
 @mimerender(
     default = 'html',

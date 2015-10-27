@@ -17,12 +17,35 @@ var listOD;
  * FUNCTIONS
  * ========================================================================= */
 
-function getDatabaseTablesFocus() {
+function getInterests(table) {
 
   // Get JSON
   $.ajax({
     type: 'GET',
-    url: 'http://172.18.138.171/api/allTables',
+    url: 'http://172.18.138.171/api/rest_metatables/'+table,
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success: function(data){
+      console.log(data)
+    },
+    error: function(jqXHR, exception){
+      if (jqXHR.status === 401) {
+        console.log('HTTP Error 401 Unauthorized.');
+      } else {
+        console.log('Uncaught Error.\n' + jqXHR.responseText);
+      }
+    },
+    async: false
+  });
+
+};
+
+function getMetatables() {
+
+  // Get JSON
+  $.ajax({
+    type: 'GET',
+    url: 'http://172.18.138.171/api/rest_metatables',
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success: function(data){
@@ -51,7 +74,7 @@ function loadPopupFocusPOI (tableName) {
   var divFocusListOfFilters = 'optionsFocusListOfFilters';
 
   // TODO : Get list of POI from tableName
-  // var listOfPOI = getDatabaseTablesPOI(tableName);
+  // var listOfPOI = getInterests(tableName);
 
   // Prepare the HTML content
   var htmlListOfFilters = '<select class="selectpicker" id="listOfFilters">';
@@ -83,7 +106,7 @@ function loadPopupFocusFilter () {
   divFocusListOfTables = 'optionsFocusListOfTables';
 
   // TODO : Get list of filter tables
-  var listOfTables = getDatabaseTablesFocus();
+  var listOfTables = getMetatables();
 
   // TODO : Loop all listOfTables and format for the HTML content
   var listOfTables = '<select class="selectpicker" id="listOfTables" onchange="loadPopupFocusPOI(this.value);">'

@@ -55,11 +55,11 @@ app = Flask(__name__)
 # ROOTING FUNCTIONS
 # =============================================================================
 
-def api(service='world'):
+def api(service):
   result = {
     'test' : rest_test(),
     'toto' : 'toto',
-  }[service]
+  }.get(service, 'default')
   return {'message': 'Welcome to the API REST services' + result}
 
 # FUNCTIONS

@@ -55,7 +55,7 @@ app = Flask(__name__)
 # =============================================================================
 
 def greet(service='world'):
-    return {'message': 'Hello, ' + name + '!'}
+    return {'message': 'Hello, ' + service + '!'}
 
 
 # MAIN

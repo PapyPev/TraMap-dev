@@ -220,7 +220,7 @@ def rest_interests(table):
 
     # Prepare the SQL query
     sql = "SELECT DISTINCT type " \
-        "FROM " + table + \
+        "FROM " + table + " " \
         "ORDER BY type ASC"
 
     print sql

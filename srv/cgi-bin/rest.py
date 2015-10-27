@@ -42,8 +42,8 @@ app = Flask(__name__)
 
 # Get routing from URL
 @app.route('/')
-@app.route('/api/')
-@app.route('/api/<name>')
+#@app.route('/api/')
+#@app.route('/api/<name>')
 @mimerender(
     default = 'html',
     html = render_html,

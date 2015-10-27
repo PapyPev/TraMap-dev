@@ -59,6 +59,7 @@ def api():
     return {'message': 'Welcome to the API REST services'}
 
 def greet(name='world'):
+    print(name)
     result = ''
     if name=='test':
         result = rest_test()

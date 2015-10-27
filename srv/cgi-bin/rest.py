@@ -153,7 +153,7 @@ def rest_metatables():
   # Test if the list is empty
   if not rows:
     data['status'] = 'nok'
-    data['result'] = []
+    data['result'] = ['Warning: No tables.']
 
   # If the list is not empty
   else:
@@ -200,9 +200,60 @@ def rest_interests(table):
     }
   """
 
-  print(table)
+  # Prepare variables
+  names = []  # List of tables names
+  data = {}   # Json object to return
 
-  return {'result' : ['default']}
+  # Test if it's default value
+  if table=='default':
+    data['status'] = 'nok'
+    data['result'] = ['Error: Table parameter is missing.']
+
+  # If not, just execute query
+  else:
+
+    # Create default database connexion object
+    db = classDatabase.Database()
+
+    # Connexion to the database
+    db._connect()
+
+    # Prepare the SQL query
+    sql = "SELECT DISTINCT type " \
+        "FROM " + table + \
+        "ORDER BY type ASC"
+
+    # Execute the query
+    rows = db._execute(sql)
+
+    # Test if the list is empty
+    if not rows:
+      data['status'] = 'nok'
+      data['result'] = ['Warning: No interests on this table.']
+
+    # If not
+    else:
+
+      # Set status
+      data['status'] = 'ok'
+
+      # Loops results to get names
+      for row in rows:
+        if row[0] != 'geography_columns' \
+          and row[0] != 'geometry_columns' \
+          and row[0] != 'spatial_ref_sys' \
+          and row[0] != 'raster_columns' \
+          and row[0] != 'raster_overviews':
+          names.append(row[0])
+
+      # Save the result
+      data['result'] = names
+
+  # Prepare the JSON object
+  json_data = json.loads(json.dumps(data))
+
+  # Return the json object
+  return json_data
 
 # MAIN
 # =============================================================================

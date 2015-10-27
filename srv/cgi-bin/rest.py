@@ -37,14 +37,6 @@ render_json = lambda **args: json.dumps(args)
 render_html = lambda message: '<html><body>%s</body></html>'%message
 render_txt = lambda message: message
 
-@mimerender(
-    default = 'html',
-    html = render_html,
-    xml  = render_xml,
-    json = render_json,
-    txt  = render_txt
-)
-
 # Init the deamon app
 app = Flask(__name__)
 
@@ -57,8 +49,14 @@ def api():
 @app.route('/api/<service>')
 def greet(service='world'):
     return {'message': 'Hello, ' + service + '!'}
-
-
+    
+@mimerender(
+    default = 'html',
+    html = render_html,
+    xml  = render_xml,
+    json = render_json,
+    txt  = render_txt
+)
 
 # ROOTING AWNSERS
 # =============================================================================

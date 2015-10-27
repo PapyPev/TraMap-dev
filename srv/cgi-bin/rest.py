@@ -223,8 +223,6 @@ def rest_interests(table):
         "FROM " + table + " " \
         "ORDER BY type ASC"
 
-    print sql
-
     # Execute the query
     rows = db._execute(sql)
 
@@ -256,6 +254,7 @@ def rest_interests(table):
 
   # Return the json object
   return json_data
+
 
 # MAIN
 # =============================================================================

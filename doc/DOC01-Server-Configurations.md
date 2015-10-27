@@ -130,23 +130,6 @@
 
 <h2>Apache 2 : CGI-script configuration</h2>
 <p>
-	<h3>@DEPRECATED</h3>
-	<i>Install library for cgi-script</i><br>
-	<code><b>$</b> sudo a2enmod cgi</code><br><br>
-	<i>Move to Apache configuration folder and edit apache2.conf</i><br>
-	<code><b>$</b> cd /etc/apache2/</code><br>
-	<code><b>$</b> sudo nano apache2.conf</code><br><br>
-	<i>Add your web repository</i><br>
-	<pre><code>
-		ScriptAlias /cgi-bin/ /var/www/html/hamk-map-project/srv/cgi-bin/
-	    &lt;Directory "/var/www/html/hamk-map-project/srv/cgi-bin"&gt;
-	        AllowOverride None
-	        Options +ExecCGI
-	        Allow from all
-	        AddHandler cgi-script .py
-	    &lt;/Directory&gt;
-	</code></pre><br><br>
-	<h3>On Progress</h3>
 	<i>Configure apache proxy</i><br>
 	<code><b>$</b> cd /etc/apache2/sites-available/</code><br><br>
 	<i>Edit the 000-default.conf file :</i>
@@ -174,9 +157,6 @@
 
 	<i>Install <a href="https://github.com/martinblech/mimerender">mimerender</a> for URL routing</i><br>
 	<code><b>$</b> pip install mimerender</code><br><br>
-	
-	<i>Don't forget run this command for each cgi file :</i><br>
-	<code><b>$</b> sudo chmod +x youFile.py</code>
 </p>
 
 

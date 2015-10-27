@@ -4,7 +4,7 @@
 import web
 
 urls = (
-    'http://172.18.138.171/hamk-map-project/srv/cgi-bin/', 'index'
+    'http://172.18.138.171/hamk-map-project/srv/cgi-bin/test.py', 'index'
 )
 
 class index:

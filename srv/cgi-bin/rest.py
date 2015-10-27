@@ -60,7 +60,7 @@ def api(service='world'):
     'test' : rest_test(),
     'toto' : 'toto',
   }[service]
-  return {'message': 'Welcome to the API REST services' + service}
+  return {'message': 'Welcome to the API REST services' + result}
 
 # FUNCTIONS
 # =============================================================================

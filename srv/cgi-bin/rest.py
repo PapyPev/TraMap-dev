@@ -45,7 +45,7 @@ app = Flask(__name__)
 @app.route('/api/')
 @app.route('/api/<service>')
 @mimerender(
-  default = 'json',
+  default = 'html',
   html = render_html,
   xml  = render_xml,
   json = render_json,
@@ -73,7 +73,10 @@ def api(service='default'):
   }.get(service, rest_default())
 
   # Return message
-  return {'message': result}
+  if (service != 'default'):
+    return render_json({'message': result})
+  else:
+    return {'message': result}
 
 
 # REST FUNCTIONS

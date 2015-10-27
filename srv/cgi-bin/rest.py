@@ -83,13 +83,16 @@ def rest_default():
   """
     REST Service function, return list of all services.
   """
-  value = '<h1>API REST Services</h1>'
-  value += 'Welcome to the API REST Services ! Check all REST services :'
-  value += '<ul>'
-  value += '<li><a href="./">/api</a>: Return HTML message</li>'
-  value += '<li><a href="./simpleText">/api/simpleText</a>: Return Text message</li>'
-  value += '<li><a href="./simpleJson">/api/simpleJson</a>: Return Json message</li>'
-  value += '</ul>'
+  value = '<h1>API REST Services</h1>' \
+    'Welcome to the API REST Services ! Check all REST services :' \
+    '<ul>' \
+      '<li><a href="./">/api</a></li>' \
+        '<ul><li>Return HTML message</li></ul>' \
+      '<li><a href="./simpleText">/api/simpleText</a></li>' \
+        '<ul><li>Return Text message</li></ul>' \
+      '<li><a href="./simpleJson">/api/simpleJson</a></li>' \
+        '<ul><li>Return Json message</li></ul>' \
+    '</ul>'
   return value
 
 def rest_simpleText():

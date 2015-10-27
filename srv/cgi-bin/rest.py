@@ -74,7 +74,7 @@ def api(service='default', param=''):
   }.get(service, rest_default())
 
   # Return message
-  if service = 'allTables':
+  if service == 'allTables':
     return {'message': 'ok', 'result': result}
   else:
     return {'message': result}

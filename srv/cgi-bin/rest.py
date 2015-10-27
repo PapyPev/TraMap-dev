@@ -42,14 +42,8 @@ app = Flask(__name__)
 
 # Get routing from URL
 @app.route('/')
-def api():
-    return {'message': 'Hello!'}
-
 @app.route('/api/')
 @app.route('/api/<service>')
-def greet(service='world'):
-    return {'message': 'Hello, ' + service + '!'}
-    
 @mimerender(
     default = 'html',
     html = render_html,
@@ -58,12 +52,14 @@ def greet(service='world'):
     txt  = render_txt
 )
 
-# ROOTING AWNSERS
+# ROOTING FUNCTIONS
 # =============================================================================
 
+def api():
+    return {'message': 'Hello!'}
 
-
-
+def greet(service='world'):
+    return {'message': 'Hello, ' + service + '!'}
 
 
 # MAIN

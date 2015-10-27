@@ -68,7 +68,8 @@ def api(service='default'):
   # keyword : function
   result = {
     'default' : rest_default(),
-    'test' : rest_test(),
+    'simpleText' : rest_simpleText(),
+    'simpleJson' : rest_simpleJson(),
   }.get(service, rest_default())
 
   # Return message
@@ -85,15 +86,23 @@ def rest_default():
   value = '<h1>API REST Services</h1>'
   value += 'Welcome to the API REST Services ! Check all REST services :'
   value += '<ul>'
-  value += '<li><a href="./test">REST-Test</a> : Return a simple text</li>'
+  value += '<li><a href="./">/api</a>: Return HTML message</li>'
+  value += '<li><a href="./test">/api/simpleText</a>: Return Text message</li>'
+  value += '<li><a href="./test">/api/simpleJson</a>: Return Json message</li>'
   value += '</ul>'
   return value
 
-def rest_test():
+def rest_simpleText():
   """
     REST Service function, return a simple text.
   """
   return 'Test ok'
+
+def rest_simpleJson():
+  """
+    REST Service function, return a simple json.
+  """
+  return {'response' : 'ok'}
 
 
 # MAIN

@@ -43,7 +43,7 @@ app = Flask(__name__)
 # Get routing from URL
 #@app.route('/')
 @app.route('/api/')
-@app.route('/api/<service>')
+@app.route('/api/<name>')
 @mimerender(
     default = 'html',
     html = render_html,
@@ -64,12 +64,11 @@ def rest_default():
 def api():
     return {'message': 'Welcome to the API REST services'}
 
-def greet(service='world'):
+def greet(name='world'):
     # result = {
     #     'test' : 'test Ok'
-    # }[service]
-    result = 'toto'
-    return {'message': result}
+    # }[name]
+    return {'message': 'result'}
 
 
 # MAIN

@@ -73,10 +73,7 @@ def api(service='default'):
   }.get(service, rest_default())
 
   # Return message
-  if (service != 'default'):
-    return render_json({'message': result})
-  else:
-    return {'message': result}
+  return {'message': result}
 
 
 # REST FUNCTIONS

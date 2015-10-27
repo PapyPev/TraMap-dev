@@ -65,9 +65,10 @@ def api():
     return {'message': 'Welcome to the API REST services'}
 
 def greet(service='world'):
-    result = {
-        'test' : 'test Ok'
-    }[service]
+    # result = {
+    #     'test' : 'test Ok'
+    # }[service]
+    result = 'toto'
     return {'message': result}
 
 

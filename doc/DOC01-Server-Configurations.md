@@ -130,6 +130,7 @@
 
 <h2>Apache 2 : CGI-script configuration</h2>
 <p>
+	<h3>@DEPRECATED</h3>
 	<i>Install library for cgi-script</i><br>
 	<code><b>$</b> sudo a2enmod cgi</code><br><br>
 	<i>Move to Apache configuration folder and edit apache2.conf</i><br>
@@ -144,7 +145,36 @@
 	        Allow from all
 	        AddHandler cgi-script .py
 	    &lt;/Directory&gt;
+	</code></pre><br><br>
+	<h3>On Progress</h3>
+	<i>Configure apache proxy</i><br>
+	<code><b>$</b> cd /etc/apache2/sites-available/</code><br><br>
+	<i>Edit the 000-default.conf file :</i>
+	<pre><code>
+		ProxyRequests Off
+		ProxyPreserveHost On
+		&lt;Proxy *&gt;
+			Order deny,allow
+			Allow from all
+		&lt;/Proxy&gt;
+		ProxyPass /geoserver "http://localhost:8080/geoserver"
+		ProxyPassReverse /geoserver "http://localhost:8080/geoserver"
+		ProxyPass / "http://localhost:8082/api/"
+		ProxyPassReverse / "http://localhost:8082/api/"
 	</code></pre>
+</p>
+
+<h2>CGI-Script : Libraries</h2>
+<p>
+	<i>Use the <a href="https://pypi.python.org/pypi/mimerender">PyPi</a> library for downloading </i><br>
+	<code><b>$</b> sudo apt-get install python-pip</code><br><br>
+
+	<i>Install <a href="http://flask.pocoo.org/">Flask</a> framework for URL routing</i><br>
+	<code><b>$</b> sudo apt-get install python-flask</code><br><br>
+
+	<i>Install <a href="https://github.com/martinblech/mimerender">mimerender</a> for URL routing</i><br>
+	<code><b>$</b> pip install mimerender</code><br><br>
+	
 	<i>Don't forget run this command for each cgi file :</i><br>
 	<code><b>$</b> sudo chmod +x youFile.py</code>
 </p>

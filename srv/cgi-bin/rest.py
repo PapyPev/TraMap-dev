@@ -71,13 +71,11 @@ def api(service='default', param=''):
     'default' : rest_default(),
     'simpleText' : rest_simpleText(),
     'allTables' : rest_allTables(),
+    'interests' : rest_interests(param),
   }.get(service, rest_default())
 
   # Return message
-  if service == 'allTables':
-    return {'message': 'ok', 'result': result}
-  else:
-    return {'message': result}
+  return {'message': result}
 
 
 # REST FUNCTIONS
@@ -109,6 +107,7 @@ def rest_simpleText():
   """
   return 'Test ok'
 
+
 # REST - ALL TABLES
 # -----------------------------------------------------------------------------
 def rest_allTables():
@@ -131,6 +130,7 @@ def rest_allTables():
 
   # Create default database connexion object
   db = classDatabase.Database()
+
   # Connexion to the database
   db._connect()
 
@@ -141,7 +141,6 @@ def rest_allTables():
       "ORDER BY table_name ASC"
   # Execute the query
   rows = db._execute(sql)
-
 
   ### ----- RESULTS
 
@@ -174,13 +173,32 @@ def rest_allTables():
   # Prepare the JSON object
   json_data = json.loads(json.dumps(data))
 
-  print type(json_data)
-
   # Return the json object
   return json_data
 
-# REST - INTERESTs BY TABLE
+
+# REST - INTERESTS BY TABLE
 # -----------------------------------------------------------------------------
+
+def rest_interests(table):
+  """
+    Return all table's names from database.
+
+    :Parameters:
+      table
+        The table name
+
+    :Example:
+    >>> get_interests('osm_amenities')
+    {
+      "status": "ok",
+      "result": [
+        ...
+      ]
+    }
+  """
+
+  print(table)
 
 # MAIN
 # =============================================================================

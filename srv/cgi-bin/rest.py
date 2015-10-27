@@ -87,8 +87,8 @@ def rest_default():
   value += 'Welcome to the API REST Services ! Check all REST services :'
   value += '<ul>'
   value += '<li><a href="./">/api</a>: Return HTML message</li>'
-  value += '<li><a href="./test">/api/simpleText</a>: Return Text message</li>'
-  value += '<li><a href="./test">/api/simpleJson</a>: Return Json message</li>'
+  value += '<li><a href="./simpleText">/api/simpleText</a>: Return Text message</li>'
+  value += '<li><a href="./simpleJson">/api/simpleJson</a>: Return Json message</li>'
   value += '</ul>'
   return value
 

@@ -56,7 +56,7 @@ app = Flask(__name__)
 # ROOTING FUNCTION
 # =============================================================================
 
-def api(service='default', param=''):
+def api(service='default', param='default'):
   """
     Rooting function, return a message containing REST awnser
 
@@ -182,7 +182,7 @@ def rest_metatables():
 # REST - INTERESTS BY TABLE
 # -----------------------------------------------------------------------------
 
-def rest_interests(table='default'):
+def rest_interests(table):
   """
     Return points of interests from the table in parameter.
 

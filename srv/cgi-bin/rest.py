@@ -174,6 +174,8 @@ def rest_allTables():
   # Prepare the JSON object
   json_data = json.dumps(data)
 
+  print type(json_data)
+
   # Return the json object
   return json_data
 

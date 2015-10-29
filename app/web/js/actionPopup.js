@@ -124,7 +124,7 @@ function updatePopupFocusInterests (tableName) {
   console.log(listOfInterests)
 
   // Write on HTML content
-  $("#"+"toto"+"").html(listOfInterests);
+  $("#"+"toto"+"").load(listOfInterests);
 
 }; //--- end updatePopupFocusInterests (tableName)
 

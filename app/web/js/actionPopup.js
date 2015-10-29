@@ -120,8 +120,10 @@ function updatePopupFocusInterests (tableName) {
   // Close the selection
   listOfInterests += '</select>';
 
+  console.log(listOfInterests)
+
   // Write on HTML content
-  $("#"+divFocusInterests+"").load(listOfInterests);
+  $("#"+divFocusInterests+"").html(listOfInterests);
 
 }; //--- end updatePopupFocusInterests (tableName)
 

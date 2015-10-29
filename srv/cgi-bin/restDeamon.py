@@ -193,12 +193,21 @@ def rest_interests(table):
     :Example:
     >>> get_interests('osm_amenities')
     {
-      "status": "ok",
-      "result": [
-        ...
+      "status" : "ok",
+      "result" : [
+        {
+            "type": 1,
+            "alias" : "interest1"
+        },
+        {
+            "type": 2,
+            "alias" : "interest2"
+        }
       ]
     }
   """
+
+  ### ----- INIT
 
   # Prepare variables
   names = []  # List of tables names
@@ -208,6 +217,9 @@ def rest_interests(table):
   if table=='default':
     data['status'] = 'nok'
     data['result'] = ['Error: Table parameter is missing.']
+
+
+  ### ----- DATABASE : GET DISTINCT TYPE
 
   # If not, just execute query
   else:
@@ -231,23 +243,38 @@ def rest_interests(table):
       data['status'] = 'nok'
       data['result'] = ['Warning: No interests on this table.']
 
+
+    ### ----- DATABASE : GET TYPE ALIAS
+
     # If not
     else:
 
-      # Set status
-      data['status'] = 'ok'
+      # Get all tyoe from table
+      sql2 = "SELECT * FROM " + "TYPE_" + table + " " \
+        + "ORDER BY name ASC"
 
-      # Loops results to get names
-      for row in rows:
-        if row[0] != 'geography_columns' \
-          and row[0] != 'geometry_columns' \
-          and row[0] != 'spatial_ref_sys' \
-          and row[0] != 'raster_columns' \
-          and row[0] != 'raster_overviews':
-          names.append(row[0])
+      # Execute the second query
+      rows2 = db._execute(sql2)
 
-      # Save the result
-      data['result'] = names
+      # Test the query result
+      if not rows2:
+        data['status'] = 'nok'
+        data['result'] = ['Warning: No matching type on this table.']
+
+
+      ### ----- MATCHING TYPE-NAME
+
+      # If the type_table contains something
+      else:
+
+        # Set status
+        data['status'] = 'ok'
+
+        
+        print(rows2)
+
+        # Save the result
+        data['result'] = names
 
   # Prepare the JSON object
   json_data = json.loads(json.dumps(data))

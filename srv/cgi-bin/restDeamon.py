@@ -250,7 +250,7 @@ def rest_interests(table):
     else:
 
       # Prepare the table name
-      strTable = "{}{}".format("type_", table)
+      strTable = "{}{}{}".format("type_", table, "_value")
 
       # Get all tyoe from table
       sql2 = "SELECT * FROM " + strTable + " " \

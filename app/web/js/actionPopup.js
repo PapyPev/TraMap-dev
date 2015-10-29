@@ -130,7 +130,9 @@ function updatePopupFocusInterests (tableName) {
   };
 
   // Close the HTML container
-  htmlContent += '</select>'
+  htmlContent += '</select>';
+
+  console.log(htmlContent);
 
   // TODO : update the HTML content
   $("#"+divFocusInterests+"").html(htmlContent);

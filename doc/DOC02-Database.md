@@ -11,6 +11,7 @@
     <li><a href="#traffic">Table : traffic</a></li>
     <li><a href="#od_pairs">Table : od_pairs</a></li>
     <li><a href="#general_area_information">Table : general_area_information</a></li>
+    <li><a href="#type_roads_value">Table : type_roads_value</a></li>
 </ul>
 
 <h2 id="roads">Table : roads</h2>
@@ -23,7 +24,7 @@
 | id            | PK integer| identificator |
 | osm_id        | bigint    | OSM identificator |
 | osm_name      | char      | OSM name |
-| type          | integer   | type of roads |
+| type          | FK integer| type of roads |
 | source_id     | FK integer| source node of edge |
 | target_id     | FK integer| target node of edge |
 | length        | double    | edge (link) length in km |
@@ -65,6 +66,7 @@
 | type          | char      | zones type |
 | subtype       | char      | zones subtype |
 | age_FROM_TO   | double    | percentage of people split by age category |
+| valid         | boolean   | is valid?|
 | geometry      | geometry  | point |
 
 <u>Information</u> : <br>
@@ -115,4 +117,15 @@
 | cycling       | double    | number of trip per day on one person (by bike) |
 | driver        | double    | number of trip per day on one person (by car) |
 | geometry      | geometry  | area definition, polygon |
+
+<h2 id="type_roads_value">Table : type_roads_value</h2>
+<p>
+    This table contains type name of roads
+</p>
+
+| Attribute     | Type      | Description           |
+| ------------- | --------- | --------------------- |
+| id            | PK integer| identificator |
+| name          | text      | type name |
+
 

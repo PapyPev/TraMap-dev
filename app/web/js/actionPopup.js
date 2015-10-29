@@ -67,6 +67,7 @@ function getMetatables() {
     dataType: 'json',
     success: function(data){
       console.log(data)
+      return data.result;
     },
     error: function(jqXHR, exception){
       if (jqXHR.status === 401) {
@@ -124,7 +125,7 @@ function updatePopupFocusInterests (tableName) {
   console.log(listOfInterests)
 
   // Write on HTML content
-  $("#"+"toto"+"").load(listOfInterests);
+  $("#"+divFocusInterests+"").html(listOfInterests);
 
 }; //--- end updatePopupFocusInterests (tableName)
 
@@ -144,12 +145,14 @@ function loadPopupFocus () {
     + '</select>'
   var defaultInterests = '<select class="selectpicker" id="listOfInterests">'
     + '<option value="default">-- All --</option>'
-    + '<div id="toto"></div>'
     + '</select>'
 
   // Create the HTML content
   $("#"+divFocusMetatables+"").html(defaultMetatables).trigger("create");
   $("#"+divFocusInterests+"").html(defaultInterests).trigger("create");
+
+  // Get all tables from REST services
+  listOfTables = getMetatables();
 
 
   // TODO : Loop all listOfTables and format for the HTML content

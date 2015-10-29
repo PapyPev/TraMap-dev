@@ -11,6 +11,7 @@
     <li><a href="#traffic">Table : traffic</a></li>
     <li><a href="#od_pairs">Table : od_pairs</a></li>
     <li><a href="#general_area_information">Table : general_area_information</a></li>
+    <li><a href="#type_roads_value">Table : type_roads_value</a></li>
 </ul>
 
 <h2 id="roads">Table : roads</h2>
@@ -65,6 +66,7 @@
 | type          | char      | zones type |
 | subtype       | char      | zones subtype |
 | age_FROM_TO   | double    | percentage of people split by age category |
+| valid         | boolean   | is valid?|
 | geometry      | geometry  | point |
 
 <u>Information</u> : <br>

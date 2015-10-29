@@ -217,12 +217,13 @@ def rest_interests(table):
   if table=='default':
     data['status'] = 'nok'
     data['result'] = ['Error: Table parameter is missing.']
-
-
+  
   ### ----- DATABASE : GET DISTINCT TYPE
-
+  
   # If not, just execute query
   else:
+
+    print("not default")
 
     # Create default database connexion object
     db = classDatabase.Database()
@@ -243,15 +244,20 @@ def rest_interests(table):
       data['status'] = 'nok'
       data['result'] = ['Warning: No interests on this table.']
 
-
     ### ----- DATABASE : GET TYPE ALIAS
 
     # If not
     else:
 
+      print("sql1 ok")
+
+      strTable = "{}{}".format("type_", table)
+
       # Get all tyoe from table
-      sql2 = "SELECT * FROM " + "TYPE_" + table + " " \
+      sql2 = "SELECT * FROM " + strTable + " " \
         + "ORDER BY name ASC"
+
+      print(sql2)
 
       # Execute the second query
       rows2 = db._execute(sql2)

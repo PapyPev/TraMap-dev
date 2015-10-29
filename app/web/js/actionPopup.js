@@ -100,11 +100,11 @@ function updatePopupFocusInterests (tableName) {
   //var listOfInterests = getMetatables();
 
   // Prepare the selection list
-  //var listOfInterests = '<select class="selectpicker" id="listOfInterests">'
-  //  + '<option value="default">-- All --</option>'
+  var listOfInterests = '<select class="selectpicker" id="listOfInterests">'
+    + '<option value="default">-- All --</option>'
   
   // TODO : Loop all listOfInterests and format for the HTML content
-  listOfInterests =""
+
   switch(tableName){
     case 'Mustard':
       listOfInterests += '<option value="default">Yellow</option>'
@@ -118,10 +118,10 @@ function updatePopupFocusInterests (tableName) {
   }
 
   // Close the selection
-  //listOfInterests += '</select>';
+  listOfInterests += '</select>';
 
   // Write on HTML content
-  $("#"+"toto"+"").html(listOfInterests);
+  $("#"+divFocusInterests+"").load(listOfInterests);
 
 }; //--- end updatePopupFocusInterests (tableName)
 
@@ -141,7 +141,6 @@ function loadPopupFocus () {
     + '</select>'
   var defaultInterests = '<select class="selectpicker" id="listOfInterests">'
     + '<option value="default">-- All --</option>'
-    + '<div id="toto"></div>'
     + '</select>'
 
   // Create the HTML content
@@ -158,8 +157,8 @@ function loadPopupFocus () {
     + '</select>';
 
   // Add to list of values
-  //$("#"+divFocusMetatables+"").text(listOfTables);
-  $("#"+divFocusMetatables+"").html(listOfTables)
+  $("#"+divFocusMetatables+"").html(listOfTables);
+  
 
 }; //--- end loadPopupFocus ()
 

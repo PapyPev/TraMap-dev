@@ -89,49 +89,44 @@ function getMetatables() {
  * Load Popup Focus Point of Interests from tableName by REST service
  * @param {string} tableName Name of the database Table for getting POI list
  --------------------------------------------------------------------------- */
-function loadPopupFocusPOI (tableName) {
-  console.log('actionMapLoader.loadPopupFocusPOI('+tableName.toString()+')');
+function loadPopupFocusInterests (tableName) {
+  console.log('actionMapLoader.loadPopupFocusInterests('
+    + tableName.toString() + ')');
 
-  // TODO : Update list of filter from selected table
-  var divFocusListOfFilters = 'optionsFocusListOfFilters';
+  // TODO : Get List of tables from REST service
+  divFocusInterests = 'optionsFocusListOfTables';
 
-  // TODO : Get list of POI from tableName
-  // var listOfPOI = getInterests(tableName);
+  // TODO : Get list of filter tables
+  //var listOfInterests = getMetatables();
 
-  // Prepare the HTML content
-  var htmlListOfFilters = '<select class="selectpicker" id="listOfFilters">';
-
-  // Test from tableName
-  if (tableName=='Mustard') {
-    htmlListOfFilters+='<option>Banana</option>';
-  };
-  if (tableName=='Ketchup') {
-    htmlListOfFilters+='<option>Tomato</option>';
-  };
-
-  // End html select content
-  htmlListOfFilters += '</select>';
-  console.log(htmlListOfFilters);
+  // TODO : Loop all listOfInterests and format for the HTML content
+  var listOfInterests = '<select class="selectpicker" id="listOfInterests">'
+    + '<option value="default">-- All --</option>'
+    + '</select>';
 
   // Write on HTML content
-  $("#"+divFocusListOfFilters+"").html(htmlListOfFilters).trigger("create");
+  $("#"+divFocusInterests+"").html(listOfInterests).trigger("create");
 
-}; //--- end loadPopupFocusPOI (tableName)
+}; //--- end loadPopupFocusInterests (tableName)
 
 /**
  * Load Popup Focus Filter after REST service from database
  --------------------------------------------------------------------------- */
-function loadPopupFocusFilter () {
+function loadPopupFocusMetatables () {
   console.log('actionMapLoader.loadPopupFocusOptions()')
 
   // TODO : Get List of tables from REST service
   divFocusListOfTables = 'optionsFocusListOfTables';
 
   // TODO : Get list of filter tables
-  var listOfTables = getMetatables();
+  //var listOfTables = getMetatables();
+
+  // Init default interests
+  loadPopupFocusInterests('default');
 
   // TODO : Loop all listOfTables and format for the HTML content
-  var listOfTables = '<select class="selectpicker" id="listOfTables" onchange="loadPopupFocusPOI(this.value);">'
+  var listOfTables = '<select class="selectpicker" id="listOfTables" onchange="loadPopupFocusInterests(this.value);">'
+    + '<option value="all">-- All --</option>'
     + '<option value="Mustard">Mustard</option>'
     + '<option value="Ketchup">Ketchup</option>'
     + '<option value="">PepperSauce</option>'
@@ -140,7 +135,7 @@ function loadPopupFocusFilter () {
   // Write on HTML content
   $("#"+divFocusListOfTables+"").html(listOfTables).trigger("create");
 
-}; //--- end loadPopupFocusFilter ()
+}; //--- end loadPopupFocusMetatables ()
 
 /**
  * Create button and load popup content onclick
@@ -180,7 +175,10 @@ function loadPopupContent (data) {
       case 'popup':
         // Init container
         html  += '<div class="modal fade" '
-                + 'id="'+data.content_overTheMap[i].name+data.content_overTheMap[i].type+'" tabindex="-1" role="dialog" aria-labelledby="contactLabel">'
+                + 'id="'+data.content_overTheMap[i].name
+                  + data.content_overTheMap[i].type
+                  +'" tabindex="-1" role="dialog" '
+                  + 'aria-labelledby="contactLabel">'
                   + '<div class="modal-dialog" role="document">'
                     + '<div class="modal-content">'
         // Content
@@ -235,7 +233,7 @@ function loadPopup () {
       }; // end loop 
 
       // Load Focus Filter
-      loadPopupFocusFilter();
+      loadPopupFocusMetatables();
 
     },
     error: function(jqXHR, exception){

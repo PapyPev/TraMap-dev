@@ -21,7 +21,12 @@
 		<li><a href="#apacheinstall">Install and redirections</a></li>
 		<li><a href="#apachecgi">CGI-script configuration</a></li>
 	</ul>
-	<li><a href="#cgi">CGI-Script : Libraries</a></li>
+	<li><a href="#appfolder">TODO : Download the app folder</a></li>
+	<li><a href="#cgi">CGI-Script</a></li>
+	<ul>
+		<li><a href="#cgiinstall">Download libraries</a></li>
+		<li><a href="#cgideamon">TODO : Prepare the REST deamon</a></li>
+	</ul>
 </ul>
 
 <!-- ====================================================================== -->
@@ -35,13 +40,15 @@
 </p>
 
 <!-- ====================================================================== -->
-<h2 id="system">Actualizate System</h2>
+<h2 id="system">Update System</h2>
 <p>
 	Before any configuration, make sure that the system is correctly updated.<br><br>
 	<i>Fetches the list of available updates</i><br>
 	<b>$</b> <code>sudo apt-get update</code><br><br>
 	<i>Strictly upgrades the current packages</i><br>
-	<b>$</b> <code>sudo apt-get upgrade</code>
+	<b>$</b> <code>sudo apt-get upgrade</code><br>
+	<i>Install git library</i><br>
+	<b>$</b> <code>sudo apt-get install git</code>
 </p>
 
 <!-- ====================================================================== -->
@@ -129,7 +136,7 @@
 	<i>Dowload latest version of geoserver</i><br>
 	<a href="http://geoserver.org/release/2.7.x/">GeoServer Sources 2.7.x</a> on ~/Download/<br><br>
 	<i>Copy file 'geoserver.war' to Tomcat application directory. This directory depend on your configuration. If you use the same configuration as us, you can write the next command.</i><br>
-	<code><b>$</b> sudo cp ~/Download/geoserver.war /var/lib/tomcat7/webapps/</code><br><br>
+	<b>$</b> <code>sudo cp ~/Download/geoserver.war /var/lib/tomcat7/webapps/</code><br><br>
 	<i>Now, Geoserver run on :</i><br>
 	<a href="http://localhost:8080/geoserver/">http://localhost:8080/geoserver/</a>
 </p>
@@ -184,7 +191,15 @@
 </p>
 
 <!-- ====================================================================== -->
-<h2 id="cgi">CGI-Script : Libraries</h2>
+<h2 id="appfolder">TODO : Download the app folder</h2>
+<p>
+	<i>Download the application folder.</i>
+</p>
+
+<!-- ====================================================================== -->
+<h2 id="cgi">CGI-Script</h2>
+
+<h4 id="cgiinstall">Download libraries</h4>
 <p>
 	<i>Use the <a href="https://pypi.python.org/pypi/mimerender">PyPi</a> library for downloading </i><br>
 	<code><b>$</b> sudo apt-get install python-pip</code><br><br>
@@ -196,4 +211,8 @@
 	<code><b>$</b> pip install mimerender</code><br><br>
 </p>
 
+<h4 id="cgideamon">TODO : Prepare the REST deamon</h4>
+<p>
+	<i>Make the deamon from the rest.py script</i>
+</p>
 

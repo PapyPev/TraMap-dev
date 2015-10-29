@@ -34,10 +34,6 @@ function findItinerary (origin, destination) {
  * FUNCTIONS DATABASE
  * ========================================================================= */
 
-function getInterestsName (id) {
-
-}; //--- getInterestsName (id)
-
 /**
  * Get Interests id type from REST service for Focus Popup filters by Keyword.
  * @param {string} table Table's name
@@ -139,7 +135,7 @@ function updatePopupFocusInterests (tableName) {
   // Loop all interests
   for (var i = 0; i < listOfInterests.length; i++) {
     htmlContent += '<option value"'+listOfInterests[i]+'">'
-      +getInterestsName(listOfInterests[i])+'</option>';
+      +listOfInterests[i]+'</option>';
   };
 
   // Close the HTML container

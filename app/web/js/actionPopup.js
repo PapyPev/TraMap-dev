@@ -107,13 +107,13 @@ function updatePopupFocusInterests (tableName) {
 
   switch(tableName){
     case 'Mustard':
-      listOfInterests += '<option value="default">Yellow</option>'
+      listOfInterests += '<option value="yellow">Yellow</option>'
       break;
     case 'Ketchup':
-      listOfInterests += '<option value="default">Red</option>'
+      listOfInterests += '<option value="red">Red</option>'
       break;
     default:
-      listOfInterests += '<option value="default">Other</option>'
+      listOfInterests += '<option value="other">Other</option>'
       break;
   }
 

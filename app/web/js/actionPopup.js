@@ -100,7 +100,7 @@ function updatePopupFocusInterests (tableName) {
   //var listOfInterests = getMetatables();
 
   // Prepare the selection list
-  var listOfInterests = '<select class="selectpicker" id="listOfInterests">'
+  var listOfInterests = '<select class="selectpicker bs-select-hidden" id="listOfInterests">'
     + '<option value="default">-- All --</option>'
   
   // TODO : Loop all listOfInterests and format for the HTML content

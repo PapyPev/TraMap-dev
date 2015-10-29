@@ -161,27 +161,28 @@ function loadPopupFocus () {
   var listOfTables = []
 
   // Get all tables from REST services
-  var metatables = {}
-  metatables = getMetatables();
-
-  console.log("metatables")
-  console.log(metatables)
+  var metatables = getMetatables();
 
   // Verifications
   if (metatables.status == 'ok') {
     listOfTables = metatables.result;
   };
 
-  // TODO : Loop all listOfTables and format for the HTML content
-  var listOfTables = '<select class="selectpicker" id="listOfTables" onchange="updatePopupFocusInterests(this.value);">'
-    + '<option value="all">-- All --</option>'
-    + '<option value="Mustard">Mustard</option>'
-    + '<option value="Ketchup">Ketchup</option>'
-    + '<option value="">PepperSauce</option>'
-    + '</select>';
+  // Prepare HTML content with default value
+  htmlList = '<select class="selectpicker" id="listOfTables" onchange="updatePopupFocusInterests(this.value);">'
+    + '<option value="default">-- All --</option>'
+
+  // Loop all metatables
+  for (var i = 0; i < listOfTables.length; i++) {
+    htmlList += '<option value"'+listOfTables[i]+'">'
+      +listOfTables[i]+'</option>';
+  };
+
+  // Close the select container
+  htmlList += '</select>';
 
   // Add to list of values
-  $("#"+divFocusMetatables+"").html(listOfTables);
+  $("#"+divFocusMetatables+"").html(htmlList);
   
 
 }; //--- end loadPopupFocus ()

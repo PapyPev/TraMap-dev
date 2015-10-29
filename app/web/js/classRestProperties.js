@@ -57,7 +57,7 @@ RestProperties.prototype.getAddress = function () {
  * @this{RestProperties}
  * @return {string} Human-readable representation of this RestProperties.
  */
-GeoServerProperties.prototype.toString = function() {
+RestProperties.prototype.toString = function() {
   // Log console
   var attributesToLog = [{
     "address": this.address, 

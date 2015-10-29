@@ -278,6 +278,7 @@ def rest_interests(table):
 
         
         print(rows2)
+        names.append(['test'])
 
         # Save the result
         data['result'] = names

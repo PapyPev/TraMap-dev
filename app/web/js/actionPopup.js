@@ -121,7 +121,7 @@ function updatePopupFocusInterests (tableName) {
   listOfInterests += '</select>';
 
   // Write on HTML content
-  $("#"+divFocusInterests+"").text(listOfInterests);
+  //$("#"+divFocusInterests+"").text(listOfInterests);
 
 }; //--- end updatePopupFocusInterests (tableName)
 
@@ -157,7 +157,7 @@ function loadPopupFocus () {
     + '</select>';
 
   // Add to list of values
-  $("#"+divFocusMetatables+"").text(listOfTables);
+  //$("#"+divFocusMetatables+"").text(listOfTables);
   
 
 }; //--- end loadPopupFocus ()

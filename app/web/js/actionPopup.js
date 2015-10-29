@@ -151,10 +151,10 @@ function loadPopupFocus () {
   $("#"+divFocusInterests+"").html(defaultInterests).trigger("create");
 
   // Prepare listofTables
-  listOfTables = []
+  var listOfTables = []
 
   // Get all tables from REST services
-  metatables = getMetatables();
+  var metatables = getMetatables();
 
   // Verifications
   if (metatables.status == 'ok') {

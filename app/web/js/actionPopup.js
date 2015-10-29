@@ -89,8 +89,8 @@ function getMetatables() {
  * Load Popup Focus Point of Interests from tableName by REST service
  * @param {string} tableName Name of the database Table for getting POI list
  --------------------------------------------------------------------------- */
-function loadPopupFocusInterests (tableName) {
-  console.log('actionMapLoader.loadPopupFocusInterests('
+function updatePopupFocusInterests (tableName) {
+  console.log('actionMapLoader.updatePopupFocusInterests('
     + tableName.toString() + ')');
 
   // TODO : Get List of tables from REST service
@@ -107,13 +107,13 @@ function loadPopupFocusInterests (tableName) {
   // Write on HTML content
   $("#"+divFocusInterests+"").html(listOfInterests).trigger("create");
 
-}; //--- end loadPopupFocusInterests (tableName)
+}; //--- end updatePopupFocusInterests (tableName)
 
 /**
  * Load Popup Focus Filter after REST service from database
  --------------------------------------------------------------------------- */
-function loadPopupFocusMetatables () {
-  console.log('actionMapLoader.loadPopupFocusOptions()')
+function loadPopupFocus () {
+  console.log('actionMapLoader.loadPopupFocus()')
 
   // TODO : Get List of tables from REST service
   divFocusListOfTables = 'optionsFocusListOfTables';
@@ -122,10 +122,10 @@ function loadPopupFocusMetatables () {
   //var listOfTables = getMetatables();
 
   // Init default interests
-  loadPopupFocusInterests('default');
+  updatePopupFocusInterests('default');
 
   // TODO : Loop all listOfTables and format for the HTML content
-  var listOfTables = '<select class="selectpicker" id="listOfTables" onchange="loadPopupFocusInterests(this.value);">'
+  var listOfTables = '<select class="selectpicker" id="listOfTables" onchange="updatePopupFocusInterests(this.value);">'
     + '<option value="all">-- All --</option>'
     + '<option value="Mustard">Mustard</option>'
     + '<option value="Ketchup">Ketchup</option>'
@@ -135,7 +135,7 @@ function loadPopupFocusMetatables () {
   // Write on HTML content
   $("#"+divFocusListOfTables+"").html(listOfTables).trigger("create");
 
-}; //--- end loadPopupFocusMetatables ()
+}; //--- end loadPopupFocus ()
 
 /**
  * Create button and load popup content onclick
@@ -233,7 +233,7 @@ function loadPopup () {
       }; // end loop 
 
       // Load Focus Filter
-      loadPopupFocusMetatables();
+      loadPopupFocus();
 
     },
     error: function(jqXHR, exception){

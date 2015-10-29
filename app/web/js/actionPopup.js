@@ -51,7 +51,7 @@ function getInterests (table) {
   // Get JSON
   $.ajax({
     type: 'GET',
-    url: 'http://172.18.138.171/api/interests/'+table,
+    url: restProperties.getAddress() + '/interests/' + table,
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success: function(data){

@@ -113,10 +113,14 @@ function updatePopupFocusInterests (tableName) {
 
   // Get all interests from REST services
   var interests = getInterests(tableName);
+  console.log("interests")
+  console.log(interests)
 
   // Verifications
   if (interests.status == 'ok') {
     listOfInterests = interests.result;
+  } else {
+    console.log('Error: actionPopup.updatePopupFocusInterests(): NOK status');
   };
 
   // Prepare HTML content with default value
@@ -170,6 +174,8 @@ function loadPopupFocus () {
   // Verifications
   if (metatables.status == 'ok') {
     listOfTables = metatables.result;
+  } else {
+    console.log('Error: actionPopup.loadPopupFocus(): NOK status');
   };
 
   // Prepare HTML content with default value

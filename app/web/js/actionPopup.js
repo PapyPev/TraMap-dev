@@ -35,6 +35,7 @@ function findItinerary (origin, destination) {
  * ========================================================================= */
 
 function getInterests(table) {
+  console.log('actionMapLoader.getInterests('+table+')');
 
   // Get JSON
   $.ajax({
@@ -58,6 +59,7 @@ function getInterests(table) {
 };
 
 function getMetatables() {
+  console.log('actionMapLoader.getMetatables()');
 
   // Get JSON
   $.ajax({
@@ -66,6 +68,7 @@ function getMetatables() {
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success: function(data){
+      console.log(data.message)
       return data.message;
     },
     error: function(jqXHR, exception){

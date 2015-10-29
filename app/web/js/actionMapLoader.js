@@ -25,6 +25,7 @@ var map;
 var mapProperties;
 var geoServerProperties;
 var contentProperties;
+var restProperties;
 
 // Leaflet Map Layers
 var mapLayers;
@@ -272,6 +273,7 @@ function init () {
   mapProperties = new MapProperties('map', MAP_PROP);
   geoServerProperties = new GeoServerProperties(SRV_PROP);
   contentProperties = new ContentProperties(CON_PROP);
+  restProperties = new RestProperties(SRV_PROP);
 
   //---------- Load Default map
   map = L.map('map', {

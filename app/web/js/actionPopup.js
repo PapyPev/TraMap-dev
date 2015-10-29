@@ -34,7 +34,15 @@ function findItinerary (origin, destination) {
  * FUNCTIONS DATABASE
  * ========================================================================= */
 
-function getInterests(table) {
+function getInterestsName (id) {
+
+}; //--- getInterestsName (id)
+
+/**
+ * Get Interests id type from REST service for Focus Popup filters by Keyword.
+ * @param {string} table Table's name
+ --------------------------------------------------------------------------- */
+function getInterests (table) {
   console.log('actionPopup.getInterests('+table+')');
 
   // Return value
@@ -60,9 +68,11 @@ function getInterests(table) {
   });
 
   return val
+}; //--- end getInterests (table)
 
-};
-
+/**
+ * Get Metatables from REST service for Focus Popup filters by Keyword.
+ --------------------------------------------------------------------------- */
 function getMetatables() {
   console.log('actionPopup.getMetatables()');
 
@@ -72,7 +82,7 @@ function getMetatables() {
   // Get JSON
   $.ajax({
     type: 'GET',
-    url: 'http://172.18.138.171/api/metatables',
+    url: restProperties.getAddress() + '/metatables',
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success: function(data){
@@ -89,8 +99,7 @@ function getMetatables() {
   });
 
   return val;
-
-};
+}; //--- getMetatables()
 
 
 /* ============================================================================
@@ -129,8 +138,8 @@ function updatePopupFocusInterests (tableName) {
 
   // Loop all interests
   for (var i = 0; i < listOfInterests.length; i++) {
-    htmlList += '<option value"'+listOfInterests[i]+'">'
-      +listOfInterests[i]+'</option>';
+    htmlContent += '<option value"'+listOfInterests[i]+'">'
+      +getInterestsName(listOfInterests[i])+'</option>';
   };
 
   // Close the HTML container

@@ -66,8 +66,7 @@ function getMetatables() {
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success: function(data){
-      console.log(data)
-      return data.result;
+      return data.message;
     },
     error: function(jqXHR, exception){
       if (jqXHR.status === 401) {
@@ -151,8 +150,18 @@ function loadPopupFocus () {
   $("#"+divFocusMetatables+"").html(defaultMetatables).trigger("create");
   $("#"+divFocusInterests+"").html(defaultInterests).trigger("create");
 
+  // Prepare listofTables
+  listOfTables = []
+
   // Get all tables from REST services
-  listOfTables = getMetatables();
+  metatables = getMetatables();
+
+  // Verifications
+  if (metatables.status == 'ok') {
+    listOfTables = metatables.result;
+  };
+
+  console.log(listOfTables);
 
 
   // TODO : Loop all listOfTables and format for the HTML content

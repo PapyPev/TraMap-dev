@@ -61,6 +61,9 @@ function getInterests(table) {
 function getMetatables() {
   console.log('actionPopup.getMetatables()');
 
+  // Return value
+  var val = {};
+
   // Get JSON
   $.ajax({
     type: 'GET',
@@ -68,7 +71,7 @@ function getMetatables() {
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success: function(data){
-      return data.message;
+      val = data.message;
     },
     error: function(jqXHR, exception){
       if (jqXHR.status === 401) {
@@ -79,6 +82,8 @@ function getMetatables() {
     },
     async: false
   });
+
+  return val;
 
 };
 
@@ -156,7 +161,8 @@ function loadPopupFocus () {
   var listOfTables = []
 
   // Get all tables from REST services
-  var metatables = getMetatables();
+  var metatables = {}
+  metatables = getMetatables();
 
   console.log("metatables")
   console.log(metatables)

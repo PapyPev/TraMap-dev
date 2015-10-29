@@ -155,6 +155,9 @@ class Database(object):
     """
     try:
 
+      # Init the database cursor
+      self.cursor = self.connect.cursor()
+
       # Execute the query
       self.cursor.execute(sqlQuery)
 

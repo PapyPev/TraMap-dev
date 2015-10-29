@@ -94,7 +94,7 @@ function updatePopupFocusInterests (tableName) {
     + tableName.toString() + ')');
 
   // TODO : Get List of tables from REST service
-  divFocusInterests = 'optionsFocusListOfTables';
+  divFocusInterests = 'optionsFocusInterests';
 
   // TODO : Get list of filter tables
   //var listOfInterests = getMetatables();
@@ -116,7 +116,7 @@ function loadPopupFocus () {
   console.log('actionMapLoader.loadPopupFocus()')
 
   // TODO : Get List of tables from REST service
-  divFocusListOfTables = 'optionsFocusListOfTables';
+  divFocusMetatables = 'optionsFocusMetatables';
 
   // TODO : Get list of filter tables
   //var listOfTables = getMetatables();
@@ -133,7 +133,7 @@ function loadPopupFocus () {
     + '</select>';
 
   // Write on HTML content
-  $("#"+divFocusListOfTables+"").html(listOfTables).trigger("create");
+  $("#"+divFocusMetatables+"").html(listOfTables).trigger("create");
 
 }; //--- end loadPopupFocus ()
 

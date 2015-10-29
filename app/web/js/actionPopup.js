@@ -131,14 +131,22 @@ function updatePopupFocusInterests (tableName) {
 function loadPopupFocus () {
   console.log('actionMapLoader.loadPopupFocus()')
 
-  // TODO : Get List of tables from REST service
+  // Initi the div container
   divFocusMetatables = 'optionsFocusMetatables';
+  divFocusInterests = 'optionsFocusInterests';
 
-  // TODO : Get list of filter tables
-  //var listOfTables = getMetatables();
+  // Init default values
+  var defaultMetatables = '<select class="selectpicker" id="listOfTables" onchange="updatePopupFocusInterests(this.value);">'
+    += '<option value="default">-- All --</option>'
+    += '</select>'
+  var defaultInterests = '<select class="selectpicker" id="listOfInterests">'
+    + '<option value="default">-- All --</option>'
+    += '</select>'
 
-  // Init default interests
-  updatePopupFocusInterests('default');
+  // Create the HTML content
+  $("#"+divFocusMetatables+"").html(defaultMetatables).trigger("create");
+  $("#"+divFocusInterests+"").html(defaultInterests).trigger("create");
+
 
   // TODO : Loop all listOfTables and format for the HTML content
   var listOfTables = '<select class="selectpicker" id="listOfTables" onchange="updatePopupFocusInterests(this.value);">'
@@ -148,8 +156,9 @@ function loadPopupFocus () {
     + '<option value="">PepperSauce</option>'
     + '</select>';
 
-  // Write on HTML content
-  $("#"+divFocusMetatables+"").html(listOfTables).trigger("create");
+  // Add to list of values
+  $("#"+divFocusMetatables+"").text(listOfTables);
+  
 
 }; //--- end loadPopupFocus ()
 

@@ -3,62 +3,101 @@ from graph_tool.all import *
 import settings as s
 import numpy as np
 import db
+from progress_bar import *
 import time
-#import pickle
+import igraph
 
 class TransModel:
     def __init__(self):
+        #database
+        self.db = db.Database()
 
+        # graph
         self.g = MyGraph()
-        self.g.create_graph()
-        print "graph has",self.g.g.num_edges(), "edges"
-        #a = time.time()
-        #shortest_path(self.g.g,self.g.id_to_index(1353691), self.g.id_to_index(424189), self.g.edge_property_cost)
-        #print time.time() -a
-        #exit()
-        self.general_info = self.g.db.general_information(s.area_name)
+        table, cn = self.db.get_roads()
+        self.g.create_graph(table, cn)
 
-        self.O = self.g.db.getOD() #origin zones
-        self.D = self.g.db.getOD() #destination zones
-        self.OD_type = self.g.db.getOD_type() #type for OD zones
-        self.C = self.g.get_c(False) # cost matrix
-        self.T = np.ndarray(shape=(self.O.size, self.D.size)) # transpotation matrix
+        self.O = self.db.get_od() #origin zones
+        self.D = self.db.get_od() #destination zones
+
+        #zones property
+        self.zones_property_type = self.db.get_od_property("type")
+        self.zones_property_subtype = self.db.get_od_property("subtype")
+        self.zones_property_id = self.db.get_od_property("id")
+        self.zones_property_node_id = self.db.get_od_property("node_id")
+
+        self.zones_property_age_cat = []
+        for age_column in s.age_category:
+            self.zones_property_age_cat.append(self.db.get_od_property(age_column))
+
+        #cost matrix
+        self.C = self.g.get_c(self.zones_property_node_id)
+        #self.C = self.g.load_c()
+        #print self.C[61]
+        #transport matrix
+        self.T = np.ndarray(shape=(self.O.size, self.D.size))
 
         self.prepare_od() #only for testing
 
-        #self.id_map = None
+
     #olny for test!!
     def prepare_od(self):
         sum_home = 0
         non_home_count = 0
         for i in xrange(0, len(self.O)):
-            if self.OD_type[i] == "home":
+            if self.zones_property_type[i] == "home":
                 sum_home += self.O[i]
             else:
                 non_home_count += 1
 
         for i in xrange(0, len(self.O)):
-            if self.OD_type[i] != "home":
+            if self.zones_property_type[i] != "home":
                 self.O[i] = sum_home/float(non_home_count)
                 self.D[i] = sum_home/float(non_home_count)
 
-    def is_enable_comb(self, source_type, target_type):
-        if target_type in s.enable_type_comb[source_type]:
+    def _is_enable_combination(self, i, j):
+        target_type = self.zones_property_type[j]
+        source_type = self.zones_property_type[i]
+        if target_type in s.enable_type_combination[source_type]:
             return True
+        else:
+            return False
+
+    def _get_od_rules(self,i,pair_type):
+        offer = 0
+        num_of_age_cat = 0
+        for age_rule in s.age_category_rules:
+            if pair_type in age_rule:
+                offer += self.O[i] * self.zones_property_age_cat[num_of_age_cat][i]
+            num_of_age_cat += 1
+        #print offer
+        return offer
 
     def _model(self, i, j):
-        if self.is_enable_comb(self.OD_type[i],self.OD_type[j]):
-            Ti = self.O[i]
-            Tj = self.D[j]
+        if self._is_enable_combination(i, j):
+            if self.zones_property_type[i] == "home":
+                Ti = self._get_od_rules(i,self.zones_property_type[j])
+                Tj = self.D[j]
+            elif self.zones_property_type[j] == "home":
+                Tj = self._get_od_rules(j,self.zones_property_type[i])
+                Ti = self.O[i]
+            else:
+                Ti = self.O[i]
+                Tj = self.D[j]
+
+            if Ti == 0 or Tj == 0:
+                print Ti, Tj
             return Ti * Tj * self._f(self.C[i][j])
-        return 0
+
+        else:
+            return 0
 
     def _f(self, c):
         if c == 0:
             return 0
         return c**(-2)
 
-    def _for_all_cell_T(self,function):
+    def _insert_to_T(self,function):
         Tn = np.ndarray(shape=self.T.shape)
         for i in xrange(0, self.T.shape[0]):
             for j in xrange(0, self.T.shape[1]):
@@ -66,99 +105,136 @@ class TransModel:
         return Tn
 
     def trip_destination(self):
-        self.T = self._for_all_cell_T(self._model)
-        #print self.T
+        def get_array(shape):
+            p = np.ndarray(shape)
+            for i in xrange(len(p)):
+                p[i] = 0
+            return p
 
-        nf_row = np.ndarray(shape=(self.T.shape[0]))
+        self.T = self._insert_to_T(self._model)
 
-        delta = 100
-        delta_mid = 100
+        delta = sys.float_info.max
+        delta_old = float("inf")
+
         numiter = 0
-        while delta_mid > 0.3:
+        while delta_old - delta > 0.01:
+            nf_row = get_array((self.T.shape[0]))
+
             i = 0
             for row in self.T:
                 if sum(row) == 0:
-                    #print int(self.id_map[i])
-                    pass
-                try:
-                    nf_row[i] = self.O[i] / sum(row)
-                except RuntimeWarning:
-                    print self.O[i], sum(row)
+                    nf_row[i] = 1
+                else:
+                    try:
+                        nf_row[i] = self.O[i] / sum(row)
+                    except RuntimeWarning:
+                        raise RuntimeError("deleni nula")
                 i += 1
+
+            self.T = self._insert_to_T(lambda i,j: self.T[i][j] * nf_row[i])
             #print nf_row
 
-            self.T = self._for_all_cell_T(lambda i,j: self.T[i][j] * nf_row[i])
-            print self.T
-
-            sum_array = np.ndarray(shape=(self.T.shape[1]))
+            sum_array = get_array((self.T.shape[1]))
             for i in xrange(0, self.T.shape[0]):
                 for j in xrange(0, self.T.shape[1]):
                     sum_array[j] += self.T[i][j]
+
             nf_column =  self.D / sum_array
+            for i in xrange(len(nf_column)):
+                if nf_column[i] == float("inf"):
+                    nf_column[i] = 1
 
-            self.T = self._for_all_cell_T(lambda i, j: self.T[i][j] * nf_column[j])
 
+            #print self.D
+            #print sum_array
+
+            self.T = self._insert_to_T(lambda i, j: self.T[i][j] * nf_column[j])
+            #print nf_column
+
+            delta_old = delta
             delta =  max(abs(nf_column - 1))
             delta_mid = sum(abs(nf_column - 1)) / len(nf_column)
+
             numiter += 1
             print "#iteration is %i and delta is %f and delta mid id %f" %(numiter, delta, delta_mid)
-            print self.T
+
         print "number of iteration is:", numiter
+        np.save("cache/T", self.T)
 
-    def writeT(self,filename):
-        np.save(filename, self.T)
-        print "Ulozeno do: ", filename
+    def load_t(self):
+        self.T = np.load("cache/T.npy")
 
-    def count_transport(self, use_cache = False):
-        #if use_cache:
-        #    f = file("cache/n_to_n_path", "rb")
-        #    n_to_n_path = pickle.load(f)
-        #else:
-        n_to_n_path = []
+    def save_t(self):
+        self.db.save_t(self.T, self.zones_property_id)
 
-        zones = self.g.db.getZonesNodeId()
+
+    def count_transport(self, num_multi_path):
+        pb = Progress_bar(len(self.zones_property_node_id))
         i = 0
-        for node_id in zones:
-            #if use_cache:
-            #    paths = n_to_n_path[i]
-            #else:
-            paths = self.g.find_paths(node_id, zones)
-            #    n_to_n_path.append(paths)
-            for path in paths:
-                for edge in path[3]:
-                    self.g.edge_property_traffic[edge] += self.T[i][path[4]]
+        for node_id in self.zones_property_node_id:
+            for n in range(num_multi_path):
+                k_speed = n / float(num_multi_path)
+                self.g.change_cost(1 - k_speed, k_speed, 0)
+                paths = self.g.find_paths(node_id, self.zones_property_node_id)
+                j = 0
+                for path in paths:
+                    for edge in path:
+                        self.g.g.es[edge]["traffic"] += (1.0/num_multi_path) * self.T[i][j]
+                    j += 1
             i += 1
-            print i
-
-            #if use_cache == False:
-            #    f = file("cache/n_to_n_path","wb")
-            #    pickle.dump(n_to_n_path, f, 2)
-            #    print "n_to_n_path was added to cache"
-
+            pb.go(i)
 
     def save_traffic(self):
-        ids = map(lambda x: int(x), list(self.g.edge_property_id.get_array()))
-        traffic = map(lambda x: float(x), list(self.g.edge_property_traffic.get_array()))
-        self.g.db.save_traffic(ids, traffic)
+        ids = self.g.g.es.get_attribute_values("id")
+        traffic = self.g.g.es.get_attribute_values("traffic")
+        direction = self.g.g.es.get_attribute_values("direction")
+        self.db.save_traffic(ids, traffic, direction)
 
-        print "save is succesful!!"
+class Cost(object):
+    def __init__(self):
+        self.speed = []
+        self.length = []
+        self.cant = []
+
+    def add_edge_cost(self, length, speed, cant = 0):
+        self.speed.append(speed)
+        self.length.append(length)
+        self.cant.append(cant)
+
+    def get_cost_list(self, k_length, k_time, k_cant):
+        if k_length + k_time + k_cant != 1:
+            raise RuntimeWarning("sum of k is not 1")
+
+        np_length = np.array(self.length)
+        np_speed = np.array(self.speed)
+        np_cant = np.array(self.cant)
+        out = []
+        for i in xrange(len(self.length)):
+            if np_speed[i] == 0:
+                out.append(float("inf"))
+            else:
+                c = k_length * np_length[i] + k_time * (np_length[i] / np_speed[i]) + k_cant * np_cant[i]
+                out.append(c)
+        return out
+
+
 
 class MyGraph:
     def __init__(self):
-        self.db = db.Database()
-        self.g = Graph(directed=True)
-        self.edge_property_cost = self.g.new_edge_property("double")
-        self.edge_property_id = self.g.new_edge_property("int")
-        self.vertex_property_id = self.g.new_vertex_property("int")
-        self.edge_property_traffic = self.g.new_edge_property("double")
+        self.g = igraph.Graph(directed = True)
+        self.cost = Cost()
         self.min_vertex_id = -1
         self.max_vertex_id = -1
         self.max_count_vertex = 100000000  # max size of graph
 
-        self.edge_property_source = self.g.new_edge_property("int")
-        self.edge_property_target = self.g.new_edge_property("int")
-
     def _create_vertex(self,table,cn):
+        """
+        Create vertexes
+        :param table: list of edges
+        :param cn: column name for example {"source": 1, "target": 2, ...} number is index in edge,
+        This function required "source" and "target" column
+        :return: Vertex
+        """
         self.min_vertex_id = table[0][cn["source"]]
         self.max_vertex_id = table[0][cn["source"]]
         for row in table:
@@ -166,110 +242,109 @@ class MyGraph:
             if self.min_vertex_id > row[cn["target"]]: self.min_vertex_id = row[cn["target"]]
             if self.max_vertex_id < row[cn["source"]]: self.max_vertex_id = row[cn["source"]]
             if self.max_vertex_id < row[cn["target"]]: self.max_vertex_id = row[cn["target"]]
+
         # check max size of graph
         if self.max_count_vertex < self.max_vertex_id - self.min_vertex_id:
             raise AttributeError("Too large graph")
 
-        self.g.add_vertex(int(self.max_vertex_id - self.min_vertex_id + 1))
+        self.g.add_vertices(int(self.max_vertex_id - self.min_vertex_id + 1))
+
 
     def id_to_index(self, id):
         """
         Transform ID (node) to vertex(type) (return vertex no vertex id)
         @param id: Node ID
-        @return: Vertex
+        @return: index
         """
         if id > self.max_vertex_id:
             raise IndexError("ID %i no exist, ID must be in interval [%i, %i]" %(id,self.min_vertex_id,
                                                                                  self.max_vertex_id))
-        try:
-            return self.g.vertex(id - self.min_vertex_id)
-        except OverflowError:
-            raise IndexError("ID %i no exist, ID must be in interval [%i, %i]" %(id,self.min_vertex_id,
-                                                                               self.max_vertex_id))
+        return id - self.min_vertex_id
 
-    def create_graph(self):
+    def create_graph(self, table, cn):
         """
         Create graph from list of row (edges). Column are id, cost, source, target. eg. SELECT id, cost, source, target FROM graph; in PLPython
-        @param table: Graph data
+        :param table: Graph data
+        :param cn: column name eg. {"id": 0, "source": 1, "target": 2, "cost":3 ,"reverse_cost": 4, "length": 5, "speed": 6}
+        number is index in edge
         """
-        table, cn = self.db.getRoads()
         self._create_vertex(table,cn)
+
+        ig_e = [] #list of edge [(source, target), ...]
+        ig_direction = [] #list of direction [True, False, ...]
+        ig_id = [] #list of ID
         for row in table:
-            e = self.g.add_edge(self.id_to_index(row[cn["source"]]), self.id_to_index(row[cn["target"]]))
-            self.edge_property_cost[e] = row[cn["cost"]]
-            self.edge_property_id[e] = row[cn["id"]]
-            e = self.g.add_edge(self.id_to_index(row[cn["target"]]), self.id_to_index(row[cn["source"]]))
-            self.edge_property_cost[e] = row[cn["reverse_cost"]]
-            self.edge_property_id[e] = row[cn["id"]]
+            ig_e.append((self.id_to_index(row[cn["source"]]), self.id_to_index(row[cn["target"]])))
+            ig_direction.append(True)
+            ig_id.append(row[cn["id"]])
+            self.cost.add_edge_cost(row[cn["length"]] * 1000, s.speed_cycling[row[cn["type"]]], 0)
 
-    def dijkstra(self,s):
-        """
-        Compute dijkstra (one to n (all))
-        @param s: ID source node (vertex)
-        @param t_list: List of target node
-        @return:  List of path (source, target, cost, [path])
-        """
-        a = time.time()
-        dist_map, pred_map = dijkstra_search(self.g, self.id_to_index(s), self.edge_property_cost)
-        print time.time() - a
 
-        return (dist_map, pred_map)
+            if row[cn["reverse_cost"]] != 1000000:
+                ig_e.append((self.id_to_index(row[cn["target"]]), self.id_to_index(row[cn["source"]])))
+                ig_direction.append(False)
+                ig_id.append(row[cn["id"]])
+                self.cost.add_edge_cost(row[cn["length"]] * 1000, s.speed_cycling[row[cn["type"]]], 0)
 
-    def one_to_all(self, source):
-        pass
+        self.g.add_edges(ig_e)
+        self.g.es["direction"] = ig_direction
+        self.g.es["traffic"] = 0
+        self.g.es["id"] = ig_id
+        self.g.es["cost"] = self.cost.get_cost_list(1, 0, 0) #setting fo length cost
 
-    def _get_row_c(self, zones, f, t):
-        #print f, t
-        i = f
-        for zone_node_id in zones[f:t]:
-            dist_map, pred_map = self.dijkstra(zone_node_id)
+    def change_cost(self, k_length, k_time, k_cant):
+        self.g.es["cost"] = self.cost.get_cost_list(k_length, k_time, k_cant)
+
+    def get_c(self, zones_propetry_type):
+        pb = Progress_bar(len(zones_propetry_type))
+        C = np.ndarray(shape=(len(zones_propetry_type), len(zones_propetry_type)))
+        i = 0
+        for zone_node_id in zones_propetry_type:
+            dist_map = self.g.shortest_paths_dijkstra(self.id_to_index(zone_node_id), None, "cost")[0]
             j = 0
-            for zone_node_id_v in zones:
-                self.C[i][j] = dist_map[self.g.vertex(self.id_to_index(zone_node_id_v))]
+            for zone_node_id_v in zones_propetry_type:
+                C[i][j] = dist_map[self.id_to_index(zone_node_id_v)]
                 j += 1
-            print "make C:", i
             i += 1
-            if(i == t):
-                break
+            pb.go(i)
+        np.save("cache/C", C)
+        return C
 
-    def get_c(self, use_temp):
-        if use_temp:
-            self.C = np.load("C.npy")
-            return self.C
-        zones = self.db.getZonesNodeId()
-        self.C = np.ndarray(shape=(len(zones), len(zones)))
-        #interval = int(len(zones) / s.number_threads)
-        self._get_row_c(zones, 0, len(zones))
-        np.save("C", self.C)
+    def load_c(self):
+        self.C = np.load("cache/C.npy")
         return self.C
 
-    def find_paths(self,s , t_list):
-        a = time.time()
-        dist_map, pred_map = self.dijkstra(s)
-        print time.time() - a
+
+    def find_paths(self, s, t_list):
+        """
+        Find paths from s to all vertex in t_list.
+        :param s source node
+        :param t_list list of target nodes
+        :return list of paths in format [(sorce node, vertex node, distance, path (list of edges), index in zones_prop..), ...]
+        """
+        ig_paths = self.g.get_shortest_paths(self.id_to_index(s), to=map(self.id_to_index, t_list), weights="cost", output="epath")
+        ig_paths_m = filter(lambda x: False if len(x) == 0 else True, ig_paths)
+
         all_path = []
-        i = 0
-        #a = time.time()
-        #============rewrite==============
-        for t in t_list:
-            t_vertex = self.id_to_index(t)
 
-            vl, el = shortest_path(self.g, self.id_to_index(s), t_vertex, pred_map = pred_map)
-
-            all_path.append((s, t, float(dist_map[t_vertex]), el, i))
-            i += 1
-        #=============rewrite==============
-        #np_t_list = np.array(t_list)
-        #np_pred_map = np.array(pred_map)
-        #np_id_map = np.array(self.vertex_property_id)
-        #self.g.edges(5)
-        #==================================
-        #print time.time() - a
+        for t in map(self.id_to_index, t_list):
+            pp = 1
+            for i in xrange(len(ig_paths_m)):
+                if t == self.g.es[ig_paths_m[i][-1]].target:
+                    all_path.append(ig_paths_m[i])
+                    pp = 0
+                    break
+            if pp:
+                all_path.append([])
+        if len(all_path) != len(t_list):
+            raise RuntimeError("not corespond letgth of input and output")
         return all_path
 
 
 if __name__ == "__main__":
     tm = TransModel()
     tm.trip_destination()
-    tm.count_transport()
+    tm.save_t()
+    tm.count_transport(5)
     tm.save_traffic()
+

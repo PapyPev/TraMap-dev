@@ -23,7 +23,7 @@
 | id            | PK integer| identificator |
 | osm_id        | bigint    | OSM identificator |
 | osm_name      | char      | OSM name |
-| type          | integer   | type of roads |
+| type          | FK integer| type of roads |
 | source_id     | FK integer| source node of edge |
 | target_id     | FK integer| target node of edge |
 | length        | double    | edge (link) length in km |
@@ -115,4 +115,15 @@
 | cycling       | double    | number of trip per day on one person (by bike) |
 | driver        | double    | number of trip per day on one person (by car) |
 | geometry      | geometry  | area definition, polygon |
+
+<h2 id="type_roads_value">Table : type_roads_value</h2>
+<p>
+    This table contains type name of roads
+</p>
+
+| Attribute     | Type      | Description           |
+| ------------- | --------- | --------------------- |
+| id            | PK integer| identificator |
+| name          | text      | type name |
+
 

@@ -9,8 +9,8 @@ def age_group(age):
 		
 
 y = datetime.datetime.today().year
-geom = '0101000020110F0000B62DFBFB452545416B3DB9D7BD4B6041'
-node = 246696
+geom = '0101000020110F0000844EEB3DE2204541104C7AC571476041'
+node = 690719
 
 sql = """INSERT INTO zones(
             id, node_id, name, num_of_people, geometry, type, subtype, age_00_05, 
@@ -20,13 +20,13 @@ sql = """INSERT INTO zones(
             %f, %f, %f, %f, %f, %f, 
             %f, %f);\n"""
 
-f = file("dem.csv","r")
+f = file("dem2.csv","r")
 l = []
 for r in f:
 	l.append(r.rstrip().split(","))
 
 gl = []
-fo = file("insetr_dem.sql","w")
+fo = file("insetr_dem2.sql","w")
 for i,j in groupby(l, lambda x: x[0]):
 	tl = map(lambda x: age_group(y - int(x[1])),list(j))
 	age_map = [0,0,0,0,0,0,0,0,0]

@@ -22,7 +22,7 @@ var listOD;
  * @param {Object} destination Destination contains lat and long coordinates
  --------------------------------------------------------------------------- */
 function findItinerary (origin, destination) {
-  console.log("actionPopupEvents.findItinerary(...)");
+  console.log("actionPopup.findItinerary(...)");
   console.log("From:"+origin.toString()+" - To:"+destination.toString());
 
   // TODO : algo
@@ -35,7 +35,7 @@ function findItinerary (origin, destination) {
  * ========================================================================= */
 
 function getInterests(table) {
-  console.log('actionMapLoader.getInterests('+table+')');
+  console.log('actionPopup.getInterests('+table+')');
 
   // Get JSON
   $.ajax({
@@ -59,7 +59,7 @@ function getInterests(table) {
 };
 
 function getMetatables() {
-  console.log('actionMapLoader.getMetatables()');
+  console.log('actionPopup.getMetatables()');
 
   // Get JSON
   $.ajax({
@@ -68,7 +68,6 @@ function getMetatables() {
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success: function(data){
-      console.log(data.message)
       return data.message;
     },
     error: function(jqXHR, exception){
@@ -93,7 +92,7 @@ function getMetatables() {
  * @param {string} tableName Name of the database Table for getting POI list
  --------------------------------------------------------------------------- */
 function updatePopupFocusInterests (tableName) {
-  console.log('actionMapLoader.updatePopupFocusInterests('
+  console.log('actionPopup.updatePopupFocusInterests('
     + tableName.toString() + ')');
 
   // TODO : Get List of tables from REST service
@@ -135,7 +134,7 @@ function updatePopupFocusInterests (tableName) {
  * Load Popup Focus Filter after REST service from database
  --------------------------------------------------------------------------- */
 function loadPopupFocus () {
-  console.log('actionMapLoader.loadPopupFocus()')
+  console.log('actionPopup.loadPopupFocus()')
 
   // Initi the div container
   divFocusMetatables = 'optionsFocusMetatables';
@@ -159,13 +158,13 @@ function loadPopupFocus () {
   // Get all tables from REST services
   var metatables = getMetatables();
 
+  console.log("metatables")
+  console.log(metatables)
+
   // Verifications
   if (metatables.status == 'ok') {
     listOfTables = metatables.result;
   };
-
-  console.log(listOfTables);
-
 
   // TODO : Loop all listOfTables and format for the HTML content
   var listOfTables = '<select class="selectpicker" id="listOfTables" onchange="updatePopupFocusInterests(this.value);">'
@@ -188,7 +187,7 @@ function loadPopupFocus () {
  * @param {sidebar} sidebar TOC content will hide on event
  --------------------------------------------------------------------------- */
 function loadPopupEvent (glyph, popupName, sidebar) {
-  console.log('actionMapLoader.loadPopupEvent(' 
+  console.log('actionPopup.loadPopupEvent(' 
     + glyph + ','+popupName+','+sidebar+')');
 
   L.easyButton(
@@ -196,7 +195,7 @@ function loadPopupEvent (glyph, popupName, sidebar) {
     function(){
       sidebar.hide(); // close sidebar
       $('#'+popupName).modal('show'); // load content
-      console.log('actionMapLoader.loadPopupEvent(...) #'+popupName);
+      console.log('actionPopup.loadPopupEvent(...) #'+popupName);
     }, popupName // For event
   ).addTo(map);
 } //--- loadPopupEvent (glyph, popupName, sidebar)
@@ -206,7 +205,7 @@ function loadPopupEvent (glyph, popupName, sidebar) {
  * @param {json} data Popup json
  --------------------------------------------------------------------------- */
 function loadPopupContent (data) {
-  console.log('actionMapLoader.loadPopupContent()');
+  console.log('actionPopup.loadPopupContent()');
 
   // Prepare HTML content
   var html = "";
@@ -234,7 +233,7 @@ function loadPopupContent (data) {
         break;
 
       default:
-        alert('actionMapLoader.loadPopup : error');
+        alert('actionPopup.loadPopup : error');
         break;
 
     }; //end Switch
@@ -245,7 +244,7 @@ function loadPopupContent (data) {
  * Load all popup contains on JSON file
  --------------------------------------------------------------------------- */
 function loadPopup () {
-  console.log('actionMapLoader.loadPopup()');
+  console.log('actionPopup.loadPopup()');
 
   // Ajax request
   $.ajax({
@@ -300,7 +299,7 @@ function loadPopup () {
  * Get form value from focus popup and focus on values
  --------------------------------------------------------------------------- */
 function buttonFocus () {
-  console.log("actionPopupEvents.buttonFocus()");
+  console.log("actionPopup.buttonFocus()");
 
   // Get Form information
   var key = document.getElementById("textFocusKeyword").value;
@@ -321,7 +320,7 @@ function buttonFocus () {
  * Active mouse click and wait two points : origin and destination.
  --------------------------------------------------------------------------- */
 function buttonSearchByPointer () {
-  console.log("actionPopupEvents.buttonSearch()");
+  console.log("actionPopup.buttonSearch()");
 
   // Init list origin-destination
   listOD = [];

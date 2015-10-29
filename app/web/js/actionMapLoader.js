@@ -316,7 +316,7 @@ function init () {
   ).addTo(map);
 
   //---------- Load Popup
-  loadPopup(sidebar);
+  loadPopup();
 
   //----------- Moving Map view, refresh GeoServerLayer
   map.on('moveend', function() { 

@@ -137,11 +137,11 @@ function loadPopupFocus () {
 
   // Init default values
   var defaultMetatables = '<select class="selectpicker" id="listOfTables" onchange="updatePopupFocusInterests(this.value);">'
-    += '<option value="default">-- All --</option>'
-    += '</select>'
+    + '<option value="default">-- All --</option>'
+    + '</select>'
   var defaultInterests = '<select class="selectpicker" id="listOfInterests">'
     + '<option value="default">-- All --</option>'
-    += '</select>'
+    + '</select>'
 
   // Create the HTML content
   $("#"+divFocusMetatables+"").html(defaultMetatables).trigger("create");

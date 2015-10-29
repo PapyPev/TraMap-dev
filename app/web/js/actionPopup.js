@@ -37,6 +37,9 @@ function findItinerary (origin, destination) {
 function getInterests(table) {
   console.log('actionPopup.getInterests('+table+')');
 
+  // Return value
+  var val = {};
+
   // Get JSON
   $.ajax({
     type: 'GET',
@@ -44,7 +47,7 @@ function getInterests(table) {
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success: function(data){
-      console.log(data)
+      val = data.message;
     },
     error: function(jqXHR, exception){
       if (jqXHR.status === 401) {
@@ -55,6 +58,8 @@ function getInterests(table) {
     },
     async: false
   });
+
+  return val
 
 };
 
@@ -100,38 +105,35 @@ function updatePopupFocusInterests (tableName) {
   console.log('actionPopup.updatePopupFocusInterests('
     + tableName.toString() + ')');
 
-  // TODO : Get List of tables from REST service
+  // Init the div container name
   divFocusInterests = 'optionsFocusInterests';
 
-  // TODO : Get list of filter tables
-  //var listOfInterests = getMetatables();
+  // Prepare listOfInterests
+  var listOfInterests = []
 
-  // Prepare the selection list
-  //var listOfInterests = '<select class="selectpicker bs-select-hidden" id="listOfInterests">'
-  //  + '<option value="default">-- All --</option>'
-  
-  // TODO : Loop all listOfInterests and format for the HTML content
+  // Get all interests from REST services
+  var interests = getInterests(tableName);
 
-  listOfInterests = "";
-  switch(tableName){
-    case 'Mustard':
-      listOfInterests += '<option value="yellow">Yellow</option>'
-      break;
-    case 'Ketchup':
-      listOfInterests += '<option value="red">Red</option>'
-      break;
-    default:
-      listOfInterests += '<option value="other">Other</option>'
-      break;
-  }
+  // Verifications
+  if (interests.status == 'ok') {
+    listOfInterests = interests.result;
+  };
 
-  // Close the selection
-  //listOfInterests += '</select>';
+  // Prepare HTML content with default value
+  var htmlContent = '<select class="selectpicker" id="listOfInterests">'
+    + '<option value="default">-- All --</option>'
 
-  console.log(listOfInterests)
+  // Loop all interests
+  for (var i = 0; i < listOfInterests.length; i++) {
+    htmlList += '<option value"'+listOfInterests[i]+'">'
+      +listOfInterests[i]+'</option>';
+  };
 
-  // Write on HTML content
-  $("#"+divFocusInterests+"").html(listOfInterests);
+  // Close the HTML container
+  htmlContent += '</select>'
+
+  // TODO : update the HTML content
+  $("#"+divFocusInterests+"").html(htmlContent);
 
 }; //--- end updatePopupFocusInterests (tableName)
 
@@ -141,7 +143,7 @@ function updatePopupFocusInterests (tableName) {
 function loadPopupFocus () {
   console.log('actionPopup.loadPopupFocus()')
 
-  // Initi the div container
+  // Init the div container names
   divFocusMetatables = 'optionsFocusMetatables';
   divFocusInterests = 'optionsFocusInterests';
 
@@ -149,7 +151,7 @@ function loadPopupFocus () {
   var defaultMetatables = '<select class="selectpicker" id="listOfTables" onchange="updatePopupFocusInterests(this.value);">'
     + '<option value="default">-- All --</option>'
     + '</select>'
-  var defaultInterests = '<select id="listOfInterests">'
+  var defaultInterests = '<select class="selectpicker" id="listOfInterests">'
     + '<option value="default">-- All --</option>'
     + '</select>'
 
@@ -183,6 +185,9 @@ function loadPopupFocus () {
 
   // Add to list of values
   $("#"+divFocusMetatables+"").html(htmlList);
+
+  // TEST
+  updatePopupFocusInterests('roads');
 }; //--- end loadPopupFocus ()
 
 /**

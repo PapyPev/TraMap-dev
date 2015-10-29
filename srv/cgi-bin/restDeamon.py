@@ -249,18 +249,17 @@ def rest_interests(table):
     # If not
     else:
 
-      print("sql1 ok")
-
+      # Prepare the table name
       strTable = "{}{}".format("type_", table)
 
       # Get all tyoe from table
       sql2 = "SELECT * FROM " + strTable + " " \
         + "ORDER BY name ASC"
 
-      print(sql2)
-
       # Execute the second query
       rows2 = db._execute(sql2)
+
+      print("ok")
 
       # Test the query result
       if not rows2:

@@ -14,7 +14,24 @@
 var listOD;
 
 /* ============================================================================
- * FUNCTIONS
+ * FUNCTIONS CALCULATE
+ * ========================================================================= */
+/**
+ * Find itinerary betwin origin and destination
+ * @param {Object} origin Origin contains lat and long coordinates
+ * @param {Object} destination Destination contains lat and long coordinates
+ --------------------------------------------------------------------------- */
+function findItinerary (origin, destination) {
+  console.log("actionPopupEvents.findItinerary(...)");
+  console.log("From:"+origin.toString()+" - To:"+destination.toString());
+
+  // TODO : algo
+
+}; //--- end findItinerary (origin, destination)
+
+
+/* ============================================================================
+ * FUNCTIONS DATABASE
  * ========================================================================= */
 
 function getInterests(table) {
@@ -62,6 +79,11 @@ function getMetatables() {
   });
 
 };
+
+
+/* ============================================================================
+ * POPUP LOADING
+ * ========================================================================= */
 
 /**
  * Load Popup Focus Point of Interests from tableName by REST service
@@ -227,18 +249,10 @@ function loadPopup () {
   });
 }; //--- end loadPopup()
 
-/**
- * Find itinerary betwin origin and destination
- * @param {Object} origin Origin contains lat and long coordinates
- * @param {Object} destination Destination contains lat and long coordinates
- --------------------------------------------------------------------------- */
-function findItinerary (origin, destination) {
-  console.log("actionPopupEvents.findItinerary(...)");
-  console.log("From:"+origin.toString()+" - To:"+destination.toString());
 
-  // TODO : algo
-
-}; //--- end findItinerary (origin, destination)
+/* ============================================================================
+ * FUNCTION EVENT CLICK
+ * ========================================================================= */
 
 /**
  * Get form value from focus popup and focus on values

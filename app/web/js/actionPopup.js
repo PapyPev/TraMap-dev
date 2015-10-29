@@ -121,7 +121,7 @@ function updatePopupFocusInterests (tableName) {
   listOfInterests += '</select>';
 
   // Write on HTML content
-  $("#"+divFocusInterests+"").html(listOfInterests).trigger("create");
+  $("#"+divFocusInterests+"").text(listOfInterests);
 
 }; //--- end updatePopupFocusInterests (tableName)
 

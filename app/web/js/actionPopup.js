@@ -99,10 +99,26 @@ function updatePopupFocusInterests (tableName) {
   // TODO : Get list of filter tables
   //var listOfInterests = getMetatables();
 
-  // TODO : Loop all listOfInterests and format for the HTML content
+  // Prepare the selection list
   var listOfInterests = '<select class="selectpicker" id="listOfInterests">'
     + '<option value="default">-- All --</option>'
-    + '</select>';
+  
+  // TODO : Loop all listOfInterests and format for the HTML content
+
+  switch(tableName){
+    case 'Mustard':
+      listOfInterests += '<option value="default">Yellow</option>'
+      break;
+    case 'Ketchup':
+      listOfInterests += '<option value="default">Red</option>'
+      break;
+    default:
+      listOfInterests += '<option value="default">Other</option>'
+      break;
+  }
+
+  // Close the selection
+  listOfInterests += '</select>';
 
   // Write on HTML content
   $("#"+divFocusInterests+"").html(listOfInterests).trigger("create");

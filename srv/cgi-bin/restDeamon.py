@@ -163,6 +163,7 @@ def rest_metatables():
     # Loops results to get names
     for row in rows:
       if row[0] != 'geography_columns' \
+        and row[0] != 'general_area_informations' \
         and row[0] != 'geometry_columns' \
         and row[0] != 'spatial_ref_sys' \
         and row[0] != 'raster_columns' \
@@ -223,64 +224,10 @@ def rest_interests(table):
   # If not, just execute query
   else:
 
-    print("not default")
+    data['status'] = 'ok'
 
-    # Create default database connexion object
-    db = classDatabase.Database()
-
-    # Connexion to the database
-    db._connect()
-
-    # Prepare the SQL query
-    sql = "SELECT DISTINCT type " \
-        "FROM " + table + " " \
-        "ORDER BY type ASC"
-
-    # Execute the query
-    rows = db._execute(sql)
-
-    # Test if the list is empty
-    if not rows:
-      data['status'] = 'nok'
-      data['result'] = ['Warning: No interests on this table.']
-
-    ### ----- DATABASE : GET TYPE ALIAS
-
-    # If not
-    else:
-
-      # Prepare the table name
-      strTable = "{}{}{}".format("type_", table, "_value")
-
-      # Get all tyoe from table
-      sql2 = "SELECT * FROM " + strTable + " " \
-        + "ORDER BY name ASC"
-
-      # Execute the second query
-      rows2 = db._execute(sql2)
-
-      print("ok")
-
-      # Test the query result
-      if not rows2:
-        data['status'] = 'nok'
-        data['result'] = ['Warning: No matching type on this table.']
-
-
-      ### ----- MATCHING TYPE-NAME
-
-      # If the type_table contains something
-      else:
-
-        # Set status
-        data['status'] = 'ok'
-
-        
-        print(rows2)
-        names.append(['test'])
-
-        # Save the result
-        data['result'] = names
+    # Save the result
+    data['result'] = names
 
   # Prepare the JSON object
   json_data = json.loads(json.dumps(data))

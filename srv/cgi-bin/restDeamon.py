@@ -172,8 +172,6 @@ def rest_interests():
 
   try:
 
-    print('DEBUG: Database connexion')
-
     # Create default database connexion object
     db = classDatabase.Database()
     # Connexion to the database
@@ -183,8 +181,6 @@ def rest_interests():
     ### ---------- GET ALL TABLES ----------
 
     try:
-
-      print('DEBUG: Get All tables')
 
       # Prepare the SQL query
       tablesSQL = "SELECT table_name " \
@@ -200,12 +196,7 @@ def rest_interests():
 
       # Save the result on a list of elements
       for t in tablesResult:
-
-        print('DEBUG: Test Ignore - ' + t[0])
-
         if not t[0] in tablesIgnore:
-
-          print('Res - True')
           tablesList.append(t[0])
 
 
@@ -232,6 +223,7 @@ def rest_interests():
           try:
             
             if tableName in tablesInner:
+              print('Special t')
 
               # Get all type from tableName with inner join
               interestsSQL = 'SELECT DISTINCT name as "type" ' \
@@ -243,6 +235,7 @@ def rest_interests():
 
             # No special treatment
             else:
+              print('No special t')
 
               # Get all type from tableName
               interestsSQL = '{}{}'.format('SELECT DISTINCT type FROM ', \
@@ -265,19 +258,19 @@ def rest_interests():
             result.append(interestsByTable)
 
           except Exception, e:
-            result = ['Error: SQL matching. {}'.format(e)]
+            result = ['Error: SQL matching. Details: {}'.format(e)]
 
       # Get Type for all tables
       except Exception, e:
-        result = ['Error: SQL get type table. {}'.format(e)]
+        result = ['Error: SQL get type table. Details: {}'.format(e)]
 
     # Get all tables error
     except Exception, e:
-      result = ['Error: SQL get all tables. {}'.format(e)]
+      result = ['Error: SQL get all tables. Details: {}'.format(e)]
 
   # Database connexion error
   except Exception, e:
-    result = ['Error: Database connexion failed. {}'.format(e)]
+    result = ['Error: Database connexion failed. Details: {}'.format(e)]
 
   finally:
 

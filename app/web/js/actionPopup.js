@@ -83,23 +83,23 @@ function loadPopupFocus () {
     + '<option value="default">-- All --</option>'
 
   // Get all tables from REST services
-  var interests = getInterests();
+  //var interests = getInterests();
 
   // Verifications
-  if (interests.status=='ok') {
+  // if (interests.status=='ok') {
 
-    for (var i = 0; i < interests.result.length; i++) {
-      htmlList += '<optgroup label="' + interests.result[i].table + '">'
+  //   for (var i = 0; i < interests.result.length; i++) {
+  //     htmlList += '<optgroup label="' + interests.result[i].table + '">'
 
-      for (var j = 0; j < interests.result[i].interests.length; j++) {
-        htmlList += '<option id="' + interests.result[i].interests[j] + '">'
-        htmlList += interests.result[i].interests[j] + '</option>'
-      };
+  //     for (var j = 0; j < interests.result[i].interests.length; j++) {
+  //       htmlList += '<option id="' + interests.result[i].interests[j] + '">'
+  //       htmlList += interests.result[i].interests[j] + '</option>'
+  //     };
 
-      htmlList += '</optgroup>'
-    };
+  //     htmlList += '</optgroup>'
+  //   };
 
-  };
+  // };
 
   // Close the select container
   htmlList += '</select>';

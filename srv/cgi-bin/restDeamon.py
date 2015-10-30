@@ -170,6 +170,8 @@ def rest_interests():
 
   try:
 
+    print('DEBUG: Database connexion')
+
     # Create default database connexion object
     db = classDatabase.Database()
     # Connexion to the database
@@ -179,6 +181,8 @@ def rest_interests():
     ### ---------- GET ALL TABLES ----------
 
     try:
+
+      print('DEBUG: Get All tables')
 
       # Prepare the SQL query
       tablesSQL = "SELECT table_name " \
@@ -201,6 +205,8 @@ def rest_interests():
       ### ---------- GET TYPE ----------
 
       try:
+
+        print('DEBUG: Get Type')
         
         # For each table get interests
         for tableName in tablesList:
@@ -213,6 +219,8 @@ def rest_interests():
 
 
           ### ---------- SPECIAL TREATMENT MATCHING ----------
+
+          print('DEBUG: Special Treatment')
 
           try:
             

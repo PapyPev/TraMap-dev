@@ -82,6 +82,9 @@ function loadPopupFocus () {
   var htmlList = '<select class="selectpicker" id="listOfInterests">'
     + '<option value="default">-- All --</option>'
 
+  // Init the container
+  ("#"+divFocusInterests+"").html(htmlList+'</select>').trigger("create");
+
   // Get all tables from REST services
   var interests = getInterests();
 
@@ -107,7 +110,7 @@ function loadPopupFocus () {
   htmlList += '</select>';
 
   // Add to list of values
-  $("#"+divFocusInterests+"").html(htmlList).trigger("create");
+  $("#"+divFocusInterests+"").html(htmlList);
 
 }; //--- end loadPopupFocus ()
 

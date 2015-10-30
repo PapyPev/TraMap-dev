@@ -239,6 +239,8 @@ def rest_interests():
               interestsSQL = '{}{}'.format('SELECT DISTINCT type FROM ', \
                   tableName)
 
+            print('DEBUG: SQL : ' + interestsSQL)
+
             # Execute the query
             interestsResult = db._execute(interestsResult)
 

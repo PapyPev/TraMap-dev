@@ -80,7 +80,7 @@ function loadPopupFocus () {
   divFocusInterests = 'optionsFocusInterests';
 
   var htmlList = '<select class="selectpicker" id="listOfInterests">'
-    + '<option value="default">-- All --</option>'
+  htmlList += '<option value="default">-- All --</option>'
 
   var defaultInit = htmlList.concat('</select>')
 

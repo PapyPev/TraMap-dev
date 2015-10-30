@@ -198,7 +198,12 @@ def rest_interests():
 
       # Save the result on a list of elements
       for t in tablesResult:
+
+        print('DEBUG: Test Ignore - ' + t[0])
+
         if not t[0] in tablesIgnore:
+
+          print('Res - True')
           tablesList.append(t[0])
 
 

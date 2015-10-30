@@ -220,37 +220,33 @@ def rest_interests():
           interestsByTable['interests'] = interests
 
 
-          ### ---------- SPECIAL TREATMENT MATCHING ----------
+          ### ---------- TREATMENT MATCHING ----------
 
-          print('DEBUG: Special Treatment - ' + tableName)
+          print('DEBUG: Treatment: ' + tableName)
 
           # Init and refresh
           interestsSQL = ''
 
           try:
             
+            # Special treatment
             if tableName in tablesInner:
 
               # Get all type from tableName with inner join
-              interestsSQL = 'SELECT DISTINCT name ' \
+              interestsSQL = 'SELECT DISTINCT name as type' \
                 'FROM {}, type_{}_value ' \
                 'WHERE {}.type = type_{}_value.id'.format(\
-                  tableName, \
-                  tableName,
-                  tableName, 
-                  tableName)
+                  tableName, tableName, tableName, tableName)
 
             # No special treatment
             else:
 
               # Get all type from tableName
-              interestsSQL = '{}{}'.format('SELECT DISTINCT type FROM ', \
-                  tableName)
+              interestsSQL = 'SELECT DISTINCT type FROM {}'.format(tableName)
 
             print('DEBUG: SQL: ' + interestsSQL)
 
             # Execute the query
-            interestsResult = {}
             interestsResult = db._execute(interestsResult)
 
             print('DEBUG: RESULTS: ')
@@ -263,11 +259,11 @@ def rest_interests():
             ### ---------- SAVE INTERESTS ON JSON OBJECT ----------
             interestsByTable['interests'] = interests
 
-            ### ---------- SAVE TABLE ITERESTS ----------
+            ### ---------- SAVE TABLE INTERESTS ----------
             result.append(interestsByTable)
 
           except Exception, e:
-            result = ['Error: SQL matching. Details: {}'.format(e)]
+            result = ['Error: SQL treatment matching. Details: {}'.format(e)]
 
         # End for tableName in tablesList
 

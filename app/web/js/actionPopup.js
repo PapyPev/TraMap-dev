@@ -35,42 +35,10 @@ function findItinerary (origin, destination) {
  * ========================================================================= */
 
 /**
- * Get Interests id type from REST service for Focus Popup filters by Keyword.
- * @param {string} table Table's name
- --------------------------------------------------------------------------- */
-function getInterests (table) {
-  console.log('actionPopup.getInterests('+table+')');
-
-  // Return value
-  var val = {};
-
-  // Get JSON
-  $.ajax({
-    type: 'GET',
-    url: restProperties.getAddress() + '/interests/' + table,
-    contentType: 'application/json; charset=utf-8',
-    dataType: 'json',
-    success: function(data){
-      val = data.message;
-    },
-    error: function(jqXHR, exception){
-      if (jqXHR.status === 401) {
-        console.log('HTTP Error 401 Unauthorized.');
-      } else {
-        console.log('Uncaught Error.\n' + jqXHR.responseText);
-      }
-    },
-    async: false
-  });
-
-  return val
-}; //--- end getInterests (table)
-
-/**
  * Get Metatables from REST service for Focus Popup filters by Keyword.
  --------------------------------------------------------------------------- */
-function getMetatables() {
-  console.log('actionPopup.getMetatables()');
+function getInterests() {
+  console.log('actionPopup.getInterests()');
 
   // Return value
   var val = {};
@@ -78,7 +46,7 @@ function getMetatables() {
   // Get JSON
   $.ajax({
     type: 'GET',
-    url: restProperties.getAddress() + '/metatables',
+    url: restProperties.getAddress() + '/interests',
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success: function(data){
@@ -95,58 +63,12 @@ function getMetatables() {
   });
 
   return val;
-}; //--- getMetatables()
+}; //--- getInterests()
 
 
 /* ============================================================================
  * POPUP LOADING
  * ========================================================================= */
-
-/**
- * Load Popup Focus Point of Interests from tableName by REST service
- * @param {string} tableName Name of the database Table for getting POI list
- --------------------------------------------------------------------------- */
-function updatePopupFocusInterests (tableName) {
-  console.log('actionPopup.updatePopupFocusInterests('
-    + tableName.toString() + ')');
-
-  // Init the div container name
-  divFocusInterests = 'optionsFocusInterests';
-
-  // Prepare listOfInterests
-  var listOfInterests = []
-
-  // Get all interests from REST services
-  var interests = getInterests(tableName);
-  console.log("interests")
-  console.log(interests)
-
-  // Verifications
-  if (interests.status == 'ok') {
-    listOfInterests = interests.result;
-  } else {
-    console.log('Error: actionPopup.updatePopupFocusInterests(): NOK status');
-  };
-
-  // Prepare HTML content with default value
-  var htmlContent = '<select class="selectpicker" id="listOfInterests">'
-    + '<option value="default">-- All --</option>'
-
-  // Loop all interests
-  for (var i = 0; i < listOfInterests.length; i++) {
-    htmlContent += '<option value"'+listOfInterests[i]+'">'
-      +listOfInterests[i]+'</option>';
-  };
-
-  // Close the HTML container
-  htmlContent += '</select>';
-
-  console.log(htmlContent);
-
-  // TODO : update the HTML content
-  $("#"+divFocusInterests+"").html(htmlContent);
-
-}; //--- end updatePopupFocusInterests (tableName)
 
 /**
  * Load Popup Focus Filter after REST service from database
@@ -155,26 +77,20 @@ function loadPopupFocus () {
   console.log('actionPopup.loadPopupFocus()')
 
   // Init the div container names
-  divFocusMetatables = 'optionsFocusMetatables';
   divFocusInterests = 'optionsFocusInterests';
 
-  // Init default values
-  var defaultMetatables = '<select class="selectpicker" id="listOfTables" onchange="updatePopupFocusInterests(this.value);">'
-    + '<option value="default">-- All --</option>'
-    + '</select>'
   var defaultInterests = '<select class="selectpicker" id="listOfInterests">'
     + '<option value="default">-- All --</option>'
     + '</select>'
 
   // Create the HTML content
-  $("#"+divFocusMetatables+"").html(defaultMetatables).trigger("create");
   $("#"+divFocusInterests+"").html(defaultInterests).trigger("create");
 
   // Prepare listofTables
   var listOfTables = []
 
   // Get all tables from REST services
-  var metatables = getMetatables();
+  var metatables = getInterests();
 
   // Verifications
   if (metatables.status == 'ok') {

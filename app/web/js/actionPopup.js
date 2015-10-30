@@ -85,6 +85,8 @@ function loadPopupFocus () {
   // Get all tables from REST services
   var interests = getInterests();
 
+  console.log(interests)
+
   // Verifications
   // if (interests.status=='ok') {
 

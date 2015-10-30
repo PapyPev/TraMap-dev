@@ -220,10 +220,12 @@ def rest_interests():
 
           print('DEBUG: Special Treatment - ' + tableName)
 
+          # Init and refresh
+          interestsSQL = ''
+
           try:
             
             if tableName in tablesInner:
-              print('Special t')
 
               # Get all type from tableName with inner join
               interestsSQL = 'SELECT DISTINCT name as "type" ' \
@@ -235,7 +237,6 @@ def rest_interests():
 
             # No special treatment
             else:
-              print('No special t')
 
               # Get all type from tableName
               interestsSQL = '{}{}'.format('SELECT DISTINCT type FROM ', \
@@ -244,12 +245,10 @@ def rest_interests():
               # Execute the query
               interestsResult = db._execute(interestsResult)
 
-            print('DEBUG: InterestsResults')
-            print(interestsResult)
-
             # Save interests on intersts list
             for i in interestsResult:
-                interests.append(i[0])
+              print("\t" + i[0])
+              interests.append(i[0])
 
             ### ---------- SAVE INTERESTS ON JSON OBJECT ----------
             interestsByTable['interests'] = interests

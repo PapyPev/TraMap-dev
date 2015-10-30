@@ -59,7 +59,7 @@ function getInterests() {
         console.log('Uncaught Error.\n' + jqXHR.responseText);
       }
     },
-    async: false
+    //async: false
   });
 
   return val;

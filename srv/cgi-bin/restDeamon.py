@@ -174,6 +174,7 @@ def rest_interests():
 
     # Create default database connexion object
     db = classDatabase.Database()
+
     # Connexion to the database
     db._connect()
 
@@ -229,8 +230,12 @@ def rest_interests():
 
               # Get all type from tableName with inner join
               interestsSQL = 'SELECT DISTINCT name ' \
-                'FROM {} WHERE {}.type = type_{}_value.id'.format(tableName, \
-                  tableName, tableName)
+                'FROM {}, type_{}_value ' \
+                'WHERE {}.type = type_{}_value.id'.format(\
+                  tableName, \
+                  tableName,
+                  tableName, 
+                  tableName)
 
             # No special treatment
             else:
@@ -249,8 +254,8 @@ def rest_interests():
             print(interestsResult)
 
             # Save interests on intersts list
-            # for i in interestsResult:
-            #   interests.append(i[0])
+            for i in interestsResult:
+              interests.append(i[0])
 
             ### ---------- SAVE INTERESTS ON JSON OBJECT ----------
             interestsByTable['interests'] = interests
@@ -261,6 +266,11 @@ def rest_interests():
           except Exception, e:
             result = ['Error: SQL matching. Details: {}'.format(e)]
 
+        # End for tableName in tablesList
+
+        ### ---------- UPDATE STATUS ----------
+        data['status'] = "ok"
+        
       # Get Type for all tables
       except Exception, e:
         result = ['Error: SQL get type table. Details: {}'.format(e)]

@@ -150,7 +150,10 @@ def rest_interests():
     'traffic_geometry',
     'type_roads_value',
     'nodes',
-    'od_pairs'
+    'od_pairs',
+    'osm_buildings',
+    'osm_amenities',
+    'osm_transport_points'
   ]
 
   tablesInner = [

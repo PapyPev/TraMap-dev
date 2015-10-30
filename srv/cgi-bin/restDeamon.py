@@ -70,8 +70,7 @@ def api(service='default', param='default'):
   result = {
     'default' : rest_default(),
     'simpleText' : rest_simpleText(),
-    'metatables' : rest_metatables(),
-    'interests' : rest_interests(param),
+    'interests' : rest_interests(),
   }.get(service, rest_default())
 
   # Return message
@@ -94,10 +93,8 @@ def rest_default():
         '<ul><li>Return HTML message</li></ul>' \
       '<li><a href="./simpleText">/api/simpleText</a></li>' \
         '<ul><li>Return a simple Text message</li></ul>' \
-      '<li><a href="./metatables">/api/metatables</a></li>' \
-        '<ul><li>Return all table\'s names from database</li></ul>' \
-      '<li><a href="./interests/default">/api/interests/[table]</a></li>' \
-        '<ul><li>Return points of interests from the table</li></ul>' \
+      '<li><a href="./interests">/api/interests</a></li>' \
+        '<ul><li>Return all interests by tables</li></ul>' \
     '</ul>'
   return value
 
@@ -112,128 +109,171 @@ def rest_simpleText():
 
 # REST - ALL TABLES
 # -----------------------------------------------------------------------------
-def rest_metatables():
+def rest_interests():
   """
-    Return all table's names from database without geographic tables.
+    Return a json object with status and all interests by tables
 
     :Example:
-    >>> get_allTables()
-    {
-      "status": "ok",
-      "result": [
-        "osm_buildings",
-        "osm_amenities",
-        "osm_transports_points"
-      ]
-    }
-  """
-
-  ### ----- DATABASE
-
-  # Create default database connexion object
-  db = classDatabase.Database()
-
-  # Connexion to the database
-  db._connect()
-
-  # Prepare the SQL query
-  sql = "SELECT table_name " \
-      "FROM information_schema.tables " \
-      "WHERE table_schema='public' " \
-      "ORDER BY table_name ASC"
-  # Execute the query
-  rows = db._execute(sql)
-
-  ### ----- RESULTS
-
-  # Prepare variables
-  names = []  # List of tables names
-  data = {}   # Json object to return
-
-  # Test if the list is empty
-  if not rows:
-    data['status'] = 'nok'
-    data['result'] = ['Warning: No tables.']
-
-  # If the list is not empty
-  else:
-    # Set status
-    data['status'] = 'ok'
-
-    # Loops results to get names
-    for row in rows:
-      if row[0] != 'geography_columns' \
-        and row[0] != 'general_area_informations' \
-        and row[0] != 'geometry_columns' \
-        and row[0] != 'spatial_ref_sys' \
-        and row[0] != 'raster_columns' \
-        and row[0] != 'raster_overviews':
-        names.append(row[0])
-
-    # Save the result
-    data['result'] = names
-
-  # Prepare the JSON object
-  json_data = json.loads(json.dumps(data))
-
-  # Return the json object
-  return json_data
-
-
-# REST - INTERESTS BY TABLE
-# -----------------------------------------------------------------------------
-
-def rest_interests(table):
-  """
-    Return points of interests from the table in parameter.
-
-    :Parameters:
-      table
-        The table name
-
-    :Example:
-    >>> get_interests('osm_amenities')
+    >>> rest_interests()
     {
       "status" : "ok",
       "result" : [
         {
-            "type": 1,
-            "alias" : "interest1"
+          "table" : "roads",
+          "interests" : [
+            "motorway",
+            "footway",
+            "cycleway",
+            "..."
+          ]
         },
         {
-            "type": 2,
-            "alias" : "interest2"
+          "table" : "osm_building",
+          "interests" : [
+            {"..."}
+          ]
         }
       ]
     }
   """
 
-  ### ----- INIT
+  ### ---------- TABLES LISTS ----------
 
-  # Prepare variables
-  names = []  # List of tables names
-  data = {}   # Json object to return
+  tablesIgnore = [
+    'general_area_informations',
+    'geometry_columns',
+    'spatial_ref_sys',
+    'raster_columns',
+    'raster_overviews',
+    'traffic',
+    'type_roads_value',
+    'nodes',
+    'od_pairs'
+  ]
 
-  # Test if it's default value
-  if table=='default':
-    data['status'] = 'nok'
-    data['result'] = ['Error: Table parameter is missing.']
-  
-  ### ----- DATABASE : GET DISTINCT TYPE
-  
-  # If not, just execute query
-  else:
+  tablesInner = [
+    'roads'
+  ]
 
-    data['status'] = 'ok'
+  ### ---------- INIT RETURNED OBJECT ----------
 
-    # Save the result
-    data['result'] = names
+  # REST variables
+  status = 'nok'
+  result = []
 
-  # Prepare the JSON object
-  json_data = json.loads(json.dumps(data))
+  # JSON object
+  data = {}
+  data['status'] = status
+  data['result'] = result
 
-  # Return the json object
-  return json_data
+  ### ---------- DATABASE CONNEXION ----------
+
+  try:
+
+    # Create default database connexion object
+    db = classDatabase.Database()
+    # Connexion to the database
+    db._connect()
+
+
+    ### ---------- GET ALL TABLES ----------
+
+    try:
+
+      # Prepare the SQL query
+      tablesSQL = "SELECT table_name " \
+          "FROM information_schema.tables " \
+          "WHERE table_schema='public' " \
+          "ORDER BY table_name ASC"
+
+      # Execute the query
+      tablesResult = db._execute(tablesSQL)
+
+      # Prepare the list of table
+      tablesList = []
+
+      # Save the result on a list of elements
+      for t in tablesResult:
+        if t[0] not in tablesIgnore:
+          tablesList.append(t[0])
+
+
+      ### ---------- GET TYPE ----------
+
+      try:
+        
+        # For each table get interests
+        for tableName in tablesList:
+
+          # Prepare object list
+          interestsByTable = {}
+          interestsByTable['table'] = tableName
+          interests = []
+          interestsByTable['interests'] = interests
+
+
+          ### ---------- SPECIAL TREATMENT MATCHING ----------
+
+          try:
+            
+            if tableName in tablesInner:
+
+              # Get all type from tableName with inner join
+              interestsSQL = 'SELECT DISTINCT name as "type" ' \
+                'FROM {} WHERE {}.type = type_{}_value.id'.format(tableName, \
+                  tableName, tableName)
+
+              # Execute the query
+              interestsResult = db._execute(interestsResult)
+
+            # No special treatment
+            else:
+
+              # Get all type from tableName
+              interestsSQL = '{}{}'.format('SELECT DISTINCT type FROM ', \
+                  tableName)
+
+              # Execute the query
+              interestsResult = db._execute(interestsResult)
+
+            # Save interests on intersts list
+            for i in interestsResult:
+                interests.append(i[0])
+
+            ### ---------- SAVE INTERESTS ON JSON OBJECT ----------
+            interestsByTable['interests'] = interests
+
+            ### ---------- SAVE TABLE ITERESTS ----------
+            result.append(interestsByTable)
+
+          except Exception, e:
+            result = ['Error: SQL matching. ' + e]
+
+      # Get Type for all tables
+      except Exception, e:
+        result = ['Error: SQL get type table. ' + e]
+
+    # Get all tables error
+    except Exception, e:
+      result = ['Error: SQL get all tables. ' + e]
+
+  # Database connexion error
+  except Exception, e:
+    result = ['Error: Database connexion failed. ' + e]
+
+  finally:
+
+    ### ---------- RETURN OBJECT ----------
+
+    # Prepare the JSON object
+    data['status'] = status
+    data['result'] = result
+    json_data = json.loads(json.dumps(data))
+
+    # Return the json object
+    return json_data 
+
+
 
 
 # MAIN

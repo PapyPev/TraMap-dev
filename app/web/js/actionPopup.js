@@ -80,7 +80,7 @@ function loadPopupFocus () {
   divFocusInterests = 'optionsFocusInterests';
 
   var htmlList = '<select class="selectpicker" id="listOfInterests">'
-    + '<option value="default">-- All --</option>'
+  //  + '<option value="default">-- All --</option>'
 
   // Get all tables from REST services
   var interests = getInterests();

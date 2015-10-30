@@ -79,44 +79,20 @@ function loadPopupFocus () {
   // Init the div container names
   divFocusInterests = 'optionsFocusInterests';
 
-  var defaultInterests = '<select class="selectpicker" id="listOfInterests">'
+  var htmlList = '<select class="selectpicker" id="listOfInterests">'
     + '<option value="default">-- All --</option>'
-    + '</select>'
-
-  // Create the HTML content
-  $("#"+divFocusInterests+"").html(defaultInterests).trigger("create");
-
-  // Prepare listofTables
-  var listOfTables = []
 
   // Get all tables from REST services
-  var metatables = getInterests();
+  var interests = getInterests();
 
-  // Verifications
-  if (metatables.status == 'ok') {
-    listOfTables = metatables.result;
-  } else {
-    console.log('Error: actionPopup.loadPopupFocus(): NOK status');
-  };
-
-  // Prepare HTML content with default value
-  htmlList = '<select class="selectpicker" id="listOfTables" onchange="updatePopupFocusInterests(this.value);">'
-    + '<option value="default">-- All --</option>'
-
-  // Loop all metatables
-  for (var i = 0; i < listOfTables.length; i++) {
-    htmlList += '<option value"'+listOfTables[i]+'">'
-      +listOfTables[i]+'</option>';
-  };
+  console.log(interests);
 
   // Close the select container
   htmlList += '</select>';
 
   // Add to list of values
-  $("#"+divFocusMetatables+"").html(htmlList);
+  $("#"+divFocusInterests+"").html(htmlList);
 
-  // TEST
-  updatePopupFocusInterests('roads');
 }; //--- end loadPopupFocus ()
 
 /**

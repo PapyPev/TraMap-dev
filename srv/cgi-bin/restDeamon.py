@@ -11,7 +11,7 @@ On web browser, URL : http://domain:8082/api/hello
 """
 
 __author__ = "Pev"
-__version__ = "1.0"
+__version__ = "1.1"
 __email__ = "pev.arfan@gmail.com"
 __status__ = "Progress"
 
@@ -44,7 +44,6 @@ app = Flask(__name__)
 #@app.route('/')
 @app.route('/api/')
 @app.route('/api/<service>')
-@app.route('/api/<service>/<param>')
 @mimerender(
   default = 'html',
   html = render_html,

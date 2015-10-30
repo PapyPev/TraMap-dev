@@ -228,7 +228,7 @@ def rest_interests():
             if tableName in tablesInner:
 
               # Get all type from tableName with inner join
-              interestsSQL = 'SELECT DISTINCT name as "type" ' \
+              interestsSQL = 'SELECT DISTINCT name ' \
                 'FROM {} WHERE {}.type = type_{}_value.id'.format(tableName, \
                   tableName, tableName)
 
@@ -242,7 +242,6 @@ def rest_interests():
             print('DEBUG: SQL: ' + interestsSQL)
 
             # Execute the query
-            interestsResult = []
             interestsResult = db._execute(interestsResult)
 
             print('DEBUG: RESULTS: ' + interestsResult)

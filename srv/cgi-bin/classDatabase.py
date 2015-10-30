@@ -153,22 +153,15 @@ class Database(object):
         sqlQuery
           The SQL query (string)
     """
-    try:
+    # Execute the query
+    self.cursor.execute(sqlQuery)
 
-      # Execute the query
-      self.cursor.execute(sqlQuery)
+    # Save the result on list
+    rows = self.cursor.fetchall()
 
-      # Save the result on list
-      rows = self.cursor.fetchall()
-
-      # Return the result
-      print rows
-      return rows
-
-    except Exception, e:
-      print('Error classDatabase._execute(): {}'.format(e))
-      return None
-
+    # Return the result
+    print rows
+    return rows
 
 # MAIN
 # =============================================================================

@@ -247,8 +247,7 @@ def rest_interests():
             print('DEBUG: SQL: ' + interestsSQL)
 
             # Execute the query
-            interestsResult = []
-            interestsResult = db._execute(interestsResult)
+            interestsResult = db._execute(interestsSQL)
 
             print('DEBUG: RESULTS: ')
             print(interestsResult)

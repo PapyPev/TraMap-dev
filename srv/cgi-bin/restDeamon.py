@@ -220,7 +220,7 @@ def rest_interests():
 
           ### ---------- SPECIAL TREATMENT MATCHING ----------
 
-          print('DEBUG: Special Treatment')
+          print('DEBUG: Special Treatment - ' + tableName)
 
           try:
             

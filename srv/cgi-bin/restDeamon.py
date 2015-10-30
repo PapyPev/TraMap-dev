@@ -232,9 +232,6 @@ def rest_interests():
                 'FROM {} WHERE {}.type = type_{}_value.id'.format(tableName, \
                   tableName, tableName)
 
-              # Execute the query
-              interestsResult = db._execute(interestsResult)
-
             # No special treatment
             else:
 
@@ -242,12 +239,11 @@ def rest_interests():
               interestsSQL = '{}{}'.format('SELECT DISTINCT type FROM ', \
                   tableName)
 
-              # Execute the query
-              interestsResult = db._execute(interestsResult)
+            # Execute the query
+            interestsResult = db._execute(interestsResult)
 
             # Save interests on intersts list
             for i in interestsResult:
-              print("\t" + i[0])
               interests.append(i[0])
 
             ### ---------- SAVE INTERESTS ON JSON OBJECT ----------

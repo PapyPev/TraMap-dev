@@ -90,9 +90,11 @@ function loadPopupFocus () {
   // Verifications
   if (interests.status=='ok') {
 
+    // Loop tables
     for (var i = 0; i < interests.result.length; i++) {
       htmlList += '<optgroup label="' + interests.result[i].table + '">'
 
+      // Loop interests
       for (var j = 0; j < interests.result[i].interests.length; j++) {
         htmlList += '<option id="' + interests.result[i].interests[j] + '">'
         htmlList += interests.result[i].interests[j] + '</option>'

@@ -83,7 +83,7 @@ function loadPopupFocus () {
     + '<option value="default">-- All --</option>'
 
   // Get all tables from REST services
-  //var interests = getInterests();
+  var interests = getInterests();
 
   // Verifications
   // if (interests.status=='ok') {

@@ -165,6 +165,7 @@ class Database(object):
       rows = self.cursor.fetchall()
 
       # Return the result
+      print rows
       return rows
 
     except Exception, e:

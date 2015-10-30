@@ -85,27 +85,27 @@ function loadPopupFocus () {
     + '</optgroup>'
 
   // Get all tables from REST services
-  var interests = getInterests();
+  //var interests = getInterests();
 
   // console.log(interests)
 
   // Verifications
-  if (interests.status=='ok') {
+  // if (interests.status=='ok') {
 
-    // Loop tables
-    for (var i = 0; i < interests.result.length; i++) {
-      htmlList += '<optgroup label="' + interests.result[i].table + '">'
+  //   // Loop tables
+  //   for (var i = 0; i < interests.result.length; i++) {
+  //     htmlList += '<optgroup label="' + interests.result[i].table + '">'
 
-      // Loop interests
-      for (var j = 0; j < interests.result[i].interests.length; j++) {
-        htmlList += '<option id="' + interests.result[i].interests[j] + '">'
-        htmlList += interests.result[i].interests[j] + '</option>'
-      };
+  //     // Loop interests
+  //     for (var j = 0; j < interests.result[i].interests.length; j++) {
+  //       htmlList += '<option id="' + interests.result[i].interests[j] + '">'
+  //       htmlList += interests.result[i].interests[j] + '</option>'
+  //     };
 
-      htmlList += '</optgroup>'
-    };
+  //     htmlList += '</optgroup>'
+  //   };
 
-  };
+  // };
 
   // Close the select container
   htmlList += '</select>';

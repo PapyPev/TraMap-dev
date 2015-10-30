@@ -82,10 +82,8 @@ function loadPopupFocus () {
   var htmlList = '<select class="selectpicker" id="listOfInterests">'
   htmlList += '<option value="default">-- All --</option>'
 
-  var defaultInit = htmlList.concat('</select>')
-
   // Init the container
-  ("#"+divFocusInterests+"").html(defaultInit).trigger("create");
+  ("#"+divFocusInterests+"").html(htmlList).trigger("create");
 
   // Get all tables from REST services
   var interests = getInterests();

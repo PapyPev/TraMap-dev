@@ -140,12 +140,14 @@ def rest_interests():
   ### ---------- TABLES LISTS ----------
 
   tablesIgnore = [
-    'general_area_informations',
+    'general_area_information',
+    'geography_columns',
     'geometry_columns',
     'spatial_ref_sys',
     'raster_columns',
     'raster_overviews',
     'traffic',
+    'traffic_geometry',
     'type_roads_value',
     'nodes',
     'od_pairs'
@@ -263,19 +265,19 @@ def rest_interests():
             result.append(interestsByTable)
 
           except Exception, e:
-            result = ['Error: SQL matching. ' + e]
+            result = ['Error: SQL matching. {}'.format(e)]
 
       # Get Type for all tables
       except Exception, e:
-        result = ['Error: SQL get type table. ' + e]
+        result = ['Error: SQL get type table. {}'.format(e)]
 
     # Get all tables error
     except Exception, e:
-      result = ['Error: SQL get all tables. ' + e]
+      result = ['Error: SQL get all tables. {}'.format(e)]
 
   # Database connexion error
   except Exception, e:
-    result = ['Error: Database connexion failed. ' + e]
+    result = ['Error: Database connexion failed. {}'.format(e)]
 
   finally:
 

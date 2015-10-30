@@ -264,10 +264,10 @@ def rest_interests():
           except Exception, e:
             result = ['Error: SQL treatment matching. Details: {}'.format(e)]
 
-        # End for tableName in tablesList
+        # End - for tableName in tablesList
 
         ### ---------- UPDATE STATUS ----------
-        data['status'] = "ok"
+        status = 'ok'
         
       # Get Type for all tables
       except Exception, e:

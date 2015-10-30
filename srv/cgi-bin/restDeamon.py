@@ -198,7 +198,7 @@ def rest_interests():
 
       # Save the result on a list of elements
       for t in tablesResult:
-        if t[0] not in tablesIgnore:
+        if not t[0] in tablesIgnore:
           tablesList.append(t[0])
 
 

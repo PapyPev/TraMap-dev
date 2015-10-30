@@ -166,7 +166,7 @@ class Database(object):
       return rows
 
     except Exception, e:
-      print('Error classDatabase._execute(): ' + e)
+      print('Error classDatabase._execute(): {}'.format(e))
       return None
 
 

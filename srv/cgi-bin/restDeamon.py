@@ -244,11 +244,12 @@ def rest_interests():
             # Execute the query
             interestsResult = db._execute(interestsResult)
 
-            print('DEBUG: RESULTS: ' + interestsResult)
+            print('DEBUG: RESULTS: ')
+            print(interestsResult)
 
             # Save interests on intersts list
-            for i in interestsResult:
-              interests.append(i[0])
+            # for i in interestsResult:
+            #   interests.append(i[0])
 
             ### ---------- SAVE INTERESTS ON JSON OBJECT ----------
             interestsByTable['interests'] = interests

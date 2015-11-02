@@ -154,32 +154,33 @@ function loadPopupContent (data) {
       
       switch(data.content_overTheMap[i].type){
 
-      case 'Popup':
-        // Init container
-        html  += '<div class="modal fade" '
-                + 'id="'+data.content_overTheMap[i].name
-                  + data.content_overTheMap[i].type
-                  +'" tabindex="-1" role="dialog" '
-                  + 'aria-labelledby="contactLabel">'
-                  + '<div class="modal-dialog" role="document">'
-                    + '<div class="modal-content">'
-        // Content
-        //html += data.content_overTheMap[i].content;
-        html += response
-        // End container
-        html += '</div></div></div>';
-        // Write on the div
-        $("#"+data.div_popup_content+"").html(html).trigger("create");
-        break;
+        case 'Popup':
+          // Init container
+          html  += '<div class="modal fade" '
+                  + 'id="'+data.content_overTheMap[i].name
+                    + data.content_overTheMap[i].type
+                    +'" tabindex="-1" role="dialog" '
+                    + 'aria-labelledby="contactLabel">'
+                    + '<div class="modal-dialog" role="document">'
+                      + '<div class="modal-content">'
+          // Content
+          //html += data.content_overTheMap[i].content;
+          html += response
+          // End container
+          html += '</div></div></div>';
+          // Write on the div
+          $("#"+data.div_popup_content+"").html(html).trigger("create");
+          break;
 
-      default:
-        alert('actionPopup.loadPopup : error');
-        break;
+        default:
+          alert('actionPopup.loadPopup : error');
+          break;
 
-    }; //end Switch
+      }; //end Switch
+
+    }) // end get HTML content
+
   }; //end Loop object
-
-    }) //-- end get HTML content
 
 } //--- end loadPopup (data)
 

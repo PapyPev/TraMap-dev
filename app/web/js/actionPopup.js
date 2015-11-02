@@ -255,6 +255,8 @@ function buttonFocus () {
   var lat = document.getElementById("textFocusLatLong-Lat").value;
   var lon = document.getElementById("textFocusLatLong-Long").value;
 
+  console.log(key + " " + lat + " " + lon)
+
   // Test radio button checked
   if(document.getElementById('optionsFocusKeyword').checked) {
     alert("keyword: " + key);

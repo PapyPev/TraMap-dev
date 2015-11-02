@@ -87,8 +87,6 @@ function loadPopupFocus () {
   // Get all tables from REST services
   var interests = getInterests();
 
-  // console.log(interests)
-
   // Verifications
   if (interests.status=='ok') {
 
@@ -102,18 +100,17 @@ function loadPopupFocus () {
         htmlList += interests.result[i].interests[j] + '</option>'
       };
 
+      // Close the optgroup
       htmlList += '</optgroup>'
-    };
 
-  };
+    }; // end loop result
+  }; // end if status
 
   // Close the select container
   htmlList += '</select>';
-  console.log(htmlList);
 
   // Add to list of values
   $("#"+divFocusInterests+"").html(htmlList);
-
 }; //--- end loadPopupFocus ()
 
 /**

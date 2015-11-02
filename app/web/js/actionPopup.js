@@ -304,7 +304,7 @@ function buttonSearchByPointer () {
 
     // For each point, add to map
     for (var i = 0; i < listOD.length; i++) {
-      map.addLayer(listOD[i])
+      map.addLayer(listOD[i]).bindPopup(listOD[i].getLatLng().toString())
     };
 
     // If we have 2 points

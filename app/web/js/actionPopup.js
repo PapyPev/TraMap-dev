@@ -3,7 +3,7 @@
  * All popup function (load, refresh, actions, events, ...)
  * 
  * @author Pev
- * @version 2.0
+ * @version 2.1
  *************************************************************************** */
 
 /* ============================================================================
@@ -176,7 +176,6 @@ function loadPopupContent (data) {
                   + '<div class="modal-dialog" role="document">'
                     + '<div class="modal-content">'
         // Content
-        //html += data.content_overTheMap[i].content;
         html += content
         // End container
         html += '</div></div></div>';

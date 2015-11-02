@@ -151,7 +151,7 @@ function getHTMLPopupContent (url) {
         content = data;
     } 
   });
-  
+
   return content;
 };
 
@@ -169,8 +169,19 @@ function loadPopupContent (data) {
   // Loop object
   for (var i = 0; i < data.content_overTheMap.length; i++) {
 
+    // Prepare content
+    content = ""
     // Get HTML Content
-    content = getHTMLPopupContent(data.content_overTheMap[i].view);
+    $.ajax({
+      url: data.content_overTheMap[i].view,
+      type: 'get',
+      dataType: 'html',
+      async: false,
+      success: function(data) {
+        content = data;
+      } 
+    });
+
 
     switch(data.content_overTheMap[i].type){
 

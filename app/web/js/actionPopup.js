@@ -291,7 +291,7 @@ function buttonSearchByPointer () {
       popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     });
     console.log(e.latlng)
-    L.marker(e.lat, e.lng], {icon: redMarker}).addTo(map);
+    L.marker([e.lat, e.lng], {icon: redMarker}).addTo(map);
 
     // If we have 2 points
     if (listOD.length == 2) {

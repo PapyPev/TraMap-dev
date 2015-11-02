@@ -136,6 +136,29 @@ function loadPopupEvent (glyph, popupName, sidebar) {
   ).addTo(map);
 } //--- loadPopupEvent (glyph, popupName, sidebar)
 
+
+function loadXMLDoc(theURL)
+{
+    if (window.XMLHttpRequest)
+    {// code for IE7+, Firefox, Chrome, Opera, Safari, SeaMonkey
+        xmlhttp=new XMLHttpRequest();
+    }
+    else
+    {// code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            alert(xmlhttp.responseText);
+            return xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("GET", theURL, false);
+    xmlhttp.send();
+}
+
 /**
  * Load Popup content from JSON file (url)
  * @param {json} data Popup json
@@ -150,11 +173,7 @@ function loadPopupContent (data) {
   for (var i = 0; i < data.content_overTheMap.length; i++) {
 
     // Get HTML Content
-    console.log('>> DEBUG:: ' + data.content_overTheMap[i].view)
-    var content = $.get(data.content_overTheMap[i].view, function (response) {
-      return response
-    })
-    console.log(content)
+    content = loadXMLDoc(data.content_overTheMap[i].view);
 
     switch(data.content_overTheMap[i].type){
 

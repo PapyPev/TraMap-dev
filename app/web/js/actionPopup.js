@@ -149,9 +149,14 @@ function loadPopupContent (data) {
   // Loop object
   for (var i = 0; i < data.content_overTheMap.length; i++) {
 
+    console.log('>> DEBUG:: ' + data.content_overTheMap[i].view)
+    $.get(data.content_overTheMap[i].view, function (response) {
+      alert(response)
+    })
+
     switch(data.content_overTheMap[i].type){
 
-      case 'popup':
+      case 'Popup':
         // Init container
         html  += '<div class="modal fade" '
                 + 'id="'+data.content_overTheMap[i].name

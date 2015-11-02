@@ -150,38 +150,36 @@ function loadPopupContent (data) {
   for (var i = 0; i < data.content_overTheMap.length; i++) {
 
     // Get HTML Content
-    $.get(data.content_overTheMap[i].view, function (response) {
-      
-      switch(data.content_overTheMap[i].type){
+    console.log('>> DEBUG:: ' + data.content_overTheMap[i].view)
+    var content = $.get(data.content_overTheMap[i].view)
+    console.log(content)
 
-        case 'Popup':
-          // Init container
-          html  += '<div class="modal fade" '
-                  + 'id="'+data.content_overTheMap[i].name
-                    + data.content_overTheMap[i].type
-                    +'" tabindex="-1" role="dialog" '
-                    + 'aria-labelledby="contactLabel">'
-                    + '<div class="modal-dialog" role="document">'
-                      + '<div class="modal-content">'
-          // Content
-          //html += data.content_overTheMap[i].content;
-          html += response
-          // End container
-          html += '</div></div></div>';
-          // Write on the div
-          $("#"+data.div_popup_content+"").html(html).trigger("create");
-          break;
+    switch(data.content_overTheMap[i].type){
 
-        default:
-          alert('actionPopup.loadPopup : error');
-          break;
+      case 'Popup':
+        // Init container
+        html  += '<div class="modal fade" '
+                + 'id="'+data.content_overTheMap[i].name
+                  + data.content_overTheMap[i].type
+                  +'" tabindex="-1" role="dialog" '
+                  + 'aria-labelledby="contactLabel">'
+                  + '<div class="modal-dialog" role="document">'
+                    + '<div class="modal-content">'
+        // Content
+        //html += data.content_overTheMap[i].content;
+        html += content
+        // End container
+        html += '</div></div></div>';
+        // Write on the div
+        $("#"+data.div_popup_content+"").html(html).trigger("create");
+        break;
 
-      }; //end Switch
+      default:
+        alert('actionPopup.loadPopup : error');
+        break;
 
-    }) // end get HTML content
-
+    }; //end Switch
   }; //end Loop object
-
 } //--- end loadPopup (data)
 
 /**

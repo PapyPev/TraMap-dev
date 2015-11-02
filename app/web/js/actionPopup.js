@@ -152,7 +152,7 @@ function loadPopupContent (data) {
     // Get HTML Content
     console.log('>> DEBUG:: ' + data.content_overTheMap[i].view)
     var content = $.get(data.content_overTheMap[i].view)
-    console.log(content)
+    console.log(content.responseText)
 
     switch(data.content_overTheMap[i].type){
 
@@ -166,8 +166,8 @@ function loadPopupContent (data) {
                   + '<div class="modal-dialog" role="document">'
                     + '<div class="modal-content">'
         // Content
-        //html += data.content_overTheMap[i].content;
-        html += content.responseText
+        html += data.content_overTheMap[i].content;
+        //html += content.responseText
         // End container
         html += '</div></div></div>';
         // Write on the div

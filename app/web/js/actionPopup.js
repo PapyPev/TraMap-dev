@@ -280,9 +280,7 @@ function buttonSearchByPointer () {
 
   // Init list of marker origin-destination (OD)
   if (listOD.length != 0) {
-    for (var i = 0; i < listOD.length; i++) {
-      map.removeLayer(listOD[i]);
-    };
+    alert("diff")
   };
   listOD = [];
 

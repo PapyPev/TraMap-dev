@@ -167,7 +167,7 @@ function loadPopupContent (data) {
                     + '<div class="modal-content">'
         // Content
         //html += data.content_overTheMap[i].content;
-        html += content
+        html += content.responseText
         // End container
         html += '</div></div></div>';
         // Write on the div

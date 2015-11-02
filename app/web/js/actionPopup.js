@@ -251,9 +251,9 @@ function buttonFocus () {
   console.log("actionPopup.buttonFocus()");
 
   // Get Form information
-  //var key = document.getElementById("#textFocusKeyword").value;
-  var lat = document.getElementById("#textFocusLatLong-Lat").value;
-  var lon = document.getElementById("#textFocusLatLong-Long").value;
+  var key = document.getElementById("textFocusKeyword").value;
+  var lat = document.getElementById("textFocusLat").value;
+  var lon = document.getElementById("textFocusLong").value;
 
   console.log(key + " " + lat + " " + lon)
 

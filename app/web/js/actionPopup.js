@@ -279,9 +279,6 @@ function buttonSearchByPointer () {
   });
 
   // Init list of marker origin-destination (OD)
-  for (var i = 0; i < listOD.length; i++) {
-    map.removeLayer(listOD[i])
-  };
   listOD = [];
 
   // Change cursor symbol
@@ -321,6 +318,10 @@ function buttonSearchByPointer () {
       map.off('click');
       // Remove cursor style
       $('.leaflet-container').css('cursor','');
+      // Refresh the list
+      for (var i = 0; i < listOD.length; i++) {
+        map.removeLayer(listOD[i])
+      };
     }
   });
 

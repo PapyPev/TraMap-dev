@@ -281,10 +281,14 @@ function buttonSearchByPointer () {
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   });
 
-  // Init list of marker origin-destination (OD)
+  // Clean old list of marker OD (origin destination)
   if (listOD.length != 0) {
-    alert("diff")
+    for (var i = 0; i < listOD.length; i++) {
+      map.removeLayer(listOD[i]);
+    };
   };
+
+  // Init list of marker OD
   listOD = [];
 
   // Active click on the map

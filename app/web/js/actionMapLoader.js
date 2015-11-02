@@ -63,7 +63,7 @@ function refreshGeoServerLayers (mapBoundingBox) {
 
       // if it's not a Tiles layer
       if (mapLayers[i].getCategory()!='Background') {
-        //mapLayers[i].getContent().refresh(url);
+        mapLayers[i].getContent().refresh(url);
       };
 
     }; // end if check
@@ -92,7 +92,7 @@ function loadGeoServerLayers (mapBoundingBox) {
   for (var i = 0; i < listGeoServerLayer.length; i++) {
     mapLayers.push(listGeoServerLayer[i]);
     if (listGeoServerLayer[i].getCheck()) {
-      //map.addLayer(listGeoServerLayer[i].getContent());
+      map.addLayer(listGeoServerLayer[i].getContent());
     };
   };
 }; //--- end loadGeoServerLayers(mapBoundingBox)

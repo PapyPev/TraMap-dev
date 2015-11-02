@@ -279,7 +279,7 @@ function buttonSearchByPointer () {
     iconUrl: 'img/icon-map/marker.png',
     iconSize:     [35, 35], // size of the icon
     iconAnchor:   [17, 35], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-1, -10] // point from which the popup should open relative to the iconAnchor
+    popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
   });
 
   // Clean old list of marker OD (origin destination)

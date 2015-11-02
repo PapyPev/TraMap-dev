@@ -279,6 +279,9 @@ function buttonSearchByPointer () {
   });
 
   // Init list of marker origin-destination (OD)
+  for (var i = 0; i < listOD.length; i++) {
+    map.removeLayer(listOD[i]);
+  };
   listOD = [];
 
   // Change cursor symbol

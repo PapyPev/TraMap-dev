@@ -18,12 +18,13 @@ var listOD = [];
  * ========================================================================= */
 /**
  * Find itinerary betwin origin and destination
- * @param {Object} origin Origin contains lat and long coordinates
- * @param {Object} destination Destination contains lat and long coordinates
+ * @param {Marker} origin Origin contains lat and long coordinates
+ * @param {Marker} destination Destination contains lat and long coordinates
  --------------------------------------------------------------------------- */
 function findItinerary (origin, destination) {
   console.log("actionPopup.findItinerary(...)");
-  console.log("From:"+origin.toString()+" - To:"+destination.toString());
+  console.log("From:"+origin.getLatLng().toString()
+    +" - To:"+destination.getLatLng().toString());
 
   // TODO : algo
 
@@ -298,7 +299,7 @@ function buttonSearchByPointer () {
     // Add point on list
     listOD.push(new L.Marker(e.latlng, {
       icon: redMarker,
-      draggable:true
+      draggable:false
     }));
 
     // For each point, add to map
@@ -325,7 +326,7 @@ function buttonSearchByPointer () {
       map.off('click');
       // Remove cursor style
       $('.leaflet-container').css('cursor','');
-      // Refresh the list
+      // Remove old marker from the map
       for (var i = 0; i < listOD.length; i++) {
         map.removeLayer(listOD[i])
       };

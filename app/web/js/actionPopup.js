@@ -270,7 +270,14 @@ function buttonFocus () {
 function buttonSearchByPointer () {
   console.log("actionPopup.buttonSearch()");
 
-  // Init list origin-destination
+  // Init marker
+  var redMarker = L.icon({
+    iconUrl: 'img/icon-map/marker.png',
+    iconSize:     [35, 35], // size of the icon
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+  });
+
+  // Init list of marker origin-destination (OD)
   listOD = [];
 
   // Change cursor symbol
@@ -278,18 +285,18 @@ function buttonSearchByPointer () {
 
   // Active click on the map
   map.on('click', function(e) {
-    alert(e.containerPoint.toString() + ', ' + e.latlng.toString());
+    //alert(e.containerPoint.toString() + ', ' + e.latlng.toString());
 
     // Add point on list
-    listOD.push(e.latlng);
+    listOD.push(new L.Marker(e.latlng, {
+      icon: redMarker,
+      draggable:true
+    }));
 
+    // For each OD
     for (var i = 0; i < listOD.length; i++) {
-      var redMarker = L.icon({
-        iconUrl: 'img/icon-map/marker.png',
-        iconSize:     [35, 35], // size of the icon
-        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-      });
-      L.marker(listOD[i], {icon: redMarker}).addTo(map);
+      map.addLayer(listOD[i])
+      //L.marker(listOD[i], {icon: redMarker}).addTo(map);
     };
 
     // If we have 2 points

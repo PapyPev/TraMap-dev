@@ -137,25 +137,6 @@ function loadPopupEvent (glyph, popupName, sidebar) {
 } //--- loadPopupEvent (glyph, popupName, sidebar)
 
 
-function getHTMLPopupContent (url) {
-
-  var content = "";
-
-  var scriptUrl = url;
-  $.ajax({
-    url: scriptUrl,
-    type: 'get',
-    dataType: 'html',
-    async: false,
-    success: function(data) {
-        content = data;
-    } 
-  });
-
-  return content;
-};
-
-
 /**
  * Load Popup content from JSON file (url)
  * @param {json} data Popup json
@@ -182,7 +163,7 @@ function loadPopupContent (data) {
       } 
     });
 
-
+    // Switch on content type
     switch(data.content_overTheMap[i].type){
 
       case 'Popup':

@@ -11,7 +11,7 @@
  * ========================================================================= */
 
 // List : origin destination
-var listOD;
+var listOD = [];
 
 /* ============================================================================
  * FUNCTIONS CALCULATE
@@ -270,6 +270,9 @@ function buttonFocus () {
 function buttonSearchByPointer () {
   console.log("actionPopup.buttonSearch()");
 
+  // Change cursor symbol
+  $('.leaflet-container').css('cursor','crosshair');
+
   // Init marker
   var redMarker = L.icon({
     iconUrl: 'img/icon-map/marker.png',
@@ -279,13 +282,10 @@ function buttonSearchByPointer () {
   });
 
   // Init list of marker origin-destination (OD)
-  if (listOD.length != 0 || listOD == null) {
+  if (listOD.length != 0) {
     alert("diff")
   };
   listOD = [];
-
-  // Change cursor symbol
-  $('.leaflet-container').css('cursor','crosshair');
 
   // Active click on the map
   map.on('click', function(e) {

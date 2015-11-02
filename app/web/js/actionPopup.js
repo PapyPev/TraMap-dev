@@ -144,6 +144,7 @@ function toto (url) {
     toto = response
   })
 
+  console.log("toto=" + toto)
   return toto
 }
 

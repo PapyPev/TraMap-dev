@@ -47,6 +47,10 @@ function setStyle(feature) {
     } //end switch(feature.properties.clazz)
 };
 
+function setPopup(feature, layer) {
+  layer.bindPopup(feature.properties.name);
+};
+
 /**
  * This function gives a visual style to data
  * @param {string} url The GeoServer address
@@ -110,11 +114,11 @@ function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
         // Get GeoJSON layer content
         var layerContent = new L.GeoJSON.AJAX(layerUrl
           +"&bbox="+southWest.X+","+southWest.Y+","
-          +northEast.X+","+northEast.Y
-          //,
-          // {
-          //   style: setStyle
-          // }
+          +northEast.X+","+northEast.Y,
+          {
+            onEachFeature:setPopup,
+            //style: setStyle
+          }
         );
 
         // Add to list of layers

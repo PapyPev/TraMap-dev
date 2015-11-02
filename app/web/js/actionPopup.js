@@ -136,15 +136,25 @@ function loadPopupEvent (glyph, popupName, sidebar) {
   ).addTo(map);
 } //--- loadPopupEvent (glyph, popupName, sidebar)
 
-function toto (url) {
 
-  var toto = "";
+function getHTMLPopupContent (url) {
 
-  toto = $.get(url).responseText
+  var content = "";
 
-  console.log("toto=" + toto)
-  return toto
-}
+  var scriptUrl = url;
+  $.ajax({
+    url: scriptUrl,
+    type: 'get',
+    dataType: 'html',
+    async: false,
+    success: function(data) {
+        content = data;
+    } 
+  });
+  
+  return content;
+};
+
 
 /**
  * Load Popup content from JSON file (url)
@@ -160,7 +170,7 @@ function loadPopupContent (data) {
   for (var i = 0; i < data.content_overTheMap.length; i++) {
 
     // Get HTML Content
-    content = toto(data.content_overTheMap[i].view);
+    content = getHTMLPopupContent(data.content_overTheMap[i].view);
 
     switch(data.content_overTheMap[i].type){
 

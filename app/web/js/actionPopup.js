@@ -283,14 +283,14 @@ function buttonSearchByPointer () {
     // Add point on list
     listOD.push(e.latlng);
 
-    var redMarker = L.icon({
-      iconUrl: 'img/icon-map/marker.png',
-
-      iconSize:     [40, 40], // size of the icon
-      popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-    });
-    console.log(e.latlng)
-    L.marker(e.latlng, {icon: redMarker}).addTo(map);
+    for (var i = 0; i < listOD.length; i++) {
+      var redMarker = L.icon({
+        iconUrl: 'img/icon-map/marker.png',
+        iconSize:     [35, 35], // size of the icon
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+      });
+      L.marker(listOD[i], {icon: redMarker}).addTo(map);
+    };
 
     // If we have 2 points
     if (listOD.length == 2) {

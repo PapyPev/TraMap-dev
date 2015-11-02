@@ -149,12 +149,10 @@ function loadPopupContent (data) {
   // Loop object
   for (var i = 0; i < data.content_overTheMap.length; i++) {
 
-    console.log('>> DEBUG:: ' + data.content_overTheMap[i].view)
+    // Get HTML Content
     $.get(data.content_overTheMap[i].view, function (response) {
-      alert(response)
-    })
-
-    switch(data.content_overTheMap[i].type){
+      
+      switch(data.content_overTheMap[i].type){
 
       case 'Popup':
         // Init container
@@ -166,7 +164,8 @@ function loadPopupContent (data) {
                   + '<div class="modal-dialog" role="document">'
                     + '<div class="modal-content">'
         // Content
-        html += data.content_overTheMap[i].content;
+        //html += data.content_overTheMap[i].content;
+        html += response
         // End container
         html += '</div></div></div>';
         // Write on the div
@@ -179,6 +178,9 @@ function loadPopupContent (data) {
 
     }; //end Switch
   }; //end Loop object
+
+    }) //-- end get HTML content
+
 } //--- end loadPopup (data)
 
 /**

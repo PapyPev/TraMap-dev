@@ -274,6 +274,7 @@ function buttonSearchByPointer () {
   var redMarker = L.icon({
     iconUrl: 'img/icon-map/marker.png',
     iconSize:     [35, 35], // size of the icon
+    iconAnchor:   [0, 10], // point of the icon which will correspond to marker's location
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   });
 
@@ -293,10 +294,9 @@ function buttonSearchByPointer () {
       draggable:true
     }));
 
-    // For each OD
+    // For each point, add to map
     for (var i = 0; i < listOD.length; i++) {
       map.addLayer(listOD[i])
-      //L.marker(listOD[i], {icon: redMarker}).addTo(map);
     };
 
     // If we have 2 points
@@ -313,11 +313,11 @@ function buttonSearchByPointer () {
 
   // If esc is pressed
   $(document).keyup(function(e) {
-     if (e.keyCode == 27) {
-        // Remove click event
-        map.off('click');
-        // Remove cursor style
-        $('.leaflet-container').css('cursor','');
+    if (e.keyCode == 27) {
+      // Remove click event
+      map.off('click');
+      // Remove cursor style
+      $('.leaflet-container').css('cursor','');
     }
   });
 

@@ -92,7 +92,7 @@ function loadGeoServerLayers (mapBoundingBox) {
   for (var i = 0; i < listGeoServerLayer.length; i++) {
     mapLayers.push(listGeoServerLayer[i]);
     if (listGeoServerLayer[i].getCheck()) {
-      map.addLayer(listGeoServerLayer[i].getContent());
+      //map.addLayer(listGeoServerLayer[i].getContent());
     };
   };
 }; //--- end loadGeoServerLayers(mapBoundingBox)

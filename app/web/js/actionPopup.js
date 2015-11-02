@@ -140,9 +140,7 @@ function toto (url) {
 
   var toto = "";
 
-  $.get(url, function (response) {
-    toto = response
-  })
+  toto = $.get(url).responseText
 
   console.log("toto=" + toto)
   return toto

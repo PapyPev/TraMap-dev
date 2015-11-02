@@ -136,7 +136,7 @@ function loadPopupEvent (glyph, popupName, sidebar) {
   ).addTo(map);
 } //--- loadPopupEvent (glyph, popupName, sidebar)
 
-function test (url) {
+function toto (url) {
 
   var toto = "";
 

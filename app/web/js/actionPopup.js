@@ -279,7 +279,7 @@ function buttonSearchByPointer () {
   });
 
   // Init list of marker origin-destination (OD)
-  if (listOD.length != 0) {
+  if (listOD.length != 0 || listOD == null) {
     alert("diff")
   };
   listOD = [];

@@ -274,7 +274,7 @@ function buttonSearchByPointer () {
   var redMarker = L.icon({
     iconUrl: 'img/icon-map/marker.png',
     iconSize:     [35, 35], // size of the icon
-    iconAnchor:   [27, 30], // point of the icon which will correspond to marker's location
+    iconAnchor:   [15, 35], // point of the icon which will correspond to marker's location
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   });
 

@@ -64,6 +64,8 @@ function refreshGeoServerLayers (mapBoundingBox) {
       // if it's not a Tiles layer
       if (mapLayers[i].getCategory()!='Background') {
         mapLayers[i].getContent().refresh(url);
+        console.log('>> DEBUG:: refreshGeoServLayer - JSON')
+        console.log(mapLayers[i].getContent())
       };
 
     }; // end if check

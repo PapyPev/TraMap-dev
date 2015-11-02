@@ -283,6 +283,16 @@ function buttonSearchByPointer () {
     // Add point on list
     listOD.push(e.latlng);
 
+    var redMarker = L.icon({
+      iconUrl: 'img/icon-map/marker.png',
+
+      iconSize:     [20, 20], // size of the icon
+      iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+      popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+    console.log(e.latlng)
+    L.marker(e.lat, e.lng], {icon: redMarker}).addTo(map);
+
     // If we have 2 points
     if (listOD.length == 2) {
       // Remove click event

@@ -152,7 +152,8 @@ function loadPopupContent (data) {
     // Get HTML Content
     console.log('>> DEBUG:: ' + data.content_overTheMap[i].view)
     var content = $.get(data.content_overTheMap[i].view)
-    console.log(content)
+    console.log(content.status)
+    console.log(content.statusText)
 
     switch(data.content_overTheMap[i].type){
 

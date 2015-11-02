@@ -274,11 +274,14 @@ function buttonSearchByPointer () {
   var redMarker = L.icon({
     iconUrl: 'img/icon-map/marker.png',
     iconSize:     [35, 35], // size of the icon
-    iconAnchor:   [0, 10], // point of the icon which will correspond to marker's location
+    iconAnchor:   [10, 0], // point of the icon which will correspond to marker's location
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   });
 
   // Init list of marker origin-destination (OD)
+  for (var i = 0; i < listOD.length; i++) {
+    map.removeLayer(listOD[i])
+  };
   listOD = [];
 
   // Change cursor symbol

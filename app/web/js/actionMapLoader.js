@@ -320,7 +320,7 @@ function init () {
   L.easyButton(
     '<span class="glyphicon glyphicon-road" aria-hidden="true"></span>',
     function(){
-      window.open("view/pageTimeTable.html");
+      window.location.href = "view/pageTimetables.html";
     }, 'TimeTables'
   ).addTo(map);
 

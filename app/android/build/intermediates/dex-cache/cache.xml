@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Applications/MAMP/htdocs/map-project/platforms/android/build/intermediates/exploded-aar/android/CordovaLib/unspecified/debug/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="b04d21882e70c755ca12fc0b2cae00b2305f1c80">
+        <dex dex="/Applications/MAMP/htdocs/map-project/platforms/android/build/intermediates/pre-dexed/debug/classes-fb1e546930ac8c211e7dccaf0ee46045a49b2d81.jar" />
+    </item>
+
+</items>

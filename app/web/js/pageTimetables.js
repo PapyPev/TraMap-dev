@@ -88,8 +88,11 @@ $(document).ready(function($) {
       // Loop
       for (var i = 0; i < data.length; i++) {
         
-        var value = data[i].stationShortCode + ": " + data[i].stationName;
-        listStations.push(value);
+        // If user can get the train
+        if (data[i].passengerTraffic) {
+          var value = data[i].stationShortCode + ": " + data[i].stationName;
+          listStations.push(value);
+        };
 
       };
 

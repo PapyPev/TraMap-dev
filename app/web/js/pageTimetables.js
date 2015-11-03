@@ -23,7 +23,7 @@ var DIGI_STATIONS = 'http://rata.digitraffic.fi/api/v1/metadata/stations';
  * FUNCTIONS
  * ========================================================================= */
 
-// Autocomplete
+// Autocomplete for textStation
 $(function() {
   $( "#textStation" ).autocomplete({
     source: listStations
@@ -90,7 +90,7 @@ $(document).ready(function($) {
         
         // If user can get the train
         if (data[i].passengerTraffic) {
-          var value = data[i].stationShortCode + ": " + data[i].stationName;
+          var value = data[i].stationShortCode + ":" + data[i].stationName;
           listStations.push(value);
         };
 
@@ -108,14 +108,17 @@ $(document).ready(function($) {
   // Form button onclick event
   $("#trainButton").on('click', function(){
 
-    // Get train value
-    var trainValue = $("#trainValue").val();
+    // Get inout value
+    var stationValue = $("#textStation").val();
+
+    // Split get station code
+    var stationCode = stationValue.split(":")[0];
 
     // Init XMLHttp request
     var xhrTimetables = new XMLHttpRequest();
 
     // GET query
-    xhrTimetables.open('GET', DIGI_TRAFFIC+trainValue);
+    xhrTimetables.open('GET', DIGI_TRAFFIC+stationCode);
 
     // Load Content
     xhrTimetables.onreadystatechange = function () {

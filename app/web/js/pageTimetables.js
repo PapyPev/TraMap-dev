@@ -10,11 +10,25 @@
  * CONSTANTS
  * ========================================================================= */
 
-var DIGI_TRAFFIC = 'http://rata.digitraffic.fi/api/v1/live-trains?station='
+var DIGI_TRAFFIC = 'http://rata.digitraffic.fi/api/v1/live-trains?station=';
+var DIGI_STATIONS = 'http://rata.digitraffic.fi/api/v1/metadata/stations';
+
+/* ============================================================================
+ * GLOBALS
+ * ========================================================================= */
+
+ var listStations = []
 
 /* ============================================================================
  * FUNCTIONS
  * ========================================================================= */
+
+// Autocomplete
+$(function() {
+  $( "#textStation" ).autocomplete({
+    source: listStations
+  });
+});
 
 /**
  * Load HTML content for Stations informations
@@ -56,6 +70,38 @@ function loadTimetables (data) {
  --------------------------------------------------------------------------- */
 $(document).ready(function($) {
 
+  // ------- STATIONS AUTOCOMPLETE -------
+
+  // Init XMLHttp request
+  var xhrAutoCompl = new XMLHttpRequest();
+
+  // GET query
+  xhrAutoCompl.open('GET', DIGI_STATIONS);
+
+  // Load Content
+  xhrAutoCompl.onreadystatechange = function () {
+    if (this.status == 200 && this.readyState == 4) {
+      
+      // Data responses from digitraffic
+      var data = JSON.parse(this.responseText);
+
+      // Loop
+      for (var i = 0; i < data.length; i++) {
+        
+        var value = data[i].stationShortCode + ": " + data[i].stationName;
+        listStations.push(value);
+
+      };
+
+    }
+  };
+
+  // Sent request
+  xhrAutoCompl.send();
+
+
+  // ------- SEARCH TIME TABLE -------
+
   // Form button onclick event
   $("#trainButton").on('click', function(){
 
@@ -63,13 +109,13 @@ $(document).ready(function($) {
     var trainValue = $("#trainValue").val();
 
     // Init XMLHttp request
-    var xhr = new XMLHttpRequest();
+    var xhrTimetables = new XMLHttpRequest();
 
     // GET query
-    xhr.open('GET', DIGI_TRAFFIC+trainValue);
+    xhrTimetables.open('GET', DIGI_TRAFFIC+trainValue);
 
     // Load Content
-    xhr.onreadystatechange = function () {
+    xhrTimetables.onreadystatechange = function () {
       if (this.status == 200 && this.readyState == 4) {
         //console.log('response: ' + this.responseText);
         loadTimetables(JSON.parse(this.responseText));
@@ -77,6 +123,7 @@ $(document).ready(function($) {
     };
 
     // Sent request
-    xhr.send();
+    xhrTimetables.send();
   }); //-- end $("#trainButton").click()
+
 }); //--- end $(document).ready()

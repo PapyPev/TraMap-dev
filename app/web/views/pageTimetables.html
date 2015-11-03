@@ -17,19 +17,14 @@
   <link rel="stylesheet" 
     href="../lib/bootstrap/ext-select/dist/css/bootstrap-select.min.css" />
   <link rel="stylesheet" 
-    href="../lib/leaflet/1.0.0-b1/leaflet.css" />
-  <!--[if lte IE 8]>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.ie.css" />
-  <![endif]-->
-  <link rel="stylesheet" 
-    href="../lib/leaflet/ext-sidebar/src/L.Control.Sidebar.css" />
-  <link rel="stylesheet" 
-    href="../lib/leaflet/ext-easybutton/src/easy-button.css">
+    href="../lib/jquery-ui/1.11.4/jquery-ui.min.css" />
   <link rel="stylesheet" 
     href="../css/timetables.css" />
 
+
   <!-- ==================================================================== -->
   <script src="../lib/jquery/2.1.4/jquery.min.js"></script>
+  <script src="../lib/jquery-ui/1.11.4/jquery-ui.min.js"></script>
   <script src="../lib/bootstrap/3.3.5-dist/js/bootstrap.min.js"></script>
   <script 
     src="../lib/bootstrap/ext-select/dist/js/bootstrap-select.min.js"></script>
@@ -60,8 +55,10 @@
 
       <form id="trainForm">
         <div class="form-group">
-          <label for="trainValue">Live from:</label>
-          <input type="text" class="form-control" id="trainValue" value="HL">
+          <div class="ui-widget">
+            <label for="trainValue">Station:</label>
+            <input type="text" class="form-control" id="textStation" placeholder="HL">
+          </div>
         </div>
         <button type="button" class="btn btn-default" id="trainButton">Submit</button>
       </form>

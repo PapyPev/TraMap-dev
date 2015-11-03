@@ -317,6 +317,13 @@ function init () {
     }, 'SearchByPointer'
   ).addTo(map);
 
+  L.easyButton(
+    '<span class="glyphicon glyphicon-road" aria-hidden="true"></span>',
+    function(){
+      window.open("view/pageTimeTable.html");
+    }, 'TimeTables'
+  ).addTo(map);
+
   //---------- Load Popup
   loadPopup();
 

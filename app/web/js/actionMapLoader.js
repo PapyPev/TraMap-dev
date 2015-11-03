@@ -311,17 +311,17 @@ function init () {
   ).addTo(map);
 
   L.easyButton(
-    '<span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span>',
-    function(){
-      buttonSearchByPointer();
-    }, 'SearchByPointer'
-  ).addTo(map);
-
-  L.easyButton(
     '<span class="glyphicon glyphicon-road" aria-hidden="true"></span>',
     function(){
       window.location.href = "views/pageTimetables.html";
     }, 'TimeTables'
+  ).addTo(map);
+
+  L.easyButton(
+    '<span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span>',
+    function(){
+      buttonSearchByPointer();
+    }, 'SearchByPointer'
   ).addTo(map);
 
   //---------- Load Popup

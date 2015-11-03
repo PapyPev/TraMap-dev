@@ -40,23 +40,74 @@ function loadTimetables (data) {
   //Init html
   var htmlContent = '';
 
-  // Loop Trains
+  // Init Acordeon group
+  htmlContent += '<div class="panel-group" id="accordion" '
+    + 'role="tablist" aria-multiselectable="true">'
+
   for (var i = 0; i < data.length; i++) {
-    htmlContent += '<h4>'+data[i].trainCategory + ': ' 
-    htmlContent += data[i].trainNumber
-    htmlContent += ' (' + data[i].trainType +')</h4>'
+
+    // Acordeon Title
+    var acTitle = data[i].trainCategory + ' - '
+      + data[i].trainType + ' - ' + data[i].trainNumber
+    // Heading
+    var headId = 'head' + data[i].trainCategory + '-'
+      + data[i].trainType + '-' + data[i].trainNumber
+    // Acordeon ID
+    var acIdent = 'id' + data[i].trainCategory + '-'
+      + data[i].trainType + '-' + data[i].trainNumber
+
+    // Init container
+    htmlContent += '<div class="panel panel-default">'
+    htmlContent += '<div class="panel-heading" role="tab" id="'+headId+'">'
+    htmlContent += '<h4 class="panel-title">'
+    htmlContent += '<a role="button" data-toggle="collapse" '
+      + 'data-parent="#accordion" href="#'+acIdent+'" '
+      + 'aria-expanded="true" aria-controls="'+acIdent+'">'
+      + acTitle
+    htmlContent += '</a>'
+    htmlContent += '</h4>'
+    htmlContent += '</div>'
+    htmlContent += '<div id="'+acIdent+'" '
+      + 'class="panel-collapse collapse" role="tabpanel" '
+      + 'aria-labelledby="'+headId+'">'
+    htmlContent += '<div class="panel-body">'
     htmlContent += '<table class="table table-striped">'
-    htmlContent += ''
-    
-    // Loop time table
+    htmlContent += '<thead>'
+    htmlContent += '<tr>'
+    htmlContent += '<th>Status</th>'
+    htmlContent += '<th>Type</th>'
+    htmlContent += '<th>StationShortCode</th>'
+    htmlContent += '<th>ScheduledTime</th>'
+    htmlContent += '<th>CommercialTrack</th>'
+    htmlContent += '</tr>'
+    htmlContent += '</thead>'
+    htmlContent += '<tbody>'
+
+    // Loop timetable
     for (var j = 0; j < data[i].timeTableRows.length; j++) {
-      
-      htmlContent += '<tr><td>' + data[i].timeTableRows[j] + '</td></tr>'
+
+      // Content
+      htmlContent += '<tr>'
+      htmlContent += '<td>'+data[i].timeTableRows[j].cancelled+'</td>'
+      htmlContent += '<td>'+data[i].timeTableRows[j].type+'</td>'
+      htmlContent += '<td>'+data[i].timeTableRows[j].stationShortCode+'</td>'
+      htmlContent += '<td>'+data[i].timeTableRows[j].scheduledTime+'</td>'
+      htmlContent += '<td>'+data[i].timeTableRows[j].commercialTrack+'</td>'
+      htmlContent += '</tr>'
 
     };
 
+    // End Container
+    htmlContent += '</tbody>'
     htmlContent += '</table>'
+    htmlContent += '</div>'
+    htmlContent += '</div>'
+    htmlContent += '</div>'
+
   };
+
+  // End Acordeon group
+  htmlContent += '</div>'
 
   $("#divResults").html(htmlContent);
 }

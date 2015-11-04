@@ -3,7 +3,7 @@
  * Initialize map content and all functions for update or map actions
  *
  * @author Pev
- * @version 4.5
+ * @version 4.6
  *************************************************************************** */
 
 /* ============================================================================

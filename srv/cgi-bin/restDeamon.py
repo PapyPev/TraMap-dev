@@ -224,8 +224,6 @@ def rest_interests():
 
           ### ---------- TREATMENT MATCHING ----------
 
-          print('DEBUG: Treatment: ' + tableName)
-
           # Init and refresh
           interestsSQL = ''
 

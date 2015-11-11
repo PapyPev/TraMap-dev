@@ -44,6 +44,7 @@ app = Flask(__name__)
 #@app.route('/')
 @app.route('/api/')
 @app.route('/api/<service>')
+@app.route('/api/<service>?')
 @mimerender(
   default = 'html',
   html = render_html,
@@ -294,9 +295,9 @@ def rest_interests():
 def rest_shortestPath(lat1, lon1, lat2, lon2):
 
   print('lat1:{}'.format(lat1))
-  print('lat1:{}'.format(lon1))
-  print('lat1:{}'.format(lat2))
-  print('lat1:{}'.format(lon2))
+  print('lon1:{}'.format(lon1))
+  print('lat2:{}'.format(lat2))
+  print('lon1:{}'.format(lon2))
 
   pass
 

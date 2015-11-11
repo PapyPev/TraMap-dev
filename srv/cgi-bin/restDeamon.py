@@ -211,8 +211,6 @@ def rest_interests():
       ### ---------- GET TYPE ----------
 
       try:
-
-        print('DEBUG: Get Type')
         
         # For each table get interests
         for tableName in tablesList:
@@ -247,8 +245,6 @@ def rest_interests():
 
               # Get all type from tableName
               interestsSQL = 'SELECT DISTINCT type FROM {}'.format(tableName)
-
-            print('DEBUG: SQL: ' + interestsSQL)
 
             # Execute the query
             interestsResult = db._execute(interestsSQL)

@@ -84,7 +84,7 @@
                 <label>
                 <input type="radio" name="optionsTimetable" 
                   id="optionsItinerary" value="optionsItinerary"
-                  onclick="updateOptionsChoices('optionsItinerary');" checked>
+                  onclick="updateOptionsChoices('optionsItinerary');" disabled="true" >
                   Itinerary
                 </label>
               </div>
@@ -101,7 +101,7 @@
           <div class="ui-widget">
             <div class="input-group">
               <div class="input-group-addon">Departure</div>
-              <input type="text" class="form-control" id="textDeparture" placeholder="HKI:Helsinki">
+              <input type="text" class="form-control" id="textDeparture" placeholder="Station...">
             </div>
           </div>
         </div> 
@@ -117,7 +117,7 @@
         <div class="form-group">
           <div class="ui-widget">
             <div class="input-group">
-              <input type="text" class="form-control" id="textArrival" placeholder="RI:Riihimäki">
+              <input type="text" class="form-control" id="textArrival" placeholder="Station...">
               <div class="input-group-addon">Arrival</div>
             </div>
           </div>

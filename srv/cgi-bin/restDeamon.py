@@ -20,6 +20,7 @@ __status__ = "Progress"
 # =============================================================================
 
 from flask import Flask
+from flask import request
 import json
 import mimerender
 import classDatabase
@@ -71,7 +72,8 @@ def api(service='default', lat1=0, lon1=0, lat2=0, lon2=0, param='default'):
     'default' : rest_default(),
     'simpleText' : rest_simpleText(),
     'interests' : rest_interests(),
-    'shortestPath': rest_shortestPath(app.request.args.get('lat1', ''), app.request.args.get('laon1', ''), lat2, lon2)
+    'shortestPath': rest_shortestPath(request.args.get('lat1'), \
+      request.args.get('lon1'), lat2, lon2)
   }.get(service, rest_default())
 
   # Return message

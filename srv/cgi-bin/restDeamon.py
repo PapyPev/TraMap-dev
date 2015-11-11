@@ -55,7 +55,7 @@ app = Flask(__name__)
 # ROOTING FUNCTION
 # =============================================================================
 
-def api(service='default', param='default'):
+def api(service='default', lat1, lon1, lat2, lon2, param='default'):
   """
     Rooting function, return a message containing REST awnser
 
@@ -70,6 +70,7 @@ def api(service='default', param='default'):
     'default' : rest_default(),
     'simpleText' : rest_simpleText(),
     'interests' : rest_interests(),
+    'shortestPath': rest_shortestPath(lat1, lon1, lat2, lon2)
   }.get(service, rest_default())
 
   # Return message
@@ -94,6 +95,10 @@ def rest_default():
         '<ul><li>Return a simple Text message</li></ul>' \
       '<li><a href="./interests">/api/interests</a></li>' \
         '<ul><li>Return all interests by tables</li></ul>' \
+      '<li><a href="./shortestPath/' \
+        'lat1=60.636088&lon1=24.848033&lat2=60.630822&lon2=24.859875">'\
+        '/api/shortestPath/default</a></li>' \
+        '<ul><li>Return shortest path lines</li></ul>' \
     '</ul>'
   return value
 
@@ -293,7 +298,16 @@ def rest_interests():
     # Return the json object
     return json_data 
 
+# REST - ALL TABLES
+# -----------------------------------------------------------------------------
+def rest_shortestPath(lat1, lon1, lat2, lon2):
 
+  print('lat1:', lat1)
+  print('lat1:', lon1)
+  print('lat1:', lat2)
+  print('lat1:', lon2)
+
+  pass
 
 
 # MAIN

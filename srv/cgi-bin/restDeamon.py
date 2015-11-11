@@ -55,7 +55,7 @@ app = Flask(__name__)
 # ROOTING FUNCTION
 # =============================================================================
 
-def api(service='default', lat1, lon1, lat2, lon2, param='default'):
+def api(service='default', lat1=0, lon1=0, lat2=0, lon2=0, param='default'):
   """
     Rooting function, return a message containing REST awnser
 

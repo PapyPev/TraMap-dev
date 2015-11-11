@@ -71,7 +71,7 @@ def api(service='default', lat1=0, lon1=0, lat2=0, lon2=0, param='default'):
     'default' : rest_default(),
     'simpleText' : rest_simpleText(),
     'interests' : rest_interests(),
-    'shortestPath': rest_shortestPath(lat1, lon1, lat2, lon2)
+    'shortestPath': rest_shortestPath(request.args.get('lat1', ''), request.args.get('laon1', ''), lat2, lon2)
   }.get(service, rest_default())
 
   # Return message
@@ -297,7 +297,7 @@ def rest_shortestPath(lat1, lon1, lat2, lon2):
   print('lat1:{}'.format(lat1))
   print('lon1:{}'.format(lon1))
   print('lat2:{}'.format(lat2))
-  print('lon1:{}'.format(lon2))
+  print('lon2:{}'.format(lon2))
 
   pass
 

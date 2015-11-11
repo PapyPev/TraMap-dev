@@ -249,9 +249,6 @@ def rest_interests():
             # Execute the query
             interestsResult = db._execute(interestsSQL)
 
-            print('DEBUG: RESULTS: ')
-            print(interestsResult)
-
             # Save interests on intersts list
             for i in interestsResult:
               interests.append(i[0])
@@ -298,10 +295,10 @@ def rest_interests():
 # -----------------------------------------------------------------------------
 def rest_shortestPath(lat1, lon1, lat2, lon2):
 
-  print('lat1:', lat1)
-  print('lat1:', lon1)
-  print('lat1:', lat2)
-  print('lat1:', lon2)
+  print('lat1:{}'.format(lat1))
+  print('lat1:{}'.format(lon1))
+  print('lat1:{}'.format(lat2))
+  print('lat1:{}'.format(lon2))
 
   pass
 

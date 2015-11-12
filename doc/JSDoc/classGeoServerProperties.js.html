@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: classGeoServerProperties.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: classGeoServerProperties.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+|------------------------------------------------------------------------------
+| Class GeoServer Properties
+|------------------------------------------------------------------------------
+|
+| This class contains all GeoServer properties from configGeoServer.json.
+|
+| @author Pev
+| @verion 1.2
+|
+|------------------------------------------------------------------------------
+*/
+
+// ============================================================================
+// CONSTRUCTOR
+// ============================================================================
+
+/**
+ * Creates an instance of LayerProperties.
+ * @constructor
+ * @this {GeoServerProperties}
+ * @param {string} filePath Path or URL to JSON config file 
+ */
+function GeoServerProperties (filePath) {
+
+  // Read configuration file from JSON
+  var geoServerParameters = getGeoServerConfig(filePath);
+
+  /** @private */ this.address = geoServerParameters.address;
+  /** @private */ this.repository = geoServerParameters.repository;
+  /** @private */ this.user = geoServerParameters.user;
+  /** @private */ this.password = geoServerParameters.password;
+
+}
+
+// ============================================================================
+// GETTERS
+// ============================================================================
+
+/**
+ * Get GeoServer's address.
+ * @this {GeoServerProperties}
+ * @return {string} The GeoServer address.
+ */
+GeoServerProperties.prototype.getAddress = function () {
+  return this.address;
+};
+
+// ----------------------------------------------------------------------------
+
+/**
+ * Get GeoServer's repository.
+ * @this {GeoServerProperties}
+ * @return {string} The GeoServer layer's repository.
+ */
+GeoServerProperties.prototype.getRepository = function () {
+  return this.repository;
+};
+
+// ----------------------------------------------------------------------------
+
+/**
+ * Get GeoServer's user.
+ * @this {GeoServerProperties}
+ * @return {string} The GeoServer user.
+ */
+GeoServerProperties.prototype.getUser = function () {
+  return this.user;
+};
+
+// ----------------------------------------------------------------------------
+
+/**
+ * Get GeoServer's password.
+ * @this {GeoServerProperties}
+ * @return {string} The GeoServer password.
+ */
+GeoServerProperties.prototype.getPassword = function () {
+  return this.password;
+};
+
+/* ============================================================================
+ * METHODS
+ * ========================================================================= */
+
+/**
+ * String representation of the GeoServerProperties
+ * @overide
+ * @this{GeoServerProperties}
+ * @return {string} Human-readable representation of this GeoServerProperties.
+ */
+GeoServerProperties.prototype.toString = function() {
+  // Log console
+  var attributesToLog = [{
+    "address": this.address, 
+    "repository": this.repository,
+    "user": this.user,
+    //"password": this.password
+  }];
+  return JSON.stringify(attributesToLog);
+};
+
+
+/* ============================================================================
+ * FUNCTIONS
+ * ========================================================================= */
+
+/**
+ * Get GeoServer Configurations from JSON file
+ * @param {string} filePath Path to the json file (or url)
+ * @return {json} GeoServer configuration : JSON content
+ */
+function getGeoServerConfig (filePath) {
+
+  // Returned value
+  var serverConfig;
+
+  // Get JSON
+  $.ajax({
+    type: 'GET',
+    url: filePath,
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success: function(data){
+      serverConfig = data;
+    },
+    error: function(jqXHR, exception){
+      if (jqXHR.status === 401) {
+        console.log('HTTP Error 401 Unauthorized.');
+      } else {
+        console.log('Uncaught Error.\n' + jqXHR.responseText);
+      }
+    },
+    async: false
+
+  });
+
+  return serverConfig.geoserver;
+} //-- end getGeoServerConfig (filePath)
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ContentProperties.html">ContentProperties</a></li><li><a href="GeoServerProperties.html">GeoServerProperties</a></li><li><a href="LayerProperties.html">LayerProperties</a></li><li><a href="MapProperties.html">MapProperties</a></li><li><a href="RestProperties.html">RestProperties</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buttonContact">buttonContact</a></li><li><a href="global.html#buttonFocus">buttonFocus</a></li><li><a href="global.html#buttonSearchByPointer">buttonSearchByPointer</a></li><li><a href="global.html#changeLayer">changeLayer</a></li><li><a href="global.html#findItinerary">findItinerary</a></li><li><a href="global.html#getAcordeonEnd">getAcordeonEnd</a></li><li><a href="global.html#getAcordeonInit">getAcordeonInit</a></li><li><a href="global.html#getContentConfig">getContentConfig</a></li><li><a href="global.html#getDateHuman">getDateHuman</a></li><li><a href="global.html#getGeoServerConfig">getGeoServerConfig</a></li><li><a href="global.html#getGeoServerLayers">getGeoServerLayers</a></li><li><a href="global.html#getInterests">getInterests</a></li><li><a href="global.html#getMapConfig">getMapConfig</a></li><li><a href="global.html#getRestConfig">getRestConfig</a></li><li><a href="global.html#getStationName">getStationName</a></li><li><a href="global.html#getTrainTitle">getTrainTitle</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#LatLonToMercator">LatLonToMercator</a></li><li><a href="global.html#loadArrival">loadArrival</a></li><li><a href="global.html#loadDeparture">loadDeparture</a></li><li><a href="global.html#loadGeoServerLayers">loadGeoServerLayers</a></li><li><a href="global.html#loadingStations">loadingStations</a></li><li><a href="global.html#loadPopup">loadPopup</a></li><li><a href="global.html#loadPopupContent">loadPopupContent</a></li><li><a href="global.html#loadPopupEvent">loadPopupEvent</a></li><li><a href="global.html#loadPopupFocus">loadPopupFocus</a></li><li><a href="global.html#loadTiles">loadTiles</a></li><li><a href="global.html#loadTimetables">loadTimetables</a></li><li><a href="global.html#loadTOC">loadTOC</a></li><li><a href="global.html#loginValidation">loginValidation</a></li><li><a href="global.html#refreshGeoServerLayers">refreshGeoServerLayers</a></li><li><a href="global.html#setPopup">setPopup</a></li><li><a href="global.html#setStyle">setStyle</a></li><li><a href="global.html#updateOptionsChoices">updateOptionsChoices</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Thu Nov 12 2015 15:43:10 GMT+0200 (EET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

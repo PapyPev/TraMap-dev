@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: actionGeoServerLayers.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: actionGeoServerLayers.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+|------------------------------------------------------------------------------
+| Geoserver Layers functions.
+|------------------------------------------------------------------------------
+|
+| To centralize and simplify GeoServer functions access, style and features
+|
+| @author Fanda/Pev
+| @verion 2.5
+|
+|------------------------------------------------------------------------------
+*/
+
+// ============================================================================
+// FUNCTIONS
+// ============================================================================
+
+/**
+ * Convert coordinate Lat/Long to Mercator projection
+ * @param {number} lat Latitude coordinate
+ * @param {number} lon Longitude coordinate
+ * @return {json} Json with X and Y Mercator projection
+ */
+function LatLonToMercator(lat, lon) {
+  var rMajor = 6378137; //Equatorial Radius, WGS84
+  var shift  = Math.PI * rMajor;
+  var x = lon * shift / 180;
+  var y = Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);
+  y = y * shift / 180;
+  return {'X': x, 'Y': y};
+} //-- end LatLonToMercator(lat, lon)
+
+/**
+ * This function gives a visual style to data
+ * @param {number} feature Type's number of feature
+ * @return {json} Style properties
+ */
+function setStyle(feature) {
+
+  // Switch on class properties
+  switch (feature.properties.clazz) {
+
+    // TODO : Comment
+    case 31: return {color: "orange", weight: 17, opacity: 0.5};
+
+    // TODO : Comment
+    case 32: return {color: "#0000ff", weight: 17, opacity: 0.5};
+
+  } //end switch(feature.properties.clazz)
+} //-- end setStyle(feature)
+
+/**
+ * Add bind Popup to feature
+ * @param {Object} feature The geometry object feature
+ * @param {Object} layer The layer content
+ */
+function setPopup(feature, layer) {
+  layer.bindPopup(feature.properties.name);
+} //-- end setPopup(feature, layer)
+
+/**
+ * This function gives a visual style to data
+ * @param {string} url The GeoServer address
+ * @param {string} repository The GeoServer repository
+ * @param {string} projection The default map projection
+ * @param {number} maxFeatures Number of maxFeatures per query
+ * @param {string} bbox The current map Bounding Box (map extent)
+ * @return {Object} Return a classLayerProperties object 
+ */
+function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
+
+  // Get bbox on Mercator projection (from Lat/Long)
+  var southWest = LatLonToMercator(bbox._southWest.lat,bbox._southWest.lng);
+  var northEast = LatLonToMercator(bbox._northEast.lat,bbox._northEast.lng);
+
+  // Return value : list of layers
+  var listOfLayers = [];
+  
+  // Prepare POST Request to Geoserver for GetCapabilities XML File
+  if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  }
+  else
+  {// code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+  // Callback function after sent the request
+  xmlhttp.onload = function() {
+
+    // Prepare the xmlVariable
+    var xmlDoc = new DOMParser().parseFromString(
+      xmlhttp.responseText,'text/xml');
+
+    // Get layer list
+    var x = xmlDoc.getElementsByTagName("FeatureTypeList");
+
+    // Loop Layer Layer's list
+    for (i=0;i&lt;x.length;i++){ 
+
+      // Get layer child on the layer's list
+      var y = x[i].getElementsByTagName("FeatureType");
+
+      // Loop on layer's properties
+      for (var i = 0; i &lt; y.length; i++) {
+
+        // Save layer Name
+        var layerName = y[i].getElementsByTagName("Title")[0].childNodes[0].nodeValue;
+
+        // Prepare the URL for getting vector data
+        var layerUrl = url
+          +"/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName="
+          +repository+":"+layerName
+          +"&amp;srsName="+projection
+          +"&amp;SRS="+projection
+          +"&amp;maxFeatures="+maxFeatures
+          +"&amp;outputFormat=application/json";
+
+        // Get GeoJSON layer content
+        var layerContent = new L.GeoJSON.AJAX(layerUrl
+          +"&amp;bbox="+southWest.X+","+southWest.Y+","
+          +northEast.X+","+northEast.Y,
+          {
+            onEachFeature:setPopup, // popup information
+            //style: setStyle
+          }
+        );
+
+        // Add to list of layers
+        listOfLayers.push(new LayerProperties(
+          "Checkbox", 
+          "Data", 
+          layerName,
+          layerName,
+          i,
+          true,
+          layerUrl,
+          layerContent
+        ));
+
+      } // end Loop on layer's properties
+    } // end Loop Layer Layer's list
+  }; // end xmlhttp.onload = function()
+
+  // Request for GetCapabilities - After request : callbac function
+  xmlhttp.open(
+    "POST",
+    url+'/'+repository+'/ows?SERVICE=WFS&amp;REQUEST=GetCapabilities',
+    false // True=async and False=synchronous
+  );
+  xmlhttp.send();
+
+  // Return tab of classLayers
+  return listOfLayers;
+} //--- end getGeoServerLayers(url){
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ContentProperties.html">ContentProperties</a></li><li><a href="GeoServerProperties.html">GeoServerProperties</a></li><li><a href="LayerProperties.html">LayerProperties</a></li><li><a href="MapProperties.html">MapProperties</a></li><li><a href="RestProperties.html">RestProperties</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buttonContact">buttonContact</a></li><li><a href="global.html#buttonFocus">buttonFocus</a></li><li><a href="global.html#buttonSearchByPointer">buttonSearchByPointer</a></li><li><a href="global.html#changeLayer">changeLayer</a></li><li><a href="global.html#findItinerary">findItinerary</a></li><li><a href="global.html#getAcordeonEnd">getAcordeonEnd</a></li><li><a href="global.html#getAcordeonInit">getAcordeonInit</a></li><li><a href="global.html#getContentConfig">getContentConfig</a></li><li><a href="global.html#getDateHuman">getDateHuman</a></li><li><a href="global.html#getGeoServerConfig">getGeoServerConfig</a></li><li><a href="global.html#getGeoServerLayers">getGeoServerLayers</a></li><li><a href="global.html#getInterests">getInterests</a></li><li><a href="global.html#getMapConfig">getMapConfig</a></li><li><a href="global.html#getRestConfig">getRestConfig</a></li><li><a href="global.html#getStationName">getStationName</a></li><li><a href="global.html#getTrainTitle">getTrainTitle</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#LatLonToMercator">LatLonToMercator</a></li><li><a href="global.html#loadArrival">loadArrival</a></li><li><a href="global.html#loadDeparture">loadDeparture</a></li><li><a href="global.html#loadGeoServerLayers">loadGeoServerLayers</a></li><li><a href="global.html#loadingStations">loadingStations</a></li><li><a href="global.html#loadPopup">loadPopup</a></li><li><a href="global.html#loadPopupContent">loadPopupContent</a></li><li><a href="global.html#loadPopupEvent">loadPopupEvent</a></li><li><a href="global.html#loadPopupFocus">loadPopupFocus</a></li><li><a href="global.html#loadTiles">loadTiles</a></li><li><a href="global.html#loadTimetables">loadTimetables</a></li><li><a href="global.html#loadTOC">loadTOC</a></li><li><a href="global.html#loginValidation">loginValidation</a></li><li><a href="global.html#refreshGeoServerLayers">refreshGeoServerLayers</a></li><li><a href="global.html#setPopup">setPopup</a></li><li><a href="global.html#setStyle">setStyle</a></li><li><a href="global.html#updateOptionsChoices">updateOptionsChoices</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Thu Nov 12 2015 15:43:10 GMT+0200 (EET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

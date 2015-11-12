@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pageStations.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pageStations.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+|------------------------------------------------------------------------------
+| Page Stations Script
+|------------------------------------------------------------------------------
+|
+| List of all stations informations from digitraffic.
+|
+| @author Pev
+| @verion 1.1
+|
+|------------------------------------------------------------------------------
+*/
+
+// ============================================================================
+// CONSTANTS
+// ============================================================================
+
+var DIGI_STATIONS = 'http://rata.digitraffic.fi/api/v1/metadata/stations';
+
+// ============================================================================
+// FUNCTIONS
+// ============================================================================
+
+/**
+ * Load HTML content for Stations informations
+ * @param {json} data JSON response from digitraffic
+ */
+function loadingStations(data) {
+
+  // Init the html return value
+  var htmlContent = '';
+  htmlContent += '&lt;table class="table table-striped">';
+  htmlContent += '&lt;thead>';
+  htmlContent +=  '&lt;tr>';
+  htmlContent +=    '&lt;th>Name&lt;/th>';
+  htmlContent +=    '&lt;th>Code&lt;/th>';
+  htmlContent +=    '&lt;th>UIC&lt;/th>';
+  htmlContent +=    '&lt;th>Lat&lt;/th>';
+  htmlContent +=    '&lt;th>Lon&lt;/th>';
+  htmlContent +=  '&lt;/tr>';
+  htmlContent += '&lt;/thead>';
+  htmlContent += '&lt;tbody>';
+
+  // Loop all stations objects
+  for (var i = 0; i &lt; data.length; i++) {
+    
+    // Verification if the train take passengers
+    if (data[i].passengerTraffic) {
+      htmlContent += '&lt;tr>';
+      htmlContent += '&lt;td>'+data[i].stationName+'&lt;/td>';
+      htmlContent += '&lt;td>'+data[i].stationShortCode+'&lt;/td>';
+      htmlContent += '&lt;td>'+data[i].stationUICCode+'&lt;/td>';
+      htmlContent += '&lt;td>'+data[i].latitude+'&lt;/td>';
+      htmlContent += '&lt;td>'+data[i].longitude+'&lt;/td>';
+      htmlContent += '&lt;/tr>';
+    }
+    
+  }
+
+  // End table
+  htmlContent += '&lt;/tbody>';
+  htmlContent += '&lt;/table>';
+
+  // Print HTML content
+  $("#divStations").html(htmlContent);
+} //-- end loadingStations(data)
+
+// ============================================================================
+// MAIN
+// ============================================================================
+
+/**
+ * Action performed when the page is fully loaded
+ */
+$(document).ready(function($) {
+
+  // Init XMLHttp request
+  var xhr = new XMLHttpRequest();
+
+  // GET query
+  xhr.open('GET', DIGI_STATIONS);
+
+  // Load Content
+  xhr.onreadystatechange = function () {
+    if (this.status == 200 &amp;&amp; this.readyState == 4) {
+      loadingStations(JSON.parse(this.responseText));
+    }
+  };
+
+  // Sent request
+  xhr.send();
+}); //--- end $(document).ready()
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ContentProperties.html">ContentProperties</a></li><li><a href="GeoServerProperties.html">GeoServerProperties</a></li><li><a href="LayerProperties.html">LayerProperties</a></li><li><a href="MapProperties.html">MapProperties</a></li><li><a href="RestProperties.html">RestProperties</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buttonContact">buttonContact</a></li><li><a href="global.html#buttonFocus">buttonFocus</a></li><li><a href="global.html#buttonSearchByPointer">buttonSearchByPointer</a></li><li><a href="global.html#changeLayer">changeLayer</a></li><li><a href="global.html#findItinerary">findItinerary</a></li><li><a href="global.html#getAcordeonEnd">getAcordeonEnd</a></li><li><a href="global.html#getAcordeonInit">getAcordeonInit</a></li><li><a href="global.html#getContentConfig">getContentConfig</a></li><li><a href="global.html#getDateHuman">getDateHuman</a></li><li><a href="global.html#getGeoServerConfig">getGeoServerConfig</a></li><li><a href="global.html#getGeoServerLayers">getGeoServerLayers</a></li><li><a href="global.html#getInterests">getInterests</a></li><li><a href="global.html#getMapConfig">getMapConfig</a></li><li><a href="global.html#getRestConfig">getRestConfig</a></li><li><a href="global.html#getStationName">getStationName</a></li><li><a href="global.html#getTrainTitle">getTrainTitle</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#LatLonToMercator">LatLonToMercator</a></li><li><a href="global.html#loadArrival">loadArrival</a></li><li><a href="global.html#loadDeparture">loadDeparture</a></li><li><a href="global.html#loadGeoServerLayers">loadGeoServerLayers</a></li><li><a href="global.html#loadingStations">loadingStations</a></li><li><a href="global.html#loadPopup">loadPopup</a></li><li><a href="global.html#loadPopupContent">loadPopupContent</a></li><li><a href="global.html#loadPopupEvent">loadPopupEvent</a></li><li><a href="global.html#loadPopupFocus">loadPopupFocus</a></li><li><a href="global.html#loadTiles">loadTiles</a></li><li><a href="global.html#loadTimetables">loadTimetables</a></li><li><a href="global.html#loadTOC">loadTOC</a></li><li><a href="global.html#loginValidation">loginValidation</a></li><li><a href="global.html#refreshGeoServerLayers">refreshGeoServerLayers</a></li><li><a href="global.html#setPopup">setPopup</a></li><li><a href="global.html#setStyle">setStyle</a></li><li><a href="global.html#updateOptionsChoices">updateOptionsChoices</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Thu Nov 12 2015 15:43:10 GMT+0200 (EET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: actionMapLoader.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: actionMapLoader.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+|------------------------------------------------------------------------------
+| Action Map Loader
+|------------------------------------------------------------------------------
+|
+| Initialize map content and all functions for update or map actions.
+|
+| @author Pev
+| @verion 4.7
+|
+|------------------------------------------------------------------------------
+*/
+
+// ============================================================================
+// CONSTANTS
+// ============================================================================
+
+var MAP_PROP = './config/configMap.json';
+var SRV_PROP = './config/configServer.json';
+var CON_PROP = './config/configContent.json';
+
+// ============================================================================
+// GLOBALS
+// ============================================================================
+
+// Current map
+var map;
+
+// Properties
+var mapProperties;
+var geoServerProperties;
+var contentProperties;
+var restProperties;
+
+// Leaflet Map Layers
+var mapLayers;
+
+// Sidebar
+var sidebar;
+
+// ============================================================================
+// FUNCTIONS
+// ============================================================================
+
+/**
+ * Refresh the existing GeoServer Layers
+ * @param {bbox} mapBoundingBox The current bounding box of the map
+ */
+function refreshGeoServerLayers (mapBoundingBox) {
+
+  for (var i = 0; i &lt; mapLayers.length; i++) {
+    if (mapLayers[i].getCheck()) {
+
+      // Reprojection coordinate system
+      var sw = LatLonToMercator(
+        mapBoundingBox._southWest.lat,
+        mapBoundingBox._southWest.lng
+      );
+      var ne = LatLonToMercator(
+        mapBoundingBox._northEast.lat,
+        mapBoundingBox._northEast.lng
+      );
+
+      // Create the URL query
+      var url = mapLayers[i].getURL() 
+        +"&amp;bbox="+sw.X+","+sw.Y+","+ne.X+","+ne.Y;
+
+      // if it's not a Tiles layer
+      if (mapLayers[i].getCategory()!='Background') {
+        mapLayers[i].getContent().refresh(url);
+      }
+
+    } // end if check
+  } // end for mapLayers
+
+} //--- end refreshGeoServerLayers (mapBoundingBox)
+
+// ----------------------------------------------------------------------------
+
+/**
+ * Load and reload GeoServer Layers with Bounding box query
+ * @param {boundingBox} mapBoundingBox The bounding box of the current map
+ */
+function loadGeoServerLayers (mapBoundingBox) {
+
+  // Get GeoServer Layer
+  var listGeoServerLayer = [];
+  listGeoServerLayer = getGeoServerLayers(
+    geoServerProperties.getAddress(), 
+    geoServerProperties.getRepository(),
+    mapProperties.getProjection(),
+    mapProperties.getMaxFeatures(),
+    mapBoundingBox
+  );
+
+  // Add all GeoServer Layers
+  for (var i = 0; i &lt; listGeoServerLayer.length; i++) {
+    mapLayers.push(listGeoServerLayer[i]);
+    if (listGeoServerLayer[i].getCheck()) {
+      map.addLayer(listGeoServerLayer[i].getContent());
+    }
+  }
+
+} //--- end loadGeoServerLayers(mapBoundingBox)
+
+// ----------------------------------------------------------------------------
+
+/**
+ * TOC action on the checkbox or radio button
+ * @param {number} i Index of the layer in listOfLayer
+ * @param {string} type Type of layer (Radio, Checkbox)
+ */
+function changeLayer (i, type) {
+
+  // If the layer is viewable
+  if (mapLayers[i].getCheck()) {
+    map.removeLayer(mapLayers[i].getContent()); // unload map layer
+    mapLayers[i].setCheck(false); // unload TOC layer
+  } else {
+    map.addLayer(mapLayers[i].getContent()); // load map layer
+    mapLayers[i].setCheck(true); // load TOC layer
+  }
+
+  // Loop Layers - Remove the other layer
+  for (var j = 0; j &lt; mapLayers.length; j++) {
+    if (mapLayers[j].getCategory()==mapLayers[i].getCategory()
+      &amp;&amp; j != i &amp;&amp; type=='Radio') {
+      mapLayers[j].setCheck(false);
+      map.removeLayer(mapLayers[j].getContent());
+    }
+  }
+
+} //--- changeLayer (i, type)
+
+// ----------------------------------------------------------------------------
+
+/**
+ * Load content of Table Of Content (TOC).
+ */
+function loadTOC () {
+
+  // Add TOC title and description
+  $("#"+contentProperties.getDivTocTitle()+"").html(
+    contentProperties.getContentTocTitle()
+  ).trigger("create");
+  $("#"+contentProperties.getDivTocDescript()+"").html(
+    contentProperties.getContentTocDescript()
+  ).trigger("create");
+
+  // Prepare TOC content
+  var toc = "";
+
+  // Layers Loop
+  for (var i = 0; i &lt; mapLayers.length; i++) {
+
+    // Test if it's the first category or a new
+    if (i===0 
+      || mapLayers[i].getCategory()!=mapLayers[i-1].getCategory()) {
+      toc += '&lt;div class="panel panel-default">'
+        + '&lt;div class="panel-heading">'
+        +   '&lt;h6 class="panel-title">'+mapLayers[i].getCategory()+'&lt;/h6>'
+        + '&lt;/div>'
+        + '&lt;div class="panel-body">';
+    }
+
+    // Test if checkbox is checked
+    var check = "";
+    if (mapLayers[i].getCheck()===true) {
+      check="checked";
+    }
+
+    // Test type of data 
+    switch(mapLayers[i].getType()){
+      case "Radio":
+        toc +=  '&lt;div class="input-group">'
+          +     '&lt;span class="input-group-addon">'
+          +       '&lt;input type="radio" '
+          +       'name="'+mapLayers[i].getCategory()+'" '
+          +       'id="'+mapLayers[i].getPosition()+'" '
+          +       'onclick="changeLayer('+i+',\''
+          +           mapLayers[i].getType()+'\')" '
+          +       check + '>'
+          +     '&lt;/span>'
+          +   '&lt;input type="text" class="form-control" '
+          +       'value="'+mapLayers[i].getAlias()+'" readonly>'
+          + '&lt;/div>';
+        break;
+      case "Checkbox":
+        // Create layer row
+        toc +=  '&lt;div class="input-group">'
+          +     '&lt;span class="input-group-addon">'
+          +       '&lt;input type="checkbox" '
+          +       'name="'+mapLayers[i].getName()+'" '
+          +       'id="'+mapLayers[i].getPosition()+'" '
+          +        'onchange="changeLayer('+i+',\''
+          +           mapLayers[i].getType()+'\')" '
+          +       check + '>'
+          +     '&lt;/span>'
+          +   '&lt;input type="text" class="form-control" '
+          +       'value="'+mapLayers[i].getAlias()+'" readonly>'
+          + '&lt;/div>';
+        break;
+      default:
+        // Nothing
+        break;
+    }
+
+    // Test if it's not the latest layer
+    if (i!=mapLayers.length-1) {
+      // Test if we need to close category
+      if (mapLayers[i].getCategory()!=mapLayers[i+1].getCategory()) {
+        toc += '&lt;/div>&lt;/div>';
+      }
+    } else{
+      toc += '&lt;/div>&lt;/div>';
+    }
+
+  }
+
+  // Write to the HTML div
+  $("#"+contentProperties.getDivTocContent()+"").html(toc).trigger("create");
+
+} //--- end loadTOC()
+
+// ----------------------------------------------------------------------------
+
+/**
+ * Add Tiles background to mapLayers
+ * @return {array} List of tiles LayerProperties (classLayerProperties).
+ */
+function loadTiles () {
+
+  // Returned value
+  var listOfLayers = [];
+
+  // Create Copyright
+  var tiles_copyright = 'Map data &amp;copy;' 
+    + '&lt;a href="http://openstreetmap.org">OpenStreetMap&lt;/a> contributors, ' 
+    + '&lt;a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA&lt;/a>, '
+    + 'Imagery © &lt;a href="http://mapbox.com">Mapbox&lt;/a>';
+
+  // Get tiles sources
+  var mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?'
+    +'access_token=' + mapProperties.getMapboxToken();
+
+  //Create leaflet Layer
+  var bgLight = L.tileLayer(mbUrl, {
+    id: 'mapbox.light', 
+    attribution: tiles_copyright
+  });
+  var bgDark = L.tileLayer(mbUrl, {
+    id: 'mapbox.dark', 
+    attribution: tiles_copyright
+  });
+  var bgStreet = L.tileLayer(mbUrl, {
+    id: 'mapbox.streets', 
+    attribution: tiles_copyright
+  });
+
+  // Create metadata layer
+  var bgLightM = new LayerProperties("Radio", "Background", 
+    "bgLight", "MapBox : Light", 0, false, "", bgLight);
+  var bgDarktM = new LayerProperties("Radio", "Background", 
+    "bgDark", "MapBox : Dark", 1, false, "", bgDark);
+  var bgStreetM = new LayerProperties("Radio", "Background", 
+    "bgStreet", "MapBox : Street", 2, true, "", bgStreet);
+
+  // Add Tiles to default loaded map layers
+  listOfLayers.push(bgLightM, bgDarktM, bgStreetM);
+
+  // Return Value
+  return listOfLayers;
+
+} //--- end loadTiles()
+
+// ----------------------------------------------------------------------------
+
+/**
+ * Loading all the necessary components of the card
+ */
+function init () {
+
+  //---------- Load Layers, GeoServer, Content Properties
+  mapProperties = new MapProperties('map', MAP_PROP);
+  geoServerProperties = new GeoServerProperties(SRV_PROP);
+  contentProperties = new ContentProperties(CON_PROP);
+  restProperties = new RestProperties(SRV_PROP);
+
+  //---------- Load Default map
+  map = L.map('map', {
+    center: [mapProperties.getCenter()[0], mapProperties.getCenter()[1]],
+    zoom: mapProperties.getZoom()
+  });
+
+  //---------- Load Default Background to map
+  mapLayers = loadTiles();
+  for (var i = 0; i &lt; mapLayers.length; i++) {
+    if (mapLayers[i].getCheck()) {
+      map.addLayer(mapLayers[i].getContent());
+    }
+  }
+
+  //---------- Load Sidebar Component
+  sidebar = L.control.sidebar('sidebar', {
+    closeButton: true,
+    position: mapProperties.getSidebarPos()
+  });
+  map.addControl(sidebar);
+  //sidebar.show();
+
+  //---------- Load Default GeoServer layer 
+  loadGeoServerLayers(map.getBounds());
+
+  //---------- Load TOC
+  loadTOC();
+
+  //---------- Load Actions Buttons
+  L.easyButton( '&lt;span class="easy-button">&amp;equiv;&lt;/span>', 
+    function(){
+      sidebar.toggle(); // Open-Close sidebar
+    }, 'Table of Content'
+  ).addTo(map);
+
+  L.easyButton(
+    '&lt;span class="glyphicon glyphicon-road" aria-hidden="true">&lt;/span>',
+    function(){
+      window.location.href = "views/pageTimetables.html";
+    }, 'TimeTables'
+  ).addTo(map);
+
+  L.easyButton(
+    '&lt;span class="glyphicon glyphicon-hand-up" aria-hidden="true">&lt;/span>',
+    function(){
+      buttonSearchByPointer();
+    }, 'SearchByPointer'
+  ).addTo(map);
+
+  //---------- Load Popup
+  loadPopup();
+
+  //----------- Moving Map view, refresh GeoServerLayer
+  map.on('moveend', function() { 
+    refreshGeoServerLayers(map.getBounds());
+  });
+
+} //-- end init ()
+
+// ============================================================================
+// MAIN
+// ============================================================================
+
+/**
+ * Action performed when the page is fully loaded
+ */
+$(document).ready(function(){
+
+  // initialize all the components of the map
+  init();
+
+}); //--$(document).ready()
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ContentProperties.html">ContentProperties</a></li><li><a href="GeoServerProperties.html">GeoServerProperties</a></li><li><a href="LayerProperties.html">LayerProperties</a></li><li><a href="MapProperties.html">MapProperties</a></li><li><a href="RestProperties.html">RestProperties</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buttonContact">buttonContact</a></li><li><a href="global.html#buttonFocus">buttonFocus</a></li><li><a href="global.html#buttonSearchByPointer">buttonSearchByPointer</a></li><li><a href="global.html#changeLayer">changeLayer</a></li><li><a href="global.html#findItinerary">findItinerary</a></li><li><a href="global.html#getAcordeonEnd">getAcordeonEnd</a></li><li><a href="global.html#getAcordeonInit">getAcordeonInit</a></li><li><a href="global.html#getContentConfig">getContentConfig</a></li><li><a href="global.html#getDateHuman">getDateHuman</a></li><li><a href="global.html#getGeoServerConfig">getGeoServerConfig</a></li><li><a href="global.html#getGeoServerLayers">getGeoServerLayers</a></li><li><a href="global.html#getInterests">getInterests</a></li><li><a href="global.html#getMapConfig">getMapConfig</a></li><li><a href="global.html#getRestConfig">getRestConfig</a></li><li><a href="global.html#getStationName">getStationName</a></li><li><a href="global.html#getTrainTitle">getTrainTitle</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#LatLonToMercator">LatLonToMercator</a></li><li><a href="global.html#loadArrival">loadArrival</a></li><li><a href="global.html#loadDeparture">loadDeparture</a></li><li><a href="global.html#loadGeoServerLayers">loadGeoServerLayers</a></li><li><a href="global.html#loadingStations">loadingStations</a></li><li><a href="global.html#loadPopup">loadPopup</a></li><li><a href="global.html#loadPopupContent">loadPopupContent</a></li><li><a href="global.html#loadPopupEvent">loadPopupEvent</a></li><li><a href="global.html#loadPopupFocus">loadPopupFocus</a></li><li><a href="global.html#loadTiles">loadTiles</a></li><li><a href="global.html#loadTimetables">loadTimetables</a></li><li><a href="global.html#loadTOC">loadTOC</a></li><li><a href="global.html#loginValidation">loginValidation</a></li><li><a href="global.html#refreshGeoServerLayers">refreshGeoServerLayers</a></li><li><a href="global.html#setPopup">setPopup</a></li><li><a href="global.html#setStyle">setStyle</a></li><li><a href="global.html#updateOptionsChoices">updateOptionsChoices</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Thu Nov 12 2015 15:43:10 GMT+0200 (EET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

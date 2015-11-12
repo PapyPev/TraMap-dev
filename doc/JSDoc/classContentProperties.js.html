@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: classContentProperties.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: classContentProperties.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+|------------------------------------------------------------------------------
+| Class Content Properties
+|------------------------------------------------------------------------------
+|
+| This class contains all content properties from configContent.json.
+|
+| @author Pev
+| @verion 1.1
+|
+|------------------------------------------------------------------------------
+*/
+
+// ============================================================================
+// CONSTRUCTOR
+// ============================================================================
+
+/**
+ * Creates an instance of ContentProperties.
+ * @constructor
+ * @this {ContentProperties}
+ * @param {string} filePath Path or URL to JSON config file 
+ */
+function ContentProperties (filePath) {
+
+  // Read configuration file from JSON
+  var contentParameters = getContentConfig(filePath);
+
+  /** @private */ this.div_toc_title = contentParameters.div_toc_title;
+  /** @private */ this.div_toc_content = contentParameters.div_toc_content;
+  /** @private */ this.div_toc_descript = contentParameters.div_toc_descript;
+  /** @private */ this.div_popup_content = contentParameters.div_popup_content;
+  /** @private */ this.content_toc_title = contentParameters.content_toc_title;
+  /** @private */ this.content_toc_descript = contentParameters.content_toc_descript;
+  /** @private */ this.content_overTheMap = contentParameters.content_overTheMap;
+
+}
+
+// ============================================================================
+// GETTERS
+// ============================================================================
+
+/**
+ * Get Div TOC title name.
+ * @this {ContentProperties}
+ * @return {string} The name of the div toc title.
+ */
+ContentProperties.prototype.getDivTocTitle = function () {
+  return this.div_toc_title;
+};
+
+// ----------------------------------------------------------------------------
+
+/**
+ * Get Div TOC content name.
+ * @this {ContentProperties}
+ * @return {string} The name of the div toc content.
+ */
+ContentProperties.prototype.getDivTocContent = function () {
+  return this.div_toc_content;
+};
+
+// ----------------------------------------------------------------------------
+
+/**
+ * Get Div TOC description name.
+ * @this {ContentProperties}
+ * @return {string} The name of the div toc description.
+ */
+ContentProperties.prototype.getDivTocDescript = function () {
+  return this.div_toc_descript;
+};
+
+// ----------------------------------------------------------------------------
+
+/**
+ * Get Div Popup content name.
+ * @this {ContentProperties}
+ * @return {string} The name of the div popup content.
+ */
+ContentProperties.prototype.getDivPopupContent = function () {
+  return this.div_popup_content;
+};
+
+// ----------------------------------------------------------------------------
+
+/**
+ * Get Toc Title content.
+ * @this {ContentProperties}
+ * @return {string} The content of the TOC title.
+ */
+ContentProperties.prototype.getContentTocTitle = function () {
+  return this.content_toc_title;
+};
+
+// ----------------------------------------------------------------------------
+
+/**
+ * Get Toc Description content.
+ * @this {ContentProperties}
+ * @return {string} The content of the TOC description.
+ */
+ContentProperties.prototype.getContentTocDescript = function () {
+  return this.content_toc_descript;
+};
+
+// ----------------------------------------------------------------------------
+
+/**
+ * Get Popup content (overTheMap).
+ * @this {ContentProperties}
+ * @return {object} The popup json content.
+ */
+ContentProperties.prototype.getContentOverTheMap = function () {
+  return this.content_overTheMap;
+};
+
+// ============================================================================
+// FUNCTIONS
+// ============================================================================
+
+/**
+ * Get GeoServer Configurations from JSON file
+ * @param {string} filePath Path to the json file (or url)
+ * @return {json} Content configuration : JSON content
+ */
+function getContentConfig (filePath) {
+
+  // Returned value
+  var contentConfig;
+
+  // Get JSON
+  $.ajax({
+    type: 'GET',
+    url: filePath,
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success: function(data){
+      contentConfig = data;
+    },
+    error: function(jqXHR, exception){
+      if (jqXHR.status === 401) {
+        console.log('HTTP Error 401 Unauthorized.');
+      } else {
+        console.log('Uncaught Error.\n' + jqXHR.responseText);
+      }
+    },
+    async: false
+
+  });
+
+  return contentConfig;
+} //-- end getContentConfig (filePath)</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ContentProperties.html">ContentProperties</a></li><li><a href="GeoServerProperties.html">GeoServerProperties</a></li><li><a href="LayerProperties.html">LayerProperties</a></li><li><a href="MapProperties.html">MapProperties</a></li><li><a href="RestProperties.html">RestProperties</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buttonContact">buttonContact</a></li><li><a href="global.html#buttonFocus">buttonFocus</a></li><li><a href="global.html#buttonSearchByPointer">buttonSearchByPointer</a></li><li><a href="global.html#changeLayer">changeLayer</a></li><li><a href="global.html#findItinerary">findItinerary</a></li><li><a href="global.html#getAcordeonEnd">getAcordeonEnd</a></li><li><a href="global.html#getAcordeonInit">getAcordeonInit</a></li><li><a href="global.html#getContentConfig">getContentConfig</a></li><li><a href="global.html#getDateHuman">getDateHuman</a></li><li><a href="global.html#getGeoServerConfig">getGeoServerConfig</a></li><li><a href="global.html#getGeoServerLayers">getGeoServerLayers</a></li><li><a href="global.html#getInterests">getInterests</a></li><li><a href="global.html#getMapConfig">getMapConfig</a></li><li><a href="global.html#getRestConfig">getRestConfig</a></li><li><a href="global.html#getStationName">getStationName</a></li><li><a href="global.html#getTrainTitle">getTrainTitle</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#LatLonToMercator">LatLonToMercator</a></li><li><a href="global.html#loadArrival">loadArrival</a></li><li><a href="global.html#loadDeparture">loadDeparture</a></li><li><a href="global.html#loadGeoServerLayers">loadGeoServerLayers</a></li><li><a href="global.html#loadingStations">loadingStations</a></li><li><a href="global.html#loadPopup">loadPopup</a></li><li><a href="global.html#loadPopupContent">loadPopupContent</a></li><li><a href="global.html#loadPopupEvent">loadPopupEvent</a></li><li><a href="global.html#loadPopupFocus">loadPopupFocus</a></li><li><a href="global.html#loadTiles">loadTiles</a></li><li><a href="global.html#loadTimetables">loadTimetables</a></li><li><a href="global.html#loadTOC">loadTOC</a></li><li><a href="global.html#loginValidation">loginValidation</a></li><li><a href="global.html#refreshGeoServerLayers">refreshGeoServerLayers</a></li><li><a href="global.html#setPopup">setPopup</a></li><li><a href="global.html#setStyle">setStyle</a></li><li><a href="global.html#updateOptionsChoices">updateOptionsChoices</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Thu Nov 12 2015 15:43:10 GMT+0200 (EET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -295,7 +295,7 @@ def rest_interests():
 
 # REST - ALL TABLES
 # -----------------------------------------------------------------------------
-def rest_shortestPath(lat1, lon1, lat2, lon2):
+def rest_shortestPath(lat1=0, lon1=0, lat2=0, lon2=0):
 
   print('lat1:{}'.format(lat1))
   print('lon1:{}'.format(lon1))

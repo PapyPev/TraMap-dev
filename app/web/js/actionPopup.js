@@ -244,6 +244,25 @@ function loadPopup () {
  * FUNCTION EVENT CLICK
  * ========================================================================= */
 
+function buttonContact () {
+  console.log("actionPopup.buttonContact()");
+
+  // Get Form informations
+  var mail = document.getElementById("contactEmail");
+  var subj = document.getElementById("contactSubject");
+  var mess = document.getElementById("contactMessage");
+
+  // Create link
+  var link = "mailto:pev.arfan@gmail.com"
+   + "?cc=" + mail
+   + "&subject=" + subj
+   + "&body=" + mess;
+
+  // Redirection to link
+  window.location.href = link;
+
+};
+
 /**
  * Get form value from focus popup and focus on values
  --------------------------------------------------------------------------- */

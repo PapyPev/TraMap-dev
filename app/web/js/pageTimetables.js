@@ -1,71 +1,87 @@
-/** ***************************************************************************
- * Get Train Informations.
- * Initialize Map content
- *
- * @author Pev
- * @version 1.2
- *************************************************************************** */
+/*
+|------------------------------------------------------------------------------
+| Page Timetables Script
+|------------------------------------------------------------------------------
+|
+| Script load on Timetable page ; get Stations autocomplete and search script.
+|
+| @author Pev
+| @verion 1.3
+|
+|------------------------------------------------------------------------------
+*/
 
-/* ============================================================================
- * CONSTANTS
- * ========================================================================= */
+// ============================================================================
+// CONSTANTS
+// ============================================================================
 
 var DIGI_TRAFFIC = 'http://rata.digitraffic.fi/api/v1/live-trains?station=';
 var DIGI_STATIONS = 'http://rata.digitraffic.fi/api/v1/metadata/stations';
 
-/* ============================================================================
- * GLOBALS
- * ========================================================================= */
+// ============================================================================
+// GLOBALS
+// ============================================================================
 
 var dictStations = {};
 var listStations = [];
 
-/* ============================================================================
- * FUNCTIONS AUTOLOAD
- * ========================================================================= */
+// ============================================================================
+// FUNCTIONS AUTOLOAD
+// ============================================================================
 
-// Autocomplete
+// Autocomplete for Departure
 $(function() {
   $( "#textDeparture" ).autocomplete({
     source: listStations
   });
 });
+
+// ----------------------------------------------------------------------------
+
+// Autocomplet for Arrival
 $(function() {
   $( "#textArrival" ).autocomplete({
     source: listStations
   });
 });
 
-/* ============================================================================
- * FUNCTIONS
- * ========================================================================= */
+// ============================================================================
+// FUNCTIONS
+// ============================================================================
 
 /**
  * Return the name of the station by the code
  * @param {string} code The station's code
  * @return {string} The station's name
- --------------------------------------------------------------------------- */
+ */
 function getStationName (code) {
   return dictStations[code];
-};
+} //-- end getStationName (code)
+
+// ----------------------------------------------------------------------------
 
 /**
  * Return a String for the Acordeon html end content
  * return {string} The Acordeon end
- --------------------------------------------------------------------------- */
+ */
 function getAcordeonEnd () {
+
   // Init HTML content
-  htmlContent = '';
+  var htmlContent = '';
+
   // End Container
-  htmlContent += '</tbody>'
-  htmlContent += '</table>'
-  htmlContent += '</div>'
-  htmlContent += '</div>'
-  htmlContent += '</div>'
-  htmlContent += '</div>'
+  htmlContent += '</tbody>';
+  htmlContent += '</table>';
+  htmlContent += '</div>';
+  htmlContent += '</div>';
+  htmlContent += '</div>';
+  htmlContent += '</div>';
+
   //Return content
   return htmlContent;
-}; // end : getAcordeonEnd ()
+} //-- end : getAcordeonEnd ()
+
+// ----------------------------------------------------------------------------
 
 /**
  * Return a String for the Acordeon html begin content
@@ -73,68 +89,70 @@ function getAcordeonEnd () {
  * @param {string} acTitle Human name of the acordeon (visible)
  * @param {string} headId Link betwin accordeon and drop down
  * return {string} The Acordeon initialisation
- --------------------------------------------------------------------------- */
+ */
 function getAcordeonInit (acIdent, acTitle, headId) {
+
   // Init HTML content
-  htmlContent = '';
+  var htmlContent = '';
+
   // Make Container
-  htmlContent += '<div class="panel panel-default">'
-  htmlContent += '<div class="panel-heading" role="tab" id="'+headId+'">'
-  htmlContent += '<h4 class="panel-title">'
+  htmlContent += '<div class="panel panel-default">';
+  htmlContent += '<div class="panel-heading" role="tab" id="'+headId+'">';
+  htmlContent += '<h4 class="panel-title">';
   htmlContent += '<a role="button" data-toggle="collapse" '
     + 'data-parent="#accordion" href="#'+acIdent+'" '
     + 'aria-expanded="true" aria-controls="'+acIdent+'">'
-    + acTitle
-  htmlContent += '</a>'
-  htmlContent += '</h4>'
-  htmlContent += '</div>'
+    + acTitle;
+  htmlContent += '</a>';
+  htmlContent += '</h4>';
+  htmlContent += '</div>';
   htmlContent += '<div id="'+acIdent+'" '
     + 'class="panel-collapse collapse" role="tabpanel" '
-    + 'aria-labelledby="'+headId+'">'
-  htmlContent += '<div class="panel-body">'
-  htmlContent += '<div class="table-responsive">'
-  htmlContent += '<table class="table table-striped">'
-  htmlContent += '<thead>'
-  htmlContent += '<tr>'
-  htmlContent += '<th>Status</th>'
-  htmlContent += '<th>Station</th>'
-  htmlContent += '<th>ScheduledTime</th>'
-  htmlContent += '<th>CommercialTrack</th>'
-  htmlContent += '</tr>'
-  htmlContent += '</thead>'
-  htmlContent += '<tbody>'
+    + 'aria-labelledby="'+headId+'">';
+  htmlContent += '<div class="panel-body">';
+  htmlContent += '<div class="table-responsive">';
+  htmlContent += '<table class="table table-striped">';
+  htmlContent += '<thead>';
+  htmlContent += '<tr>';
+  htmlContent += '<th>Status</th>';
+  htmlContent += '<th>Station</th>';
+  htmlContent += '<th>ScheduledTime</th>';
+  htmlContent += '<th>CommercialTrack</th>';
+  htmlContent += '</tr>';
+  htmlContent += '</thead>';
+  htmlContent += '<tbody>';
+
   //Return content
   return htmlContent;
-}; // end : getAcordeonInit (acIdent, acTitle, headId)
+} // end : getAcordeonInit (acIdent, acTitle, headId)
+
+// ----------------------------------------------------------------------------
 
 /**
  * Generate the title of the dropdown widget
  * @param {json} data All train informations
  * @return {string} Title of the dropdown
- --------------------------------------------------------------------------- */
+ */
 function getTrainTitle (data) {
-  console.log('pageTimetables.getTrainTitle()');
   var type = data.trainType;
   var depKey = data.timeTableRows[0].stationShortCode;
   var depName = dictStations[depKey];
   var lastE = data.timeTableRows.length-1;
   var arrKey = data.timeTableRows[lastE].stationShortCode;
   var arrName = dictStations[arrKey];
-  var trainNum = data.trainNumber
+  var trainNum = data.trainNumber;
   var title = type + ' - ' + depName + ' > ' + arrName 
     + ' (num:' + trainNum + ')';
   return title;
-}; // end : getTrainTitle (data)
+} // end : getTrainTitle (data)
+
+// ----------------------------------------------------------------------------
 
 /**
  * Load HTML content Arrival from the city parameter
  * @param {json} data Digitraffic data : Timetables
- * @param {string} codeCity The city's code from arrival
- --------------------------------------------------------------------------- */
-function loadArrival (data, codeCity) {
-
-  // Table rows : 
-  // Status, Station, ScheduledTime, CommercialTrack
+ */
+function loadArrival (data) {
 
   // Init returned value
   var htmlContent = '';
@@ -143,7 +161,7 @@ function loadArrival (data, codeCity) {
   for (var i = 0; i < data.length; i++) {
 
     // Start and End
-    if (i == 0 || i == data.length-1) {
+    if (i === 0 || i == data.length-1) {
       // Init rows
       htmlContent += '<tr>';
       // Test type
@@ -151,7 +169,7 @@ function loadArrival (data, codeCity) {
         htmlContent += '<td><span class="flaticon-double4"></span></td>';
       } else if (data[i].type == "ARRIVAL"){
         htmlContent += '<td><span class="flaticon-double5"></span></td>';
-      };
+      }
       // Content
       htmlContent += '<td>'+getStationName(data[i].stationShortCode)+'</td>';
       htmlContent += '<td>'+getDateHuman(data[i].scheduledTime)+'</td>';
@@ -173,26 +191,22 @@ function loadArrival (data, codeCity) {
         htmlContent += '<td>'+data[i].commercialTrack+'</td>';
         // End rows
         htmlContent += '</tr>';
-      };
-    };
+      }
+    }
 
-  };
+  } // end Loop all Timetables
 
   // Return value
   return htmlContent;
+} //-- end loadArrival (data, codeCity)
 
-};
-
+// ----------------------------------------------------------------------------
 
 /**
  * Load HTML content Departure from the city parameter
  * @param {json} data Digitraffic data : Timetables
- * @param {string} codeCity The city's code from departure
- --------------------------------------------------------------------------- */
-function loadDeparture (data, codeCity) {
-
-  // Table rows : 
-  // Status, Station, ScheduledTime, CommercialTrack
+ */
+function loadDeparture (data) {
 
   // Init returned value
   var htmlContent = '';
@@ -201,7 +215,7 @@ function loadDeparture (data, codeCity) {
   for (var i = 0; i < data.length; i++) {
 
     // Start and End
-    if (i == 0 || i == data.length-1) {
+    if (i === 0 || i == data.length-1) {
       // Init rows
       htmlContent += '<tr>';
       // Test type
@@ -209,7 +223,7 @@ function loadDeparture (data, codeCity) {
         htmlContent += '<td><span class="flaticon-double4"></span></td>';
       } else if (data[i].type == "ARRIVAL"){
         htmlContent += '<td><span class="flaticon-double5"></span></td>';
-      };
+      }
       // Content
       htmlContent += '<td>'+getStationName(data[i].stationShortCode)+'</td>';
       htmlContent += '<td>'+getDateHuman(data[i].scheduledTime)+'</td>';
@@ -231,24 +245,23 @@ function loadDeparture (data, codeCity) {
         htmlContent += '<td>'+data[i].commercialTrack+'</td>';
         // End rows
         htmlContent += '</tr>';
-      };
-    };
+      }
+    }
 
-  };
+  } // end Loop all Timetables
 
   // Return value
   return htmlContent;
+} //-- end loadDeparture (data, codeCity)
 
-};
+// ----------------------------------------------------------------------------
 
 /**
  * Load HTML content for Stations informations
  * @param {json} data JSON response from digitraffic
  * @param {string} type Search type
- --------------------------------------------------------------------------- */
+ */
 function loadTimetables (data, dep, arr, type) {
-  console.log('pageTimetables.loadTimetables(., '
-    + dep + ', ' + arr + ', ' + type + ')');
 
   // ------- INIT -------
 
@@ -257,7 +270,7 @@ function loadTimetables (data, dep, arr, type) {
 
   // Init Acordeon group
   htmlContent += '<div class="panel-group" id="accordion" '
-    + 'role="tablist" aria-multiselectable="true">'
+    + 'role="tablist" aria-multiselectable="true">';
 
   // ------- LOOP TRAIN -------
 
@@ -265,12 +278,12 @@ function loadTimetables (data, dep, arr, type) {
 
     // Acordeon ID
     var acIdent = 'id' + data[i].trainCategory + '-'
-      + data[i].trainType + '-' + data[i].trainNumber
+      + data[i].trainType + '-' + data[i].trainNumber;
     // Acordeon Title
     var acTitle = getTrainTitle(data[i]);
     // Heading
     var headId = 'head' + data[i].trainCategory + '-'
-      + data[i].trainType + '-' + data[i].trainNumber
+      + data[i].trainType + '-' + data[i].trainNumber;
 
     // ------- LOOP TIMETABLE -------    
 
@@ -281,10 +294,10 @@ function loadTimetables (data, dep, arr, type) {
           // Init acordeon
           htmlContent += getAcordeonInit(acIdent, acTitle, headId);
           // Get Content
-          htmlContent += loadDeparture(data[i].timeTableRows, dep);
+          htmlContent += loadDeparture(data[i].timeTableRows);
           // End acordeon
           htmlContent += getAcordeonEnd();
-        };
+        }
         break;
       case 'optionsArrival':
         // If it's not a departure
@@ -292,7 +305,7 @@ function loadTimetables (data, dep, arr, type) {
           // Init acordeon
           htmlContent += getAcordeonInit(acIdent, acTitle, headId);
           // Get Content
-          htmlContent += loadArrival(data[i].timeTableRows, dep);
+          htmlContent += loadArrival(data[i].timeTableRows);
           // End acordeon
           htmlContent += getAcordeonEnd();
         }
@@ -302,23 +315,25 @@ function loadTimetables (data, dep, arr, type) {
         break;
     } // end switch(type)
 
-  };
+  } // end Loop Train
 
   // ------- END AND PRINT -------
 
   // End Acordeon group
-  htmlContent += '</div>'
+  htmlContent += '</div>';
 
   // Add content to the page
   $("#divResults").html(htmlContent);
-}; // end : loadTimetables (data, dep, arr, type)
+
+} //-- end : loadTimetables (data, dep, arr, type)
+
+// ----------------------------------------------------------------------------
 
 /**
  * Enable or disable form content based on radio button checked
  * @param {string} choice The radio button choice
- --------------------------------------------------------------------------- */
+ */
 function updateOptionsChoices (choice) {
-  console.log('pageTimetables.updateOptionsChoices('+choice+')');
   switch(choice){
     case "optionsDeparture":
       document.getElementById("textDeparture").disabled = false;
@@ -339,13 +354,15 @@ function updateOptionsChoices (choice) {
       document.getElementById("textArrival").disabled = true;
       break;
   }
-}; // end : updateOptionsChoices (choice)
+} //-- end : updateOptionsChoices (choice)
+
+// ----------------------------------------------------------------------------
 
 /**
  * Convert date format to Humand readable
  * @param {string} date Timestam like : 2015-11-03T07:06:00.000Z
  * return {string} The new Date format like : 07:06:00 (03.11.2015)
- --------------------------------------------------------------------------- */
+ */
 function getDateHuman (date) {
   var splitted = date.split("T");
   var theDate = splitted[0];
@@ -353,18 +370,17 @@ function getDateHuman (date) {
   var result = theTime + " ("
     + theDate.split("-")[2]+"."
     + theDate.split("-")[1]+"."
-    + theDate.split("-")[0]+ ")"
+    + theDate.split("-")[0]+ ")";
   return result;
-}; //end getDateHuman (date)
+} //-- end getDateHuman (date)
 
-
-/* ============================================================================
- * MAIN
- * ========================================================================= */
+// ============================================================================
+// MAIN
+// ============================================================================
 
 /**
  * Action performed when the page is fully loaded
- --------------------------------------------------------------------------- */
+ */
 $(document).ready(function($) {
 
   // ------- STATIONS AUTOCOMPLETE -------
@@ -384,7 +400,7 @@ $(document).ready(function($) {
         var value = data[i].stationShortCode + ":" + data[i].stationName;
         listStations.push(value);
         dictStations[data[i].stationShortCode] = data[i].stationName;
-      };
+      }
     }
   };
   // Sent request

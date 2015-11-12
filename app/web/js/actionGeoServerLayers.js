@@ -1,55 +1,64 @@
-/** ***************************************************************************
- * Geoserver Layers.
- * Geoserver functions
- *
- * @author Fanda/Pev
- * @version 2.3
- *************************************************************************** */
+/*
+|------------------------------------------------------------------------------
+| Geoserver Layers functions.
+|------------------------------------------------------------------------------
+|
+| To centralize and simplify GeoServer functions access, style and features
+|
+| @author Fanda/Pev
+| @verion 2.5
+|
+|------------------------------------------------------------------------------
+*/
 
-/* ============================================================================
- * FUNCTIONS
- * ========================================================================= */
+
+
+// ============================================================================
+// FUNCTIONS
+// ============================================================================
 
 /**
  * Convert coordinate Lat/Long to Mercator projection
  * @param {number} lat Latitude coordinate
  * @param {number} lon Longitude coordinate
  * @return {json} Json with X and Y Mercator projection
- --------------------------------------------------------------------------- */
+ */
 function LatLonToMercator(lat, lon) {
- 
-    var rMajor = 6378137; //Equatorial Radius, WGS84
-    var shift  = Math.PI * rMajor;
-    var x      = lon * shift / 180;
-    var y      = Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);
-    y = y * shift / 180;
- 
-    return {'X': x, 'Y': y};
-}
+  var rMajor = 6378137; //Equatorial Radius, WGS84
+  var shift  = Math.PI * rMajor;
+  var x = lon * shift / 180;
+  var y = Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);
+  y = y * shift / 180;
+  return {'X': x, 'Y': y};
+} //-- end LatLonToMercator(lat, lon)
 
 /**
  * This function gives a visual style to data
  * @param {number} feature Type's number of feature
  * @return {json} Style properties
- --------------------------------------------------------------------------- */
+ */
 function setStyle(feature) {
-  //console.log("actionGeoServerLayers.setStyle("+feature+")");
 
-    // Switch on class properties
-    switch (feature.properties.clazz) {
+  // Switch on class properties
+  switch (feature.properties.clazz) {
 
-      // TODO : Comment
-      case 31: return {color: "orange", weight: 17, opacity: 0.5};
+    // TODO : Comment
+    case 31: return {color: "orange", weight: 17, opacity: 0.5};
 
-      // TODO : Comment
-      case 32: return {color: "#0000ff", weight: 17, opacity: 0.5};
+    // TODO : Comment
+    case 32: return {color: "#0000ff", weight: 17, opacity: 0.5};
 
-    } //end switch(feature.properties.clazz)
-};
+  } //end switch(feature.properties.clazz)
+} //-- end setStyle(feature)
 
+/**
+ * Add bind Popup to feature
+ * @param {Object} feature The geometry object feature
+ * @param {Object} layer The layer content
+ */
 function setPopup(feature, layer) {
   layer.bindPopup(feature.properties.name);
-};
+} //-- end setPopup(feature, layer)
 
 /**
  * This function gives a visual style to data
@@ -59,9 +68,8 @@ function setPopup(feature, layer) {
  * @param {number} maxFeatures Number of maxFeatures per query
  * @param {string} bbox The current map Bounding Box (map extent)
  * @return {LayerProperties} Return a classLayerProperties object 
- --------------------------------------------------------------------------- */
+ */
 function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
-  console.log("actionGeoServerLayers.getGeoServerLayers()");
 
   // Get bbox on Mercator projection (from Lat/Long)
   var southWest = LatLonToMercator(bbox._southWest.lat,bbox._southWest.lng);
@@ -73,11 +81,11 @@ function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
   // Prepare POST Request to Geoserver for GetCapabilities XML File
   if (window.XMLHttpRequest)
   {// code for IE7+, Firefox, Chrome, Opera, Safari
-      xmlhttp=new XMLHttpRequest();
+    xmlhttp=new XMLHttpRequest();
   }
   else
   {// code for IE6, IE5
-      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
   }
 
   // Callback function after sent the request

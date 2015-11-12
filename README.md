@@ -69,6 +69,7 @@ En progress :
   </ul>
   <li><a href="https://cordova.apache.org/">Cordova</a></li>
   <li><a href="https://github.com/documentationjs/documentation">Documentation (JS Doc library)</a></li>
+  <li><a href="https://github.com/spadgos/sublime-jsdocs">Sublime Text autocomplete doc</a></li>
 </ul>
 
 ### Informations

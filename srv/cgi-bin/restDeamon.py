@@ -314,7 +314,8 @@ def rest_interests():
 # -----------------------------------------------------------------------------
 def rest_shortestPath(lat1=0, lon1=0, lat2=0, lon2=0):
   """
-    Return a JSON object with the geometry shortestpath, time and distance
+    Return a JSON object with the geometry path shortestpath, 
+    time (in seconds) and distance (in meters)
 
     :Parameters:
       lat1
@@ -331,6 +332,18 @@ def rest_shortestPath(lat1=0, lon1=0, lat2=0, lon2=0):
     URL : http://localhost:8082/api/shortestPath?lat1=60.639481&lon1=24.851273&lat2=60.631668&lon2=24.858296
 
     :Result:
+    {
+      "status":"ok,
+      "result":
+      {
+        "distance":10,
+        "time":5400,
+        "feature": [
+          {geometry object},
+          {geometry object}
+        ]
+      }
+    }
   """
 
   print('lat1:{}'.format(lat1))

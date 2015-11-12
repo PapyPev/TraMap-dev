@@ -259,7 +259,8 @@ function buttonContact () {
    + "&body=" + mess;
 
   // Redirection to link
-  window.location.href = link;
+  //window.location.href = link;
+  window.open(link);
 
 };
 

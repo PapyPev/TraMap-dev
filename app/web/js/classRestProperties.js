@@ -1,17 +1,22 @@
-/** ***************************************************************************
- * RestProperties Class.
- *
- * @author Pev
- * @version 1.0
- *************************************************************************** */
+/*
+|------------------------------------------------------------------------------
+| Class Rest Properties
+|------------------------------------------------------------------------------
+|
+| This class contains all rest properties from configServer.json.
+|
+| @author Pev
+| @verion 1.1
+|
+|------------------------------------------------------------------------------
+*/
 
-/* ============================================================================
- * CONSTRUCTOR
- * ========================================================================= */
+// ============================================================================
+// CONSTRUCTOR
+// ============================================================================
 
 /**
  * Creates an instance of RestProperties.
- *
  * @constructor
  * @this {RestProperties}
  * @param {string} filePath Path or URL to JSON config file 
@@ -23,19 +28,11 @@ function RestProperties (filePath) {
 
   /** @private */ this.address = restParameters.address;
 
-  // Log console
-  var attributesToLog = [{
-    "address": this.address, 
-  }];
-  console.log('classRestProperties.RestProperties('
-    +filePath+')');
-  console.log(attributesToLog);
-
 }
 
-/* ============================================================================
- * GETTERS
- * ========================================================================= */
+// ============================================================================
+// GETTERS
+// ============================================================================
 
 /**
  * Get RestProperties's address.
@@ -46,10 +43,9 @@ RestProperties.prototype.getAddress = function () {
   return this.address;
 };
 
-
-/* ============================================================================
- * METHODS
- * ========================================================================= */
+// ============================================================================
+// METHODS
+// ============================================================================
 
 /**
  * String representation of the RestProperties
@@ -62,15 +58,12 @@ RestProperties.prototype.toString = function() {
   var attributesToLog = [{
     "address": this.address, 
   }];
-  console.log("classRestProperties.toString():");
-  console.log(attributesToLog);
   return JSON.stringify(attributesToLog);
-}
+};
 
-
-/* ============================================================================
- * FUNCTIONS
- * ========================================================================= */
+// ============================================================================
+// FUNCTIONS
+// ============================================================================
 
 /**
  * Get REST Configurations from JSON file
@@ -103,5 +96,4 @@ function getRestConfig (filePath) {
   });
 
   return serverConfig.rest;
-};
-
+} //-- end getRestConfig (filePath)

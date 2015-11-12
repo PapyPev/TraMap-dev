@@ -89,6 +89,13 @@ def api(service='default', lat1=0, lon1=0, lat2=0, lon2=0, param='default'):
 def rest_default():
   """
     REST Service function, return list of all services.
+
+    :Example:
+    >>> rest_default()
+    URL : http://localhost:8082/api/
+
+    :Result:
+    List of HTML links
   """
   value = '<h1>API REST Services</h1>' \
     'Welcome to the API REST Services ! Check all REST services :' \
@@ -111,6 +118,13 @@ def rest_default():
 def rest_simpleText():
   """
     REST Service function, return a simple text.
+
+    :Example:
+    >>> rest_simpleText()
+    URL : http://localhost:8082/api/simpleText
+
+    :Result:
+    Test ok
   """
   return 'Test ok'
 
@@ -123,6 +137,9 @@ def rest_interests():
 
     :Example:
     >>> rest_interests()
+    URL : http://localhost:8082/api/interests
+    
+    :Result:
     {
       "status" : "ok",
       "result" : [
@@ -296,6 +313,25 @@ def rest_interests():
 # REST - ALL TABLES
 # -----------------------------------------------------------------------------
 def rest_shortestPath(lat1=0, lon1=0, lat2=0, lon2=0):
+  """
+    Return a JSON object with the geometry shortestpath, time and distance
+
+    :Parameters:
+      lat1
+        Latitude of the first point (start)
+      lon1
+        Longitude of the first point (start)
+      lat2
+        Latitude of the second point (arrival)
+      lon2
+        Longitude of the second point (arrival)
+
+    :Example:
+    >>> rest_shortestPath(60.639481, 24.851273, 60.631668, 24.858296)
+    URL : http://localhost:8082/api/shortestPath?lat1=60.639481&lon1=24.851273&lat2=60.631668&lon2=24.858296
+
+    :Result:
+  """
 
   print('lat1:{}'.format(lat1))
   print('lon1:{}'.format(lon1))

@@ -1,17 +1,22 @@
-/** ***************************************************************************
- * GeoServerProperties Class.
- *
- * @author Pev
- * @version 1.1
- *************************************************************************** */
+/*
+|------------------------------------------------------------------------------
+| Class GeoServer Properties
+|------------------------------------------------------------------------------
+|
+| This class contains all GeoServer properties from configGeoServer.json.
+|
+| @author Pev
+| @verion 1.2
+|
+|------------------------------------------------------------------------------
+*/
 
-/* ============================================================================
- * CONSTRUCTOR
- * ========================================================================= */
+// ============================================================================
+// CONSTRUCTOR
+// ============================================================================
 
 /**
  * Creates an instance of LayerProperties.
- *
  * @constructor
  * @this {GeoServerProperties}
  * @param {string} filePath Path or URL to JSON config file 
@@ -26,22 +31,11 @@ function GeoServerProperties (filePath) {
   /** @private */ this.user = geoServerParameters.user;
   /** @private */ this.password = geoServerParameters.password;
 
-  // Log console
-  var attributesToLog = [{
-    "address": this.address, 
-    "repository": this.repository,
-    "user": this.user,
-    //"password": this.password
-  }];
-  console.log('classGeoServerProperties.GeoServerProperties('
-    +this.address+')');
-  console.log(attributesToLog);
-
 }
 
-/* ============================================================================
- * GETTERS
- * ========================================================================= */
+// ============================================================================
+// GETTERS
+// ============================================================================
 
 /**
  * Get GeoServer's address.
@@ -52,6 +46,8 @@ GeoServerProperties.prototype.getAddress = function () {
   return this.address;
 };
 
+// ----------------------------------------------------------------------------
+
 /**
  * Get GeoServer's repository.
  * @this {GeoServerProperties}
@@ -61,6 +57,8 @@ GeoServerProperties.prototype.getRepository = function () {
   return this.repository;
 };
 
+// ----------------------------------------------------------------------------
+
 /**
  * Get GeoServer's user.
  * @this {GeoServerProperties}
@@ -69,6 +67,8 @@ GeoServerProperties.prototype.getRepository = function () {
 GeoServerProperties.prototype.getUser = function () {
   return this.user;
 };
+
+// ----------------------------------------------------------------------------
 
 /**
  * Get GeoServer's password.
@@ -97,10 +97,8 @@ GeoServerProperties.prototype.toString = function() {
     "user": this.user,
     //"password": this.password
   }];
-  console.log("classLayerProperties.toString():");
-  console.log(attributesToLog);
   return JSON.stringify(attributesToLog);
-}
+};
 
 
 /* ============================================================================
@@ -138,5 +136,5 @@ function getGeoServerConfig (filePath) {
   });
 
   return serverConfig.geoserver;
-};
+} //-- end getGeoServerConfig (filePath)
 

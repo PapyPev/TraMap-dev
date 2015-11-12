@@ -1,17 +1,22 @@
-/** ***************************************************************************
- * ContentProperties Class.
- *
- * @author Pev
- * @version 1.0
- *************************************************************************** */
+/*
+|------------------------------------------------------------------------------
+| Class Content Properties
+|------------------------------------------------------------------------------
+|
+| This class contains all content properties from configContent.json.
+|
+| @author Pev
+| @verion 1.1
+|
+|------------------------------------------------------------------------------
+*/
 
-/* ============================================================================
- * CONSTRUCTOR
- * ========================================================================= */
+// ============================================================================
+// CONSTRUCTOR
+// ============================================================================
 
 /**
  * Creates an instance of ContentProperties.
- *
  * @constructor
  * @this {ContentProperties}
  * @param {string} filePath Path or URL to JSON config file 
@@ -29,24 +34,11 @@ function ContentProperties (filePath) {
   /** @private */ this.content_toc_descript = contentParameters.content_toc_descript;
   /** @private */ this.content_overTheMap = contentParameters.content_overTheMap;
 
-  // Log console
-  var attributesToLog = [{
-    "div_toc_title" : this.div_toc_title,
-    "div_toc_content" : this.div_toc_content,
-    "div_toc_descript" : this.div_toc_descript,
-    "div_popup_content" : this.div_popup_content,
-    "content_toc_title" : this.content_toc_title,
-    "content_toc_descript" : this.content_toc_descript,
-    "content_overTheMap" : this.content_overTheMap
-  }];
-  console.log('classContentProperties.ContentProperties()');
-  console.log(attributesToLog);
+}
 
-};
-
-/* ============================================================================
- * GETTERS
- * ========================================================================= */
+// ============================================================================
+// GETTERS
+// ============================================================================
 
 /**
  * Get Div TOC title name.
@@ -57,6 +49,8 @@ ContentProperties.prototype.getDivTocTitle = function () {
   return this.div_toc_title;
 };
 
+// ----------------------------------------------------------------------------
+
 /**
  * Get Div TOC content name.
  * @this {ContentProperties}
@@ -65,6 +59,8 @@ ContentProperties.prototype.getDivTocTitle = function () {
 ContentProperties.prototype.getDivTocContent = function () {
   return this.div_toc_content;
 };
+
+// ----------------------------------------------------------------------------
 
 /**
  * Get Div TOC description name.
@@ -75,6 +71,8 @@ ContentProperties.prototype.getDivTocDescript = function () {
   return this.div_toc_descript;
 };
 
+// ----------------------------------------------------------------------------
+
 /**
  * Get Div Popup content name.
  * @this {ContentProperties}
@@ -83,6 +81,8 @@ ContentProperties.prototype.getDivTocDescript = function () {
 ContentProperties.prototype.getDivPopupContent = function () {
   return this.div_popup_content;
 };
+
+// ----------------------------------------------------------------------------
 
 /**
  * Get Toc Title content.
@@ -93,6 +93,8 @@ ContentProperties.prototype.getContentTocTitle = function () {
   return this.content_toc_title;
 };
 
+// ----------------------------------------------------------------------------
+
 /**
  * Get Toc Description content.
  * @this {ContentProperties}
@@ -101,6 +103,8 @@ ContentProperties.prototype.getContentTocTitle = function () {
 ContentProperties.prototype.getContentTocDescript = function () {
   return this.content_toc_descript;
 };
+
+// ----------------------------------------------------------------------------
 
 /**
  * Get Popup content (overTheMap).
@@ -111,9 +115,9 @@ ContentProperties.prototype.getContentOverTheMap = function () {
   return this.content_overTheMap;
 };
 
-/* ============================================================================
- * FUNCTIONS
- * ========================================================================= */
+// ============================================================================
+// FUNCTIONS
+// ============================================================================
 
 /**
  * Get GeoServer Configurations from JSON file
@@ -146,4 +150,4 @@ function getContentConfig (filePath) {
   });
 
   return contentConfig;
-};
+} //-- end getContentConfig (filePath)

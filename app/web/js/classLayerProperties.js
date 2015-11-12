@@ -5,13 +5,25 @@
  * @version 1.3
  *************************************************************************** */
 
-/* ============================================================================
- * CONSTRUCTOR
- * ========================================================================= */
+/*
+|------------------------------------------------------------------------------
+| Class Layer Properties
+|------------------------------------------------------------------------------
+|
+| This class contains all Layer properties and functions.
+|
+| @author Pev
+| @verion 1.2
+|
+|------------------------------------------------------------------------------
+*/
+
+// ============================================================================
+// CONSTRUCTOR
+// ============================================================================
 
 /**
  * Creates an instance of LayerProperties.
- *
  * @constructor
  * @this {LayerProperties}
  * @param {string} type The type of layer (Radio, Checkbox).
@@ -24,6 +36,7 @@
  * @param {Object} content The layer.
  */
 function LayerProperties(type, category, name, alias, position, checked, url, content) {
+
   /** @private */ this.type = type;
   /** @private */ this.category = category;
   /** @private */ this.name = name;
@@ -33,22 +46,11 @@ function LayerProperties(type, category, name, alias, position, checked, url, co
   /** @private */ this.url = url;
   /** @private */ this.content = content;
 
-  var attributesToLog = [{
-    category: category, 
-    name: name,
-    alias: alias,
-    position: position,
-    checked:  checked,
-    url: url,
-    content: content
-  }];
-  console.log('classLayerProperties.LayerProperties('+name+')');
-  console.log(attributesToLog);
-};
+} //-- end LayerProperties(...)
 
-/* ============================================================================
- * GETTERS
- * ========================================================================= */
+// ============================================================================
+// GETTERS
+// ============================================================================
 
 /**
  * Get LayerProperties's Type.
@@ -56,9 +58,10 @@ function LayerProperties(type, category, name, alias, position, checked, url, co
  * @return {string} The type of layer.
  */
 LayerProperties.prototype.getType = function(){
-  //console.log("classLayerProperties.getCategory(): " + this.type);
   return this.type;
 };
+
+// ----------------------------------------------------------------------------
 
 /**
  * Get LayerProperties's Category.
@@ -66,9 +69,10 @@ LayerProperties.prototype.getType = function(){
  * @return {string} The category of layer.
  */
 LayerProperties.prototype.getCategory = function(){
-  //console.log("classLayerProperties.getCategory(): " + this.category);
   return this.category;
 };
+
+// ----------------------------------------------------------------------------
 
 /**
  * Get LayerProperties's Name.
@@ -76,9 +80,10 @@ LayerProperties.prototype.getCategory = function(){
  * @return {string} The name of layer.
  */
 LayerProperties.prototype.getName = function(){
-  //console.log("classLayerProperties.getName(): " + this.name);
   return this.name;
 };
+
+// ----------------------------------------------------------------------------
 
 /**
  * Get LayerProperties's Alias.
@@ -86,9 +91,10 @@ LayerProperties.prototype.getName = function(){
  * @return {string} The alias of layer.
  */
 LayerProperties.prototype.getAlias = function(){
-  //console.log("classLayerProperties.getAlias(): " + this.alias);
   return this.alias;
 };
+
+// ----------------------------------------------------------------------------
 
 /**
  * Get LayerProperties's Position.
@@ -96,9 +102,10 @@ LayerProperties.prototype.getAlias = function(){
  * @return {number} The position of layer.
  */
 LayerProperties.prototype.getPosition = function(){
-  //console.log("classLayerProperties.getPosition(): " + this.position);
   return this.position;
 };
+
+// ----------------------------------------------------------------------------
 
 /**
  * Get LayerProperties's Check.
@@ -106,9 +113,10 @@ LayerProperties.prototype.getPosition = function(){
  * @return {boolean} The checked of layer.
  */
 LayerProperties.prototype.getCheck = function(){
-  //console.log("classLayerProperties.getCheck(): " + this.checked);
   return this.checked;
 };
+
+// ----------------------------------------------------------------------------
 
 /**
  * Get LayerProperties's GeoServer URL.
@@ -116,9 +124,10 @@ LayerProperties.prototype.getCheck = function(){
  * @return {string} The url layer address.
  */
 LayerProperties.prototype.getURL = function(){
-  //console.log("classLayerProperties.getContent(): " + this.content);
   return this.url;
 };
+
+// ----------------------------------------------------------------------------
 
 /**
  * Get LayerProperties's Content.
@@ -126,7 +135,6 @@ LayerProperties.prototype.getURL = function(){
  * @return {Object} The content of layer.
  */
 LayerProperties.prototype.getContent = function(){
-  //console.log("classLayerProperties.getContent(): " + this.content);
   return this.content;
 };
 
@@ -141,7 +149,6 @@ LayerProperties.prototype.getContent = function(){
  */
 LayerProperties.prototype.setCheck = function(check){
   this.checked = check;
-  //console.log("classLayerProperties.setCheck(): " + this.checked);
 };
 
 /**
@@ -151,7 +158,6 @@ LayerProperties.prototype.setCheck = function(check){
  */
 LayerProperties.prototype.setContent = function(content){
   this.content = content;
-  //console.log("classLayerProperties.setCheck(): " + this.checked);
 };
 
 /* ============================================================================
@@ -174,8 +180,6 @@ LayerProperties.prototype.toString = function() {
     url: this.url,
     content: this.content
   }];
-  console.log("classLayerProperties.toString():")
-  console.log(attributesToLog);
   return JSON.stringify(attributesToLog);
-}
+};
 

@@ -116,7 +116,7 @@ function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
           +"&bbox="+southWest.X+","+southWest.Y+","
           +northEast.X+","+northEast.Y,
           {
-            onEachFeature:setPopup,
+            onEachFeature:setPopup, // popup information
             //style: setStyle
           }
         );

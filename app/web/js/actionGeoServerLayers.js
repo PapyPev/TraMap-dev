@@ -11,8 +11,6 @@
 |------------------------------------------------------------------------------
 */
 
-
-
 // ============================================================================
 // FUNCTIONS
 // ============================================================================
@@ -67,7 +65,7 @@ function setPopup(feature, layer) {
  * @param {string} projection The default map projection
  * @param {number} maxFeatures Number of maxFeatures per query
  * @param {string} bbox The current map Bounding Box (map extent)
- * @return {LayerProperties} Return a classLayerProperties object 
+ * @return {Object} Return a classLayerProperties object 
  */
 function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
 
@@ -117,7 +115,7 @@ function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
           +"&srsName="+projection
           +"&SRS="+projection
           +"&maxFeatures="+maxFeatures
-          +"&outputFormat=application/json"
+          +"&outputFormat=application/json";
 
         // Get GeoJSON layer content
         var layerContent = new L.GeoJSON.AJAX(layerUrl
@@ -141,9 +139,9 @@ function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
           layerContent
         ));
 
-      }; // end Loop on layer's properties
-    }; // end Loop Layer Layer's list
-  } // end xmlhttp.onload = function()
+      } // end Loop on layer's properties
+    } // end Loop Layer Layer's list
+  }; // end xmlhttp.onload = function()
 
   // Request for GetCapabilities - After request : callbac function
   xmlhttp.open(
@@ -155,5 +153,5 @@ function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
 
   // Return tab of classLayers
   return listOfLayers;
-}; //--- end getGeoServerLayers(url){
+} //--- end getGeoServerLayers(url){
 

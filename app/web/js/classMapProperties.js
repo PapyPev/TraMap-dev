@@ -1,17 +1,22 @@
-/** ***************************************************************************
- * MapProperties Class.
- *
- * @author Pev
- * @version 1.1
- *************************************************************************** */
+/*
+|------------------------------------------------------------------------------
+| Class Map Properties
+|------------------------------------------------------------------------------
+|
+| This class contains all map properties from configMap.json.
+|
+| @author Pev
+| @verion 1.2
+|
+|------------------------------------------------------------------------------
+*/
 
-/* ============================================================================
- * CONSTRUCTOR
- * ========================================================================= */
+// ============================================================================
+// CONSTRUCTOR
+// ============================================================================
 
 /**
  * Creates an instance of MapProperties.
- *
  * @constructor
  * @this {MapProperties}
  * @param {string} name Map's name
@@ -30,24 +35,11 @@ function MapProperties (name, filePath) {
   /** @private */ this.sidebarPos = mapParameters.sidebar_pos;
   /** @private */ this.maxFeatures = mapParameters.maxFeatures;
 
-  // Log console
-  var attributesToLog = [{
-    "name": this.name, 
-    "center": this.center,
-    "zoom": this.zoom,
-    "projection": this.projection,
-    "mapboxToken":  this.mapboxToken,
-    "sidebarPos": this.sidebarPos,
-    "maxFeatures" : this.maxFeatures
-  }];
-  console.log('classMapProperties.MapProperties('+name+')');
-  console.log(attributesToLog);
+}
 
-};
-
-/* ============================================================================
- * GETTERS
- * ========================================================================= */
+// ============================================================================
+// GETTERS
+// ============================================================================
 
 /**
  * Get Map's name.
@@ -58,6 +50,8 @@ MapProperties.prototype.getName = function () {
   return this.name;
 };
 
+// ----------------------------------------------------------------------------
+
 /**
  * Get Map's default center.
  * @this {MapProperties}
@@ -66,6 +60,8 @@ MapProperties.prototype.getName = function () {
 MapProperties.prototype.getCenter = function () {
   return [this.center[0], this.center[1]];
 };
+
+// ----------------------------------------------------------------------------
 
 /**
  * Get Map's default zoom.
@@ -76,6 +72,8 @@ MapProperties.prototype.getZoom = function () {
   return this.zoom;
 };
 
+// ----------------------------------------------------------------------------
+
 /**
  * Get Map's default projection.
  * @this {MapProperties}
@@ -84,6 +82,8 @@ MapProperties.prototype.getZoom = function () {
 MapProperties.prototype.getProjection = function () {
   return this.projection;
 };
+
+// ----------------------------------------------------------------------------
 
 /**
  * Get Mapbox token.
@@ -94,6 +94,8 @@ MapProperties.prototype.getMapboxToken = function () {
   return this.mapboxToken;
 };
 
+// ----------------------------------------------------------------------------
+
 /**
  * Get Map's default sidebar position.
  * @this {MapProperties}
@@ -102,6 +104,8 @@ MapProperties.prototype.getMapboxToken = function () {
 MapProperties.prototype.getSidebarPos = function () {
   return this.sidebarPos;
 };
+
+// ----------------------------------------------------------------------------
 
 /**
  * Get Map's default maxFeatures.
@@ -112,9 +116,9 @@ MapProperties.prototype.getMaxFeatures = function () {
   return this.maxFeatures;
 };
 
-/* ============================================================================
- * METHODS
- * ========================================================================= */
+// ============================================================================
+// METHODS
+// ============================================================================
 
 /**
  * String representation of MapProperties
@@ -132,14 +136,12 @@ MapProperties.prototype.toString = function() {
     sidebarPos: this.sidebarPos,
     maxFeatures: this.maxFeatures
   }];
-  console.log('classMapProperties.toString():');
-  console.log(attributesToLog);
   return attributesToLog;
 };
 
-/* ============================================================================
- * FUNCTIONS
- * ========================================================================= */
+// ============================================================================
+// FUNCTIONS
+// ============================================================================
 
 /**
  * Get Map Configurations from JSON file
@@ -172,4 +174,4 @@ function getMapConfig (filePath) {
   });
 
   return mapConfig;
-};
+} //-- end getMapConfig (filePath)

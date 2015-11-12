@@ -1,9 +1,15 @@
-/**
- * All popup function (load, refresh, actions, events, ...)
- * 
- * @author Pev
- * @version 2.3
- */
+/*
+|------------------------------------------------------------------------------
+| Action Popup
+|------------------------------------------------------------------------------
+|
+| All popup functions (load, refresh, actions, events, ...)
+|
+| @author Pev
+| @verion 2.4
+|
+|------------------------------------------------------------------------------
+*/
 
 // ============================================================================
 // GLOBALS
@@ -111,7 +117,9 @@ function loadPopupFocus() {
 
   // Add to list of values
   $("#"+divFocusInterests+"").html(htmlList);
-}; //--- end loadPopupFocus ()
+} //--- end loadPopupFocus ()
+
+// ----------------------------------------------------------------------------
 
 /**
  * Create button and load popup content onclick
@@ -128,7 +136,9 @@ function loadPopupEvent(glyph, popupName, sidebar) {
       console.log('actionPopup.loadPopupEvent(...) #'+popupName);
     }, popupName // For event
   ).addTo(map);
-}; //--- end loadPopupEvent (glyph, popupName, sidebar)
+} //--- end loadPopupEvent (glyph, popupName, sidebar)
+
+// ----------------------------------------------------------------------------
 
 /**
  * Load Popup content from JSON file (url)
@@ -182,6 +192,8 @@ function loadPopupContent(data) {
   } //end Loop object
 
 } //--- end loadPopup (data)
+
+// ----------------------------------------------------------------------------
 
 /**
  * Load all popup contains on JSON file
@@ -256,6 +268,8 @@ function buttonContact() {
   //window.open(link);
 } //-- end buttonContact ()
 
+// ----------------------------------------------------------------------------
+
 /**
  * Get form value from focus popup and focus on values
  */
@@ -272,6 +286,8 @@ function buttonFocus() {
     map.panTo(new L.LatLng(lat, lon));
   }
 } //--- end buttonFocus ()
+
+// ----------------------------------------------------------------------------
 
 /**
  * Active mouse click and wait two points : origin and destination.

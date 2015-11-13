@@ -4,9 +4,10 @@
 |------------------------------------------------------------------------------
 |
 | List of all stations informations from digitraffic.
+| All function with "ts_" prefix is for Table station
 |
 | @author Pev
-| @verion 1.1
+| @verion 1.1.4
 |
 |------------------------------------------------------------------------------
 */
@@ -22,13 +23,15 @@ var DIGI_STATIONS = 'http://rata.digitraffic.fi/api/v1/metadata/stations';
 // ============================================================================
 
 /**
- * Load HTML content for Stations informations
- * @param {json} data JSON response from digitraffic
+ * [Load HTML content for Stations informations]
+ * @param  {json} data [Response from digitraffic]
  */
-function loadingStations(data) {
+function ts_loadHtmlStationList(data) {
 
   // Init the html return value
   var htmlContent = '';
+
+  // Prepare table
   htmlContent += '<table class="table table-striped">';
   htmlContent += '<thead>';
   htmlContent +=  '<tr>';
@@ -63,7 +66,7 @@ function loadingStations(data) {
 
   // Print HTML content
   $("#divStations").html(htmlContent);
-} //-- end loadingStations(data)
+} //-- end ts_loadHtmlStationList(data)
 
 // ============================================================================
 // MAIN
@@ -83,7 +86,7 @@ $(document).ready(function($) {
   // Load Content
   xhr.onreadystatechange = function () {
     if (this.status == 200 && this.readyState == 4) {
-      loadingStations(JSON.parse(this.responseText));
+      ts_loadHtmlStationList(JSON.parse(this.responseText));
     }
   };
 

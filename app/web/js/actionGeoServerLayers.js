@@ -6,7 +6,7 @@
 | To centralize and simplify GeoServer functions access, style and features
 |
 | @author Fanda/Pev
-| @verion 2.5
+| @verion 1.1.4
 |
 |------------------------------------------------------------------------------
 */
@@ -16,26 +16,27 @@
 // ============================================================================
 
 /**
- * Convert coordinate Lat/Long to Mercator projection
- * @param {number} lat Latitude coordinate
- * @param {number} lon Longitude coordinate
- * @return {json} Json with X and Y Mercator projection
+ * [Convert coordinate Lat/Long to Mercator projection]
+ * @param {Float} lat [Latitude coordinate on Lat/Long projection]
+ * @param {Float} lon [Longitude coordinate on Lat/Long projection]
+ * @return {json} Coordinates on Mercator projection
  */
-function LatLonToMercator(lat, lon) {
+function convert_LatLonToMercator(lat, lon) {
   var rMajor = 6378137; //Equatorial Radius, WGS84
   var shift  = Math.PI * rMajor;
   var x = lon * shift / 180;
   var y = Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);
   y = y * shift / 180;
   return {'X': x, 'Y': y};
-} //-- end LatLonToMercator(lat, lon)
+} //-- end convert_LatLonToMercator(lat, lon)
+
+// ----------------------------------------------------------------------------
 
 /**
- * This function gives a visual style to data
- * @param {number} feature Type's number of feature
- * @return {json} Style properties
+ * [This function gives a visual style to data]
+ * @param {Object} feature [Feature of the layer]
  */
-function setStyle(feature) {
+function gs_setStyle(feature) {
 
   // Switch on class properties
   switch (feature.properties.clazz) {
@@ -47,31 +48,35 @@ function setStyle(feature) {
     case 32: return {color: "#0000ff", weight: 17, opacity: 0.5};
 
   } //end switch(feature.properties.clazz)
-} //-- end setStyle(feature)
+} //-- end gs_setStyle(feature)
+
+// ----------------------------------------------------------------------------
 
 /**
- * Add bind Popup to feature
- * @param {Object} feature The geometry object feature
- * @param {Object} layer The layer content
+ * [Add bind Popup to feature]
+ * @param {Object} feature [The feature object]
+ * @param {Object} layer   [The layer object]
  */
-function setPopup(feature, layer) {
+function gs_setPopup(feature, layer) {
   layer.bindPopup(feature.properties.name);
-} //-- end setPopup(feature, layer)
+} //-- end gs_setPopup(feature, layer)
+
+// ----------------------------------------------------------------------------
 
 /**
- * This function gives a visual style to data
- * @param {string} url The GeoServer address
- * @param {string} repository The GeoServer repository
- * @param {string} projection The default map projection
- * @param {number} maxFeatures Number of maxFeatures per query
- * @param {string} bbox The current map Bounding Box (map extent)
- * @return {Object} Return a classLayerProperties object 
+ * [This function gives a visual style to data]
+ * @param  {String} url         [The GeoServer address]
+ * @param  {String} repository  [The GeoServer repository]
+ * @param  {String} projection  [The default map projection]
+ * @param  {Number} maxFeatures [Number of maxFeatures per query]
+ * @param  {Object} bbox        [The current map Bounding Box (map extent)]
+ * @return {Object}             [Return a list of classLayerProperties object]
  */
-function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
+function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
 
   // Get bbox on Mercator projection (from Lat/Long)
-  var southWest = LatLonToMercator(bbox._southWest.lat,bbox._southWest.lng);
-  var northEast = LatLonToMercator(bbox._northEast.lat,bbox._northEast.lng);
+  var southWest = convert_LatLonToMercator(bbox._southWest.lat,bbox._southWest.lng);
+  var northEast = convert_LatLonToMercator(bbox._northEast.lat,bbox._northEast.lng);
 
   // Return value : list of layers
   var listOfLayers = [];
@@ -122,8 +127,8 @@ function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
           +"&bbox="+southWest.X+","+southWest.Y+","
           +northEast.X+","+northEast.Y,
           {
-            onEachFeature:setPopup, // popup information
-            //style: setStyle
+            onEachFeature:gs_setPopup, // popup information
+            //style: gs_setStyle
           }
         );
 
@@ -153,5 +158,5 @@ function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
 
   // Return tab of classLayers
   return listOfLayers;
-} //--- end getGeoServerLayers(url){
+} //--- end gs_getGeoserverLayers(url){
 

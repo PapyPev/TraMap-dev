@@ -6,7 +6,7 @@
 | Initialize map content and all functions for update or map actions.
 |
 | @author Pev
-| @verion 4.7
+| @verion 1.1.7
 |
 |------------------------------------------------------------------------------
 */
@@ -15,9 +15,23 @@
 // CONSTANTS
 // ============================================================================
 
-var MAP_PROP = './config/configMap.json';
-var SRV_PROP = './config/configServer.json';
-var CON_PROP = './config/configContent.json';
+/**
+ * Configuration file about the main map
+ * @type {String}
+ */
+var _MAP_PROP = './config/configMap.json';
+
+/**
+ * Configuration file about the Geoserver and REST API
+ * @type {String}
+ */
+var _SRV_PROP = './config/configServer.json';
+
+/**
+ * Configuration file about the Content to put on the map
+ * @type {String}
+ */
+var _CON_PROP = './config/configContent.json';
 
 // ============================================================================
 // GLOBALS
@@ -43,20 +57,20 @@ var sidebar;
 // ============================================================================
 
 /**
- * Refresh the existing GeoServer Layers
- * @param {bbox} mapBoundingBox The current bounding box of the map
+ * [Refresh the existing GeoServer Layers]
+ * @param  {Object} mapBoundingBox [The current bounding box of the map]
  */
-function refreshGeoServerLayers (mapBoundingBox) {
+function map_refreshGeoserverLayers (mapBoundingBox) {
 
   for (var i = 0; i < mapLayers.length; i++) {
     if (mapLayers[i].getCheck()) {
 
       // Reprojection coordinate system
-      var sw = LatLonToMercator(
+      var sw = convert_LatLonToMercator(
         mapBoundingBox._southWest.lat,
         mapBoundingBox._southWest.lng
       );
-      var ne = LatLonToMercator(
+      var ne = convert_LatLonToMercator(
         mapBoundingBox._northEast.lat,
         mapBoundingBox._northEast.lng
       );
@@ -73,19 +87,19 @@ function refreshGeoServerLayers (mapBoundingBox) {
     } // end if check
   } // end for mapLayers
 
-} //--- end refreshGeoServerLayers (mapBoundingBox)
+} //--- end map_refreshGeoserverLayers (mapBoundingBox)
 
 // ----------------------------------------------------------------------------
 
 /**
- * Load and reload GeoServer Layers with Bounding box query
- * @param {boundingBox} mapBoundingBox The bounding box of the current map
+ * [Load GeoServer Layers with Bounding box query]
+ * @param  {Object} mapBoundingBox [description]
  */
-function loadGeoServerLayers (mapBoundingBox) {
+function map_laodGeoserverLayers (mapBoundingBox) {
 
   // Get GeoServer Layer
   var listGeoServerLayer = [];
-  listGeoServerLayer = getGeoServerLayers(
+  listGeoServerLayer = gs_getGeoserverLayers(
     geoServerProperties.getAddress(), 
     geoServerProperties.getRepository(),
     mapProperties.getProjection(),
@@ -101,16 +115,16 @@ function loadGeoServerLayers (mapBoundingBox) {
     }
   }
 
-} //--- end loadGeoServerLayers(mapBoundingBox)
+} //--- end map_laodGeoserverLayers(mapBoundingBox)
 
 // ----------------------------------------------------------------------------
 
 /**
- * TOC action on the checkbox or radio button
- * @param {number} i Index of the layer in listOfLayer
- * @param {string} type Type of layer (Radio, Checkbox)
+ * [On the TOC layer radio/checkbox action : show or hide a layer]
+ * @param  {Number} i    [Index of the layer in listOfLayer]
+ * @param  {String} type [Type of layer (Radio, Checkbox)]
  */
-function changeLayer (i, type) {
+function map_showLayer (i, type) {
 
   // If the layer is viewable
   if (mapLayers[i].getCheck()) {
@@ -130,14 +144,14 @@ function changeLayer (i, type) {
     }
   }
 
-} //--- changeLayer (i, type)
+} //--- map_showLayer (i, type)
 
 // ----------------------------------------------------------------------------
 
 /**
- * Load content of Table Of Content (TOC).
+ * [Load content of Table Of Content (TOC).]
  */
-function loadTOC () {
+function map_loadHtmlTOC () {
 
   // Add TOC title and description
   $("#"+contentProperties.getDivTocTitle()+"").html(
@@ -177,7 +191,7 @@ function loadTOC () {
           +       '<input type="radio" '
           +       'name="'+mapLayers[i].getCategory()+'" '
           +       'id="'+mapLayers[i].getPosition()+'" '
-          +       'onclick="changeLayer('+i+',\''
+          +       'onclick="map_showLayer('+i+',\''
           +           mapLayers[i].getType()+'\')" '
           +       check + '>'
           +     '</span>'
@@ -192,7 +206,7 @@ function loadTOC () {
           +       '<input type="checkbox" '
           +       'name="'+mapLayers[i].getName()+'" '
           +       'id="'+mapLayers[i].getPosition()+'" '
-          +        'onchange="changeLayer('+i+',\''
+          +        'onchange="map_showLayer('+i+',\''
           +           mapLayers[i].getType()+'\')" '
           +       check + '>'
           +     '</span>'
@@ -220,15 +234,15 @@ function loadTOC () {
   // Write to the HTML div
   $("#"+contentProperties.getDivTocContent()+"").html(toc).trigger("create");
 
-} //--- end loadTOC()
+} //--- end map_loadHtmlTOC()
 
 // ----------------------------------------------------------------------------
 
 /**
- * Add Tiles background to mapLayers
- * @return {array} List of tiles LayerProperties (classLayerProperties).
+ * [Add Tiles background to mapLayers]
+ * @return {array} [List of tiles LayerProperties (classLayerProperties)]
  */
-function loadTiles () {
+function map_loadTiles () {
 
   // Returned value
   var listOfLayers = [];
@@ -271,20 +285,20 @@ function loadTiles () {
   // Return Value
   return listOfLayers;
 
-} //--- end loadTiles()
+} //--- end map_loadTiles()
 
 // ----------------------------------------------------------------------------
 
 /**
- * Loading all the necessary components of the card
+ * Loading all the necessary components of the map
  */
-function init () {
+function map_init () {
 
   //---------- Load Layers, GeoServer, Content Properties
-  mapProperties = new MapProperties('map', MAP_PROP);
-  geoServerProperties = new GeoServerProperties(SRV_PROP);
-  contentProperties = new ContentProperties(CON_PROP);
-  restProperties = new RestProperties(SRV_PROP);
+  mapProperties = new MapProperties('map', _MAP_PROP);
+  geoServerProperties = new GeoServerProperties(_SRV_PROP);
+  contentProperties = new ContentProperties(_CON_PROP);
+  restProperties = new RestProperties(_SRV_PROP);
 
   //---------- Load Default map
   map = L.map('map', {
@@ -293,7 +307,7 @@ function init () {
   });
 
   //---------- Load Default Background to map
-  mapLayers = loadTiles();
+  mapLayers = map_loadTiles();
   for (var i = 0; i < mapLayers.length; i++) {
     if (mapLayers[i].getCheck()) {
       map.addLayer(mapLayers[i].getContent());
@@ -309,10 +323,10 @@ function init () {
   //sidebar.show();
 
   //---------- Load Default GeoServer layer 
-  loadGeoServerLayers(map.getBounds());
+  map_laodGeoserverLayers(map.getBounds());
 
   //---------- Load TOC
-  loadTOC();
+  map_loadHtmlTOC();
 
   //---------- Load Actions Buttons
   L.easyButton( '<span class="easy-button">&equiv;</span>', 
@@ -331,16 +345,16 @@ function init () {
   L.easyButton(
     '<span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span>',
     function(){
-      buttonSearchByPointer();
+      popup_buttonSearchByPointer();
     }, 'SearchByPointer'
   ).addTo(map);
 
   //---------- Load Popup
-  loadPopup();
+  popup_init();
 
   //----------- Moving Map view, refresh GeoServerLayer
   map.on('moveend', function() { 
-    refreshGeoServerLayers(map.getBounds());
+    map_refreshGeoserverLayers(map.getBounds());
   });
 
 } //-- end init ()
@@ -355,6 +369,6 @@ function init () {
 $(document).ready(function(){
 
   // initialize all the components of the map
-  init();
+  map_init();
 
 }); //--$(document).ready()

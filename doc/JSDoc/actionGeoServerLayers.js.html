@@ -34,7 +34,7 @@
 | To centralize and simplify GeoServer functions access, style and features
 |
 | @author Fanda/Pev
-| @verion 2.5
+| @verion 1.1.4
 |
 |------------------------------------------------------------------------------
 */
@@ -44,26 +44,27 @@
 // ============================================================================
 
 /**
- * Convert coordinate Lat/Long to Mercator projection
- * @param {number} lat Latitude coordinate
- * @param {number} lon Longitude coordinate
- * @return {json} Json with X and Y Mercator projection
+ * [Convert coordinate Lat/Long to Mercator projection]
+ * @param {Float} lat [Latitude coordinate on Lat/Long projection]
+ * @param {Float} lon [Longitude coordinate on Lat/Long projection]
+ * @return {json} Coordinates on Mercator projection
  */
-function LatLonToMercator(lat, lon) {
+function convert_LatLonToMercator(lat, lon) {
   var rMajor = 6378137; //Equatorial Radius, WGS84
   var shift  = Math.PI * rMajor;
   var x = lon * shift / 180;
   var y = Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);
   y = y * shift / 180;
   return {'X': x, 'Y': y};
-} //-- end LatLonToMercator(lat, lon)
+} //-- end convert_LatLonToMercator(lat, lon)
+
+// ----------------------------------------------------------------------------
 
 /**
- * This function gives a visual style to data
- * @param {number} feature Type's number of feature
- * @return {json} Style properties
+ * [This function gives a visual style to data]
+ * @param {Object} feature [Feature of the layer]
  */
-function setStyle(feature) {
+function gs_setStyle(feature) {
 
   // Switch on class properties
   switch (feature.properties.clazz) {
@@ -75,31 +76,35 @@ function setStyle(feature) {
     case 32: return {color: "#0000ff", weight: 17, opacity: 0.5};
 
   } //end switch(feature.properties.clazz)
-} //-- end setStyle(feature)
+} //-- end gs_setStyle(feature)
+
+// ----------------------------------------------------------------------------
 
 /**
- * Add bind Popup to feature
- * @param {Object} feature The geometry object feature
- * @param {Object} layer The layer content
+ * [Add bind Popup to feature]
+ * @param {Object} feature [The feature object]
+ * @param {Object} layer   [The layer object]
  */
-function setPopup(feature, layer) {
+function gs_setPopup(feature, layer) {
   layer.bindPopup(feature.properties.name);
-} //-- end setPopup(feature, layer)
+} //-- end gs_setPopup(feature, layer)
+
+// ----------------------------------------------------------------------------
 
 /**
- * This function gives a visual style to data
- * @param {string} url The GeoServer address
- * @param {string} repository The GeoServer repository
- * @param {string} projection The default map projection
- * @param {number} maxFeatures Number of maxFeatures per query
- * @param {string} bbox The current map Bounding Box (map extent)
- * @return {Object} Return a classLayerProperties object 
+ * [This function gives a visual style to data]
+ * @param  {String} url         [The GeoServer address]
+ * @param  {String} repository  [The GeoServer repository]
+ * @param  {String} projection  [The default map projection]
+ * @param  {Number} maxFeatures [Number of maxFeatures per query]
+ * @param  {Object} bbox        [The current map Bounding Box (map extent)]
+ * @return {Object}             [Return a list of classLayerProperties object]
  */
-function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
+function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
 
   // Get bbox on Mercator projection (from Lat/Long)
-  var southWest = LatLonToMercator(bbox._southWest.lat,bbox._southWest.lng);
-  var northEast = LatLonToMercator(bbox._northEast.lat,bbox._northEast.lng);
+  var southWest = convert_LatLonToMercator(bbox._southWest.lat,bbox._southWest.lng);
+  var northEast = convert_LatLonToMercator(bbox._northEast.lat,bbox._northEast.lng);
 
   // Return value : list of layers
   var listOfLayers = [];
@@ -150,8 +155,8 @@ function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
           +"&amp;bbox="+southWest.X+","+southWest.Y+","
           +northEast.X+","+northEast.Y,
           {
-            onEachFeature:setPopup, // popup information
-            //style: setStyle
+            onEachFeature:gs_setPopup, // popup information
+            //style: gs_setStyle
           }
         );
 
@@ -181,7 +186,7 @@ function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
 
   // Return tab of classLayers
   return listOfLayers;
-} //--- end getGeoServerLayers(url){
+} //--- end gs_getGeoserverLayers(url){
 
 </code></pre>
         </article>
@@ -193,13 +198,13 @@ function getGeoServerLayers(url, repository, projection, maxFeatures, bbox){
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ContentProperties.html">ContentProperties</a></li><li><a href="GeoServerProperties.html">GeoServerProperties</a></li><li><a href="LayerProperties.html">LayerProperties</a></li><li><a href="MapProperties.html">MapProperties</a></li><li><a href="RestProperties.html">RestProperties</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buttonContact">buttonContact</a></li><li><a href="global.html#buttonFocus">buttonFocus</a></li><li><a href="global.html#buttonSearchByPointer">buttonSearchByPointer</a></li><li><a href="global.html#changeLayer">changeLayer</a></li><li><a href="global.html#findItinerary">findItinerary</a></li><li><a href="global.html#getAcordeonEnd">getAcordeonEnd</a></li><li><a href="global.html#getAcordeonInit">getAcordeonInit</a></li><li><a href="global.html#getContentConfig">getContentConfig</a></li><li><a href="global.html#getDateHuman">getDateHuman</a></li><li><a href="global.html#getGeoServerConfig">getGeoServerConfig</a></li><li><a href="global.html#getGeoServerLayers">getGeoServerLayers</a></li><li><a href="global.html#getInterests">getInterests</a></li><li><a href="global.html#getMapConfig">getMapConfig</a></li><li><a href="global.html#getRestConfig">getRestConfig</a></li><li><a href="global.html#getStationName">getStationName</a></li><li><a href="global.html#getTrainTitle">getTrainTitle</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#LatLonToMercator">LatLonToMercator</a></li><li><a href="global.html#loadArrival">loadArrival</a></li><li><a href="global.html#loadDeparture">loadDeparture</a></li><li><a href="global.html#loadGeoServerLayers">loadGeoServerLayers</a></li><li><a href="global.html#loadingStations">loadingStations</a></li><li><a href="global.html#loadPopup">loadPopup</a></li><li><a href="global.html#loadPopupContent">loadPopupContent</a></li><li><a href="global.html#loadPopupEvent">loadPopupEvent</a></li><li><a href="global.html#loadPopupFocus">loadPopupFocus</a></li><li><a href="global.html#loadTiles">loadTiles</a></li><li><a href="global.html#loadTimetables">loadTimetables</a></li><li><a href="global.html#loadTOC">loadTOC</a></li><li><a href="global.html#loginValidation">loginValidation</a></li><li><a href="global.html#refreshGeoServerLayers">refreshGeoServerLayers</a></li><li><a href="global.html#setPopup">setPopup</a></li><li><a href="global.html#setStyle">setStyle</a></li><li><a href="global.html#updateOptionsChoices">updateOptionsChoices</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ContentProperties.html">ContentProperties</a></li><li><a href="GeoServerProperties.html">GeoServerProperties</a></li><li><a href="LayerProperties.html">LayerProperties</a></li><li><a href="MapProperties.html">MapProperties</a></li><li><a href="RestProperties.html">RestProperties</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_CON_PROP">_CON_PROP</a></li><li><a href="global.html#_MAP_PROP">_MAP_PROP</a></li><li><a href="global.html#_SRV_PROP">_SRV_PROP</a></li><li><a href="global.html#convert_dateForHuman">convert_dateForHuman</a></li><li><a href="global.html#convert_LatLonToMercator">convert_LatLonToMercator</a></li><li><a href="global.html#getContentConfig">getContentConfig</a></li><li><a href="global.html#getGeoServerConfig">getGeoServerConfig</a></li><li><a href="global.html#getMapConfig">getMapConfig</a></li><li><a href="global.html#getRestConfig">getRestConfig</a></li><li><a href="global.html#gs_getGeoserverLayers">gs_getGeoserverLayers</a></li><li><a href="global.html#gs_setPopup">gs_setPopup</a></li><li><a href="global.html#gs_setStyle">gs_setStyle</a></li><li><a href="global.html#loginValidation">loginValidation</a></li><li><a href="global.html#map_init">map_init</a></li><li><a href="global.html#map_laodGeoserverLayers">map_laodGeoserverLayers</a></li><li><a href="global.html#map_loadHtmlTOC">map_loadHtmlTOC</a></li><li><a href="global.html#map_loadTiles">map_loadTiles</a></li><li><a href="global.html#map_refreshGeoserverLayers">map_refreshGeoserverLayers</a></li><li><a href="global.html#map_showLayer">map_showLayer</a></li><li><a href="global.html#popup_buttonContact">popup_buttonContact</a></li><li><a href="global.html#popup_buttonFocus">popup_buttonFocus</a></li><li><a href="global.html#popup_buttonSearchByPointer">popup_buttonSearchByPointer</a></li><li><a href="global.html#popup_getInterests">popup_getInterests</a></li><li><a href="global.html#popup_getIntinerary">popup_getIntinerary</a></li><li><a href="global.html#popup_init">popup_init</a></li><li><a href="global.html#popup_loadEvent">popup_loadEvent</a></li><li><a href="global.html#popup_loadHtmlContent">popup_loadHtmlContent</a></li><li><a href="global.html#popup_loadHtmlFocusInterests">popup_loadHtmlFocusInterests</a></li><li><a href="global.html#ts_loadHtmlStationList">ts_loadHtmlStationList</a></li><li><a href="global.html#tt_acordeonHtmlArrival">tt_acordeonHtmlArrival</a></li><li><a href="global.html#tt_acordeonHtmlDeparture">tt_acordeonHtmlDeparture</a></li><li><a href="global.html#tt_acordeonHtmlEnd">tt_acordeonHtmlEnd</a></li><li><a href="global.html#tt_acordeonHtmlInit">tt_acordeonHtmlInit</a></li><li><a href="global.html#tt_acordeonHtmlMain">tt_acordeonHtmlMain</a></li><li><a href="global.html#tt_acordeonTrainTitle">tt_acordeonTrainTitle</a></li><li><a href="global.html#tt_getStationName">tt_getStationName</a></li><li><a href="global.html#tt_radioUpdateForm">tt_radioUpdateForm</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Thu Nov 12 2015 15:43:10 GMT+0200 (EET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Fri Nov 13 2015 14:59:06 GMT+0200 (EET)
 </footer>
 
 <script> prettyPrint(); </script>

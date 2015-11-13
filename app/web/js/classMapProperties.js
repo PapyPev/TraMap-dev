@@ -6,7 +6,7 @@
 | This class contains all map properties from configMap.json.
 |
 | @author Pev
-| @verion 1.2
+| @verion 1.1.4
 |
 |------------------------------------------------------------------------------
 */
@@ -16,24 +16,65 @@
 // ============================================================================
 
 /**
- * Creates an instance of MapProperties.
+ * [Creates an instance of MapProperties]
  * @constructor
  * @this {MapProperties}
- * @param {string} name Map's name
- * @param {string} filePath Path or URL to JSON config file
+ * @param {String} name     [The name of the map]
+ * @param {String} filePath [Path or URL to JSON config file]
  */
 function MapProperties (name, filePath) {
 
   // Read configuration file from JSON
   var mapParameters = getMapConfig(filePath);
 
-  /** @private */ this.name = name;
-  /** @private */ this.center = mapParameters.center;
-  /** @private */ this.zoom = mapParameters.zoom;
-  /** @private */ this.projection = mapParameters.projection;
-  /** @private */ this.mapboxToken = mapParameters.mapbox_token;
-  /** @private */ this.sidebarPos = mapParameters.sidebar_pos;
-  /** @private */ this.maxFeatures = mapParameters.maxFeatures;
+  /**
+   * [The name of the map]
+   * @type {String}
+   * @private
+   */
+  this.name = name;
+
+  /**
+   * [The default map center coordinates lat/long]
+   * @type {array}
+   * @private
+   */
+  this.center = mapParameters.center;
+
+  /**
+   * [The default zoom level]
+   * @type {Number}
+   * @private
+   */
+  this.zoom = mapParameters.zoom;
+
+  /**
+   * [The default map projection]
+   * @type {String}
+   * @private
+   */
+  this.projection = mapParameters.projection;
+
+  /**
+   * [Token for getting MapBox tiles]
+   * @type {String}
+   * @private
+   */
+  this.mapboxToken = mapParameters.mapbox_token;
+
+  /**
+   * [The sidebar position (left or right)]
+   * @type {String}
+   * @private
+   */
+  this.sidebarPos = mapParameters.sidebar_pos;
+
+  /**
+   * [Number of feature loaded by layer query]
+   * @type {Number}
+   * @private
+   */
+  this.maxFeatures = mapParameters.maxFeatures;
 
 }
 
@@ -42,9 +83,9 @@ function MapProperties (name, filePath) {
 // ============================================================================
 
 /**
- * Get Map's name.
+ * [Get Map's name]
  * @this {MapProperties}
- * @return {string} The map's name.
+ * @return {String} [The map's name]
  */
 MapProperties.prototype.getName = function () {
   return this.name;
@@ -53,9 +94,9 @@ MapProperties.prototype.getName = function () {
 // ----------------------------------------------------------------------------
 
 /**
- * Get Map's default center.
+ * [Get Map's default center]
  * @this {MapProperties}
- * @return {list} The default map's center.
+ * @return {array} [The default map's center coordinates]
  */
 MapProperties.prototype.getCenter = function () {
   return [this.center[0], this.center[1]];
@@ -64,9 +105,9 @@ MapProperties.prototype.getCenter = function () {
 // ----------------------------------------------------------------------------
 
 /**
- * Get Map's default zoom.
+ * [Get Map's default zoom level]
  * @this {MapProperties}
- * @return {number} The default map's zoom.
+ * @return {Number} [The default map's zoom level]
  */
 MapProperties.prototype.getZoom = function () {
   return this.zoom;
@@ -75,9 +116,9 @@ MapProperties.prototype.getZoom = function () {
 // ----------------------------------------------------------------------------
 
 /**
- * Get Map's default projection.
+ * [Get Map's default projection]
  * @this {MapProperties}
- * @return {string} The default map's projection.
+ * @return {String} [The default map's projection]
  */
 MapProperties.prototype.getProjection = function () {
   return this.projection;
@@ -86,9 +127,9 @@ MapProperties.prototype.getProjection = function () {
 // ----------------------------------------------------------------------------
 
 /**
- * Get Mapbox token.
+ * [Get Mapbox token]
  * @this {MapProperties}
- * @return {string} The MapBox token.
+ * @return {String} [The MapBox token]
  */
 MapProperties.prototype.getMapboxToken = function () {
   return this.mapboxToken;
@@ -97,9 +138,9 @@ MapProperties.prototype.getMapboxToken = function () {
 // ----------------------------------------------------------------------------
 
 /**
- * Get Map's default sidebar position.
+ * [Get Map's default sidebar position]
  * @this {MapProperties}
- * @return {string} The sidebar position (left/right).
+ * @return {String} [The sidebar position (left/right)]
  */
 MapProperties.prototype.getSidebarPos = function () {
   return this.sidebarPos;
@@ -108,9 +149,9 @@ MapProperties.prototype.getSidebarPos = function () {
 // ----------------------------------------------------------------------------
 
 /**
- * Get Map's default maxFeatures.
+ * [Get Map's default maxFeatures]
  * @this {MapProperties}
- * @return {number} The max features per query.
+ * @return {Number} [The max features per query]
  */
 MapProperties.prototype.getMaxFeatures = function () {
   return this.maxFeatures;
@@ -121,10 +162,11 @@ MapProperties.prototype.getMaxFeatures = function () {
 // ============================================================================
 
 /**
- * String representation of MapProperties
+ * [String representation of MapProperties]
  * @overide
  * @this{MapProperties}
- * @return {string} Human-readable representation of this MapProperties.
+ * @return {String} [Human-readable representation of this
+ * MapProperties]
  */
 MapProperties.prototype.toString = function() {
   var attributesToLog = [{
@@ -136,7 +178,7 @@ MapProperties.prototype.toString = function() {
     sidebarPos: this.sidebarPos,
     maxFeatures: this.maxFeatures
   }];
-  return attributesToLog;
+  return JSON.stringify(attributesToLog);
 };
 
 // ============================================================================
@@ -144,9 +186,9 @@ MapProperties.prototype.toString = function() {
 // ============================================================================
 
 /**
- * Get Map Configurations from JSON file
- * @param {string} filePath Path to the json file (or url)
- * @return {json} Map configuration : JSON content
+ * [Get Map Configurations from JSON file]
+ * @param  {String} filePath [Path to the json file (or url)]
+ * @return {json}          [Map configuration : JSON content]
  */
 function getMapConfig (filePath) {
 

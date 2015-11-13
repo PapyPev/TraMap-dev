@@ -34,7 +34,7 @@
 | Initialize map content and all functions for update or map actions.
 |
 | @author Pev
-| @verion 4.7
+| @verion 1.1.7
 |
 |------------------------------------------------------------------------------
 */
@@ -43,9 +43,23 @@
 // CONSTANTS
 // ============================================================================
 
-var MAP_PROP = './config/configMap.json';
-var SRV_PROP = './config/configServer.json';
-var CON_PROP = './config/configContent.json';
+/**
+ * Configuration file about the main map
+ * @type {String}
+ */
+var _MAP_PROP = './config/configMap.json';
+
+/**
+ * Configuration file about the Geoserver and REST API
+ * @type {String}
+ */
+var _SRV_PROP = './config/configServer.json';
+
+/**
+ * Configuration file about the Content to put on the map
+ * @type {String}
+ */
+var _CON_PROP = './config/configContent.json';
 
 // ============================================================================
 // GLOBALS
@@ -71,20 +85,20 @@ var sidebar;
 // ============================================================================
 
 /**
- * Refresh the existing GeoServer Layers
- * @param {bbox} mapBoundingBox The current bounding box of the map
+ * [Refresh the existing GeoServer Layers]
+ * @param  {Object} mapBoundingBox [The current bounding box of the map]
  */
-function refreshGeoServerLayers (mapBoundingBox) {
+function map_refreshGeoserverLayers (mapBoundingBox) {
 
   for (var i = 0; i &lt; mapLayers.length; i++) {
     if (mapLayers[i].getCheck()) {
 
       // Reprojection coordinate system
-      var sw = LatLonToMercator(
+      var sw = convert_LatLonToMercator(
         mapBoundingBox._southWest.lat,
         mapBoundingBox._southWest.lng
       );
-      var ne = LatLonToMercator(
+      var ne = convert_LatLonToMercator(
         mapBoundingBox._northEast.lat,
         mapBoundingBox._northEast.lng
       );
@@ -101,19 +115,19 @@ function refreshGeoServerLayers (mapBoundingBox) {
     } // end if check
   } // end for mapLayers
 
-} //--- end refreshGeoServerLayers (mapBoundingBox)
+} //--- end map_refreshGeoserverLayers (mapBoundingBox)
 
 // ----------------------------------------------------------------------------
 
 /**
- * Load and reload GeoServer Layers with Bounding box query
- * @param {boundingBox} mapBoundingBox The bounding box of the current map
+ * [Load GeoServer Layers with Bounding box query]
+ * @param  {Object} mapBoundingBox [description]
  */
-function loadGeoServerLayers (mapBoundingBox) {
+function map_laodGeoserverLayers (mapBoundingBox) {
 
   // Get GeoServer Layer
   var listGeoServerLayer = [];
-  listGeoServerLayer = getGeoServerLayers(
+  listGeoServerLayer = gs_getGeoserverLayers(
     geoServerProperties.getAddress(), 
     geoServerProperties.getRepository(),
     mapProperties.getProjection(),
@@ -129,16 +143,16 @@ function loadGeoServerLayers (mapBoundingBox) {
     }
   }
 
-} //--- end loadGeoServerLayers(mapBoundingBox)
+} //--- end map_laodGeoserverLayers(mapBoundingBox)
 
 // ----------------------------------------------------------------------------
 
 /**
- * TOC action on the checkbox or radio button
- * @param {number} i Index of the layer in listOfLayer
- * @param {string} type Type of layer (Radio, Checkbox)
+ * [On the TOC layer radio/checkbox action : show or hide a layer]
+ * @param  {Number} i    [Index of the layer in listOfLayer]
+ * @param  {String} type [Type of layer (Radio, Checkbox)]
  */
-function changeLayer (i, type) {
+function map_showLayer (i, type) {
 
   // If the layer is viewable
   if (mapLayers[i].getCheck()) {
@@ -158,14 +172,14 @@ function changeLayer (i, type) {
     }
   }
 
-} //--- changeLayer (i, type)
+} //--- map_showLayer (i, type)
 
 // ----------------------------------------------------------------------------
 
 /**
- * Load content of Table Of Content (TOC).
+ * [Load content of Table Of Content (TOC).]
  */
-function loadTOC () {
+function map_loadHtmlTOC () {
 
   // Add TOC title and description
   $("#"+contentProperties.getDivTocTitle()+"").html(
@@ -205,7 +219,7 @@ function loadTOC () {
           +       '&lt;input type="radio" '
           +       'name="'+mapLayers[i].getCategory()+'" '
           +       'id="'+mapLayers[i].getPosition()+'" '
-          +       'onclick="changeLayer('+i+',\''
+          +       'onclick="map_showLayer('+i+',\''
           +           mapLayers[i].getType()+'\')" '
           +       check + '>'
           +     '&lt;/span>'
@@ -220,7 +234,7 @@ function loadTOC () {
           +       '&lt;input type="checkbox" '
           +       'name="'+mapLayers[i].getName()+'" '
           +       'id="'+mapLayers[i].getPosition()+'" '
-          +        'onchange="changeLayer('+i+',\''
+          +        'onchange="map_showLayer('+i+',\''
           +           mapLayers[i].getType()+'\')" '
           +       check + '>'
           +     '&lt;/span>'
@@ -248,15 +262,15 @@ function loadTOC () {
   // Write to the HTML div
   $("#"+contentProperties.getDivTocContent()+"").html(toc).trigger("create");
 
-} //--- end loadTOC()
+} //--- end map_loadHtmlTOC()
 
 // ----------------------------------------------------------------------------
 
 /**
- * Add Tiles background to mapLayers
- * @return {array} List of tiles LayerProperties (classLayerProperties).
+ * [Add Tiles background to mapLayers]
+ * @return {array} [List of tiles LayerProperties (classLayerProperties)]
  */
-function loadTiles () {
+function map_loadTiles () {
 
   // Returned value
   var listOfLayers = [];
@@ -299,20 +313,20 @@ function loadTiles () {
   // Return Value
   return listOfLayers;
 
-} //--- end loadTiles()
+} //--- end map_loadTiles()
 
 // ----------------------------------------------------------------------------
 
 /**
- * Loading all the necessary components of the card
+ * Loading all the necessary components of the map
  */
-function init () {
+function map_init () {
 
   //---------- Load Layers, GeoServer, Content Properties
-  mapProperties = new MapProperties('map', MAP_PROP);
-  geoServerProperties = new GeoServerProperties(SRV_PROP);
-  contentProperties = new ContentProperties(CON_PROP);
-  restProperties = new RestProperties(SRV_PROP);
+  mapProperties = new MapProperties('map', _MAP_PROP);
+  geoServerProperties = new GeoServerProperties(_SRV_PROP);
+  contentProperties = new ContentProperties(_CON_PROP);
+  restProperties = new RestProperties(_SRV_PROP);
 
   //---------- Load Default map
   map = L.map('map', {
@@ -321,7 +335,7 @@ function init () {
   });
 
   //---------- Load Default Background to map
-  mapLayers = loadTiles();
+  mapLayers = map_loadTiles();
   for (var i = 0; i &lt; mapLayers.length; i++) {
     if (mapLayers[i].getCheck()) {
       map.addLayer(mapLayers[i].getContent());
@@ -337,10 +351,10 @@ function init () {
   //sidebar.show();
 
   //---------- Load Default GeoServer layer 
-  loadGeoServerLayers(map.getBounds());
+  map_laodGeoserverLayers(map.getBounds());
 
   //---------- Load TOC
-  loadTOC();
+  map_loadHtmlTOC();
 
   //---------- Load Actions Buttons
   L.easyButton( '&lt;span class="easy-button">&amp;equiv;&lt;/span>', 
@@ -359,16 +373,16 @@ function init () {
   L.easyButton(
     '&lt;span class="glyphicon glyphicon-hand-up" aria-hidden="true">&lt;/span>',
     function(){
-      buttonSearchByPointer();
+      popup_buttonSearchByPointer();
     }, 'SearchByPointer'
   ).addTo(map);
 
   //---------- Load Popup
-  loadPopup();
+  popup_init();
 
   //----------- Moving Map view, refresh GeoServerLayer
   map.on('moveend', function() { 
-    refreshGeoServerLayers(map.getBounds());
+    map_refreshGeoserverLayers(map.getBounds());
   });
 
 } //-- end init ()
@@ -383,7 +397,7 @@ function init () {
 $(document).ready(function(){
 
   // initialize all the components of the map
-  init();
+  map_init();
 
 }); //--$(document).ready()
 </code></pre>
@@ -396,13 +410,13 @@ $(document).ready(function(){
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ContentProperties.html">ContentProperties</a></li><li><a href="GeoServerProperties.html">GeoServerProperties</a></li><li><a href="LayerProperties.html">LayerProperties</a></li><li><a href="MapProperties.html">MapProperties</a></li><li><a href="RestProperties.html">RestProperties</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buttonContact">buttonContact</a></li><li><a href="global.html#buttonFocus">buttonFocus</a></li><li><a href="global.html#buttonSearchByPointer">buttonSearchByPointer</a></li><li><a href="global.html#changeLayer">changeLayer</a></li><li><a href="global.html#findItinerary">findItinerary</a></li><li><a href="global.html#getAcordeonEnd">getAcordeonEnd</a></li><li><a href="global.html#getAcordeonInit">getAcordeonInit</a></li><li><a href="global.html#getContentConfig">getContentConfig</a></li><li><a href="global.html#getDateHuman">getDateHuman</a></li><li><a href="global.html#getGeoServerConfig">getGeoServerConfig</a></li><li><a href="global.html#getGeoServerLayers">getGeoServerLayers</a></li><li><a href="global.html#getInterests">getInterests</a></li><li><a href="global.html#getMapConfig">getMapConfig</a></li><li><a href="global.html#getRestConfig">getRestConfig</a></li><li><a href="global.html#getStationName">getStationName</a></li><li><a href="global.html#getTrainTitle">getTrainTitle</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#LatLonToMercator">LatLonToMercator</a></li><li><a href="global.html#loadArrival">loadArrival</a></li><li><a href="global.html#loadDeparture">loadDeparture</a></li><li><a href="global.html#loadGeoServerLayers">loadGeoServerLayers</a></li><li><a href="global.html#loadingStations">loadingStations</a></li><li><a href="global.html#loadPopup">loadPopup</a></li><li><a href="global.html#loadPopupContent">loadPopupContent</a></li><li><a href="global.html#loadPopupEvent">loadPopupEvent</a></li><li><a href="global.html#loadPopupFocus">loadPopupFocus</a></li><li><a href="global.html#loadTiles">loadTiles</a></li><li><a href="global.html#loadTimetables">loadTimetables</a></li><li><a href="global.html#loadTOC">loadTOC</a></li><li><a href="global.html#loginValidation">loginValidation</a></li><li><a href="global.html#refreshGeoServerLayers">refreshGeoServerLayers</a></li><li><a href="global.html#setPopup">setPopup</a></li><li><a href="global.html#setStyle">setStyle</a></li><li><a href="global.html#updateOptionsChoices">updateOptionsChoices</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ContentProperties.html">ContentProperties</a></li><li><a href="GeoServerProperties.html">GeoServerProperties</a></li><li><a href="LayerProperties.html">LayerProperties</a></li><li><a href="MapProperties.html">MapProperties</a></li><li><a href="RestProperties.html">RestProperties</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_CON_PROP">_CON_PROP</a></li><li><a href="global.html#_MAP_PROP">_MAP_PROP</a></li><li><a href="global.html#_SRV_PROP">_SRV_PROP</a></li><li><a href="global.html#convert_dateForHuman">convert_dateForHuman</a></li><li><a href="global.html#convert_LatLonToMercator">convert_LatLonToMercator</a></li><li><a href="global.html#getContentConfig">getContentConfig</a></li><li><a href="global.html#getGeoServerConfig">getGeoServerConfig</a></li><li><a href="global.html#getMapConfig">getMapConfig</a></li><li><a href="global.html#getRestConfig">getRestConfig</a></li><li><a href="global.html#gs_getGeoserverLayers">gs_getGeoserverLayers</a></li><li><a href="global.html#gs_setPopup">gs_setPopup</a></li><li><a href="global.html#gs_setStyle">gs_setStyle</a></li><li><a href="global.html#loginValidation">loginValidation</a></li><li><a href="global.html#map_init">map_init</a></li><li><a href="global.html#map_laodGeoserverLayers">map_laodGeoserverLayers</a></li><li><a href="global.html#map_loadHtmlTOC">map_loadHtmlTOC</a></li><li><a href="global.html#map_loadTiles">map_loadTiles</a></li><li><a href="global.html#map_refreshGeoserverLayers">map_refreshGeoserverLayers</a></li><li><a href="global.html#map_showLayer">map_showLayer</a></li><li><a href="global.html#popup_buttonContact">popup_buttonContact</a></li><li><a href="global.html#popup_buttonFocus">popup_buttonFocus</a></li><li><a href="global.html#popup_buttonSearchByPointer">popup_buttonSearchByPointer</a></li><li><a href="global.html#popup_getInterests">popup_getInterests</a></li><li><a href="global.html#popup_getIntinerary">popup_getIntinerary</a></li><li><a href="global.html#popup_init">popup_init</a></li><li><a href="global.html#popup_loadEvent">popup_loadEvent</a></li><li><a href="global.html#popup_loadHtmlContent">popup_loadHtmlContent</a></li><li><a href="global.html#popup_loadHtmlFocusInterests">popup_loadHtmlFocusInterests</a></li><li><a href="global.html#ts_loadHtmlStationList">ts_loadHtmlStationList</a></li><li><a href="global.html#tt_acordeonHtmlArrival">tt_acordeonHtmlArrival</a></li><li><a href="global.html#tt_acordeonHtmlDeparture">tt_acordeonHtmlDeparture</a></li><li><a href="global.html#tt_acordeonHtmlEnd">tt_acordeonHtmlEnd</a></li><li><a href="global.html#tt_acordeonHtmlInit">tt_acordeonHtmlInit</a></li><li><a href="global.html#tt_acordeonHtmlMain">tt_acordeonHtmlMain</a></li><li><a href="global.html#tt_acordeonTrainTitle">tt_acordeonTrainTitle</a></li><li><a href="global.html#tt_getStationName">tt_getStationName</a></li><li><a href="global.html#tt_radioUpdateForm">tt_radioUpdateForm</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Thu Nov 12 2015 15:43:10 GMT+0200 (EET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Fri Nov 13 2015 14:59:06 GMT+0200 (EET)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -6,7 +6,7 @@
 | This class contains all GeoServer properties from configGeoServer.json.
 |
 | @author Pev
-| @verion 1.2
+| @verion 1.1.4
 |
 |------------------------------------------------------------------------------
 */
@@ -16,20 +16,45 @@
 // ============================================================================
 
 /**
- * Creates an instance of LayerProperties.
+ * [Creates an instance of GeoServerProperties]
  * @constructor
  * @this {GeoServerProperties}
- * @param {string} filePath Path or URL to JSON config file 
+ * @param {String} filePath [Path or URL to JSON config file]
  */
 function GeoServerProperties (filePath) {
 
   // Read configuration file from JSON
   var geoServerParameters = getGeoServerConfig(filePath);
 
-  /** @private */ this.address = geoServerParameters.address;
-  /** @private */ this.repository = geoServerParameters.repository;
-  /** @private */ this.user = geoServerParameters.user;
-  /** @private */ this.password = geoServerParameters.password;
+  /**
+   * [The Geoserver adress URL]
+   * @private
+   * @type {String}
+   */
+  this.address = geoServerParameters.address;
+
+  /**
+   * [The Geoserver project repository]
+   * @private
+   * @type {String}
+   */
+  this.repository = geoServerParameters.repository;
+
+  /**
+   * [The default Geoserver user name]
+   * @deprecated
+   * @private
+   * @type {String}
+   */
+  this.user = geoServerParameters.user;
+
+  /**
+   * [The default Geoserver password name for the username]
+   * @deprecated
+   * @private
+   * @type {String}
+   */
+  this.password = geoServerParameters.password;
 
 }
 
@@ -38,9 +63,9 @@ function GeoServerProperties (filePath) {
 // ============================================================================
 
 /**
- * Get GeoServer's address.
+ * [Get GeoServer's address]
  * @this {GeoServerProperties}
- * @return {string} The GeoServer address.
+ * @return {String} [The GeoServer address URL]
  */
 GeoServerProperties.prototype.getAddress = function () {
   return this.address;
@@ -49,9 +74,9 @@ GeoServerProperties.prototype.getAddress = function () {
 // ----------------------------------------------------------------------------
 
 /**
- * Get GeoServer's repository.
+ * [Get GeoServer's repository]
  * @this {GeoServerProperties}
- * @return {string} The GeoServer layer's repository.
+ * @return {String} [The GeoServer layer's repository]
  */
 GeoServerProperties.prototype.getRepository = function () {
   return this.repository;
@@ -60,9 +85,9 @@ GeoServerProperties.prototype.getRepository = function () {
 // ----------------------------------------------------------------------------
 
 /**
- * Get GeoServer's user.
+ * [Get GeoServer's username]
  * @this {GeoServerProperties}
- * @return {string} The GeoServer user.
+ * @return {String} [The GeoServer username]
  */
 GeoServerProperties.prototype.getUser = function () {
   return this.user;
@@ -71,9 +96,9 @@ GeoServerProperties.prototype.getUser = function () {
 // ----------------------------------------------------------------------------
 
 /**
- * Get GeoServer's password.
+ * [Get GeoServer's password]
  * @this {GeoServerProperties}
- * @return {string} The GeoServer password.
+ * @return {String} [The GeoServer password for username]
  */
 GeoServerProperties.prototype.getPassword = function () {
   return this.password;
@@ -84,13 +109,13 @@ GeoServerProperties.prototype.getPassword = function () {
  * ========================================================================= */
 
 /**
- * String representation of the GeoServerProperties
+ * [String representation of the GeoServerProperties]
  * @overide
  * @this{GeoServerProperties}
- * @return {string} Human-readable representation of this GeoServerProperties.
+ * @return {String} [Human-readable representation of this
+ * GeoServerProperties]
  */
 GeoServerProperties.prototype.toString = function() {
-  // Log console
   var attributesToLog = [{
     "address": this.address, 
     "repository": this.repository,
@@ -106,9 +131,10 @@ GeoServerProperties.prototype.toString = function() {
  * ========================================================================= */
 
 /**
- * Get GeoServer Configurations from JSON file
- * @param {string} filePath Path to the json file (or url)
- * @return {json} GeoServer configuration : JSON content
+ * [Get GeoServer Configurations from JSON file]
+ * @this{GeoServerProperties}
+ * @param  {String} filePath [Path to the json file (or url)]
+ * @return {json}          [GeoServer configuration : JSON content]
  */
 function getGeoServerConfig (filePath) {
 

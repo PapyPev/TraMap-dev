@@ -6,7 +6,7 @@
 | This class contains all Layer properties and functions.
 |
 | @author Pev
-| @verion 1.2
+| @verion 1.1.4
 |
 |------------------------------------------------------------------------------
 */
@@ -16,17 +16,17 @@
 // ============================================================================
 
 /**
- * Creates an instance of LayerProperties.
+ * [Creates an instance of LayerProperties]
  * @constructor
  * @this {LayerProperties}
- * @param {string} type The type of layer (Radio, Checkbox).
- * @param {string} cat The category of layer.
- * @param {string} name The name of layer.
- * @param {string} alias The alias of layer.
- * @param {number} position The postion of layer.
- * @param {boolean} checked The default selection of layer.
- * @param {string} url The GeoServer URL for this layer.
- * @param {Object} content The layer.
+ * @param {String} type     [The type of layer (Radio, Checkbox)]
+ * @param {String} category [The category of layer]
+ * @param {String} name     [The name of layer]
+ * @param {String} alias    [The alias of layer]
+ * @param {Number} position [The postion of layer]
+ * @param {Boolean} checked  [The default selection of layer]
+ * @param {String} url      [The GeoServer URL for this layer]
+ * @param {Object} content  [Feature of the layer]
  */
 function LayerProperties(type, category, name, alias, position, checked, url, content) {
 
@@ -46,9 +46,9 @@ function LayerProperties(type, category, name, alias, position, checked, url, co
 // ============================================================================
 
 /**
- * Get LayerProperties's Type.
+ * [Get LayerProperties's Type]
  * @this {LayerProperties}
- * @return {string} The type of layer.
+ * @return {String} [The type of layer (Radio/Checkbox)]
  */
 LayerProperties.prototype.getType = function(){
   return this.type;
@@ -57,9 +57,9 @@ LayerProperties.prototype.getType = function(){
 // ----------------------------------------------------------------------------
 
 /**
- * Get LayerProperties's Category.
+ * [Get LayerProperties's Category]
  * @this {LayerProperties}
- * @return {string} The category of layer.
+ * @return {String} [The category of layer]
  */
 LayerProperties.prototype.getCategory = function(){
   return this.category;
@@ -68,9 +68,9 @@ LayerProperties.prototype.getCategory = function(){
 // ----------------------------------------------------------------------------
 
 /**
- * Get LayerProperties's Name.
+ * [Get LayerProperties's Name]
  * @this {LayerProperties}
- * @return {string} The name of layer.
+ * @return {String} [The name of layer]
  */
 LayerProperties.prototype.getName = function(){
   return this.name;
@@ -79,9 +79,9 @@ LayerProperties.prototype.getName = function(){
 // ----------------------------------------------------------------------------
 
 /**
- * Get LayerProperties's Alias.
+ * [Get LayerProperties's Alias]
  * @this {LayerProperties}
- * @return {string} The alias of layer.
+ * @return {String} [The alias of layer]
  */
 LayerProperties.prototype.getAlias = function(){
   return this.alias;
@@ -90,9 +90,9 @@ LayerProperties.prototype.getAlias = function(){
 // ----------------------------------------------------------------------------
 
 /**
- * Get LayerProperties's Position.
+ * [Get LayerProperties's Position]
  * @this {LayerProperties}
- * @return {number} The position of layer.
+ * @return {Number} [The position of layer]
  */
 LayerProperties.prototype.getPosition = function(){
   return this.position;
@@ -101,9 +101,9 @@ LayerProperties.prototype.getPosition = function(){
 // ----------------------------------------------------------------------------
 
 /**
- * Get LayerProperties's Check.
+ * [Get LayerProperties's Check]
  * @this {LayerProperties}
- * @return {boolean} The checked of layer.
+ * @return {Boolean} [The default checked layer]
  */
 LayerProperties.prototype.getCheck = function(){
   return this.checked;
@@ -112,9 +112,9 @@ LayerProperties.prototype.getCheck = function(){
 // ----------------------------------------------------------------------------
 
 /**
- * Get LayerProperties's GeoServer URL.
+ * [Get LayerProperties's GeoServer URL]
  * @this {LayerProperties}
- * @return {string} The url layer address.
+ * @return {String} [The url layer address]
  */
 LayerProperties.prototype.getURL = function(){
   return this.url;
@@ -123,9 +123,9 @@ LayerProperties.prototype.getURL = function(){
 // ----------------------------------------------------------------------------
 
 /**
- * Get LayerProperties's Content.
+ * [Get LayerProperties's Content]
  * @this {LayerProperties}
- * @return {Object} The content of layer.
+ * @return {Object} [The Feature content of layer]
  */
 LayerProperties.prototype.getContent = function(){
   return this.content;
@@ -136,9 +136,9 @@ LayerProperties.prototype.getContent = function(){
 // ============================================================================
 
 /**
- * Set LayerProperties's Checked.
+ * [Set LayerProperties's Checked]
  * @this {LayerProperties}
- * @param {Boolean} check Boolean for check.  
+ * @param {Boolean} check [Checked value of the layer]
  */
 LayerProperties.prototype.setCheck = function(check){
   this.checked = check;
@@ -147,9 +147,9 @@ LayerProperties.prototype.setCheck = function(check){
 // ----------------------------------------------------------------------------
 
 /**
- * Set LayerProperties's Content.
+ * [Set LayerProperties's Feature Content]
  * @this {LayerProperties}
- * @param {Object} content The content of Layer.  
+ * @param {Object} content [Feature content of the layer]
  */
 LayerProperties.prototype.setContent = function(content){
   this.content = content;
@@ -160,10 +160,11 @@ LayerProperties.prototype.setContent = function(content){
 // ============================================================================
 
 /**
- * String representation of the LayerProperties
+ * [String representation of the LayerProperties]
  * @overide
- * @this{LayerProperties}
- * @return {string} Human-readable representation of this LayerProperties.
+ * @this {LayerProperties}
+ * @return {String} [Human-readable representation of this
+ * LayerProperties]
  */
 LayerProperties.prototype.toString = function() {
   var attributesToLog = [{

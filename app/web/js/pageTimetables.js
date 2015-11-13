@@ -7,7 +7,7 @@
 | All function with "tt_" prefix is for TimeTables
 |
 | @author Pev
-| @verion 1.4
+| @verion 1.1.4
 |
 |------------------------------------------------------------------------------
 */
@@ -51,23 +51,23 @@ $(function() {
 // ============================================================================
 
 /**
- * [getStationName Return the name of the station by the code]
- * @param  {[type: String]} code [description]
- * @return {[type: String]}      [The station's name]
+ * [Return the name of the station by the code]
+ * @param  {String} code [The city short code]
+ * @return {String}      [The station's name]
  */
-function getStationName (code) {
+function tt_getStationName (code) {
   return dictStations[code];
-} //-- end getStationName (code)
+} //-- end tt_getStationName (code)
 
 // ----------------------------------------------------------------------------
 
 /**
- * [convertDateForHuman Convert date format to Humand readable]
- * @param  {[type: String]} date [Timestam like : 2015-11-03T07:06:00.000Z]
- * @return {[type: String]}      [The new Date format like : 07:06:00
+ * [Convert date format to Humand readable]
+ * @param  {String} date [Timestam like : 2015-11-03T07:06:00.000Z]
+ * @return {String}      [The new Date format like : 07:06:00
  * (03.11.2015)]
  */
-function convertDateForHuman (date) {
+function convert_dateForHuman (date) {
   var splitted = date.split("T");
   var theDate = splitted[0];
   var theTime = splitted[1].split("Z")[0].split(".")[0];
@@ -76,13 +76,13 @@ function convertDateForHuman (date) {
     + theDate.split("-")[1]+"."
     + theDate.split("-")[0]+ ")";
   return result;
-} //-- end convertDateForHuman (date)
+} //-- end convert_dateForHuman (date)
 
 // ----------------------------------------------------------------------------
 
 /**
- * [tt_acordeonHtmlEnd Return a String for the Acordeon html end content]
- * @return {[type: String]} [The Acordeon HTML end]
+ * [Return a String for the Acordeon html end content]
+ * @return {String} [The Acordeon HTML end]
  */
 function tt_acordeonHtmlEnd () {
 
@@ -104,11 +104,11 @@ function tt_acordeonHtmlEnd () {
 // ----------------------------------------------------------------------------
 
 /**
- * [tt_acordeonHtmlInit Return a String for the Acordeon html begin content]
- * @param  {[type: String]} acIdent [Identification name of content]
- * @param  {[type: String]} acTitle [Human name of the acordeon (visible)]
- * @param  {[type: String]} headId  [Link betwin accordeon and drop down]
- * @return {[type: String]}         [The Acordeon HTML initialisation]
+ * [Return a String for the Acordeon html begin content]
+ * @param  {String} acIdent [Identification name of content]
+ * @param  {String} acTitle [Human name of the acordeon (visible)]
+ * @param  {String} headId  [Link betwin accordeon and drop down]
+ * @return {String}         [The Acordeon HTML initialisation]
  */
 function tt_acordeonHtmlInit (acIdent, acTitle, headId) {
 
@@ -149,9 +149,9 @@ function tt_acordeonHtmlInit (acIdent, acTitle, headId) {
 // ----------------------------------------------------------------------------
 
 /**
- * [tt_acordeonTrainTitle Generate the title of the dropdown widget]
- * @param  {[type: json]} data [All train informations]
- * @return {[type: String]}      [Title of the dropdown]
+ * [Generate the title of the dropdown widget]
+ * @param  {json} data [All train informations]
+ * @return {String}      [Title of the dropdown]
  */
 function tt_acordeonTrainTitle (data) {
   var type = data.trainType;
@@ -169,9 +169,9 @@ function tt_acordeonTrainTitle (data) {
 // ----------------------------------------------------------------------------
 
 /**
- * [tt_acordeonHtmlArrival Generate HTML Timetables content Arrival]
- * @param  {[type: json]} data [Digitraffic data : Timetables]
- * @return {[type: String]}      [Timetables HTML content]
+ * [Generate HTML Timetables content Arrival]
+ * @param  {json} data [Digitraffic data : Timetables]
+ * @return {String}      [Timetables HTML content]
  */
 function tt_acordeonHtmlArrival (data) {
 
@@ -192,8 +192,8 @@ function tt_acordeonHtmlArrival (data) {
         htmlContent += '<td><span class="flaticon-double5"></span></td>';
       }
       // Content
-      htmlContent += '<td>'+getStationName(data[i].stationShortCode)+'</td>';
-      htmlContent += '<td>'+convertDateForHuman(data[i].scheduledTime)+'</td>';
+      htmlContent += '<td>'+tt_getStationName(data[i].stationShortCode)+'</td>';
+      htmlContent += '<td>'+convert_dateForHuman(data[i].scheduledTime)+'</td>';
       htmlContent += '<td>'+data[i].commercialTrack+'</td>';
       // End rows
       htmlContent += '</tr>';
@@ -207,8 +207,8 @@ function tt_acordeonHtmlArrival (data) {
         htmlContent += '<tr>';
         // Content
         htmlContent += '<td><span class="flaticon-up11"></span></td>';
-        htmlContent += '<td>'+getStationName(data[i].stationShortCode)+'</td>';
-        htmlContent += '<td>'+convertDateForHuman(data[i].scheduledTime)+'</td>';
+        htmlContent += '<td>'+tt_getStationName(data[i].stationShortCode)+'</td>';
+        htmlContent += '<td>'+convert_dateForHuman(data[i].scheduledTime)+'</td>';
         htmlContent += '<td>'+data[i].commercialTrack+'</td>';
         // End rows
         htmlContent += '</tr>';
@@ -224,9 +224,9 @@ function tt_acordeonHtmlArrival (data) {
 // ----------------------------------------------------------------------------
 
 /**
- * [tt_acordeonHtmlDeparture Generate HTML Timetables content Departure]
- * @param  {[type: json]} data [Digitraffic data : Timetables]
- * @return {[type: String]}      [Timetables HTML content]
+ * [Generate HTML Timetables content Departure]
+ * @param  {json} data [Digitraffic data : Timetables]
+ * @return {String}      [Timetables HTML content]
  */
 function tt_acordeonHtmlDeparture (data) {
 
@@ -247,8 +247,8 @@ function tt_acordeonHtmlDeparture (data) {
         htmlContent += '<td><span class="flaticon-double5"></span></td>';
       }
       // Content
-      htmlContent += '<td>'+getStationName(data[i].stationShortCode)+'</td>';
-      htmlContent += '<td>'+convertDateForHuman(data[i].scheduledTime)+'</td>';
+      htmlContent += '<td>'+tt_getStationName(data[i].stationShortCode)+'</td>';
+      htmlContent += '<td>'+convert_dateForHuman(data[i].scheduledTime)+'</td>';
       htmlContent += '<td>'+data[i].commercialTrack+'</td>';
       // End rows
       htmlContent += '</tr>';
@@ -262,8 +262,8 @@ function tt_acordeonHtmlDeparture (data) {
         htmlContent += '<tr>';
         // Content
         htmlContent += '<td><span class="flaticon-up11"></span></td>';
-        htmlContent += '<td>'+getStationName(data[i].stationShortCode)+'</td>';
-        htmlContent += '<td>'+convertDateForHuman(data[i].scheduledTime)+'</td>';
+        htmlContent += '<td>'+tt_getStationName(data[i].stationShortCode)+'</td>';
+        htmlContent += '<td>'+convert_dateForHuman(data[i].scheduledTime)+'</td>';
         htmlContent += '<td>'+data[i].commercialTrack+'</td>';
         // End rows
         htmlContent += '</tr>';
@@ -279,11 +279,11 @@ function tt_acordeonHtmlDeparture (data) {
 // ----------------------------------------------------------------------------
 
 /**
- * [tt_acordeonHtmlMain Generate HTML content for Timetables]
- * @param  {[type: json]} data [Response from digitraffic]
- * @param  {[type: String]} dep  [City short code for Departure]
- * @param  {[type: String]} arr  [City short code for Arrival]
- * @param  {[type: String]} type [Type of Timetables to load (optionsDeparture
+ * [Generate HTML content for Timetables]
+ * @param  {json} data [Response from digitraffic]
+ * @param  {String} dep  [City short code for Departure]
+ * @param  {String} arr  [City short code for Arrival]
+ * @param  {String} type [Type of Timetables to load (optionsDeparture
  * or optionsArrival)]
  */
 function tt_acordeonHtmlMain (data, dep, arr, type) {
@@ -355,9 +355,9 @@ function tt_acordeonHtmlMain (data, dep, arr, type) {
 // ----------------------------------------------------------------------------
 
 /**
- * [tt_radioUpdateForm Enable or disable form content based on radio
+ * [Enable or disable form content based on radio
  * button checked]
- * @param  {[type: Sting]} choice [The radio button choice id]
+ * @param  {String} choice [The radio button choice id]
  */
 function tt_radioUpdateForm (choice) {
   switch(choice){

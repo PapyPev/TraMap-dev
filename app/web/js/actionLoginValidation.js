@@ -6,7 +6,7 @@
 | To verify access to the map (not used)
 |
 | @author Pev
-| @verion 1.1
+| @verion 1.1.1
 |
 |------------------------------------------------------------------------------
 */

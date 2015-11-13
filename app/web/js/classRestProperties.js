@@ -6,7 +6,7 @@
 | This class contains all rest properties from configServer.json.
 |
 | @author Pev
-| @verion 1.1
+| @verion 1.1.4
 |
 |------------------------------------------------------------------------------
 */
@@ -16,17 +16,21 @@
 // ============================================================================
 
 /**
- * Creates an instance of RestProperties.
+ * [Creates an instance of RestProperties]
  * @constructor
  * @this {RestProperties}
- * @param {string} filePath Path or URL to JSON config file 
+ * @param {String} filePath [Path or URL to JSON config file]
  */
 function RestProperties (filePath) {
 
   // Read configuration file from JSON
   var restParameters = getRestConfig(filePath);
 
-  /** @private */ this.address = restParameters.address;
+  /**
+   * [The REST API adress]
+   * @type {String}
+   */
+  this.address = restParameters.address;
 
 }
 
@@ -35,9 +39,8 @@ function RestProperties (filePath) {
 // ============================================================================
 
 /**
- * Get RestProperties's address.
- * @this {RestProperties}
- * @return {string} The REST address.
+ * [Get REST API address]
+ * @return {String} [The REST address]
  */
 RestProperties.prototype.getAddress = function () {
   return this.address;
@@ -48,16 +51,13 @@ RestProperties.prototype.getAddress = function () {
 // ============================================================================
 
 /**
- * String representation of the RestProperties
+ * [String representation of the RestProperties]
  * @overide
  * @this{RestProperties}
- * @return {string} Human-readable representation of this RestProperties.
+ * @return {String} [Human-readable representation of this
+ * RestProperties]
  */
 RestProperties.prototype.toString = function() {
-  // Log console
-  var attributesToLog = [{
-    "address": this.address, 
-  }];
   return JSON.stringify(attributesToLog);
 };
 
@@ -66,9 +66,9 @@ RestProperties.prototype.toString = function() {
 // ============================================================================
 
 /**
- * Get REST Configurations from JSON file
- * @param {string} filePath Path to the json file (or url)
- * @return {json} REST configuration : JSON content
+ * [Get REST Configurations from JSON file]
+ * @param  {String} filePath [Path to the json file (or url)]
+ * @return {json}          [REST configuration : JSON content]
  */
 function getRestConfig (filePath) {
 

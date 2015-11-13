@@ -6,7 +6,7 @@
 | All popup functions (load, refresh, actions, events, ...)
 |
 | @author Pev
-| @verion 2.4
+| @verion 1.1.4
 |
 |------------------------------------------------------------------------------
 */
@@ -23,26 +23,26 @@ var listOD = [];
 // ============================================================================
 
 /**
- * Find itinerary betwin origin and destination
- * @param {Marker} origin Origin contains lat and long coordinates
- * @param {Marker} destination Destination contains lat and long coordinates
+ * [Find itinerary betwin origin and destination and put over the map]
+ * @param  {Marker} origin      [Origin contains lat and long coordinates]
+ * @param  {Marker} destination [Destination contains lat and long coordinates]
  */
-function findItinerary(origin, destination) {
+function popup_getIntinerary(origin, destination) {
 
-  console.log('findItinerary');
+  console.log('popup_getIntinerary');
   // TODO : algo
 
-} //--- end findItinerary (origin, destination)
+} //--- end popup_getIntinerary (origin, destination)
 
 // ============================================================================
 // FUNCTIONS DATABASE
 // ============================================================================
 
 /**
- * Get Metatables from REST service for Focus Popup filters by Keyword.
- * @return JSON object with status and list of interests
+ * [Get interests from REST service]
+ * @return {json} [Response from REST with status and list of interests]
  */
-function getInterests() {
+function popup_getInterests() {
 
   // Return value
   var val = {};
@@ -69,16 +69,16 @@ function getInterests() {
   });
 
   return val;
-} //--- getInterests()
+} //--- popup_getInterests()
 
 // ============================================================================
 // POPUP LOADING
 // ============================================================================
 
 /**
- * Load Popup Focus Filter after REST service from database
+ * [Load Popup Focus filter after REST service from database]
  */
-function loadPopupFocus() {
+function popup_loadHtmlFocusInterests() {
 
   // Init the div container names
   divFocusInterests = 'optionsFocusInterests';
@@ -90,7 +90,7 @@ function loadPopupFocus() {
     + '</optgroup>';
 
   // Get all tables from REST services
-  var interests = getInterests();
+  var interests = popup_getInterests();
 
   // Verifications
   if (interests.status=='ok') {
@@ -117,34 +117,34 @@ function loadPopupFocus() {
 
   // Add to list of values
   $("#"+divFocusInterests+"").html(htmlList);
-} //--- end loadPopupFocus ()
+} //--- end popup_loadHtmlFocusInterests ()
 
 // ----------------------------------------------------------------------------
 
 /**
- * Create button and load popup content onclick
- * @param {string} glyph Icon on the button
- * @param {string} popupName Name of the popup container (name+type)
- * @param {Object} sidebar TOC content will hide on event
+ * [Create button and load popup content onclick]
+ * @param  {String} glyph     [Name of the glyph icon for the button]
+ * @param  {String} popupName [Name of the popup container]
+ * @param  {Object} sidebar   [Sidebar object will hide on event]
  */
-function loadPopupEvent(glyph, popupName, sidebar) {
+function popup_loadEvent(glyph, popupName, sidebar) {
   L.easyButton(
     '<span class="glyphicon '+glyph+'" aria-hidden="true"></span>',
     function(){
       sidebar.hide(); // close sidebar
       $('#'+popupName).modal('show'); // load content
-      console.log('actionPopup.loadPopupEvent(...) #'+popupName);
     }, popupName // For event
   ).addTo(map);
-} //--- end loadPopupEvent (glyph, popupName, sidebar)
+} //--- end popup_loadEvent (glyph, popupName, sidebar)
 
 // ----------------------------------------------------------------------------
 
 /**
- * Load Popup content from JSON file (url)
- * @param {json} data Popup json
+ * [Load Popup content from JSON file (url)]
+ * @param  {json} data [JSON config file content]
  */
-function loadPopupContent(data) {
+function popup_loadHtmlContent(data) {
+
   // Prepare HTML content
   var html = "";
 
@@ -185,27 +185,27 @@ function loadPopupContent(data) {
         break;
 
       default:
-        alert('actionPopup.loadPopup : error');
+        alert('actionPopup.popup_init : error');
         break;
 
     } //end Switch
   } //end Loop object
 
-} //--- end loadPopup (data)
+} //--- end popup_init (data)
 
 // ----------------------------------------------------------------------------
 
 /**
- * Load all popup contains on JSON file
+ * [Load all popup contains on JSON file]
  */
-function loadPopup() {
+function popup_init() {
 
   // Ajax request
   $.ajax({
 
     // GET Parameters
     type: 'GET',
-    url: CON_PROP,
+    url: _CON_PROP,
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
 
@@ -214,7 +214,7 @@ function loadPopup() {
       // Load Content Properties
       contentProperties = data;
       // Load HTML Popup content
-      loadPopupContent(data);
+      popup_loadHtmlContent(data);
 
       // Load Buttons
       for (var i = 0; i < data.content_overTheMap.length; i++) {
@@ -225,14 +225,14 @@ function loadPopup() {
         // TODO : Filter by buttonID
         
         // Create and load content and event
-        loadPopupEvent(data.content_overTheMap[i].icon, 
+        popup_loadEvent(data.content_overTheMap[i].icon, 
           data.content_overTheMap[i].name + data.content_overTheMap[i].type,
           sidebar);
 
       } // end loop 
       
       // Load Focus Filter
-      loadPopupFocus();
+      popup_loadHtmlFocusInterests();
     },
 
     error: function(jqXHR, exception){
@@ -244,16 +244,17 @@ function loadPopup() {
     }
 
   }); // end $.ajax()
-} //--- end loadPopup()
+} //--- end popup_init()
 
 // ============================================================================
 // FUNCTION EVENT CLICK
 // ============================================================================
 
 /**
- * Get form value from contact popup and open the default system email software
+ * [Get form value from contact popup and open the default system email
+ * software]
  */
-function buttonContact() {
+function popup_buttonContact() {
   // Get Form informations
   var mail = document.getElementById("contactEmail");
   var subj = document.getElementById("contactSubject");
@@ -266,14 +267,14 @@ function buttonContact() {
   // Redirection to link
   window.location.href = link;
   //window.open(link);
-} //-- end buttonContact ()
+} //-- end popup_buttonContact ()
 
 // ----------------------------------------------------------------------------
 
 /**
- * Get form value from focus popup and focus on values
+ * [Get form value from focus popup and focus on values]
  */
-function buttonFocus() {
+function popup_buttonFocus() {
   // Get Form information
   var key = document.getElementById("textFocusKeyword").value;
   var lat = document.getElementById("textFocusLat").value;
@@ -281,18 +282,19 @@ function buttonFocus() {
   // Test radio button checked
   if(document.getElementById('optionsFocusKeyword').checked) {
     alert("keyword: " + key);
-  }else if(document.getElementById('optionsFocusLatLong').checked) {
+  } else if(document.getElementById('optionsFocusLatLong').checked) {
     // Zoom LatLong
     map.panTo(new L.LatLng(lat, lon));
   }
-} //--- end buttonFocus ()
+} //--- end popup_buttonFocus ()
 
 // ----------------------------------------------------------------------------
 
 /**
- * Active mouse click and wait two points : origin and destination.
+ * [Active mouse click and wait two points : origin and destination then put
+ * the feature over the map]
  */
-function buttonSearchByPointer() {
+function popup_buttonSearchByPointer() {
 
   // Change cursor symbol
   $('.leaflet-container').css('cursor','crosshair');
@@ -338,7 +340,7 @@ function buttonSearchByPointer() {
       // Remove cursor style
       $('.leaflet-container').css('cursor','');
       // Run itinerary alorithm
-      findItinerary(listOD[0], listOD[1]);
+      popup_getIntinerary(listOD[0], listOD[1]);
     }
     
   }); // end map.on('click', function(e) {}
@@ -361,4 +363,4 @@ function buttonSearchByPointer() {
 
   }); // end $(document).keyup(function(e))
 
-} //--- end buttonSearchByPointer()
+} //--- end popup_buttonSearchByPointer()

@@ -4,9 +4,10 @@
 |------------------------------------------------------------------------------
 |
 | Script load on Timetable page ; get Stations autocomplete and search script.
+| All function with "tt_" prefix is for TimeTables
 |
 | @author Pev
-| @verion 1.3
+| @verion 1.4
 |
 |------------------------------------------------------------------------------
 */
@@ -50,9 +51,9 @@ $(function() {
 // ============================================================================
 
 /**
- * Return the name of the station by the code
- * @param {string} code The station's code
- * @return {string} The station's name
+ * [getStationName Return the name of the station by the code]
+ * @param  {[type: String]} code [description]
+ * @return {[type: String]}      [The station's name]
  */
 function getStationName (code) {
   return dictStations[code];
@@ -61,10 +62,29 @@ function getStationName (code) {
 // ----------------------------------------------------------------------------
 
 /**
- * Return a String for the Acordeon html end content
- * return {string} The Acordeon end
+ * [convertDateForHuman Convert date format to Humand readable]
+ * @param  {[type: String]} date [Timestam like : 2015-11-03T07:06:00.000Z]
+ * @return {[type: String]}      [The new Date format like : 07:06:00
+ * (03.11.2015)]
  */
-function getAcordeonEnd () {
+function convertDateForHuman (date) {
+  var splitted = date.split("T");
+  var theDate = splitted[0];
+  var theTime = splitted[1].split("Z")[0].split(".")[0];
+  var result = theTime + " ("
+    + theDate.split("-")[2]+"."
+    + theDate.split("-")[1]+"."
+    + theDate.split("-")[0]+ ")";
+  return result;
+} //-- end convertDateForHuman (date)
+
+// ----------------------------------------------------------------------------
+
+/**
+ * [tt_acordeonHtmlEnd Return a String for the Acordeon html end content]
+ * @return {[type: String]} [The Acordeon HTML end]
+ */
+function tt_acordeonHtmlEnd () {
 
   // Init HTML content
   var htmlContent = '';
@@ -79,18 +99,18 @@ function getAcordeonEnd () {
 
   //Return content
   return htmlContent;
-} //-- end : getAcordeonEnd ()
+} //-- end : tt_acordeonHtmlEnd ()
 
 // ----------------------------------------------------------------------------
 
 /**
- * Return a String for the Acordeon html begin content
- * @param {string} acIdent Identification name of content
- * @param {string} acTitle Human name of the acordeon (visible)
- * @param {string} headId Link betwin accordeon and drop down
- * return {string} The Acordeon initialisation
+ * [tt_acordeonHtmlInit Return a String for the Acordeon html begin content]
+ * @param  {[type: String]} acIdent [Identification name of content]
+ * @param  {[type: String]} acTitle [Human name of the acordeon (visible)]
+ * @param  {[type: String]} headId  [Link betwin accordeon and drop down]
+ * @return {[type: String]}         [The Acordeon HTML initialisation]
  */
-function getAcordeonInit (acIdent, acTitle, headId) {
+function tt_acordeonHtmlInit (acIdent, acTitle, headId) {
 
   // Init HTML content
   var htmlContent = '';
@@ -124,16 +144,16 @@ function getAcordeonInit (acIdent, acTitle, headId) {
 
   //Return content
   return htmlContent;
-} // end : getAcordeonInit (acIdent, acTitle, headId)
+} // end : tt_acordeonHtmlInit (acIdent, acTitle, headId)
 
 // ----------------------------------------------------------------------------
 
 /**
- * Generate the title of the dropdown widget
- * @param {json} data All train informations
- * @return {string} Title of the dropdown
+ * [tt_acordeonTrainTitle Generate the title of the dropdown widget]
+ * @param  {[type: json]} data [All train informations]
+ * @return {[type: String]}      [Title of the dropdown]
  */
-function getTrainTitle (data) {
+function tt_acordeonTrainTitle (data) {
   var type = data.trainType;
   var depKey = data.timeTableRows[0].stationShortCode;
   var depName = dictStations[depKey];
@@ -144,15 +164,16 @@ function getTrainTitle (data) {
   var title = type + ' - ' + depName + ' > ' + arrName 
     + ' (num:' + trainNum + ')';
   return title;
-} // end : getTrainTitle (data)
+} // end : tt_acordeonTrainTitle (data)
 
 // ----------------------------------------------------------------------------
 
 /**
- * Load HTML content Arrival from the city parameter
- * @param {json} data Digitraffic data : Timetables
+ * [tt_acordeonHtmlArrival Generate HTML Timetables content Arrival]
+ * @param  {[type: json]} data [Digitraffic data : Timetables]
+ * @return {[type: String]}      [Timetables HTML content]
  */
-function loadArrival (data) {
+function tt_acordeonHtmlArrival (data) {
 
   // Init returned value
   var htmlContent = '';
@@ -172,7 +193,7 @@ function loadArrival (data) {
       }
       // Content
       htmlContent += '<td>'+getStationName(data[i].stationShortCode)+'</td>';
-      htmlContent += '<td>'+getDateHuman(data[i].scheduledTime)+'</td>';
+      htmlContent += '<td>'+convertDateForHuman(data[i].scheduledTime)+'</td>';
       htmlContent += '<td>'+data[i].commercialTrack+'</td>';
       // End rows
       htmlContent += '</tr>';
@@ -187,7 +208,7 @@ function loadArrival (data) {
         // Content
         htmlContent += '<td><span class="flaticon-up11"></span></td>';
         htmlContent += '<td>'+getStationName(data[i].stationShortCode)+'</td>';
-        htmlContent += '<td>'+getDateHuman(data[i].scheduledTime)+'</td>';
+        htmlContent += '<td>'+convertDateForHuman(data[i].scheduledTime)+'</td>';
         htmlContent += '<td>'+data[i].commercialTrack+'</td>';
         // End rows
         htmlContent += '</tr>';
@@ -198,15 +219,16 @@ function loadArrival (data) {
 
   // Return value
   return htmlContent;
-} //-- end loadArrival (data, codeCity)
+} //-- end tt_acordeonHtmlArrival (data, codeCity)
 
 // ----------------------------------------------------------------------------
 
 /**
- * Load HTML content Departure from the city parameter
- * @param {json} data Digitraffic data : Timetables
+ * [tt_acordeonHtmlDeparture Generate HTML Timetables content Departure]
+ * @param  {[type: json]} data [Digitraffic data : Timetables]
+ * @return {[type: String]}      [Timetables HTML content]
  */
-function loadDeparture (data) {
+function tt_acordeonHtmlDeparture (data) {
 
   // Init returned value
   var htmlContent = '';
@@ -226,7 +248,7 @@ function loadDeparture (data) {
       }
       // Content
       htmlContent += '<td>'+getStationName(data[i].stationShortCode)+'</td>';
-      htmlContent += '<td>'+getDateHuman(data[i].scheduledTime)+'</td>';
+      htmlContent += '<td>'+convertDateForHuman(data[i].scheduledTime)+'</td>';
       htmlContent += '<td>'+data[i].commercialTrack+'</td>';
       // End rows
       htmlContent += '</tr>';
@@ -241,7 +263,7 @@ function loadDeparture (data) {
         // Content
         htmlContent += '<td><span class="flaticon-up11"></span></td>';
         htmlContent += '<td>'+getStationName(data[i].stationShortCode)+'</td>';
-        htmlContent += '<td>'+getDateHuman(data[i].scheduledTime)+'</td>';
+        htmlContent += '<td>'+convertDateForHuman(data[i].scheduledTime)+'</td>';
         htmlContent += '<td>'+data[i].commercialTrack+'</td>';
         // End rows
         htmlContent += '</tr>';
@@ -252,16 +274,19 @@ function loadDeparture (data) {
 
   // Return value
   return htmlContent;
-} //-- end loadDeparture (data, codeCity)
+} //-- end tt_acordeonHtmlDeparture (data, codeCity)
 
 // ----------------------------------------------------------------------------
 
 /**
- * Load HTML content for Stations informations
- * @param {json} data JSON response from digitraffic
- * @param {string} type Search type
+ * [tt_acordeonHtmlMain Generate HTML content for Timetables]
+ * @param  {[type: json]} data [Response from digitraffic]
+ * @param  {[type: String]} dep  [City short code for Departure]
+ * @param  {[type: String]} arr  [City short code for Arrival]
+ * @param  {[type: String]} type [Type of Timetables to load (optionsDeparture
+ * or optionsArrival)]
  */
-function loadTimetables (data, dep, arr, type) {
+function tt_acordeonHtmlMain (data, dep, arr, type) {
 
   // ------- INIT -------
 
@@ -280,7 +305,7 @@ function loadTimetables (data, dep, arr, type) {
     var acIdent = 'id' + data[i].trainCategory + '-'
       + data[i].trainType + '-' + data[i].trainNumber;
     // Acordeon Title
-    var acTitle = getTrainTitle(data[i]);
+    var acTitle = tt_acordeonTrainTitle(data[i]);
     // Heading
     var headId = 'head' + data[i].trainCategory + '-'
       + data[i].trainType + '-' + data[i].trainNumber;
@@ -292,22 +317,22 @@ function loadTimetables (data, dep, arr, type) {
         // If it's not the end of a train
         if (data[i].timeTableRows[data[i].timeTableRows.length-1].stationShortCode!=dep) {
           // Init acordeon
-          htmlContent += getAcordeonInit(acIdent, acTitle, headId);
+          htmlContent += tt_acordeonHtmlInit(acIdent, acTitle, headId);
           // Get Content
-          htmlContent += loadDeparture(data[i].timeTableRows);
+          htmlContent += tt_acordeonHtmlDeparture(data[i].timeTableRows);
           // End acordeon
-          htmlContent += getAcordeonEnd();
+          htmlContent += tt_acordeonHtmlEnd();
         }
         break;
       case 'optionsArrival':
         // If it's not a departure
         if (data[i].timeTableRows[0].stationShortCode!=arr) {
           // Init acordeon
-          htmlContent += getAcordeonInit(acIdent, acTitle, headId);
+          htmlContent += tt_acordeonHtmlInit(acIdent, acTitle, headId);
           // Get Content
-          htmlContent += loadArrival(data[i].timeTableRows);
+          htmlContent += tt_acordeonHtmlArrival(data[i].timeTableRows);
           // End acordeon
-          htmlContent += getAcordeonEnd();
+          htmlContent += tt_acordeonHtmlEnd();
         }
         break;
       default:
@@ -325,15 +350,16 @@ function loadTimetables (data, dep, arr, type) {
   // Add content to the page
   $("#divResults").html(htmlContent);
 
-} //-- end : loadTimetables (data, dep, arr, type)
+} //-- end : tt_acordeonHtmlMain (data, dep, arr, type)
 
 // ----------------------------------------------------------------------------
 
 /**
- * Enable or disable form content based on radio button checked
- * @param {string} choice The radio button choice
+ * [tt_radioUpdateForm Enable or disable form content based on radio
+ * button checked]
+ * @param  {[type: Sting]} choice [The radio button choice id]
  */
-function updateOptionsChoices (choice) {
+function tt_radioUpdateForm (choice) {
   switch(choice){
     case "optionsDeparture":
       document.getElementById("textDeparture").disabled = false;
@@ -354,25 +380,7 @@ function updateOptionsChoices (choice) {
       document.getElementById("textArrival").disabled = true;
       break;
   }
-} //-- end : updateOptionsChoices (choice)
-
-// ----------------------------------------------------------------------------
-
-/**
- * Convert date format to Humand readable
- * @param {string} date Timestam like : 2015-11-03T07:06:00.000Z
- * return {string} The new Date format like : 07:06:00 (03.11.2015)
- */
-function getDateHuman (date) {
-  var splitted = date.split("T");
-  var theDate = splitted[0];
-  var theTime = splitted[1].split("Z")[0].split(".")[0];
-  var result = theTime + " ("
-    + theDate.split("-")[2]+"."
-    + theDate.split("-")[1]+"."
-    + theDate.split("-")[0]+ ")";
-  return result;
-} //-- end getDateHuman (date)
+} //-- end : tt_radioUpdateForm (choice)
 
 // ============================================================================
 // MAIN
@@ -385,7 +393,6 @@ $(document).ready(function($) {
 
   // ------- STATIONS AUTOCOMPLETE -------
 
-  console.log("pageTimetables.listStations");
   // Init XMLHttp request
   var xhrAutoCompl = new XMLHttpRequest();
   // GET query
@@ -414,7 +421,6 @@ $(document).ready(function($) {
     var arr = $("#textArrival").val();
     document.getElementById("textDeparture").value = arr;
     document.getElementById("textArrival").value = dep;
-    console.log("pageTimetables.buttonInvert: " + dep + "<->" + arr);
   }); //-- end $("#buttonInvert").click()
 
 
@@ -451,7 +457,7 @@ $(document).ready(function($) {
         // Load Content
         xhrTimetables.onreadystatechange = function () {
           if (this.status == 200 && this.readyState == 4) {
-            loadTimetables(
+            tt_acordeonHtmlMain(
               JSON.parse(this.responseText), 
               depKey, arrKey, type
             );
@@ -464,7 +470,7 @@ $(document).ready(function($) {
         // Load Content
         xhrTimetables.onreadystatechange = function () {
           if (this.status == 200 && this.readyState == 4) {
-            loadTimetables(
+            tt_acordeonHtmlMain(
               JSON.parse(this.responseText), 
               depKey, arrKey, type
             );

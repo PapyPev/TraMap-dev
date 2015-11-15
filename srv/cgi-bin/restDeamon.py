@@ -11,7 +11,7 @@ On web browser, URL : http://domain:8082/api/hello
 """
 
 __author__ = "Pev"
-__version__ = "1.0"
+__version__ = "1.1"
 __email__ = "pev.arfan@gmail.com"
 __status__ = "Progress"
 
@@ -20,6 +20,7 @@ __status__ = "Progress"
 # =============================================================================
 
 from flask import Flask
+from flask import request
 import json
 import mimerender
 import classDatabase
@@ -44,9 +45,9 @@ app = Flask(__name__)
 #@app.route('/')
 @app.route('/api/')
 @app.route('/api/<service>')
-@app.route('/api/<service>/<param>')
+@app.route('/api/<service>?lat1=<lat1>&lon1=<lon1>&lat2=<lat2>&lon2=<lon2>')
 @mimerender(
-  default = 'html',
+  default = 'json',
   html = render_html,
   xml  = render_xml,
   json = render_json,
@@ -56,7 +57,7 @@ app = Flask(__name__)
 # ROOTING FUNCTION
 # =============================================================================
 
-def api(service='default', param='default'):
+def api(service='default', lat1=0, lon1=0, lat2=0, lon2=0, param='default'):
   """
     Rooting function, return a message containing REST awnser
 
@@ -70,8 +71,10 @@ def api(service='default', param='default'):
   result = {
     'default' : rest_default(),
     'simpleText' : rest_simpleText(),
-    'metatables' : rest_metatables(),
-    'interests' : rest_interests(param),
+    'interests' : rest_interests(),
+    'shortestPath': rest_shortestPath(\
+      request.args.get('lat1'), request.args.get('lon1'), \
+      request.args.get('lat2'), request.args.get('lon2'))
   }.get(service, rest_default())
 
   # Return message
@@ -86,6 +89,13 @@ def api(service='default', param='default'):
 def rest_default():
   """
     REST Service function, return list of all services.
+
+    :Example:
+    >>> rest_default()
+    URL : http://localhost:8082/api/
+
+    :Result:
+    List of HTML links
   """
   value = '<h1>API REST Services</h1>' \
     'Welcome to the API REST Services ! Check all REST services :' \
@@ -94,10 +104,12 @@ def rest_default():
         '<ul><li>Return HTML message</li></ul>' \
       '<li><a href="./simpleText">/api/simpleText</a></li>' \
         '<ul><li>Return a simple Text message</li></ul>' \
-      '<li><a href="./metatables">/api/metatables</a></li>' \
-        '<ul><li>Return all table\'s names from database</li></ul>' \
-      '<li><a href="./interests/default">/api/interests/[table]</a></li>' \
-        '<ul><li>Return points of interests from the table</li></ul>' \
+      '<li><a href="./interests">/api/interests</a></li>' \
+        '<ul><li>Return all interests by tables</li></ul>' \
+      '<li><a href="./shortestPath/' \
+        'lat1=60.636088&lon1=24.848033&lat2=60.630822&lon2=24.859875">'\
+        '/api/shortestPath/default</a></li>' \
+        '<ul><li>Return shortest path lines</li></ul>' \
     '</ul>'
   return value
 
@@ -106,124 +118,87 @@ def rest_default():
 def rest_simpleText():
   """
     REST Service function, return a simple text.
+
+    :Example:
+    >>> rest_simpleText()
+    URL : http://localhost:8082/api/simpleText
+
+    :Result:
+    Test ok
   """
   return 'Test ok'
 
 
 # REST - ALL TABLES
 # -----------------------------------------------------------------------------
-def rest_metatables():
+def rest_interests():
   """
-    Return all table's names from database without geographic tables.
+    Return a json object with status and all interests by tables
 
     :Example:
-    >>> get_allTables()
-    {
-      "status": "ok",
-      "result": [
-        "osm_buildings",
-        "osm_amenities",
-        "osm_transports_points"
-      ]
-    }
-  """
-
-  ### ----- DATABASE
-
-  # Create default database connexion object
-  db = classDatabase.Database()
-
-  # Connexion to the database
-  db._connect()
-
-  # Prepare the SQL query
-  sql = "SELECT table_name " \
-      "FROM information_schema.tables " \
-      "WHERE table_schema='public' " \
-      "ORDER BY table_name ASC"
-  # Execute the query
-  rows = db._execute(sql)
-
-  ### ----- RESULTS
-
-  # Prepare variables
-  names = []  # List of tables names
-  data = {}   # Json object to return
-
-  # Test if the list is empty
-  if not rows:
-    data['status'] = 'nok'
-    data['result'] = ['Warning: No tables.']
-
-  # If the list is not empty
-  else:
-    # Set status
-    data['status'] = 'ok'
-
-    # Loops results to get names
-    for row in rows:
-      if row[0] != 'geography_columns' \
-        and row[0] != 'geometry_columns' \
-        and row[0] != 'spatial_ref_sys' \
-        and row[0] != 'raster_columns' \
-        and row[0] != 'raster_overviews':
-        names.append(row[0])
-
-    # Save the result
-    data['result'] = names
-
-  # Prepare the JSON object
-  json_data = json.loads(json.dumps(data))
-
-  # Return the json object
-  return json_data
-
-
-# REST - INTERESTS BY TABLE
-# -----------------------------------------------------------------------------
-
-def rest_interests(table):
-  """
-    Return points of interests from the table in parameter.
-
-    :Parameters:
-      table
-        The table name
-
-    :Example:
-    >>> get_interests('osm_amenities')
+    >>> rest_interests()
+    URL : http://localhost:8082/api/interests
+    
+    :Result:
     {
       "status" : "ok",
       "result" : [
         {
-            "type": 1,
-            "alias" : "interest1"
+          "table" : "roads",
+          "interests" : [
+            "motorway",
+            "footway",
+            "cycleway",
+            "..."
+          ]
         },
         {
-            "type": 2,
-            "alias" : "interest2"
+          "table" : "osm_building",
+          "interests" : [
+            {"..."}
+          ]
         }
       ]
     }
   """
 
-  ### ----- INIT
+  ### ---------- TABLES LISTS ----------
 
-  # Prepare variables
-  names = []  # List of tables names
-  data = {}   # Json object to return
+  tablesIgnore = [
+    'general_area_information',
+    'geography_columns',
+    'geometry_columns',
+    'spatial_ref_sys',
+    'raster_columns',
+    'raster_overviews',
+    'traffic',
+    'traffic_geometry',
+    'type_roads_value',
+    'nodes',
+    'od_pairs',
+    'osm_buildings',
+    'osm_amenities',
+    'osm_transport_points'
+  ]
 
-  # Test if it's default value
-  if table=='default':
-    data['status'] = 'nok'
-    data['result'] = ['Error: Table parameter is missing.']
-  
-  ### ----- DATABASE : GET DISTINCT TYPE
-  
-  # If not, just execute query
-  else:
+  tablesInner = [
+    'roads'
+  ]
 
-    print("not default")
+  ### ---------- INIT RETURNED OBJECT ----------
+
+  # REST variables
+  status = 'nok'
+  result = []
+
+  # JSON object
+  data = {}
+  data['status'] = status
+  data['result'] = result
+
+  ### ---------- DATABASE CONNEXION ----------
+
+  try:
 
     # Create default database connexion object
     db = classDatabase.Database()
@@ -231,68 +206,164 @@ def rest_interests(table):
     # Connexion to the database
     db._connect()
 
-    # Prepare the SQL query
-    sql = "SELECT DISTINCT type " \
-        "FROM " + table + " " \
-        "ORDER BY type ASC"
 
-    # Execute the query
-    rows = db._execute(sql)
+    ### ---------- GET ALL TABLES ----------
 
-    # Test if the list is empty
-    if not rows:
-      data['status'] = 'nok'
-      data['result'] = ['Warning: No interests on this table.']
+    try:
 
-    ### ----- DATABASE : GET TYPE ALIAS
+      # Prepare the SQL query
+      tablesSQL = "SELECT table_name " \
+          "FROM information_schema.tables " \
+          "WHERE table_schema='public' " \
+          "ORDER BY table_name ASC"
 
-    # If not
-    else:
+      # Execute the query
+      tablesResult = db._execute(tablesSQL)
 
-      # Prepare the table name
-      strTable = "{}{}{}".format("type_", table, "_value")
+      # Prepare the list of table
+      tablesList = []
 
-      # Get all tyoe from table
-      sql2 = "SELECT * FROM " + strTable + " " \
-        + "ORDER BY name ASC"
-
-      # Execute the second query
-      rows2 = db._execute(sql2)
-
-      print("ok")
-
-      # Test the query result
-      if not rows2:
-        data['status'] = 'nok'
-        data['result'] = ['Warning: No matching type on this table.']
+      # Save the result on a list of elements
+      for t in tablesResult:
+        if not t[0] in tablesIgnore:
+          tablesList.append(t[0])
 
 
-      ### ----- MATCHING TYPE-NAME
+      ### ---------- GET TYPE ----------
 
-      # If the type_table contains something
-      else:
-
-        # Set status
-        data['status'] = 'ok'
-
+      try:
         
-        print(rows2)
-        names.append(['test'])
+        # For each table get interests
+        for tableName in tablesList:
 
-        # Save the result
-        data['result'] = names
+          # Prepare object list
+          interestsByTable = {}
+          interestsByTable['table'] = tableName
+          interests = []
+          interestsByTable['interests'] = interests
 
-  # Prepare the JSON object
-  json_data = json.loads(json.dumps(data))
 
-  # Return the json object
-  return json_data
+          ### ---------- TREATMENT MATCHING ----------
+
+          # Init and refresh
+          interestsSQL = ''
+
+          try:
+            
+            # Special treatment
+            if tableName in tablesInner:
+
+              # Get all type from tableName with inner join
+              interestsSQL = 'SELECT DISTINCT name as type ' \
+                'FROM {}, type_{}_value ' \
+                'WHERE {}.type = type_{}_value.id'.format(\
+                  tableName, tableName, tableName, tableName)
+
+            # No special treatment
+            else:
+
+              # Get all type from tableName
+              interestsSQL = 'SELECT DISTINCT type FROM {}'.format(tableName)
+
+            # Execute the query
+            interestsResult = db._execute(interestsSQL)
+
+            # Save interests on intersts list
+            for i in interestsResult:
+              interests.append(i[0])
+
+            ### ---------- SAVE INTERESTS ON JSON OBJECT ----------
+            interestsByTable['interests'] = interests
+
+            ### ---------- SAVE TABLE INTERESTS ----------
+            result.append(interestsByTable)
+
+          except Exception, e:
+            result = ['Error: SQL treatment matching. Details: {}'.format(e)]
+
+        # End - for tableName in tablesList
+
+        ### ---------- UPDATE STATUS ----------
+        status = 'ok'
+        
+      # Get Type for all tables
+      except Exception, e:
+        result = ['Error: SQL get type table. Details: {}'.format(e)]
+
+    # Get all tables error
+    except Exception, e:
+      result = ['Error: SQL get all tables. Details: {}'.format(e)]
+
+  # Database connexion error
+  except Exception, e:
+    result = ['Error: Database connexion failed. Details: {}'.format(e)]
+
+  finally:
+
+    ### ---------- RETURN OBJECT ----------
+
+    # Prepare the JSON object
+    data['status'] = status
+    data['result'] = result
+    json_data = json.loads(json.dumps(data))
+
+    # Return the json object
+    return json_data 
+
+# REST - ALL TABLES
+# -----------------------------------------------------------------------------
+def rest_shortestPath(lat1=0, lon1=0, lat2=0, lon2=0):
+  """
+    Return a JSON object with the geometry path shortestpath, 
+    time (in seconds) and distance (in meters)
+
+    :Parameters:
+      lat1
+        Latitude of the first point (start)
+      lon1
+        Longitude of the first point (start)
+      lat2
+        Latitude of the second point (arrival)
+      lon2
+        Longitude of the second point (arrival)
+
+    :Example:
+    >>> rest_shortestPath(60.639481, 24.851273, 60.631668, 24.858296)
+    URL : http://localhost:8082/api/shortestPath?lat1=60.639481&lon1=24.851273&lat2=60.631668&lon2=24.858296
+
+    :Result:
+    {
+      "status":"ok,
+      "result":
+      {
+        "distance":10,
+        "time":5400,
+        "feature": [
+          {geometry object},
+          {geometry object}
+        ]
+      }
+    }
+  """
+
+  print('lat1:{}'.format(lat1))
+  print('lon1:{}'.format(lon1))
+  print('lat2:{}'.format(lat2))
+  print('lon2:{}'.format(lon2))
+
+  return {
+    'lat1':lat1,
+    'lon1':lon1,
+    'lat2':lat2,
+    'lon2':lon2
+  }
 
 
 # MAIN
 # =============================================================================
 
 if __name__ == "__main__":
+  app.debug = True
   app.run(port=8082)
 
 

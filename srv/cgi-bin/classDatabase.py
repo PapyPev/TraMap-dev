@@ -143,7 +143,7 @@ class Database(object):
       self.cursor = self.connect.cursor()
 
     except Exception, e:
-      print('Error classDatabase._connect(): ' + e)
+      print('Error classDatabase._connect(): {}'.format(e))
 
   def _execute(self, sqlQuery):
     """ 
@@ -153,24 +153,14 @@ class Database(object):
         sqlQuery
           The SQL query (string)
     """
-    try:
+    # Execute the query
+    self.cursor.execute(sqlQuery)
 
-      # Init the database cursor
-      self.cursor = self.connect.cursor()
+    # Save the result on list
+    rows = self.cursor.fetchall()
 
-      # Execute the query
-      self.cursor.execute(sqlQuery)
-
-      # Save the result on list
-      rows = self.cursor.fetchall()
-
-      # Return the result
-      return rows
-
-    except Exception, e:
-      print('Error classDatabase._execute(): ' + e)
-      return None
-
+    # Return the result
+    return rows
 
 # MAIN
 # =============================================================================

@@ -53,7 +53,7 @@ function gs_setStyle(feature) {
       });
 
       //return {icon: redMarker, draggable:true};
-      return {marker-color: "#00ff00"};
+      return {"marker-color": "#00ff00"};
       break;
 
     //---------- Line Style

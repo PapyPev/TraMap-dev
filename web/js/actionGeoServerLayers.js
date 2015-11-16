@@ -60,9 +60,25 @@ function gs_setStyle(feature) {
     case "LineString":
     case "LinearRing":
     case "MultiLineString":
-      console.log("line", feature.properties.type, feature)
-      return {color: "orange", weight: feature.properties.type/10, opacity: 0.5};
-      break;
+
+      switch(feature.properties.type){
+        // motorway
+        case 11:
+          return {color: "red", weight: 20, opacity: 0.7};
+
+        // primary
+        case 15:
+        case 16:
+          return {color: "orange", weight: 15, opacity: 0.7};
+
+        // truck
+        case 13:
+          return {color: "yellow", weight: 10, opacity: 0.7};
+
+        default:
+          //nothing
+          break;
+      }
 
     //---------- Polygon Style
     case "Polygon":

@@ -52,7 +52,7 @@ function gs_setStyle(feature, latlng) {
         popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
       });
 
-      return L.marker(latlng,{icon: ratIcon});
+      return L.marker(latlng,{icon: redMarker});
       break;
 
     //---------- Line Style

@@ -43,8 +43,16 @@ function gs_setStyle(feature) {
 
     //---------- Points Style
     case "Point":
-    case "MultiPoint":      
-      return {color: "red", weight: 5, opacity: 0.7};
+    case "MultiPoint":
+
+      var redMarker = L.icon({
+        iconUrl: 'img/icon-map/marker.png',
+        iconSize:     [35, 35], // size of the icon
+        iconAnchor:   [17, 35], // point of the icon which will correspond to marker's location
+        popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
+      });
+
+      return {icon: redMarker};
       break;
 
     //---------- Line Style
@@ -180,12 +188,12 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           +northEast.X+","+northEast.Y,
           {
             onEachFeature: gs_setPopup, // popup information
-            style: gs_setStyle,
+            //style: gs_setStyle,
             //icon: gs_setStyle
           }
         );
 
-        console.log(layerContent);
+        layerContent.setStyle(gs_setStyle(layerContent));
 
         // Add to list of layers
         listOfLayers.push(new LayerProperties(

@@ -47,8 +47,6 @@ function gs_setStyle(feature) {
       return {icon: "../img/icon-pack/mapsmarker/"+feature.properties.type+".png"};
       }
 
-      break; // end point
-
     //---------- Line Style
     case "LineString":
     case "LinearRing":

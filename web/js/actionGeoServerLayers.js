@@ -44,15 +44,27 @@ function gs_setStyle(feature, latlng) {
     //---------- Points Style
     case "Point":
     case "MultiPoint":
-      console.log("point");
-      var redMarker = L.icon({
-        iconUrl: 'img/icon-pack/mapsmarker/'+feature.properties.type+'.png',
-        iconSize:     [35, 35], // size of the icon
-        iconAnchor:   [17, 35], // point of the icon which will correspond to marker's location
-        popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
-      });
 
-      return L.marker(latlng,{icon: redMarker});
+      switch(feature.properties.type){
+        case "school":
+        case "bus_stop":
+        case "bus":
+        case "police":
+          var redMarker = L.icon({
+            iconUrl: 'img/icon-pack/mapsmarker/'
+              +feature.properties.type+'.png',
+            iconSize:     [35, 35], // size of the icon
+            iconAnchor:   [17, 35], // point of the icon which will correspond to marker's location
+            popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
+          });
+          return L.marker(latlng,{icon: redMarker});
+          break;
+
+        default:
+          //nothing
+          break;
+      }
+
       break;
 
     //---------- Line Style

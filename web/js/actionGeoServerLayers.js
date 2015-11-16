@@ -38,7 +38,28 @@ function convert_LatLonToMercator(lat, lon) {
  */
 function gs_setStyle(feature) {
 
-  console.log(feature)
+  //console.log(feature)
+  switch(feature.geometry.type){
+
+    case "Point":
+    case "MultiPoint":
+      console.log("point")
+      break;
+
+    case "LineString":
+    case "LinearRing":
+    case "MultiLineString":
+      console.log("line")
+      break;
+
+    case "Polygon":
+      console.log("polygon")
+      break;
+
+    default:
+      // nothing
+      break;
+  }
 
   // Switch on class properties
   switch (feature.properties.clazz) {

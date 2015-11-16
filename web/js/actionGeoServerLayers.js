@@ -184,17 +184,74 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           +"&outputFormat=application/json";
 
         // Get GeoJSON layer content
+        // var layerContent = new L.GeoJSON.AJAX(layerUrl
+        //   +"&bbox="+southWest.X+","+southWest.Y+","
+        //   +northEast.X+","+northEast.Y,
+        //   {
+        //     onEachFeature: gs_setPopup, // popup information
+        //     //style: gs_setStyle,
+        //     style: gs_setStyle
+        //   }
+        // );
+        
         var layerContent = new L.GeoJSON.AJAX(layerUrl
           +"&bbox="+southWest.X+","+southWest.Y+","
-          +northEast.X+","+northEast.Y,
-          {
-            onEachFeature: gs_setPopup, // popup information
-            //style: gs_setStyle,
-            style: gs_setStyle
-          }
-        );
+          +northEast.X+","+northEast.Y, function () {
+            switch(feature.geometry.type){
 
-        console.log(layerContent)
+              //---------- Points Style
+              case "Point":
+              case "MultiPoint":
+
+                var redMarker = L.icon({
+                  iconUrl: 'img/icon-map/marker.png',
+                  iconSize:     [35, 35], // size of the icon
+                  iconAnchor:   [17, 35], // point of the icon which will correspond to marker's location
+                  popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
+                });
+                
+                return {icon: redMarker};
+                break;
+
+              //---------- Line Style
+              case "LineString":
+              case "LinearRing":
+              case "MultiLineString":
+
+                switch(feature.properties.type){
+                  // motorway
+                  case 11:
+                    return {style:{color: "red", weight: 5, opacity: 0.7}};
+                    break;
+
+                  // primary
+                  case 15:
+                  case 16:
+                    return {style:{color: "orange", weight: 2, opacity: 0.7}};
+                    break;
+
+                  // truck
+                  case 13:
+                    return {style:{color: "yellow", weight: 2, opacity: 0.7}};
+                    break;
+
+                  default:
+                    return {style:{color: "green", weight: 2, opacity: 0.7}};
+                    break;
+
+                } //end lines
+
+              //---------- Polygon Style
+              case "Polygon":
+              case "MultiPolygon": 
+                return {style:{color: "black", weight: 1, opacity: 0.3}};
+
+              //---------- Default
+              default:
+                //nothing
+                break; // end default
+            }
+          });
 
         // Add to list of layers
         listOfLayers.push(new LayerProperties(

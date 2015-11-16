@@ -192,6 +192,7 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
             gs_setStyle
           }
         );
+        console.log(layerContent);
 
         // Add to list of layers
         listOfLayers.push(new LayerProperties(

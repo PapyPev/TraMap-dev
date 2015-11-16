@@ -67,7 +67,7 @@ function gs_setStyle(feature) {
     case "Polygon":
     case "MultiPolygon": 
       console.log("polygon")
-      return {color: "orange", weight: feature.properties.type/10, opacity: 0.5};
+      return {color: "orange", weight: feature.properties.type, opacity: 0.5};
 
     //---------- Default
     default:

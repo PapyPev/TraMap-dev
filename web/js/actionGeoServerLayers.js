@@ -203,7 +203,8 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           +"&srsName="+projection
           +"&SRS="+projection
           +"&maxFeatures="+maxFeatures
-          +"&outputFormat=application/json";
+          +"&outputFormat=application/json"
+          +"&cql_filter=(name is not null)";
 
         // Get GeoJSON layer content
         var layerContent = new L.GeoJSON.AJAX(layerUrl

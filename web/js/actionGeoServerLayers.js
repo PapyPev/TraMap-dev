@@ -45,12 +45,12 @@ function gs_setStyle(feature) {
     case "Point":
     case "MultiPoint":
       var redMarker = L.icon({
-        iconUrl: 'img/icon-map/marker.png',
+        iconUrl: '../img/icon-map/marker.png',
         iconSize:     [35, 35], // size of the icon
         iconAnchor:   [17, 35], // point of the icon which will correspond to marker's location
         popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
       });
-      //feature.setIcon(redMarker);
+      feature.setIcon(redMarker);
       return {icon: redMarker};
       break;
 
@@ -191,7 +191,7 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           }
         );
 
-        console.log(layerContent);
+        //console.log(layerContent);
 
         // Add to list of layers
         listOfLayers.push(new LayerProperties(

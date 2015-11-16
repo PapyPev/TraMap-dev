@@ -51,10 +51,9 @@ function gs_setStyle(feature) {
         iconAnchor:   [17, 35], // point of the icon which will correspond to marker's location
         popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
       });
-      
-      console.log("point", redMarker);
 
-      return {icon: redMarker, draggable:true};
+      //return {icon: redMarker, draggable:true};
+      return {marker-color: "#00ff00"};
       break;
 
     //---------- Line Style

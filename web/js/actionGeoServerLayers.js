@@ -41,25 +41,31 @@ function gs_setStyle(feature) {
   //console.log(feature)
   switch(feature.geometry.type){
 
+    //---------- Points Style
     case "Point":
     case "MultiPoint":
-      console.log("point", feature)
-      break;
+      return {icon: "../img/icon-pack/mapsmarker/"+feature.properties.type+".png"};
+      }
 
+      break; // end point
+
+    //---------- Line Style
     case "LineString":
     case "LinearRing":
     case "MultiLineString":
       console.log("line")
       break;
 
+    //---------- Polygon Style
     case "Polygon":
     case "MultiPolygon": 
       console.log("polygon")
-      break;
+      break; // end polygon
 
+    //---------- Default
     default:
       console.log("nothing")
-      break;
+      break; // end default
   }
 
   // Switch on class properties

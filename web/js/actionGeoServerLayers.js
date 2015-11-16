@@ -44,7 +44,7 @@ function gs_setStyle(feature) {
     //---------- Points Style
     case "Point":
     case "MultiPoint":
-      return {background: url("img/icon-map/marker.png") 0 0};
+      return {background: url("img/icon-map/marker.png")};
       break;
 
     //---------- Line Style

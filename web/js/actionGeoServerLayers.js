@@ -45,7 +45,7 @@ function gs_setStyle(feature) {
     case "Point":
     case "MultiPoint":
 
-      var icon = "img/icon-pack/mapsmarker/"+feature.properties.type+".png";
+      var icon = "../img/icon-pack/mapsmarker/"+feature.properties.type+".png";
 
       var marker = L.icon({
         iconUrl: icon,

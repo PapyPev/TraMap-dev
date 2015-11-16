@@ -52,7 +52,7 @@ function gs_setStyle(feature) {
         popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
       });
 
-      return redMarker;
+      return {redMarker};
       break;
 
     //---------- Line Style

@@ -52,7 +52,7 @@ function gs_setStyle(feature) {
         popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
       });
 
-      return {"icon": redMarker};
+      return {icon: redMarker};
       break;
 
     //---------- Line Style
@@ -64,22 +64,22 @@ function gs_setStyle(feature) {
       switch(feature.properties.type){
         // motorway
         case 11:
-          return {"style": {color: "red", weight: 5, opacity: 0.7}};
+          return {style: {color: "red", weight: 5, opacity: 0.7}};
           break;
 
         // primary
         case 15:
         case 16:
-          return {"style": {color: "orange", weight: 2, opacity: 0.7}};
+          return {style: {color: "orange", weight: 2, opacity: 0.7}};
           break;
 
         // truck
         case 13:
-          return {"style": {color: "yellow", weight: 2, opacity: 0.7}};
+          return {style: {color: "yellow", weight: 2, opacity: 0.7}};
           break;
 
         default:
-          return {"style": {color: "green", weight: 2, opacity: 0.7}};
+          return {style: {color: "green", weight: 2, opacity: 0.7}};
           break;
 
       } //end lines
@@ -87,7 +87,7 @@ function gs_setStyle(feature) {
     //---------- Polygon Style
     case "Polygon":
     case "MultiPolygon": 
-      return {"style": {color: "black", weight: 1, opacity: 0.3}};
+      return {style: {color: "black", weight: 1, opacity: 0.3}};
 
     //---------- Default
     default:

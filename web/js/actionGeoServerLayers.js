@@ -52,7 +52,7 @@ function gs_setStyle(feature) {
         popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
       });
 
-      return {icon: redMarker};
+      return redMarker;
       break;
 
     //---------- Line Style
@@ -189,13 +189,9 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           {
             onEachFeature: gs_setPopup, // popup information
             //style: gs_setStyle,
-            //icon: gs_setStyle
+            icon: gs_setStyle
           }
         );
-
-        console.log(layerContent);
-
-        layerContent.setStyle(gs_setStyle(layerContent));
 
         // Add to list of layers
         listOfLayers.push(new LayerProperties(

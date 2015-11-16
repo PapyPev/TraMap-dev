@@ -67,7 +67,7 @@ function gs_setStyle(feature) {
     case "Polygon":
     case "MultiPolygon": 
       console.log("polygon")
-      break; // end polygon
+      return {color: "orange", weight: feature.properties.type/10, opacity: 0.5};
 
     //---------- Default
     default:
@@ -75,16 +75,6 @@ function gs_setStyle(feature) {
       break; // end default
   }
 
-  // Switch on class properties
-  switch (feature.properties.clazz) {
-
-    // TODO : Comment
-    case 31: return {color: "orange", weight: 17, opacity: 0.5};
-
-    // TODO : Comment
-    case 32: return {color: "#0000ff", weight: 17, opacity: 0.5};
-
-  } //end switch(feature.properties.clazz)
 } //-- end gs_setStyle(feature)
 
 // ----------------------------------------------------------------------------

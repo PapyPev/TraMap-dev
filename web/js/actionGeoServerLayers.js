@@ -51,6 +51,8 @@ function gs_setStyle(feature) {
         popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
       });
       feature.setIcon(redMarker);
+      console.log(redMarker);
+      console.log(feature);
       return {icon: redMarker};
       break;
 

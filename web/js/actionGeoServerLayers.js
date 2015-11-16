@@ -63,22 +63,22 @@ function gs_setStyle(feature) {
       switch(feature.properties.type){
         // motorway
         case 11:
-          return {color: "red", weight: 5, opacity: 0.7};
+          return "style": {color: "red", weight: 5, opacity: 0.7};
           break;
 
         // primary
         case 15:
         case 16:
-          return {color: "orange", weight: 2, opacity: 0.7};
+          return "style": {color: "orange", weight: 2, opacity: 0.7};
           break;
 
         // truck
         case 13:
-          return {color: "yellow", weight: 2, opacity: 0.7};
+          return "style": {color: "yellow", weight: 2, opacity: 0.7};
           break;
 
         default:
-          return {color: "green", weight: 2, opacity: 0.7};
+          return "style": {color: "green", weight: 2, opacity: 0.7};
           break;
 
       } //end lines
@@ -86,7 +86,7 @@ function gs_setStyle(feature) {
     //---------- Polygon Style
     case "Polygon":
     case "MultiPolygon": 
-      return {color: "black", weight: 1, opacity: 0.3};
+      return "style": {color: "black", weight: 1, opacity: 0.3};
 
     //---------- Default
     default:
@@ -183,31 +183,14 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           +"&outputFormat=application/json";
 
         // Get GeoJSON layer content
-        var layerContent;
-
-        switch(feature.geometry.type){
-          case "Point":
-          case "MultiPoint":
-            layerContent = new L.GeoJSON.AJAX(layerUrl
-              +"&bbox="+southWest.X+","+southWest.Y+","
-              +northEast.X+","+northEast.Y,
-              {
-                onEachFeature: gs_setPopup, // popup information
-                icon: gs_setStyle
-              }
-            );
-            break;
-          default:
-            layerContent = new L.GeoJSON.AJAX(layerUrl
-              +"&bbox="+southWest.X+","+southWest.Y+","
-              +northEast.X+","+northEast.Y,
-              {
-                onEachFeature: gs_setPopup, // popup information
-                style: gs_setStyle
-              }
-            );
-            break;
-        }
+        var layerContent = new L.GeoJSON.AJAX(layerUrl
+          +"&bbox="+southWest.X+","+southWest.Y+","
+          +northEast.X+","+northEast.Y,
+          {
+            onEachFeature: gs_setPopup, // popup information
+            gs_setStyle
+          }
+        );
 
         // Add to list of layers
         listOfLayers.push(new LayerProperties(

@@ -61,13 +61,14 @@ function gs_setStyle(feature) {
     case "LinearRing":
     case "MultiLineString":
       console.log("line", feature.properties.type, feature)
+      return {color: "orange", weight: feature.properties.type/10, opacity: 0.5};
       break;
 
     //---------- Polygon Style
     case "Polygon":
     case "MultiPolygon": 
       console.log("polygon")
-      return {color: "orange", weight: feature.properties.type, opacity: 0.5};
+      break;
 
     //---------- Default
     default:

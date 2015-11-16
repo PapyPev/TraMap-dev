@@ -55,7 +55,7 @@ function gs_setStyle(feature) {
       };
 
       //return {icon: redMarker, draggable:true};
-      return {pointToLayer: geojsonMarkerOptions};
+      return L.circleMarker( geojsonMarkerOptions);
       break;
 
     //---------- Line Style

@@ -69,14 +69,14 @@ function gs_setStyle(feature) {
         // primary
         case 15:
         case 16:
-          return {color: "orange", weight: 5, opacity: 0.7};
+          return {color: "orange", weight: 2, opacity: 0.7};
 
         // truck
         case 13:
-          return {color: "yellow", weight: 5, opacity: 0.7};
+          return {color: "yellow", weight: 2, opacity: 0.7};
 
         default:
-          return {color: "green", weight: 5, opacity: 0.7};
+          return {color: "green", weight: 2, opacity: 0.7};
           break;
       }
 

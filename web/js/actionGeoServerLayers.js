@@ -46,10 +46,14 @@ function gs_setStyle(feature, latlng) {
     case "MultiPoint":
 
       switch(feature.properties.type){
-        case "school":
         case "bus_stop":
-        case "bus":
+        case "fire_station":
+        case "fuel":
         case "police":
+        case "postal":
+        case "school":
+        case "townhall":
+        case "university":
           var marker = L.icon({
             iconUrl: 'img/icon-pack/mapsmarker/'
               +feature.properties.type+'.png',

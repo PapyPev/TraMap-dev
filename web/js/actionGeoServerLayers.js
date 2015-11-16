@@ -46,14 +46,15 @@ function gs_setStyle(feature) {
     case "MultiPoint":
       console.log("point");
 
+      console.log("point", feature.properties.type, feature);
+
       var redMarker = L.icon({
         iconUrl: 'img/icon-map/marker.png',
         iconSize:     [35, 35], // size of the icon
         iconAnchor:   [17, 35], // point of the icon which will correspond to marker's location
         popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
       });
-
-      console.log("point", icon, feature.properties.type);
+      
       return {icon: redMarker};
 
     //---------- Line Style

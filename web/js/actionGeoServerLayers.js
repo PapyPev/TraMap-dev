@@ -111,14 +111,18 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
       for (var i = 0; i < y.length; i++) {
 
         // Save layer Name
-        var layerName = y[i].getElementsByTagName("Title")[0].childNodes[0].nodeValue;
+        var layerValue = y[i].getElementsByTagName("Title")[0].childNodes[0].nodeValue;
 
         // Prepare the Category Name
         var layerCategory = "";
 
+        // Prepare the Layer Name
+        var layerName = layerValue;
+
         // If the layer have a prefix
-        if (layerName.split("_")[1]) {
-          layerCategory = layerName.split("_")[0];
+        if (layerValue.split("_")[1]) {
+          layerCategory = layerValue.split("_")[0];
+          layerName = layerValue.split("_")[1];
         } else{
           layerCategory = "Data";
         };
@@ -126,7 +130,7 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
         // Prepare the URL for getting vector data
         var layerUrl = url
           +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
-          +repository+":"+layerName
+          +repository+":"+layerValue
           +"&srsName="+projection
           +"&SRS="+projection
           +"&maxFeatures="+maxFeatures

@@ -57,7 +57,7 @@ function gs_setStyle(feature) {
       break;
 
     default:
-      // nothing
+      console.log("nothing")
       break;
   }
 

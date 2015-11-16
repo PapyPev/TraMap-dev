@@ -44,7 +44,7 @@ function gs_setStyle(feature) {
     //---------- Points Style
     case "Point":
     case "MultiPoint":
-
+      console.log("point", feature.properties.type);
       return {icon: "img/icon-pack/mapsmarker/"+feature.properties.type+".png"};
 
     //---------- Line Style

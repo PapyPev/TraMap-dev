@@ -54,6 +54,7 @@ function gs_setStyle(feature) {
       //feature.setIcon(redMarker);
       console.log(redMarker);
       console.log(feature);
+      feature.properties["icon"] = redMarker;
       return {icon: redMarker};
       break;
 

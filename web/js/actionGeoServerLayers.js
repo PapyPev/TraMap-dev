@@ -44,6 +44,7 @@ function gs_setStyle(feature) {
     //---------- Points Style
     case "Point":
     case "MultiPoint":
+      console.log("point");
       var redMarker = L.icon({
         iconUrl: '../img/icon-map/marker.png',
         iconSize:     [35, 35], // size of the icon

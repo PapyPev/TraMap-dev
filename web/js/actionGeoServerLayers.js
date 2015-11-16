@@ -83,8 +83,7 @@ function gs_setStyle(feature) {
     //---------- Polygon Style
     case "Polygon":
     case "MultiPolygon": 
-      console.log("polygon")
-      break;
+      return {color: "black", weight: 1, opacity: 0.3};
 
     //---------- Default
     default:

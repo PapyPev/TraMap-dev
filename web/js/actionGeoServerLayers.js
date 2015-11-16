@@ -102,7 +102,9 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
     var x = xmlDoc.getElementsByTagName("FeatureTypeList");
 
     // Loop Layer Layer's list
-    for (i=0;i<x.length;i++){ 
+    for (i=0;i<x.length;i++){
+
+      console.log("Data from geoserver:", x);
 
       // Get layer child on the layer's list
       var y = x[i].getElementsByTagName("FeatureType");

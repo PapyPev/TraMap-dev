@@ -76,7 +76,7 @@ function gs_setStyle(feature) {
           return {color: "yellow", weight: 5, opacity: 0.7};
 
         default:
-          //nothing
+          return {color: "green", weight: 5, opacity: 0.7};
           break;
       }
 

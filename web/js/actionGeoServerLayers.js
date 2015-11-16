@@ -36,7 +36,7 @@ function convert_LatLonToMercator(lat, lon) {
  * [This function gives a visual style to data]
  * @param {Object} feature [Feature of the layer]
  */
-function gs_setStyle(feature) {
+function gs_setStyle(feature, latlng) {
 
   //console.log(feature)
   switch(feature.geometry.type){
@@ -51,11 +51,8 @@ function gs_setStyle(feature) {
         iconAnchor:   [17, 35], // point of the icon which will correspond to marker's location
         popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
       });
-      //feature.setIcon(redMarker);
-      console.log(redMarker);
-      console.log(feature);
-      feature.properties["icon"] = redMarker;
-      return {icon: redMarker};
+
+      return L.marker(latlng,{icon: ratIcon});
       break;
 
     //---------- Line Style
@@ -191,11 +188,10 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           +northEast.X+","+northEast.Y,
           {
             onEachFeature: gs_setPopup, // popup information
-            style: gs_setStyle
+            style: gs_setStyle,
+            pointToLayer: gs_setStyle
           }
         );
-
-        //console.log(layerContent);
 
         // Add to list of layers
         listOfLayers.push(new LayerProperties(

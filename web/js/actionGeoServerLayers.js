@@ -44,9 +44,8 @@ function gs_setStyle(feature) {
     //---------- Points Style
     case "Point":
     case "MultiPoint":
-      console.log("point");
 
-      console.log("point", feature.properties.type, feature);
+      //console.log("point", feature.properties.type, feature);
 
       var redMarker = L.icon({
         iconUrl: 'img/icon-map/marker.png',
@@ -61,7 +60,7 @@ function gs_setStyle(feature) {
     case "LineString":
     case "LinearRing":
     case "MultiLineString":
-      console.log("line")
+      console.log("line", feature.properties.type, feature)
       break;
 
     //---------- Polygon Style

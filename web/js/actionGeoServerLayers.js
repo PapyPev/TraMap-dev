@@ -45,17 +45,14 @@ function gs_setStyle(feature) {
     case "Point":
     case "MultiPoint":
 
-      var geojsonMarkerOptions = {
-        radius: 8,
-        fillColor: "#ff7800",
-        color: "#000",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.8
-      };
+      var redMarker = L.icon({
+        iconUrl: 'img/icon-map/marker.png',
+        iconSize:     [35, 35], // size of the icon
+        iconAnchor:   [17, 35], // point of the icon which will correspond to marker's location
+        popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
+      });
 
-      //return {icon: redMarker, draggable:true};
-      return L.circleMarker( geojsonMarkerOptions);
+      return redMarker;
       break;
 
     //---------- Line Style
@@ -191,7 +188,11 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           +northEast.X+","+northEast.Y,
           {
             onEachFeature: gs_setPopup, // popup information
-            style: gs_setStyle
+            if (feature.geometry.type==="Point") {
+              icon: gs_setStyle
+            } else{
+              style: gs_setStyle
+            };
           }
         );
 

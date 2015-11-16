@@ -45,8 +45,6 @@ function gs_setStyle(feature) {
     case "Point":
     case "MultiPoint":
 
-      //console.log("point", feature.properties.type, feature);
-
       var redMarker = L.icon({
         iconUrl: 'img/icon-map/marker.png',
         iconSize:     [35, 35], // size of the icon
@@ -54,7 +52,8 @@ function gs_setStyle(feature) {
         popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
       });
       
-      return {icon: redMarker};
+      return {icon: redMarker, draggable:true};
+      break;
 
     //---------- Line Style
     case "LineString":
@@ -65,20 +64,24 @@ function gs_setStyle(feature) {
         // motorway
         case 11:
           return {color: "red", weight: 5, opacity: 0.7};
+          break;
 
         // primary
         case 15:
         case 16:
           return {color: "orange", weight: 2, opacity: 0.7};
+          break;
 
         // truck
         case 13:
           return {color: "yellow", weight: 2, opacity: 0.7};
+          break;
 
         default:
           return {color: "green", weight: 2, opacity: 0.7};
           break;
-      }
+
+      } //end lines
 
     //---------- Polygon Style
     case "Polygon":
@@ -87,7 +90,7 @@ function gs_setStyle(feature) {
 
     //---------- Default
     default:
-      console.log("nothing")
+      //nothing
       break; // end default
   }
 

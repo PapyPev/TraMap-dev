@@ -43,7 +43,7 @@ function gs_setStyle(feature) {
 
     case "Point":
     case "MultiPoint":
-      console.log("point")
+      console.log("point", feature)
       break;
 
     case "LineString":
@@ -53,6 +53,7 @@ function gs_setStyle(feature) {
       break;
 
     case "Polygon":
+    case "MultiPolygon": 
       console.log("polygon")
       break;
 

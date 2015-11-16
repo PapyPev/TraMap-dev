@@ -183,18 +183,31 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           +"&outputFormat=application/json";
 
         // Get GeoJSON layer content
-        var layerContent = new L.GeoJSON.AJAX(layerUrl
-          +"&bbox="+southWest.X+","+southWest.Y+","
-          +northEast.X+","+northEast.Y,
-          {
-            onEachFeature: gs_setPopup, // popup information
-            if (feature.geometry.type==="Point") {
-              icon: gs_setStyle
-            } else{
-              style: gs_setStyle
-            };
-          }
-        );
+        var layerContent;
+
+        switch(feature.geometry.type){
+          case "Point":
+          case "MultiPoint":
+            layerContent = new L.GeoJSON.AJAX(layerUrl
+              +"&bbox="+southWest.X+","+southWest.Y+","
+              +northEast.X+","+northEast.Y,
+              {
+                onEachFeature: gs_setPopup, // popup information
+                icon: gs_setStyle
+              }
+            );
+            break;
+          default:
+            layerContent = new L.GeoJSON.AJAX(layerUrl
+              +"&bbox="+southWest.X+","+southWest.Y+","
+              +northEast.X+","+northEast.Y,
+              {
+                onEachFeature: gs_setPopup, // popup information
+                style: gs_setStyle
+              }
+            );
+            break;
+        }
 
         // Add to list of layers
         listOfLayers.push(new LayerProperties(

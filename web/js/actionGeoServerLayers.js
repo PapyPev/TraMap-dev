@@ -38,6 +38,8 @@ function convert_LatLonToMercator(lat, lon) {
  */
 function gs_setStyle(feature) {
 
+  console.log(feature)
+
   // Switch on class properties
   switch (feature.properties.clazz) {
 
@@ -141,7 +143,7 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           +"&bbox="+southWest.X+","+southWest.Y+","
           +northEast.X+","+northEast.Y,
           {
-            onEachFeature:gs_setPopup, // popup information
+            onEachFeature: gs_setPopup, // popup information
             style: gs_setStyle
           }
         );

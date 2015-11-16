@@ -55,7 +55,7 @@ function gs_setStyle(feature) {
       });
 
       console.log("point", icon, feature.properties.type);
-      return {icon: marker};
+      return {color: "orange", icon: marker};
 
     //---------- Line Style
     case "LineString":

@@ -49,13 +49,14 @@ function gs_setStyle(feature, latlng) {
         case "bus_stop":
         case "fire_station":
         case "fuel":
+        case "hospital":
         case "police":
         case "postal":
         case "school":
         case "townhall":
         case "university":
           var marker = L.icon({
-            iconUrl: 'img/icon-pack/mapsmarker/'
+            iconUrl: 'img/icon-pack/mapsmarker/enable/'
               +feature.properties.type+'.png',
             iconSize:     [22, 22], // size of the icon
             iconAnchor:   [17, 35], // point of the icon which will correspond to marker's location
@@ -66,7 +67,7 @@ function gs_setStyle(feature, latlng) {
 
         default:
           var marker2 = L.icon({
-            iconUrl: 'img/icon-pack/mapsmarker/comment-map-icon.png',
+            iconUrl: 'img/icon-pack/mapsmarker/enable/comment-map-icon.png',
             iconSize:     [22, 22], // size of the icon
             iconAnchor:   [17, 35], // point of the icon which will correspond to marker's location
             popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor

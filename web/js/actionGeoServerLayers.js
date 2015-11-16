@@ -107,13 +107,21 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
       // Get layer child on the layer's list
       var y = x[i].getElementsByTagName("FeatureType");
 
-      console.log("Data from geoserver:", y);
-
       // Loop on layer's properties
       for (var i = 0; i < y.length; i++) {
 
         // Save layer Name
         var layerName = y[i].getElementsByTagName("Title")[0].childNodes[0].nodeValue;
+
+        // Prepare the Category Name
+        var layerCategory = "";
+
+        // If the layer have a prefix
+        if (layerName.split("_")[1]) {
+          layerCategory = layerName.split("_")[0];
+        } else{
+          layerCategory = "Data";
+        };
 
         // Prepare the URL for getting vector data
         var layerUrl = url
@@ -137,7 +145,7 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
         // Add to list of layers
         listOfLayers.push(new LayerProperties(
           "Checkbox", 
-          "Data", 
+          layerCategory, 
           layerName,
           layerName,
           i,

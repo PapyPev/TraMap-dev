@@ -50,7 +50,7 @@ function gs_setStyle(feature) {
         iconAnchor:   [17, 35], // point of the icon which will correspond to marker's location
         popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
       });
-      feature.setIcon(redMarker);
+      //feature.setIcon(redMarker);
       return {icon: redMarker};
       break;
 

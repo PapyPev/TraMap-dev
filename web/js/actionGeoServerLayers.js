@@ -39,88 +39,40 @@ function gs_setStyle(feature, latlng) {
   var layerName = "osm_amenities";
   var layerStyle = styleProperties.getLayerStyle(layerName);
 
-  //console.log(feature)
-  switch(feature.geometry.type){
+  if (layerStyle.filters) {
+    switch(layerStyle.filters_type){
+      //~~~~~~~~~~~~~~~~~~~~
+      case "key":
 
-    //---------- Points Style
-    case "Point":
-    case "MultiPoint":
+        for (var i = layerStyle.styles.length - 1; i >= 0; i--) {
+          if (layerStyle.styles[i].filter === feature.properties.type) {
+            if (layerStyle.type==="Point") {
+              var marker = L.icon({
+                iconUrl: layerStyle.styles[i].icon_url,
+                iconSize: layerStyle.styles[i].icon_size,
+                iconAnchor: layerStyle.styles[i].icon_anchor,
+                popupAnchor: layerStyle.styles[i].icon_popanchor
+              });
+              return L.marker(latlng,{icon: marker});
+            } else {
+              return layerStyle.styles[i];
+            }
+          } // if style.filter === feature.type
+        } // end for layerStyle.styles.length
 
-      if (layerStyle.filters) {
-        switch(layerStyle.filters_type){
-          //~~~~~~~~~~~~~~~~~~~~
-          case "key":
+        break;
+      //~~~~~~~~~~~~~~~~~~~~
+      case "bounds":
+        
+        
 
-            for (var i = layerStyle.styles.length - 1; i >= 0; i--) {
-              if (layerStyle.styles[i].filter === feature.properties.type) {
-                if (layerStyle.type==="Point") {
-                  var marker = L.icon({
-                    iconUrl: layerStyle.styles[i].icon_url,
-                    iconSize: layerStyle.styles[i].icon_size,
-                    iconAnchor: layerStyle.styles[i].icon_anchor,
-                    popupAnchor: layerStyle.styles[i].icon_popanchor
-                  });
-                  return L.marker(latlng,{icon: marker});
-                } else {
-                  return layerStyle.styles[i];
-                }
-              } // if style.filter === feature.type
-            } // end for layerStyle.styles.length
-
-            break;
-          //~~~~~~~~~~~~~~~~~~~~
-          case "bounds":
-            
-            
-
-            break;
-          //~~~~~~~~~~~~~~~~~~~~
-          default:
-            console.log("other")
-            break;
-        } // //switch(layerStyle.filters_type)
-      } // if (layerStyle.filters)
-      break;
-
-    //---------- Line Style
-    case "LineString":
-    case "LinearRing":
-    case "MultiLineString":
-
-      switch(feature.properties.type){
-        // motorway
-        case 11:
-          return {color: "red", weight: 5, opacity: 0.7};
-          break;
-
-        // primary
-        case 15:
-        case 16:
-          return {color: "orange", weight: 2, opacity: 0.7};
-          break;
-
-        // truck
-        case 13:
-          return {color: "yellow", weight: 2, opacity: 0.7};
-          break;
-
-        default:
-          return {color: "green", weight: 2, opacity: 0.7};
-          break;
-
-      } //end lines
-
-    //---------- Polygon Style
-    case "Polygon":
-    case "MultiPolygon": 
-      return {color: "black", weight: 1, opacity: 0.3};
-
-    //---------- Default
-    default:
-      //nothing
-      break; // end default
-
-  }
+        break;
+      //~~~~~~~~~~~~~~~~~~~~
+      default:
+        console.log("other")
+        break;
+    } // //switch(layerStyle.filters_type)
+  } // if (layerStyle.filters)
 
 }
 

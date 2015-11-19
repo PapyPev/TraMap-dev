@@ -146,6 +146,8 @@ LayerStyleProperties.prototype.toString = function() {
  */
 function getLayerStyleConfig (filePath, name) {
 
+  console.warn("Hey")
+
   // Returned value
   var layerStyleConfig;
 

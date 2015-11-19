@@ -38,9 +38,7 @@ function gs_setStyle(feature, latlng) {
 
   var layerName = "osm_amenities";
   var layerStyle = styleProperties.getLayerStyle(layerName);
-  console.warn("FANDAAA");
-  console.log(layerStyle);
-
+  
   //console.log(feature)
   switch(feature.geometry.type){
 

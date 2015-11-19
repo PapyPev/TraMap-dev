@@ -64,7 +64,7 @@ function gs_setStyle(feature, latlng) {
       //~~~~~~~~~~~~~~~~~~~~
       case "bounds":
 
-        console.log(layerStyle.attribute_value);
+        console.log(feature.properties[layerStyle.attribute_value]);
         for (var i = layerStyle.styles.length - 1; i >= 0; i--) {
           if (layerStyle.styles[i].value_min <= feature.properties.traffic &&
             feature.properties.traffic < layerStyle.styles[i].value_max) {

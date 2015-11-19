@@ -36,7 +36,7 @@ function convert_LatLonToMercator(lat, lon) {
 
 function gs_setStyle(feature, latlng) {
 
-  var layerName = "osm_transport_points";
+  var layerName = "osm_amenities";
   var layerStyle = styleProperties.getLayerStyle(layerName);
 
   //console.log(feature)
@@ -70,7 +70,9 @@ function gs_setStyle(feature, latlng) {
             break;
           //~~~~~~~~~~~~~~~~~~~~
           case "bounds":
-            console.log("boud")
+            
+            
+
             break;
           //~~~~~~~~~~~~~~~~~~~~
           default:

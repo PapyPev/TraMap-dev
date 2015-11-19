@@ -36,7 +36,7 @@ function convert_LatLonToMercator(lat, lon) {
 
 function gs_setStyle(feature, latlng) {
 
-  var layerName = "osm_amenities";
+  var layerName = "traffic";
   var layerStyle = styleProperties.getLayerStyle(layerName);
 
   if (layerStyle.filters) {
@@ -64,7 +64,7 @@ function gs_setStyle(feature, latlng) {
       //~~~~~~~~~~~~~~~~~~~~
       case "bounds":
         
-        
+        console.log(feature.properties)
 
         break;
       //~~~~~~~~~~~~~~~~~~~~

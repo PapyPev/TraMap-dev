@@ -201,7 +201,7 @@ function gs_setPopup(feature, layer) {
   var layerStyle = styleProperties.getLayerStyle(layerName);
   var val = layerStyle.attribute_alias;
 
-  layer.bindPopup(feature.properties[val]);
+  layer.bindPopup(feature.properties[val].toString());
 
 } //-- end gs_setPopup(feature, layer)
 

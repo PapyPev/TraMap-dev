@@ -6,7 +6,7 @@
 | This class contains all Layer properties and functions.
 |
 | @author Pev
-| @verion 1.0.0
+| @verion 1.0.2
 |
 |------------------------------------------------------------------------------
 */
@@ -27,8 +27,8 @@ function LayerStyleProperties(filePath) {
   var fromJson = getLayerStyleConfig(filePath);
 
   /**
-   * [Name of the layer]
-   * @type {String}
+   * [List of all layers configurations style]
+   * @type {array}
    * @private
    */
   this.layers = fromJson.layers;
@@ -41,16 +41,27 @@ function LayerStyleProperties(filePath) {
 
 /**
  * [Return the list of layers properties]
- * @return {String} [Layer's name]
+ * @return {array} [Layer's name]
  */
 LayerStyleProperties.prototype.getLayers = function(){
   return this.layers;
 }
 
+// ============================================================================
+// METHODS
+// ============================================================================
+
+/**
+ * [Return Style properties for the layers name in parameter]
+ * @param  {String} name [The layer's name]
+ * @return {Object}      [The layer's style properties]
+ */
 LayerStyleProperties.prototype.getLayerStyle = function(name) {
   
+  // Define default return
   var style;
 
+  // For each object on the configuration file, search the layer nme
   for (var i = this.layers.length - 1; i >= 0; i--) {
     if (this.layers[i].name === name) {
       style = this.layers[i];
@@ -59,12 +70,7 @@ LayerStyleProperties.prototype.getLayerStyle = function(name) {
   }
 
   return style;
-
 };
-
-// ============================================================================
-// METHODS
-// ============================================================================
 
 /**
  * [String representation of the LayerStyleProperties]

@@ -170,6 +170,7 @@ function getLayerStyleConfig (filePath, name) {
 
     },
     error: function(jqXHR, exception){
+      console.warn("failde")
       if (jqXHR.status === 401) {
         console.log('HTTP Error 401 Unauthorized.');
       } else {

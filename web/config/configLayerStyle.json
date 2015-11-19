@@ -141,7 +141,7 @@
     },
 
     {
-      "name": "osm_transport_Points",
+      "name": "osm_transport_points",
       "type": "Point",
       "filters": true,
       "filters_type": "key",

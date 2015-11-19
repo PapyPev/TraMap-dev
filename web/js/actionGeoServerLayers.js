@@ -36,7 +36,7 @@ function convert_LatLonToMercator(lat, lon) {
 
 function gs_setStyle(feature, latlng) {
 
-  var layerName = "osm_amenities";
+  var layerName = "osm_transport_points";
   var layerStyle = styleProperties.getLayerStyle(layerName);
 
   //console.log(feature)

@@ -154,7 +154,7 @@
           "icon_size": [22,22],
           "icon_anchor": [17,35],
           "icon_popanchor": [0,-35]
-        }
+        },
         {
           "filter": "helipad",
           "zoom_min": 10,
@@ -163,7 +163,7 @@
           "icon_size": [22,22],
           "icon_anchor": [17,35],
           "icon_popanchor": [0,-35]
-        }
+        },
         {
           "filter": "subway_entrance",
           "zoom_min": 10,
@@ -172,7 +172,7 @@
           "icon_size": [22,22],
           "icon_anchor": [17,35],
           "icon_popanchor": [0,-35]
-        }
+        },
         {
           "filter": "aerodrome",
           "zoom_min": 10,
@@ -181,7 +181,7 @@
           "icon_size": [22,22],
           "icon_anchor": [17,35],
           "icon_popanchor": [0,-35]
-        }
+        },
         {
           "filter": "bus_stop",
           "zoom_min": 10,
@@ -190,7 +190,7 @@
           "icon_size": [22,22],
           "icon_anchor": [17,35],
           "icon_popanchor": [0,-35]
-        }
+        },
         {
           "filter": "turning_circle",
           "zoom_min": 10,
@@ -199,7 +199,7 @@
           "icon_size": [22,22],
           "icon_anchor": [17,35],
           "icon_popanchor": [0,-35]
-        }
+        },
         {
           "filter": "level_crossing",
           "zoom_min": 10,
@@ -208,7 +208,7 @@
           "icon_size": [22,22],
           "icon_anchor": [17,35],
           "icon_popanchor": [0,-35]
-        }
+        },
         {
           "filter": "station",
           "zoom_min": 10,
@@ -217,7 +217,7 @@
           "icon_size": [22,22],
           "icon_anchor": [17,35],
           "icon_popanchor": [0,-35]
-        }
+        },
         {
           "filter": "tram_stop",
           "zoom_min": 10,
@@ -226,7 +226,7 @@
           "icon_size": [22,22],
           "icon_anchor": [17,35],
           "icon_popanchor": [0,-35]
-        }
+        },
         {
           "filter": "terminal",
           "zoom_min": 10,
@@ -235,7 +235,7 @@
           "icon_size": [22,22],
           "icon_anchor": [17,35],
           "icon_popanchor": [0,-35]
-        }
+        },
         {
           "filter": "halt",
           "zoom_min": 10,
@@ -244,7 +244,7 @@
           "icon_size": [22,22],
           "icon_anchor": [17,35],
           "icon_popanchor": [0,-35]
-        }
+        },
         {
           "filter": "gate",
           "zoom_min": 10,
@@ -253,7 +253,7 @@
           "icon_size": [22,22],
           "icon_anchor": [17,35],
           "icon_popanchor": [0,-35]
-        }
+        },
         {
           "filter": "crossing",
           "zoom_min": 10,

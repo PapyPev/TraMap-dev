@@ -146,8 +146,6 @@ LayerStyleProperties.prototype.toString = function() {
  */
 function getLayerStyleConfig (filePath, name) {
 
-  console.warn("Hey")
-
   // Returned value
   var layerStyleConfig;
 
@@ -158,6 +156,8 @@ function getLayerStyleConfig (filePath, name) {
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success: function(data){
+
+      console.warn("data")
 
       for (var i = data.layers.length - 1; i >= 0; i--) {
         if (data.layers[i].name === name) {

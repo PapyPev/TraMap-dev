@@ -194,7 +194,6 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
 
         // Prepare the Layer Name
         var layerName = layerValue;
-        _LNAME = layerName;
 
         // If the layer have a prefix
         if (layerValue.split("_")[1]) {
@@ -203,6 +202,9 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
         } else{
           layerCategory = "Data";
         };
+
+        // Current layername
+        _LNAME = layerName;
 
         // Prepare the URL for getting vector data
         var layerUrl = url

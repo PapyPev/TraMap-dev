@@ -43,7 +43,7 @@ function gs_setStyle(feature, latlng) {
   var style;
 
   // just test
-  if (feature.geometry.type==="Point") {
+  if (feature.geometry.type=="Point") {
 
     console.log("if test")
 

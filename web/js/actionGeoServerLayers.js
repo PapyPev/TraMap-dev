@@ -124,6 +124,8 @@ function gs_setStyle(feature, latlng) {
       //nothing
       break; // end default
 
+  }
+
 }
 
 /**

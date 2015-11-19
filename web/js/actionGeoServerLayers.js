@@ -47,29 +47,25 @@ function gs_setStyle(feature, latlng) {
     case "MultiPoint":
 
       if (layerStyle.filters) {
-
         switch(layerStyle.filters_type){
-
           //~~~~~~~~~~~~~~~~~~~~
           case "word":
-            
-            for (var i = layerStyle.styles.length - 1; i >= 0; i--) {
-              if (layerStyle.styles[i].filter === feature.properties.type) {
-                //console.log("if filter = type")
-                var marker = {
-                  iconUrl: layerStyle.styles[i].icon_url,
-                  iconSize: layerStyle.styles[i].icon_size,
-                  iconAnchor: layerStyle.styles[i].icon_anchor,
-                  popupAnchor: layerStyle.styles[i].icon_popanchor
-                };
-                style = L.marker(latlng,{icon: marker});
+            if (layerStyle.type==="Point") {
+              for (var i = layerStyle.styles.length - 1; i >= 0; i--) {
+                if (layerStyle.styles[i].filter === feature.properties.type) {
+                  //console.log("if filter = type")
+                  var marker = {
+                    iconUrl: layerStyle.styles[i].icon_url,
+                    iconSize: layerStyle.styles[i].icon_size,
+                    iconAnchor: layerStyle.styles[i].icon_anchor,
+                    popupAnchor: layerStyle.styles[i].icon_popanchor
+                  };
+                  return L.marker(latlng,{icon: marker});
+                }
               }
             }
-
             console.log(style)
-
             break;
-
           //~~~~~~~~~~~~~~~~~~~~
           case "value":
             console.log("val")
@@ -82,12 +78,8 @@ function gs_setStyle(feature, latlng) {
           default:
             console.log("other")
             break;
-        }
-
-      }
-
-      return style;
-
+        } // //switch(layerStyle.filters_type)
+      } // if (layerStyle.filters)
       break;
 
     //---------- Line Style

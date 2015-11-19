@@ -38,7 +38,6 @@ function gs_setStyle(feature, latlng) {
 
   var layerName = "osm_amenities";
   var layerStyle = styleProperties.getLayerStyle(layerName);
-  console.log("lafilter", layerStyle.filters_type)
 
   //console.log(feature)
   switch(feature.geometry.type){
@@ -48,8 +47,6 @@ function gs_setStyle(feature, latlng) {
     case "MultiPoint":
 
       if (layerStyle.filters) {
-
-        console.log("lafilter", layerStyle.filters_type)
 
         switch(layerStyle.filters_types){
           case "word":
@@ -71,13 +68,13 @@ function gs_setStyle(feature, latlng) {
 
             break;
           case "value":
-            // something
+            console.log("val")
             break;
           case "bounds":
-            // something
+            console.log("boud")
             break;
           default:
-            // something
+            console.log("other")
             break;
         }
 

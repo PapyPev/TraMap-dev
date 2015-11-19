@@ -48,7 +48,7 @@ function gs_setStyle(feature, latlng) {
 
       if (layerStyle.filters) {
 
-        switch(layerStyle.filters_types){
+        switch(layerStyle.filters_type){
           case "word":
 
           console.log("word")

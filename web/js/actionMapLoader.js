@@ -374,7 +374,7 @@ function map_init () {
  */
 $(document).ready(function(){
 
-  style = new LayerStyleProperties(_STY_PROP, "roads_truck");
+  style = new LayerStyleProperties(_STY_PROP, "toot");
 
   // initialize all the components of the map
   map_init();

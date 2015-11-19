@@ -38,6 +38,11 @@ function convert_LatLonToMercator(lat, lon) {
  */
 function gs_setStyle(feature, latlng) {
 
+  console.log(feature);
+
+  // Get LayerStyleProperties
+  //var styleProperties = new LayerStyleProperties(_STY_PROP, name);
+
   //console.log(feature)
   switch(feature.geometry.type){
 

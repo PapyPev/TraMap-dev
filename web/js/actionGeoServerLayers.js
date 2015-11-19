@@ -78,6 +78,7 @@ function gs_setStyle(feature, latlng) {
 
   }
 
+  console.log(style)
   return style;
 
 }

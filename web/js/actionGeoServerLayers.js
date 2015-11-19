@@ -49,13 +49,13 @@ function gs_setStyle(feature, latlng) {
       if (layerStyle.filters) {
 
         switch(layerStyle.filters_type){
-          case "word":
 
-          console.log("word")
+          //~~~~~~~~~~~~~~~~~~~~
+          case "word":
             
             for (var i = layerStyle.styles.length - 1; i >= 0; i--) {
               if (layerStyle.styles[i].filter === feature.properties.type) {
-                console.log("if filter = type")
+                //console.log("if filter = type")
                 var marker = {
                   iconUrl: layerStyle.styles[i].icon_url,
                   iconSize: layerStyle.styles[i].icon_size,
@@ -66,19 +66,27 @@ function gs_setStyle(feature, latlng) {
               };
             };
 
+            console.log(style)
+
             break;
+
+          //~~~~~~~~~~~~~~~~~~~~
           case "value":
             console.log("val")
             break;
+          //~~~~~~~~~~~~~~~~~~~~
           case "bounds":
             console.log("boud")
             break;
+          //~~~~~~~~~~~~~~~~~~~~
           default:
             console.log("other")
             break;
         }
 
       }
+
+      return style;
 
       break;
 

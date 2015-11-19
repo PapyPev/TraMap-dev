@@ -320,8 +320,8 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
         );
 
         // Current layer
-        _LAY = layerContent;
-        console.log(_LAY)
+        //_LAY = layerContent;
+        //console.log(_LAY)
 
         // Add to list of layers
         listOfLayers.push(new LayerProperties(

@@ -55,8 +55,8 @@ function gs_setStyle(feature, latlng) {
                 iconSize: layerStyle.styles[i].icon_size,
                 iconAnchor: layerStyle.styles[i].icon_anchor,
                 popupAnchor: layerStyle.styles[i].icon_popanchor
-              }
-              style = L.marker(latlng,{icon: marker}
+              };
+              style = L.marker(latlng,{icon: marker});
             };
           };
 

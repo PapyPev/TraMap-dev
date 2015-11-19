@@ -33,6 +33,12 @@ var _SRV_PROP = './config/configServer.json';
  */
 var _CON_PROP = './config/configContent.json';
 
+/**
+ * Style properties file about the Content to put on the map
+ * @type {String}
+ */
+var _STY_PROP = './config/configLayerStyle.json';
+
 // ============================================================================
 // GLOBALS
 // ============================================================================
@@ -367,6 +373,8 @@ function map_init () {
  * Action performed when the page is fully loaded
  */
 $(document).ready(function(){
+
+  style = new LayerStyleProperties(_STY_PROP, "roads_truck");
 
   // initialize all the components of the map
   map_init();

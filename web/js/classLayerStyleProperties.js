@@ -20,6 +20,26 @@
  * @constructor
  * @this {LayerStyleProperties}
  * @param {String} filePath      [The layer style configuration file]
+ */
+function LayerStyleProperties(filePath, name) {
+
+  // Read configuration file from JSON
+  var fromJson = getLayerStyleConfig(filePath);
+
+  /**
+   * [Name of the layer]
+   * @type {String}
+   * @private
+   */
+  this.layers = fromJson.layers;
+
+} //-- end LayerStyleProperties(...)
+
+/**
+ * [Creates an instance of LayerStyleProperties]
+ * @constructor
+ * @this {LayerStyleProperties}
+ * @param {String} filePath      [The layer style configuration file]
  * @param {String} name      [The layer's name]
  */
 function LayerStyleProperties(filePath, name) {
@@ -69,6 +89,14 @@ function LayerStyleProperties(filePath, name) {
 // ============================================================================
 // GETTERS
 // ============================================================================
+
+/**
+ * [Return the list of layers properties]
+ * @return {String} [Layer's name]
+ */
+LayerStyleProperties.prototype.getLayersStyle = function(){
+  return this.layers;
+}
 
 /**
  * [Return the name of the layer]
@@ -137,6 +165,42 @@ LayerStyleProperties.prototype.toString = function() {
 // FUNCTIONS
 // ============================================================================
 
+/**
+ * [Get GeoServer Configurations from JSON file]
+ * @this {LayerStyleProperties}
+ * @param  {String} filePath [Path to the json file (or url)]
+ * @return {json}          [Content configuration : JSON content]
+ */
+function getLayerStyleConfig (filePath, name) {
+
+  // Returned value
+  var layerStyleConfig;
+
+  // Get JSON
+  $.ajax({
+    type: 'GET',
+    url: filePath,
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success: function(data){
+
+      layerStyleConfig = data;
+
+    },
+    error: function(jqXHR, exception){
+      console.warn("failde")
+      if (jqXHR.status === 401) {
+        console.log('HTTP Error 401 Unauthorized.');
+      } else {
+        console.log('Uncaught Error.\n' + jqXHR.responseText);
+      }
+    },
+    async: false
+
+  });
+
+  return layerStyleConfig;
+} //-- end getContentConfig (filePath)
 
 /**
  * [Get GeoServer Configurations from JSON file]

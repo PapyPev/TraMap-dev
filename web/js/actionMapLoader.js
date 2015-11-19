@@ -305,6 +305,7 @@ function map_init () {
   geoServerProperties = new GeoServerProperties(_SRV_PROP);
   contentProperties = new ContentProperties(_CON_PROP);
   restProperties = new RestProperties(_SRV_PROP);
+  styleProperties = new LayerStyleProperties(_STY_PROP);
 
   //---------- Load Default map
   map = L.map('map', {

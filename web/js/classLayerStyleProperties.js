@@ -164,6 +164,8 @@ function getLayerStyleConfig (filePath, name) {
         }
       }
 
+      console.log(layerStyleConfig);
+
     },
     error: function(jqXHR, exception){
       if (jqXHR.status === 401) {

@@ -53,6 +53,7 @@ LayerStyleProperties.prototype.getLayers = function(){
 
 /**
  * [Return Style properties for the layers name in parameter]
+ * @this {LayerStyleProperties}
  * @param  {String} name [The layer's name]
  * @return {Object}      [The layer's style properties]
  */

@@ -300,7 +300,7 @@ function map_loadTiles () {
  */
 function map_init () {
 
-  //---------- Load Layers, GeoServer, Content Properties
+  //---------- Load Layers, GeoServer, Content, Layers Style Properties
   mapProperties = new MapProperties('map', _MAP_PROP);
   geoServerProperties = new GeoServerProperties(_SRV_PROP);
   contentProperties = new ContentProperties(_CON_PROP);

@@ -6,7 +6,7 @@
 | To centralize and simplify GeoServer functions access, style and features
 |
 | @author Fanda/Pev
-| @verion 1.1.4
+| @verion 1.1.5
 |
 |------------------------------------------------------------------------------
 */

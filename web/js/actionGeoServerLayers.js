@@ -75,12 +75,18 @@ function gs_setStyle(feature, latlng) {
           };
         };
         
-        console.log(feature.properties)
-
         break;
       //~~~~~~~~~~~~~~~~~~~~
       default:
-        console.log("other")
+        
+        if (feature.properties.geometry !== "Point") {
+          return {
+            "color": "blue",
+            "weight": 1,
+            "opacity": 0.7
+          }
+        };
+
         break;
     } // //switch(layerStyle.filters_type)
   } // if (layerStyle.filters)

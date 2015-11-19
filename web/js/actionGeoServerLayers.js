@@ -36,6 +36,8 @@ function convert_LatLonToMercator(lat, lon) {
 
 function gs_setStyle(feature, latlng) {
 
+  console.log("getstyle")
+
   var layerName = "osm_amenities";
   var layerStyle = styleProperties.getLayerStyle(layerName);
   var style;

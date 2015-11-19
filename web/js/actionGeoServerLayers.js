@@ -11,7 +11,7 @@
 |------------------------------------------------------------------------------
 */
 
-var _LNAME = "";
+var _LAY = "";
 
 // ============================================================================
 // FUNCTIONS
@@ -40,7 +40,7 @@ function convert_LatLonToMercator(lat, lon) {
  */
 function gs_setStyle(feature, latlng) {
 
-  //console.log(_LNAME);
+  console.log(_LAY);
 
   // Get LayerStyleProperties
   //var styleProperties = new LayerStyleProperties(_STY_PROP, name);
@@ -203,9 +203,6 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           layerCategory = "Data";
         };
 
-        // Current layername
-        _LNAME = layerName;
-
         // Prepare the URL for getting vector data
         var layerUrl = url
           +"/ows?service=WFS&version=1.0.0&request=GetFeature&typeName="
@@ -225,6 +222,9 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
             pointToLayer: gs_setStyle
           }
         );
+
+        // Current layer
+        _LAY = layerContent;
 
         // Add to list of layers
         listOfLayers.push(new LayerProperties(

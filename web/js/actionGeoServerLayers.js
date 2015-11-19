@@ -199,11 +199,9 @@ function gs_setPopup(feature, layer) {
 
   var layerName = "traffic";
   var layerStyle = styleProperties.getLayerStyle(layerName);
-  var attr = layerStyle.attribute_alias;
+  var val = layerStyle.attribute_alias;
 
-  console.log(attr)
-
-  layer.bindPopup(feature.properties.name);
+  layer.bindPopup(feature.properties[val]);
 
 } //-- end gs_setPopup(feature, layer)
 

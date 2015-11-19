@@ -40,7 +40,7 @@ function convert_LatLonToMercator(lat, lon) {
  */
 function gs_setStyle(feature, latlng) {
 
-  console.log(_LAY);
+  //console.log(_LAY);
 
   // Get LayerStyleProperties
   //var styleProperties = new LayerStyleProperties(_STY_PROP, name);
@@ -225,6 +225,7 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
 
         // Current layer
         _LAY = layerContent;
+        console.log(_LAY)
 
         // Add to list of layers
         listOfLayers.push(new LayerProperties(

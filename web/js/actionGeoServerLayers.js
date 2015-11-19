@@ -50,21 +50,21 @@ function gs_setStyle(feature, latlng) {
         switch(layerStyle.filters_type){
           //~~~~~~~~~~~~~~~~~~~~
           case "word":
+            console.log("word")
             if (layerStyle.type==="Point") {
               for (var i = layerStyle.styles.length - 1; i >= 0; i--) {
                 if (layerStyle.styles[i].filter === feature.properties.type) {
                   //console.log("if filter = type")
-                  var marker = {
+                  var marker = L.icon({
                     iconUrl: layerStyle.styles[i].icon_url,
                     iconSize: layerStyle.styles[i].icon_size,
                     iconAnchor: layerStyle.styles[i].icon_anchor,
                     popupAnchor: layerStyle.styles[i].icon_popanchor
-                  };
+                  });
                   return L.marker(latlng,{icon: marker});
                 }
               }
             }
-            console.log(style)
             break;
           //~~~~~~~~~~~~~~~~~~~~
           case "value":

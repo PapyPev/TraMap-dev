@@ -36,9 +36,9 @@ function convert_LatLonToMercator(lat, lon) {
  * [This function gives a visual style to data]
  * @param {Object} feature [Feature of the layer]
  */
-function gs_setStyle(feature, latlng, name) {
+function gs_setStyle(feature, latlng, layer) {
 
-  console.log(name);
+  console.log(layer);
 
   // Get LayerStyleProperties
   //var styleProperties = new LayerStyleProperties(_STY_PROP, name);

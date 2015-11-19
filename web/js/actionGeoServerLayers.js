@@ -38,7 +38,8 @@ function gs_setStyle(feature, latlng) {
 
   var layerName = "osm_amenities";
   var layerStyle = styleProperties.getLayerStyle(layerName);
-  
+  console.log("lafilter", layerStyle.filters_types)
+
   //console.log(feature)
   switch(feature.geometry.type){
 
@@ -48,7 +49,7 @@ function gs_setStyle(feature, latlng) {
 
       if (layerStyle.filters) {
 
-        console.log("lyerfilter", layerStyle.filters_types)
+        console.log("lafilter", layerStyle.filters_types)
 
         switch(layerStyle.filters_types){
           case "word":

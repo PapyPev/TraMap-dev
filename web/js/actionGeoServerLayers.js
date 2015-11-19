@@ -11,6 +11,8 @@
 |------------------------------------------------------------------------------
 */
 
+var _LNAME = "";
+
 // ============================================================================
 // FUNCTIONS
 // ============================================================================
@@ -36,9 +38,9 @@ function convert_LatLonToMercator(lat, lon) {
  * [This function gives a visual style to data]
  * @param {Object} feature [Feature of the layer]
  */
-function gs_setStyle(feature, latlng, layer) {
+function gs_setStyle(feature, latlng) {
 
-  console.log(layer);
+  console.log(_LNAME);
 
   // Get LayerStyleProperties
   //var styleProperties = new LayerStyleProperties(_STY_PROP, name);
@@ -192,6 +194,7 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
 
         // Prepare the Layer Name
         var layerName = layerValue;
+        _LNAME = layerName;
 
         // If the layer have a prefix
         if (layerValue.split("_")[1]) {

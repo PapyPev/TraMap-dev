@@ -54,7 +54,7 @@
       "name": "osm_amenities",
       "type": "Point",
       "filters": true,
-      "filters_type": "word",
+      "filters_type": "key",
       "styles": [
         {
           "filter": "bus_stop",
@@ -144,7 +144,7 @@
       "name": "osm_transport_Points",
       "type": "Point",
       "filters": true,
-      "filters_type": "word",
+      "filters_type": "key",
       "styles": [
         {
           "filter": "motorway_junction",

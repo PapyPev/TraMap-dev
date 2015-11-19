@@ -49,12 +49,10 @@ function gs_setStyle(feature, latlng) {
       if (layerStyle.filters) {
         switch(layerStyle.filters_type){
           //~~~~~~~~~~~~~~~~~~~~
-          case "word":
-            console.log("word")
-            if (layerStyle.type==="Point") {
-              for (var i = layerStyle.styles.length - 1; i >= 0; i--) {
-                if (layerStyle.styles[i].filter === feature.properties.type) {
-                  //console.log("if filter = type")
+          case "key":
+            for (var i = layerStyle.styles.length - 1; i >= 0; i--) {
+              if (layerStyle.styles[i].filter === feature.properties.type) {
+                if (layerStyle.styles.type==="Point") {
                   var marker = L.icon({
                     iconUrl: layerStyle.styles[i].icon_url,
                     iconSize: layerStyle.styles[i].icon_size,
@@ -62,13 +60,12 @@ function gs_setStyle(feature, latlng) {
                     popupAnchor: layerStyle.styles[i].icon_popanchor
                   });
                   return L.marker(latlng,{icon: marker});
+                } else {
+                  return layerStyle.styles[i];
                 }
-              }
-            }
-            break;
-          //~~~~~~~~~~~~~~~~~~~~
-          case "value":
-            console.log("val")
+
+              } // if style.filter === feature.type
+            } // end for layerStyle.styles.length
             break;
           //~~~~~~~~~~~~~~~~~~~~
           case "bounds":

@@ -196,7 +196,12 @@ function gs_setStyle(feature, latlng) {
  * @param {Object} layer   [The layer object]
  */
 function gs_setPopup(feature, layer) {
-  layer.bindPopup(feature.properties.name);
+
+  var layerName = "traffic";
+  var layerStyle = styleProperties.getLayerStyle(layerName);
+  var attr = layerStyle.attribute_alias;
+  layer.bindPopup(feature.properties[attr]);
+  
 } //-- end gs_setPopup(feature, layer)
 
 // ----------------------------------------------------------------------------

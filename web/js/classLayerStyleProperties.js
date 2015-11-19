@@ -47,7 +47,7 @@ LayerStyleProperties.prototype.getLayers = function(){
   return this.layers;
 }
 
-LayerStyleProperties.prototype.getLayerStayle = function(name) {
+LayerStyleProperties.prototype.getLayerStyle = function(name) {
   
   var style;
 

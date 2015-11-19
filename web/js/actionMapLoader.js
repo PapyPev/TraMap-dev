@@ -306,7 +306,7 @@ function map_init () {
   contentProperties = new ContentProperties(_CON_PROP);
   restProperties = new RestProperties(_SRV_PROP);
   styleProperties = new LayerStyleProperties(_STY_PROP);
-  console.log(styleProperties)
+  console.log(styleProperties.getLayerStyle("roads_truck"))
 
   //---------- Load Default map
   map = L.map('map', {

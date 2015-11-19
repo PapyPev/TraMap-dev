@@ -38,18 +38,25 @@ function gs_setStyle(feature, latlng) {
 
   var layerName = "osm_amenities";
   var layerStyle = styleProperties.getLayerStyle(layerName);
-  var style = null;
+  var style;
 
   // just test
   if (feature.geometry.type==="Point") {
 
+    console.log("if test")
+
     if (layerStyle.filters) {
+
+      console.log("lyerfilter")
 
       switch(layerStyle.filters_types){
         case "word":
+
+        console.log("word")
           
           for (var i = layerStyle.styles.length - 1; i >= 0; i--) {
             if (layerStyle.styles[i].filter === feature.properties.type) {
+              console.log("if filter = type")
               var marker = {
                 iconUrl: layerStyle.styles[i].icon_url,
                 iconSize: layerStyle.styles[i].icon_size,

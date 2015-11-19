@@ -42,6 +42,8 @@ function gs_setStyle(feature, latlng) {
   var layerStyle = styleProperties.getLayerStyle(layerName);
   var style;
 
+  console.log(feature.geometry.type);
+
   // just test
   if (feature.geometry.type=="Point") {
 

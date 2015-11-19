@@ -63,8 +63,8 @@ function gs_setStyle(feature, latlng) {
                   popupAnchor: layerStyle.styles[i].icon_popanchor
                 };
                 style = L.marker(latlng,{icon: marker});
-              };
-            };
+              }
+            }
 
             console.log(style)
 

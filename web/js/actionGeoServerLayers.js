@@ -82,7 +82,7 @@ function gs_setStyle(feature, latlng) {
         if (feature.properties.geometry !== "Point") {
           return {
             "color": "blue",
-            "weight": 1,
+            "weight": 0.5,
             "opacity": 0.7
           }
         };

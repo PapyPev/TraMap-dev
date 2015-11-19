@@ -67,8 +67,11 @@ function gs_setStyle(feature, latlng) {
         for (var i = layerStyle.styles.length - 1; i >= 0; i--) {
           if (layerStyle.styles[i].value_min <= feature.properties.traffic &&
             feature.properties.traffic < layerStyle.styles[i].value_max) {
-            if (layerStyle.type==="Line" || layerStyle.type === "Polygon") {
-              return layerStyle.styles[i];
+              if (layerStyle.type==="Line" || layerStyle.type === "Polygon") {
+                return layerStyle.styles[i];
+              } else {
+                return false;
+              }
           };
         };
         

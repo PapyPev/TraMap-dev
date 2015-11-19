@@ -40,7 +40,7 @@ function convert_LatLonToMercator(lat, lon) {
  */
 function gs_setStyle(feature, latlng) {
 
-  console.log(_LNAME);
+  //console.log(_LNAME);
 
   // Get LayerStyleProperties
   //var styleProperties = new LayerStyleProperties(_STY_PROP, name);

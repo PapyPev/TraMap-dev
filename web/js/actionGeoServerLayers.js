@@ -65,11 +65,9 @@ function gs_setStyle(feature, latlng) {
       case "bounds":
 
         var val = layerStyle.attribute_value
-        console.log(val);
-        console.log(feature.properties[val]);
         for (var i = layerStyle.styles.length - 1; i >= 0; i--) {
-          if (layerStyle.styles[i].value_min <= feature.properties.traffic &&
-            feature.properties.traffic < layerStyle.styles[i].value_max) {
+          if (layerStyle.styles[i].value_min <= feature.properties[val] &&
+            feature.properties[val] < layerStyle.styles[i].value_max) {
               if (layerStyle.type==="Line" || layerStyle.type === "Polygon") {
                 return layerStyle.styles[i];
               } else {

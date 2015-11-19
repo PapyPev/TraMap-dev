@@ -275,9 +275,9 @@ function map_loadTiles () {
   var bgLightM = new LayerProperties("Radio", "Background", 
     "bgLight", "MapBox : Light", 0, false, "", bgLight);
   var bgDarktM = new LayerProperties("Radio", "Background", 
-    "bgDark", "MapBox : Dark", 1, false, "", bgDark);
+    "bgDark", "MapBox : Dark", 1, true, "", bgDark);
   var bgStreetM = new LayerProperties("Radio", "Background", 
-    "bgStreet", "MapBox : Street", 2, true, "", bgStreet);
+    "bgStreet", "MapBox : Street", 2, false, "", bgStreet);
 
   // Add Tiles to default loaded map layers
   listOfLayers.push(bgLightM, bgDarktM, bgStreetM);

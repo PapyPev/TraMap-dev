@@ -41,7 +41,7 @@ function convert_LatLonToMercator(lat, lon) {
  */
 function gs_setStyle(feature, latlng) {
 
-  var layerName = "traffic";
+  var layerName = "roads_motorway";
   var layerStyle = styleProperties.getLayerStyle(layerName);
 
   if (layerStyle.filters) {
@@ -108,7 +108,7 @@ function gs_setStyle(feature, latlng) {
  */
 function gs_setPopup(feature, layer) {
 
-  var layerName = "traffic";
+  var layerName = "roads_motorway";
   var layerStyle = styleProperties.getLayerStyle(layerName);
   var val = layerStyle.attribute_alias;
   if (layerStyle.popup_activate) {

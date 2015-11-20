@@ -89,14 +89,40 @@ function map_refreshGeoserverLayers (mapBoundingBox) {
       if (mapLayers[i].getCategory()!='Background') {
         console.log("refresh", map.getZoom());
 
-        // If Layer exists
-        if (map.hasLayer(mapLayers[i].getContent())) {
-          mapLayers[i].getContent().refresh(url);
-        } else{
-          map.addLayer(mapLayers[i].getContent());
+        // Layer Style from configLayerStyle
+        var layerStyle = null;
+        if (styleProperties.getLayerStyle(layerValue)) {
+          layerStyle = styleProperties.getLayerStyle(layerValue);
         }
-        
-      }
+
+        // If we have a style for this layer
+        if (layerStyle !== null) {
+
+          // Test zoom level
+          if (currentZoomMap <= layerStyle.zoom_max 
+            && currentZoomMap >= layerStyle.zoom_min) {
+
+            // If Layer already exists
+            if (map.hasLayer(mapLayers[i].getContent())) {
+              mapLayers[i].getContent().refresh(url);
+            } else {
+              map.addLayer(mapLayers[i].getContent());
+            }
+
+          }
+
+        } else{
+
+          // If Layer exists
+          if (map.hasLayer(mapLayers[i].getContent())) {
+            mapLayers[i].getContent().refresh(url);
+          } else {
+            map.addLayer(mapLayers[i].getContent());
+          }
+
+        }
+
+      } // end // if it's not a Tiles layer
 
     } // end if check
   } // end for mapLayers

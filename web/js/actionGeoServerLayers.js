@@ -231,19 +231,19 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
         var layerStyle = null;
         if (styleProperties.getLayerStyle(layerValue)) {
           layerStyle = styleProperties.getLayerStyle(layerValue);
-        };
+        }
 
         // Get the default visibility
         var visible = false;
         if (layerStyle!=null && layerStyle.visible) {
           visible = layerStyle.visible;
-        };
+        }
 
         // Get the Alias for the layer
         var alias = layerValue;
         if (layerStyle!=null && layerStyle.alias) {
           alias = layerStyle.alias;
-        };
+        }
 
         // Create the layer
         var theLayer = new LayerProperties(

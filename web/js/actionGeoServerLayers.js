@@ -203,12 +203,9 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           }
         );
 
-        // Current layer
-        //_LAY = layerContent;
-        var visble = false;
-        if (styleProperties.getLayerStyle(layerName.toString()).visible) {
-          visible = styleProperties.getLayerStyle(layerName.toString()).visible;
-        };
+        // Layer Style
+        var layerStyle = styleProperties.getLayerStyle(layerValue);
+        console.log(layerStyle);
 
         // Add to list of layers
         listOfLayers.push(new LayerProperties(

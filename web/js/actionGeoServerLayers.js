@@ -120,7 +120,7 @@ function gs_setStyle(feature, latlng) {
  */
 function gs_setPopup(feature, layer) {
 
-  var layerName = "traffic";
+  var layerName = feature.id.toString().split(".")[0];
   var layerStyle = styleProperties.getLayerStyle(layerName);
 
   // If we have a popup

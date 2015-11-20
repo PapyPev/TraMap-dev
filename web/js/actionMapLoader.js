@@ -176,6 +176,7 @@ function map_laodGeoserverLayers () {
         }
 
       } else{
+        console.log("no style: ", listGeoServerLayer[i].name))
         map.addLayer(listGeoServerLayer[i].getContent());
       }
 

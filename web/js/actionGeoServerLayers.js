@@ -199,9 +199,7 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           +"&bbox="+southWest.X+","+southWest.Y+","
           +northEast.X+","+northEast.Y,
           {
-            if (styleProperties.getLayerStyle(layerName).popup_activate) {
-              onEachFeature: gs_setPopup, // popup information
-            };
+            onEachFeature: gs_setPopup, // popup information
             style: gs_setStyle,
             pointToLayer: gs_setStyle
           }

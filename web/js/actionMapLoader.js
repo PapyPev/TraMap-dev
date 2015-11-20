@@ -173,6 +173,7 @@ function map_laodGeoserverLayers () {
         // Test zoom level
         if (currentZoomMap <= layerStyle.zoom_max 
           && currentZoomMap >= layerStyle.zoom_min) {
+          console.log("add ", listGeoServerLayer[i].name)
           map.addLayer(listGeoServerLayer[i].getContent());
         }
 

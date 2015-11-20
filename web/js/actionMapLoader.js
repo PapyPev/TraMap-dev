@@ -435,28 +435,6 @@ function map_init () {
 
 } //-- end init ()
 
-function Pinger_ping(ip, callback) {
-
-  if(!this.inUse) {
-
-    this.inUse = true;
-    this.callback = callback
-    this.ip = ip;
-
-    var _that = this;
-
-    this.img = new Image();
-
-    this.img.onload = function() {console.log("onload")};
-    this.img.onerror = function() {console.log("onerror")};
-
-    this.start = new Date().getTime();
-    this.img.src = "http://" + ip;
-    this.timer = setTimeout(function() {console.log("nok")}, 1500);
-
-  }
-}
-
 // ============================================================================
 // MAIN
 // ============================================================================
@@ -466,12 +444,26 @@ function Pinger_ping(ip, callback) {
  */
 $(document).ready(function(){
 
-  Pinger_ping("http://172.18.138.171")
+  //---------- Determine if the server responding
+  var isRespond = false;
+  var wait = 5000; //ms
 
+  // Ping the Server : load a simple image
+  $("#toc-title").html("<h3>Test server...</h3>")
+  $('<img src="http://172.18.138.171/TraMap/web/img/img-60x60.png">').load(function(){
+      // if load sucess
+      isRespond = true;
+  });
 
-  // initialize all the components of the map
-  //map_init();
-
+  // Wait the previous load, after [wait] if it's a success, load the map
+  setTimeout(function(){
+    if (isRespond) {
+      $("#toc-title").html("<h3>Loading Map... <small>(Be patient)</small></h3>")
+      map_init();
+    } else{
+      $("#toc-title").html("<h3>Server Down <small>(timeout)</small></h3>")
+    };
+  }, wait);
 
 
 }); //--$(document).ready()

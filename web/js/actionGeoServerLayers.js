@@ -60,6 +60,7 @@ function gs_setStyle(feature, latlng) {
               });
               return L.marker(latlng,{icon: marker});
             } else {
+              console.log("else")
               return layerStyle.styles[i];
             }
           } // if style.filter === feature.type

@@ -153,7 +153,7 @@ function map_laodGeoserverLayers () {
   for (var i = 0; i < listGeoServerLayer.length; i++) {
     mapLayers.push(listGeoServerLayer[i]);
 
-    console.log("load:", listGeoServerLayer[i].name))
+    console.log("load:", listGeoServerLayer[i].name)
 
     // Verification : if the layer is checked
     if (listGeoServerLayer[i].getCheck()) {

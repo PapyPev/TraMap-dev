@@ -153,8 +153,6 @@ function map_laodGeoserverLayers () {
   for (var i = 0; i < listGeoServerLayer.length; i++) {
     mapLayers.push(listGeoServerLayer[i]);
 
-    console.log("load:", listGeoServerLayer[i].name)
-
     // Verification : if the layer is checked
     if (listGeoServerLayer[i].getCheck()) {
 
@@ -173,7 +171,7 @@ function map_laodGeoserverLayers () {
         // Test zoom level
         if (currentZoomMap <= layerStyle.zoom_max 
           && currentZoomMap >= layerStyle.zoom_min) {
-          console.log("add ", listGeoServerLayer[i].name)
+          console.log("with zoom ", listGeoServerLayer[i].name)
           map.addLayer(listGeoServerLayer[i].getContent());
         }
 

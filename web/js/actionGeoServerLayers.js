@@ -41,7 +41,7 @@ function convert_LatLonToMercator(lat, lon) {
  * @param {Object} latlng [Coordinates of the feature]
  */
 function gs_setStyle(feature, latlng) {
-  console.log(layerName)
+  //console.log(layerName)
 
   var layerName = "traffic";
   var layerStyle = styleProperties.getLayerStyle(layerName);

@@ -42,9 +42,10 @@ function convert_LatLonToMercator(lat, lon) {
  */
 function gs_setStyle(feature, latlng) {
 
-  console.log(feature.id.toString().split(".")[0]);
   var layerName = feature.id.toString().split(".")[0];
   var layerStyle = styleProperties.getLayerStyle(layerName);
+
+  console.log("style: ", layerName)
 
   if (layerStyle.filters) {
     switch(layerStyle.filters_type){

@@ -91,8 +91,8 @@ function map_refreshGeoserverLayers (mapBoundingBox) {
 
         // Layer Style from configLayerStyle
         var layerStyle = null;
-        if (styleProperties.getLayerStyle(layerValue)) {
-          layerStyle = styleProperties.getLayerStyle(layerValue);
+        if (styleProperties.getLayerStyle(mapLayers[i].getName())) {
+          layerStyle = styleProperties.getLayerStyle(mapLayers[i].getName());
         }
 
         // If we have a style for this layer

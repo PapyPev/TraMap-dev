@@ -48,6 +48,7 @@ function gs_setStyle(feature, latlng) {
   console.log("style: ", layerName)
 
   if (layerStyle.filters) {
+    console.log("sty filter ok")
     switch(layerStyle.filters_type){
       //~~~~~~~~~~~~~~~~~~~~
       case "key":

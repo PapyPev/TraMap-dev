@@ -87,7 +87,29 @@ function map_refreshGeoserverLayers (mapBoundingBox) {
 
       // if it's not a Tiles layer
       if (mapLayers[i].getCategory()!='Background') {
-        mapLayers[i].getContent().refresh(url);
+
+        // Get style
+        var layerStyle = null;
+        if (styleProperties.getLayerStyle(mapLayers[i].name)) {
+          layerStyle = styleProperties.getLayerStyle(mapLayers[i].name);
+        }
+
+        // If style exists
+        if (layerStyle !== null) {
+
+          var currentZoomMap = map.getZoom();
+          console.log("zoom", currentZoomMap);
+          
+          // Test zoom level
+          if (currentZoomMap <= layerStyle.zoom_max 
+            && currentZoomMap >= layerStyle.zoom_min) {
+            mapLayers[i].getContent().refresh(url);
+          }
+
+        } else{
+          mapLayers[i].getContent().refresh(url);
+        }
+        
       }
 
     } // end if check

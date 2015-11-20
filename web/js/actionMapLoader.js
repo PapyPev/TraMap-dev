@@ -119,8 +119,28 @@ function map_laodGeoserverLayers () {
     // Verification : if the layer is checked
     if (listGeoServerLayer[i].getCheck()) {
 
-      map.addLayer(listGeoServerLayer[i].getContent());
-      
+      // Get style
+      var layerStyle = null;
+      if (styleProperties.getLayerStyle(listGeoServerLayer[i].name)) {
+        layerStyle = styleProperties.getLayerStyle(listGeoServerLayer[i].name);
+      }
+
+      // If style exists
+      if (layerStyle !== null) {
+
+        var currentZoomMap = map.getZoom();
+        console.log("zoom", currentZoomMap);
+        
+        // Test zoom level
+        if (currentZoomMap <= layerStyle.zoom_max 
+          && currentZoomMap >= layerStyle.zoom_min) {
+          map.addLayer(listGeoServerLayer[i].getContent());
+        }
+
+      } else{
+        map.addLayer(listGeoServerLayer[i].getContent());
+      }
+
     }
   }
 

@@ -206,6 +206,7 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
         // Current layer
         //_LAY = layerContent;
         var visble = false;
+        console.log(layerName)
         if (styleProperties.getLayerStyle("roads_motorway").visible) {
           visible = styleProperties.getLayerStyle("roads_motorway").visible;
         };

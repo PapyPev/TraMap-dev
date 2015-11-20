@@ -111,8 +111,10 @@ function map_refreshGeoserverLayers (mapBoundingBox) {
               map.addLayer(mapLayers[i].getContent());
             }
 
-          } else if (map.hasLayer(mapLayers[i].getContent())){
-            map.removeLayer(mapLayers[i].getContent()))
+          } else {
+            if (map.hasLayer(mapLayers[i].getContent())){
+              map.removeLayer(mapLayers[i].getContent()))
+            }
           }
 
         } else{

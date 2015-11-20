@@ -88,8 +88,14 @@ function map_refreshGeoserverLayers (mapBoundingBox) {
       // if it's not a Tiles layer
       if (mapLayers[i].getCategory()!='Background') {
         console.log("refresh", map.getZoom());
-        //mapLayers[i].getContent().refresh(url);
-        map.addLayer(mapLayers[i].getContent());
+
+        // If Layer exists
+        if (map.hasLayer(mapLayers[i].getContent())) {
+          mapLayers[i].getContent().refresh(url);
+        } else{
+          map.addLayer(mapLayers[i].getContent());
+        }
+        
       }
 
     } // end if check

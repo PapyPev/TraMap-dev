@@ -110,8 +110,10 @@ function gs_setPopup(feature, layer) {
 
   var layerName = "roads_motorway";
   var layerStyle = styleProperties.getLayerStyle(layerName);
-  var val = layerStyle.attribute_alias;
+
+  // If we have a popup
   if (layerStyle.popup_activate) {
+    var val = layerStyle.attribute_alias;
     layer.bindPopup(feature.properties[val].toString());
   }
 
@@ -197,7 +199,9 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           +"&bbox="+southWest.X+","+southWest.Y+","
           +northEast.X+","+northEast.Y,
           {
-            onEachFeature: gs_setPopup, // popup information
+            if (styleProperties.getLayerStyle(layerName).popup_activate) {
+              onEachFeature: gs_setPopup, // popup information
+            };
             style: gs_setStyle,
             pointToLayer: gs_setStyle
           }

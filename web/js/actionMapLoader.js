@@ -6,7 +6,7 @@
 | Initialize map content and all functions for update or map actions.
 |
 | @author Pev
-| @verion 1.1.7
+| @verion 1.1.8
 |
 |------------------------------------------------------------------------------
 */

@@ -205,9 +205,14 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
 
         // Layer Style
         var layerStyle = styleProperties.getLayerStyle(layerValue);
-        var visible = layerStyle.visible;
-        console.log(visible)
-        var alias = "alias";//layerStyle.alias;
+        var visible = false;
+        if (layerStyle.visible) {
+          visible = layerStyle.visible;
+        };
+        var alias = layerName; //layerStyle.alias;
+        if (layerStyle.alias) {
+          alias = layerStyle.alias;
+        };
 
         // Add to list of layers
         listOfLayers.push(new LayerProperties(

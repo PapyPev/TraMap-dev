@@ -166,7 +166,6 @@ function map_laodGeoserverLayers () {
       if (layerStyle !== null) {
 
         var currentZoomMap = map.getZoom();
-        console.log("zoom", currentZoomMap);
         
         // Test zoom level
         if (currentZoomMap <= layerStyle.zoom_max 

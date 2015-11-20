@@ -41,7 +41,7 @@ function convert_LatLonToMercator(lat, lon) {
  */
 function gs_setStyle(feature, latlng) {
 
-  var layerName = "roads_motorway";
+  var layerName = "traffic";
   var layerStyle = styleProperties.getLayerStyle(layerName);
 
   if (layerStyle.filters) {
@@ -114,7 +114,7 @@ function gs_setStyle(feature, latlng) {
  */
 function gs_setPopup(feature, layer) {
 
-  var layerName = "roads_motorway";
+  var layerName = "traffic";
   var layerStyle = styleProperties.getLayerStyle(layerName);
 
   // If we have a popup

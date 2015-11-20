@@ -40,8 +40,8 @@ function convert_LatLonToMercator(lat, lon) {
  * @param {Object} feature [Feature of the layer]
  * @param {Object} latlng [Coordinates of the feature]
  */
-function gs_setStyle(feature, latlng) {
-  //console.log(layerName)
+function gs_setStyle(feature, latlng, layerName) {
+  console.log(layerName)
 
   var layerName = "traffic";
   var layerStyle = styleProperties.getLayerStyle(layerName);
@@ -129,6 +129,14 @@ function gs_setPopup(feature, layer) {
 
 // ----------------------------------------------------------------------------
 
+function test (layerName) {
+  return {
+    onEachFeature: gs_setPopup, // popup information
+    style: gs_setStyle, // for line and polygon
+    pointToLayer: gs_setStyle // for point
+  }
+}
+
 /**
  * [Execute asynchronous request and return layerContent]
  * @param  {String} layerUrl  [URL to the layer on the GeoServer]
@@ -141,11 +149,7 @@ function gs_query(layerUrl, southWest, northEast, layerName){
   return new L.GeoJSON.AJAX(layerUrl
     +"&bbox="+southWest.X+","+southWest.Y+","
     +northEast.X+","+northEast.Y,
-    {
-      onEachFeature: gs_setPopup, // popup information
-      style: gs_setStyle, // for line and polygon
-      pointToLayer: gs_setStyle // for point
-    }
+    test
   );
 }
 

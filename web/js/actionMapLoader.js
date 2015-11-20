@@ -87,7 +87,6 @@ function map_refreshGeoserverLayers (mapBoundingBox) {
 
       // if it's not a Tiles layer
       if (mapLayers[i].getCategory()!='Background') {
-        console.log("refresh", map.getZoom());
 
         // Layer Style from configLayerStyle
         var layerStyle = null;

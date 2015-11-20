@@ -98,6 +98,8 @@ function map_refreshGeoserverLayers (mapBoundingBox) {
         // If we have a style for this layer
         if (layerStyle !== null) {
 
+          var currentZoomMap = map.getZoom();
+
           // Test zoom level
           if (currentZoomMap <= layerStyle.zoom_max 
             && currentZoomMap >= layerStyle.zoom_min) {

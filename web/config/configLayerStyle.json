@@ -261,7 +261,7 @@
       "type": "Line",
       "filters": true,
       "filters_type": "bounds",
-      "zoom_min": 16,
+      "zoom_min": 15,
       "zoom_max": 17,
       "styles": [
         {

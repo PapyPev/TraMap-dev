@@ -12,10 +12,10 @@
       "type": "line",
       "filters": false,
       "filters_type": "",
+      "zoom_min": 16,
+      "zoom_max": 12,
       "styles": [
         {
-          "zoom_min": 16,
-          "zoom_max": 12,
           "color": "red",
           "weight": 2,
           "opacity": 0.5
@@ -33,10 +33,10 @@
       "type": "line",
       "filters": false,
       "filters_type": "",
+      "zoom_min": 16,
+      "zoom_max": 12,
       "styles": [
         {
-          "zoom_min": 16,
-          "zoom_max": 12,
           "color": "orange",
           "weight": 1,
           "opacity": 0.5
@@ -54,10 +54,10 @@
       "type": "line",
       "filters": false,
       "filters_type": "",
+      "zoom_min": 16,
+      "zoom_max": 12,
       "styles": [
         {
-          "zoom_min": 16,
-          "zoom_max": 12,
           "color": "yellow",
           "weight": 0.5,
           "opacity": 0.5
@@ -75,11 +75,11 @@
       "type": "Point",
       "filters": true,
       "filters_type": "key",
+      "zoom_min": 10,
+      "zoom_max": 12,
       "styles": [
         {
           "filter": "bus_stop",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/bus_stop.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -87,8 +87,6 @@
         },
         {
           "filter": "fire_station",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/fire_station.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -96,8 +94,6 @@
         },
         {
           "filter": "fuel",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/fuel.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -105,8 +101,6 @@
         },
         {
           "filter": "hospital",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/hospital.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -114,8 +108,6 @@
         },
         {
           "filter": "police",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/police.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -123,8 +115,6 @@
         },
         {
           "filter": "postal",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/postal.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -132,8 +122,6 @@
         },
         {
           "filter": "school",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/school.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -141,8 +129,6 @@
         },
         {
           "filter": "townhall",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/townhall.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -150,8 +136,6 @@
         },
         {
           "filter": "university",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/university.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -170,11 +154,11 @@
       "type": "Point",
       "filters": true,
       "filters_type": "key",
+      "zoom_min": 10,
+      "zoom_max": 12,
       "styles": [
         {
           "filter": "motorway_junction",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/motorway_junction.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -182,8 +166,6 @@
         },
         {
           "filter": "helipad",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/helipad.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -191,8 +173,6 @@
         },
         {
           "filter": "subway_entrance",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/subway_entrance.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -200,8 +180,6 @@
         },
         {
           "filter": "aerodrome",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/aerodrome.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -209,8 +187,6 @@
         },
         {
           "filter": "bus_stop",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/bus_stop.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -218,8 +194,6 @@
         },
         {
           "filter": "turning_circle",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/turning_circle.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -227,8 +201,6 @@
         },
         {
           "filter": "level_crossing",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/level_crossing.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -236,8 +208,6 @@
         },
         {
           "filter": "station",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/station.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -245,8 +215,6 @@
         },
         {
           "filter": "tram_stop",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/tram_stop.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -254,8 +222,6 @@
         },
         {
           "filter": "terminal",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/terminal.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -263,8 +229,6 @@
         },
         {
           "filter": "halt",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/halt.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -272,8 +236,6 @@
         },
         {
           "filter": "gate",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/gate.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -281,8 +243,6 @@
         },
         {
           "filter": "crossing",
-          "zoom_min": 10,
-          "zoom_max": 12,
           "icon_url": "img/icon-pack/mapsmarker/enable/crossing.png",
           "icon_size": [22,22],
           "icon_anchor": [17,35],
@@ -301,12 +261,12 @@
       "type": "Line",
       "filters": true,
       "filters_type": "bounds",
+      "zoom_min": 10,
+      "zoom_max": 18,
       "styles": [
         {
           "value_min": 0.0,
           "value_max": 0.5,
-          "zoom_min": 10,
-          "zoom_max": 18,
           "color": "#1a9641",
           "weight": 1,
           "opacity": 0.5
@@ -314,8 +274,6 @@
         {
           "value_min": 0.5,
           "value_max": 1.2,
-          "zoom_min": 10,
-          "zoom_max": 18,
           "color": "#3fa74b",
           "weight": 2,
           "opacity": 0.5
@@ -323,8 +281,6 @@
         {
           "value_min": 1.2,
           "value_max": 1.9,
-          "zoom_min": 10,
-          "zoom_max": 18,
           "color": "#64b956",
           "weight": 3,
           "opacity": 0.5
@@ -332,8 +288,6 @@
         {
           "value_min": 1.9,
           "value_max": 3.1,
-          "zoom_min": 10,
-          "zoom_max": 18,
           "color": "#89cb61",
           "weight": 4,
           "opacity": 0.5
@@ -341,8 +295,6 @@
         {
           "value_min": 3.1,
           "value_max": 4.6,
-          "zoom_min": 10,
-          "zoom_max": 18,
           "color": "#abdb6f",
           "weight": 5,
           "opacity": 0.5
@@ -350,8 +302,6 @@
         {
           "value_min": 4.6,
           "value_max": 6.4,
-          "zoom_min": 10,
-          "zoom_max": 18,
           "color": "#c3e586",
           "weight": 6,
           "opacity": 0.5
@@ -359,8 +309,6 @@
         {
           "value_min": 6.4,
           "value_max": 8.4,
-          "zoom_min": 10,
-          "zoom_max": 18,
           "color": "#dbef9d",
           "weight": 7,
           "opacity": 0.5
@@ -368,8 +316,6 @@
         {
           "value_min": 8.4,
           "value_max": 10.4,
-          "zoom_min": 10,
-          "zoom_max": 18,
           "color": "#f3f9b4",
           "weight": 8,
           "opacity": 0.5
@@ -377,8 +323,6 @@
         {
           "value_min": 10.4,
           "value_max": 12.5,
-          "zoom_min": 10,
-          "zoom_max": 18,
           "color": "#fef4b3",
           "weight": 9,
           "opacity": 0.5
@@ -386,8 +330,6 @@
         {
           "value_min": 12.5,
           "value_max": 15.5,
-          "zoom_min": 10,
-          "zoom_max": 18,
           "color": "#fede9a",
           "weight": 10,
           "opacity": 0.5
@@ -395,8 +337,6 @@
         {
           "value_min": 15.5,
           "value_max": 22.4,
-          "zoom_min": 10,
-          "zoom_max": 18,
           "color": "#fdc980",
           "weight": 11,
           "opacity": 0.5
@@ -404,8 +344,6 @@
         {
           "value_min": 22.4,
           "value_max": 29.2,
-          "zoom_min": 10,
-          "zoom_max": 18,
           "color": "#fdb367",
           "weight": 12,
           "opacity": 0.5
@@ -413,8 +351,6 @@
         {
           "value_min": 29.2,
           "value_max": 35.0,
-          "zoom_min": 10,
-          "zoom_max": 18,
           "color": "#f59053",
           "weight": 13,
           "opacity": 0.5
@@ -422,8 +358,6 @@
         {
           "value_min": 35.0,
           "value_max": 38.0,
-          "zoom_min": 10,
-          "zoom_max": 18,
           "color": "#eb6840",
           "weight": 14,
           "opacity": 0.5
@@ -431,8 +365,6 @@
         {
           "value_min": 38.0,
           "value_max": 52.2,
-          "zoom_min": 10,
-          "zoom_max": 18,
           "color": "#e1402e",
           "weight": 15,
           "opacity": 0.5
@@ -440,8 +372,6 @@
         {
           "value_min": 52.2,
           "value_max": 65.0,
-          "zoom_min": 10,
-          "zoom_max": 18,
           "color": "#d7191c",
           "weight": 16,
           "opacity": 0.5

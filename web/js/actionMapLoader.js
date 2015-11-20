@@ -98,7 +98,7 @@ function map_refreshGeoserverLayers (mapBoundingBox) {
 // ----------------------------------------------------------------------------
 
 /**
- * [Load GeoServer Layers with Bounding box query]
+ * [Load GeoServer Layers]
  */
 function map_laodGeoserverLayers () {
 
@@ -115,8 +115,12 @@ function map_laodGeoserverLayers () {
   // Add all GeoServer Layers
   for (var i = 0; i < listGeoServerLayer.length; i++) {
     mapLayers.push(listGeoServerLayer[i]);
+
+    // Verification : if the layer is checked
     if (listGeoServerLayer[i].getCheck()) {
+
       map.addLayer(listGeoServerLayer[i].getContent());
+      
     }
   }
 

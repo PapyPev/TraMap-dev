@@ -150,7 +150,7 @@
       "attribute_value": "type",
       "attribute_alias": "name",
       "popup_activate": true,
-      "visible": false,
+      "visible": true,
       "type": "Point",
       "filters": true,
       "filters_type": "key",

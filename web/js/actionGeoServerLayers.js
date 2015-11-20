@@ -130,6 +130,7 @@ function gs_setPopup(feature, layer) {
 // ----------------------------------------------------------------------------
 
 function gs_query(layerUrl, southWest, northEast, layerName){
+  console.log(layerName)
   return new L.GeoJSON.AJAX(layerUrl
     +"&bbox="+southWest.X+","+southWest.Y+","
     +northEast.X+","+northEast.Y,

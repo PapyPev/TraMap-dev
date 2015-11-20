@@ -207,7 +207,7 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
         //_LAY = layerContent;
         //console.log(_LAY)
         //
-        console.log(styleProperties.getLayerStyle(layerName).visible)
+        console.log(styleProperties.getLayerStyle("roads_motorway").visible)
 
         // Add to list of layers
         listOfLayers.push(new LayerProperties(

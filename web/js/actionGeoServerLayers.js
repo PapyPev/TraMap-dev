@@ -60,7 +60,6 @@ function gs_setStyle(feature, latlng) {
               });
               return L.marker(latlng,{icon: marker});
             } else {
-              console.log("else")
               return layerStyle.styles[i];
             }
           } // if style.filter === feature.type
@@ -87,12 +86,10 @@ function gs_setStyle(feature, latlng) {
       default:
         
         if (feature.properties.geometry !== "Point") {
-          return {
-            "color": "blue",
-            "weight": 0.5,
-            "opacity": 0.7
+          if (layerStyle.styles[i]) {
+            return layerStyle.styles[i];
           }
-        };
+        }
 
         break;
     } // //switch(layerStyle.filters_type)

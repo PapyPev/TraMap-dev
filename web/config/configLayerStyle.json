@@ -7,7 +7,7 @@
       "attribute_value": "type",
       "attribute_alias": "name",
       "popup_activate": false,
-      "visible": false,
+      "visible": true,
       "type": "line",
       "filters": false,
       "filters_type": "",

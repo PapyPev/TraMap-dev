@@ -166,6 +166,7 @@ function map_laodGeoserverLayers () {
 
       // If style exists
       if (layerStyle !== null) {
+        console.log("not null", listGeoServerLayer[i].name)
 
         var currentZoomMap = map.getZoom();
         

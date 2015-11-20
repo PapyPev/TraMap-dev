@@ -205,9 +205,8 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
 
         // Current layer
         //_LAY = layerContent;
-        //console.log(_LAY)
-        //
-        console.log(styleProperties.getLayerStyle("roads_motorway").visible)
+        var visible = styleProperties.getLayerStyle(layerName).visible;
+        console.log(visible)
 
         // Add to list of layers
         listOfLayers.push(new LayerProperties(
@@ -216,7 +215,7 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           layerName,
           layerName,
           i,
-          true,
+          visible,
           layerUrl,
           layerContent
         ));

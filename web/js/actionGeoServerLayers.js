@@ -206,7 +206,7 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
         // Current layer
         //_LAY = layerContent;
         var visble = false;
-        console.log(layerName)
+        console.log(layerName.type)
         if (styleProperties.getLayerStyle(layerName).visible) {
           visible = styleProperties.getLayerStyle(layerName).visible;
         };

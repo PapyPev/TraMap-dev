@@ -51,6 +51,7 @@ function gs_setStyle(feature, latlng) {
 
         for (var i = layerStyle.styles.length - 1; i >= 0; i--) {
           if (layerStyle.styles[i].filter === feature.properties.type) {
+            // Multi style by key
             if (layerStyle.type==="Point") {
               var marker = L.icon({
                 iconUrl: layerStyle.styles[i].icon_url,
@@ -60,12 +61,13 @@ function gs_setStyle(feature, latlng) {
               });
               return L.marker(latlng,{icon: marker});
             } else {
+              // One style
               return layerStyle.styles[i];
             }
           } // if style.filter === feature.type
         } // end for layerStyle.styles.length
 
-        break;
+        break; // end key
       //~~~~~~~~~~~~~~~~~~~~
       case "bounds":
 
@@ -73,25 +75,31 @@ function gs_setStyle(feature, latlng) {
         for (var i = layerStyle.styles.length - 1; i >= 0; i--) {
           if (layerStyle.styles[i].value_min <= feature.properties[val] &&
             feature.properties[val] < layerStyle.styles[i].value_max) {
+              // Line and Polygon Style
               if (layerStyle.type==="Line" || layerStyle.type === "Polygon") {
                 return layerStyle.styles[i];
               } else {
+                // No style for other
                 return false;
               }
-          };
-        };
+          } // filter ni bounds
+        } // end for layerStyle.styles.length
         
-        break;
+        break; // end bounds
       //~~~~~~~~~~~~~~~~~~~~
       default:
-        
+        // By default marker by Leaflet for point
         if (feature.properties.geometry !== "Point") {
+          // If a styl exists
           if (layerStyle.styles[i]) {
             return layerStyle.styles[i];
+          } else {
+            // Default fix style
+            return {color: "green", weight: 1, opacity: 0.5}
           }
         }
 
-        break;
+        break; // end default
     } // //switch(layerStyle.filters_type)
   } // if (layerStyle.filters)
 
@@ -198,27 +206,28 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           +northEast.X+","+northEast.Y,
           {
             onEachFeature: gs_setPopup, // popup information
-            style: gs_setStyle,
+            style: gs_setStyle, layerName,
             pointToLayer: gs_setStyle
           }
         );
 
-        // Layer Style
+        // Layer Style from configLayerStyle
         var layerStyle = null;
         if (styleProperties.getLayerStyle(layerValue)) {
           layerStyle = styleProperties.getLayerStyle(layerValue);
         };
+
+        // Get the default visibility
         var visible = false;
         if (layerStyle!=null && layerStyle.visible) {
           visible = layerStyle.visible;
         };
 
-        var alias = layerName; //layerStyle.alias;
+        // Get the Alias for the layer
+        var alias = layerName;
         if (layerStyle!=null && layerStyle.alias) {
           alias = layerStyle.alias;
         };
-
-        console.log(layerValue, visible, alias)
 
         // Create the layer
         var theLayer = new LayerProperties(
@@ -231,8 +240,6 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           layerUrl,
           layerContent
         );
-
-        console.log(theLayer)
 
         // Add to list of layers
         listOfLayers.push(theLayer);

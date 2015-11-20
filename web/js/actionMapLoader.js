@@ -99,9 +99,8 @@ function map_refreshGeoserverLayers (mapBoundingBox) {
 
 /**
  * [Load GeoServer Layers with Bounding box query]
- * @param  {Object} mapBoundingBox [description]
  */
-function map_laodGeoserverLayers (mapBoundingBox) {
+function map_laodGeoserverLayers () {
 
   // Get GeoServer Layer
   var listGeoServerLayer = [];
@@ -110,7 +109,7 @@ function map_laodGeoserverLayers (mapBoundingBox) {
     geoServerProperties.getRepository(),
     mapProperties.getProjection(),
     mapProperties.getMaxFeatures(),
-    mapBoundingBox
+    map.getBounds()
   );
 
   // Add all GeoServer Layers
@@ -330,7 +329,7 @@ function map_init () {
   //sidebar.show();
 
   //---------- Load Default GeoServer layer 
-  map_laodGeoserverLayers(map.getBounds());
+  map_laodGeoserverLayers();
 
   //---------- Load TOC
   map_loadHtmlTOC();

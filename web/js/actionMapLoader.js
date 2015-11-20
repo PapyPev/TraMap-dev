@@ -405,6 +405,13 @@ function map_init () {
   ).addTo(map);
 
   L.easyButton(
+    '<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>',
+    function(){
+      window.location.href = "views/pageStats.html";
+    }, 'Stats'
+  ).addTo(map);
+
+  L.easyButton(
     '<span class="glyphicon glyphicon-road" aria-hidden="true"></span>',
     function(){
       window.location.href = "views/pageTimetables.html";

@@ -3,6 +3,7 @@
   "layers": [
 
     {
+      "alias": "Motoway",
       "name": "roads_motorway",
       "attribute_value": "type",
       "attribute_alias": "name",
@@ -23,6 +24,7 @@
     },
 
     {
+      "alias": "Primary",
       "name": "roads_primary",
       "attribute_value": "type",
       "attribute_alias": "name",
@@ -43,6 +45,7 @@
     },
 
     {
+      "alias": "Truck",
       "name": "roads_truck",
       "attribute_value": "type",
       "attribute_alias": "name",
@@ -63,6 +66,7 @@
     },
 
     {
+      "alias": "Amenities",
       "name": "osm_amenities",
       "attribute_value": "type",
       "attribute_alias": "name",
@@ -157,6 +161,7 @@
     },
 
     {
+      "alias": "Transport Points",
       "name": "osm_transport_points",
       "attribute_value": "type",
       "attribute_alias": "name",
@@ -287,6 +292,7 @@
     },
 
     {
+      "alias": "Traffic bicycle",
       "name": "traffic",
       "attribute_value": "traffic",
       "attribute_alias": "traffic",

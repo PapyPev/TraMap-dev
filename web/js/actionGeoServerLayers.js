@@ -205,14 +205,15 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
 
         // Layer Style
         var layerStyle = styleProperties.getLayerStyle(layerValue);
-        console.log(layerStyle);
+        var visible = layerStyle.visible;
+        var alias = layerStyle.alias;
 
         // Add to list of layers
         listOfLayers.push(new LayerProperties(
           "Checkbox", 
           layerCategory, 
           layerName,
-          layerName,
+          alias,
           i,
           visible,
           layerUrl,

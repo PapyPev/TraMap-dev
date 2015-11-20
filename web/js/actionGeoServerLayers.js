@@ -129,17 +129,24 @@ function gs_setPopup(feature, layer) {
 
 // ----------------------------------------------------------------------------
 
+/**
+ * [Execute asynchronous request and return layerContent]
+ * @param  {String} layerUrl  [URL to the layer on the GeoServer]
+ * @param  {Object} southWest [SouthWest lat/lon coordinate]
+ * @param  {Object} northEast [NorthEast lat/lon coordinate]
+ * @param  {String} layerName [Name of the current layer]
+ * @return {Object}           [the current layer object -> for the map]
+ */
 function gs_query(layerUrl, southWest, northEast, layerName){
-  console.log(layerName)
   return new L.GeoJSON.AJAX(layerUrl
     +"&bbox="+southWest.X+","+southWest.Y+","
     +northEast.X+","+northEast.Y,
     {
       onEachFeature: gs_setPopup, // popup information
-      style: gs_setStyle,
-      pointToLayer: gs_setStyle
+      style: gs_setStyle, // for line and polygon
+      pointToLayer: gs_setStyle // for point
     }
-  )
+  );
 }
 
 /**

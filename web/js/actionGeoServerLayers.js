@@ -208,13 +208,9 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
         // Prepare the Category Name
         var layerCategory = "";
 
-        // Prepare the Layer Name
-        var layerName = layerValue;
-
         // If the layer have a prefix
         if (layerValue.split("_")[1]) {
           layerCategory = layerValue.split("_")[0];
-          layerName = layerValue.split("_")[1];
         } else{
           layerCategory = "Data";
         };
@@ -229,7 +225,7 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           +"&outputFormat=application/json";
 
         // Get GeoJSON layer content
-        var layerContent = gs_query(layerUrl, southWest, northEast, layerName);
+        var layerContent = gs_query(layerUrl, southWest, northEast, layerValue);
 
         // Layer Style from configLayerStyle
         var layerStyle = null;
@@ -244,7 +240,7 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
         };
 
         // Get the Alias for the layer
-        var alias = layerName;
+        var alias = layerValue;
         if (layerStyle!=null && layerStyle.alias) {
           alias = layerStyle.alias;
         };
@@ -253,7 +249,7 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
         var theLayer = new LayerProperties(
           "Checkbox", 
           layerCategory, 
-          layerName,
+          layerValue,
           alias,
           i,
           visible,

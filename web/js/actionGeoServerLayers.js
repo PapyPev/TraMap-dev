@@ -204,11 +204,15 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
         );
 
         // Layer Style
-        var layerStyle = styleProperties.getLayerStyle(layerValue);
+        var layerStyle = null;
+        if (styleProperties.getLayerStyle(layerValue)) {
+          layerStyle = styleProperties.getLayerStyle(layerValue);
+        };
         var visible = false;
         if (layerStyle.visible) {
           visible = layerStyle.visible;
         };
+
         var alias = layerName; //layerStyle.alias;
         if (layerStyle.alias) {
           alias = layerStyle.alias;

@@ -98,7 +98,7 @@ function map_refreshGeoserverLayers (mapBoundingBox) {
         if (layerStyle !== null) {
 
           var currentZoomMap = map.getZoom();
-          console.log("zoom", currentZoomMap);
+          console.log("zoom refresh", currentZoomMap);
           
           // Test zoom level
           if (currentZoomMap <= layerStyle.zoom_max 
@@ -151,7 +151,7 @@ function map_laodGeoserverLayers () {
       if (layerStyle !== null) {
 
         var currentZoomMap = map.getZoom();
-        console.log("zoom", currentZoomMap);
+        console.log("zoom load", currentZoomMap);
         
         // Test zoom level
         if (currentZoomMap <= layerStyle.zoom_max 

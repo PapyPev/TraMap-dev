@@ -220,8 +220,8 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
 
         console.log(layerValue, visible, alias)
 
-        // Add to list of layers
-        listOfLayers.push(new LayerProperties(
+        // Create the layer
+        var theLayer = new LayerProperties(
           "Checkbox", 
           layerCategory, 
           layerName,
@@ -230,7 +230,12 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           visible,
           layerUrl,
           layerContent
-        ));
+        );
+
+        console.log(theLayer)
+
+        // Add to list of layers
+        listOfLayers.push(theLayer);
 
       } // end Loop on layer's properties
     } // end Loop Layer Layer's list

@@ -71,12 +71,12 @@
       "attribute_value": "type",
       "attribute_alias": "name",
       "popup_activate": true,
-      "visible": false,
+      "visible": true,
       "type": "Point",
       "filters": true,
       "filters_type": "key",
       "zoom_min": 10,
-      "zoom_max": 12,
+      "zoom_max": 18,
       "styles": [
         {
           "filter": "bus_stop",
@@ -150,7 +150,7 @@
       "attribute_value": "type",
       "attribute_alias": "name",
       "popup_activate": true,
-      "visible": true,
+      "visible": false,
       "type": "Point",
       "filters": true,
       "filters_type": "key",

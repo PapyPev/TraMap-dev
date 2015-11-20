@@ -428,6 +428,28 @@ function map_init () {
 
 } //-- end init ()
 
+function Pinger_ping(ip, callback) {
+
+  if(!this.inUse) {
+
+    this.inUse = true;
+    this.callback = callback
+    this.ip = ip;
+
+    var _that = this;
+
+    this.img = new Image();
+
+    this.img.onload = function() {console.log("onload")};
+    this.img.onerror = function() {console.log("onerror")};
+
+    this.start = new Date().getTime();
+    this.img.src = "http://" + ip;
+    this.timer = setTimeout(function() {console.log("nok")}, 1500);
+
+  }
+}
+
 // ============================================================================
 // MAIN
 // ============================================================================
@@ -437,7 +459,12 @@ function map_init () {
  */
 $(document).ready(function(){
 
+  Pinger_ping("http://172.18.138.171")
+
+
   // initialize all the components of the map
-  map_init();
+  //map_init();
+
+
 
 }); //--$(document).ready()

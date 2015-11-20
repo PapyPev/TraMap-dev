@@ -41,7 +41,7 @@ function convert_LatLonToMercator(lat, lon) {
  * @param {Object} latlng [Coordinates of the feature]
  */
 function gs_setStyle(feature, latlng) {
-  console.log(feature)
+  console.log(layerName)
 
   var layerName = "traffic";
   var layerStyle = styleProperties.getLayerStyle(layerName);
@@ -129,6 +129,18 @@ function gs_setPopup(feature, layer) {
 
 // ----------------------------------------------------------------------------
 
+function gs_query(layerUrl, southWest, northEast, layerName){
+  return new L.GeoJSON.AJAX(layerUrl
+    +"&bbox="+southWest.X+","+southWest.Y+","
+    +northEast.X+","+northEast.Y,
+    {
+      onEachFeature: gs_setPopup, // popup information
+      style: gs_setStyle,
+      pointToLayer: gs_setStyle
+    }
+  )
+}
+
 /**
  * [This function gives a visual style to data]
  * @param  {String} url         [The GeoServer address]
@@ -209,15 +221,7 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           +"&outputFormat=application/json";
 
         // Get GeoJSON layer content
-        var layerContent = new L.GeoJSON.AJAX(layerUrl
-          +"&bbox="+southWest.X+","+southWest.Y+","
-          +northEast.X+","+northEast.Y,
-          {
-            onEachFeature: gs_setPopup, // popup information
-            style: gs_setStyle, layerName,
-            pointToLayer: gs_setStyle
-          }
-        );
+        var layerContent = gs_query(layerUrl, southWest, northEast, layerName);
 
         // Layer Style from configLayerStyle
         var layerStyle = null;

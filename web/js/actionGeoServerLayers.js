@@ -34,6 +34,11 @@ function convert_LatLonToMercator(lat, lon) {
 
 // ----------------------------------------------------------------------------
 
+
+/**
+ * [This function gives a visual style to feature in a Layer]
+ * @param {Object} feature [Feature of the layer]
+ */
 function gs_setStyle(feature, latlng) {
 
   var layerName = "traffic";
@@ -94,100 +99,6 @@ function gs_setStyle(feature, latlng) {
 
 }
 
-/**
- * [This function gives a visual style to data]
- * @param {Object} feature [Feature of the layer]
- */
-/*function gs_setStyle(feature, latlng) {
-
-  console.log(this);
-
-  // Get LayerStyleProperties
-  //var styleProperties = new LayerStyleProperties(_STY_PROP, name);
-
-  //console.log(feature)
-  switch(feature.geometry.type){
-
-    //---------- Points Style
-    case "Point":
-    case "MultiPoint":
-
-      switch(feature.properties.type){
-        case "bus_stop":
-        case "fire_station":
-        case "fuel":
-        case "hospital":
-        case "police":
-        case "postal":
-        case "school":
-        case "townhall":
-        case "university":
-          var marker = L.icon({
-            iconUrl: 'img/icon-pack/mapsmarker/enable/'
-              +feature.properties.type+'.png',
-            iconSize:     [22, 22], // size of the icon
-            iconAnchor:   [17, 35], // point of the icon which will correspond to marker's location
-            popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
-          });
-          return L.marker(latlng,{icon: marker});
-          break;
-
-        default:
-          var marker2 = L.icon({
-            iconUrl: 'img/icon-pack/mapsmarker/enable/comment-map-icon.png',
-            iconSize:     [22, 22], // size of the icon
-            iconAnchor:   [17, 35], // point of the icon which will correspond to marker's location
-            popupAnchor:  [0, -35] // point from which the popup should open relative to the iconAnchor
-          });
-          return L.marker(latlng,{icon: marker2});
-          break;
-      }
-
-      break;
-
-    //---------- Line Style
-    case "LineString":
-    case "LinearRing":
-    case "MultiLineString":
-
-      switch(feature.properties.type){
-        // motorway
-        case 11:
-          return {color: "red", weight: 5, opacity: 0.7};
-          break;
-
-        // primary
-        case 15:
-        case 16:
-          return {color: "orange", weight: 2, opacity: 0.7};
-          break;
-
-        // truck
-        case 13:
-          return {color: "yellow", weight: 2, opacity: 0.7};
-          break;
-
-        default:
-          return {color: "green", weight: 2, opacity: 0.7};
-          break;
-
-      } //end lines
-
-    //---------- Polygon Style
-    case "Polygon":
-    case "MultiPolygon": 
-      return {color: "black", weight: 1, opacity: 0.3};
-
-    //---------- Default
-    default:
-      //nothing
-      break; // end default
-  }
-
-} //-- end gs_setStyle(feature)
-
-*/
-
 // ----------------------------------------------------------------------------
 
 /**
@@ -200,8 +111,9 @@ function gs_setPopup(feature, layer) {
   var layerName = "traffic";
   var layerStyle = styleProperties.getLayerStyle(layerName);
   var val = layerStyle.attribute_alias;
-
-  layer.bindPopup(feature.properties[val].toString());
+  if (layerStyle.popup_activate) {
+    layer.bindPopup(feature.properties[val].toString());
+  }
 
 } //-- end gs_setPopup(feature, layer)
 

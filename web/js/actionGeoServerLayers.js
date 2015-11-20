@@ -209,12 +209,12 @@ function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
           layerStyle = styleProperties.getLayerStyle(layerValue);
         };
         var visible = false;
-        if (layerStyle.visible) {
+        if (layerStyle!=null && layerStyle.visible) {
           visible = layerStyle.visible;
         };
 
         var alias = layerName; //layerStyle.alias;
-        if (layerStyle.alias) {
+        if (layerStyle!=null && layerStyle.alias) {
           alias = layerStyle.alias;
         };
 

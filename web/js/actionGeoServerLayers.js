@@ -38,9 +38,10 @@ function convert_LatLonToMercator(lat, lon) {
 /**
  * [This function gives a visual style to feature in a Layer]
  * @param {Object} feature [Feature of the layer]
+ * @param {Object} latlng [Coordinates of the feature]
  */
-function gs_setStyle(feature, latlng, layerName) {
-  console.log(layerName)
+function gs_setStyle(feature, latlng) {
+  console.log(feature)
 
   var layerName = "traffic";
   var layerStyle = styleProperties.getLayerStyle(layerName);
@@ -140,8 +141,14 @@ function gs_setPopup(feature, layer) {
 function gs_getGeoserverLayers(url, repository, projection, maxFeatures, bbox){
 
   // Get bbox on Mercator projection (from Lat/Long)
-  var southWest = convert_LatLonToMercator(bbox._southWest.lat,bbox._southWest.lng);
-  var northEast = convert_LatLonToMercator(bbox._northEast.lat,bbox._northEast.lng);
+  var southWest = convert_LatLonToMercator(
+    bbox._southWest.lat,
+    bbox._southWest.lng
+  );
+  var northEast = convert_LatLonToMercator(
+    bbox._northEast.lat,
+    bbox._northEast.lng
+  );
 
   // Return value : list of layers
   var listOfLayers = [];

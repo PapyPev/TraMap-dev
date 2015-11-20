@@ -39,7 +39,8 @@ function convert_LatLonToMercator(lat, lon) {
  * [This function gives a visual style to feature in a Layer]
  * @param {Object} feature [Feature of the layer]
  */
-function gs_setStyle(feature, latlng) {
+function gs_setStyle(feature, latlng, layerName) {
+  console.log(layerName)
 
   var layerName = "traffic";
   var layerStyle = styleProperties.getLayerStyle(layerName);

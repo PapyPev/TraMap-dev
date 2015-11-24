@@ -36,7 +36,7 @@ AmCharts.ready(function () {
   chart.dataProvider = chartData;
   chart.categoryField = "year";
   chart.startDuration = 1;
-  chart.rotate = true;
+  chart.rotate = false;
 
   // AXES
   // category

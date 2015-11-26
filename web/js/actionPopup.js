@@ -72,7 +72,18 @@ function popup_getIntinerary(origin, destination) {
 
         // Add to map
         //layer.addTo(map);
-        //
+        
+        var pointA = new L.LatLng(60.634377, 24.841403);
+        var pointB = new L.LatLng(60.630547, 24.868483);
+        var pointList = [pointA, pointB];
+
+        var firstpolyline = new L.Polyline(pointList, {
+          color: 'blue',
+          weight: 10,
+          opacity: 1,
+          smoothFactor: 1
+        });
+        firstpolyline.addTo(map);
         
 
       } else{

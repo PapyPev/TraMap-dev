@@ -465,8 +465,8 @@ $(document).ready(function(){
   //   };
   // }, wait);
 
-  var pointA = new L.LatLng(24.841403, 60.634377);
-  var pointB = new L.LatLng(24.868483, 60.630547);
+  var pointA = new L.LatLng(60.634377, 24.841403);
+  var pointB = new L.LatLng(60.630547, 24.868483);
   var pointList = [pointA, pointB];
 
   var firstpolyline = new L.Polyline(pointList, {

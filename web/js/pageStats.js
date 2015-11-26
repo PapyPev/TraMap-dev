@@ -196,11 +196,13 @@ function stats_getCharts() {
   return charts;
 }
 
-// Default stat loader
+/**
+ * [Default stat loader : get all charts and prepare the HTML content]
+ */
 function stats_init() {
 
   // Get list of statistics
-  //listStats = stats_getCharts();
+  //stats_getCharts();
   listStats.push("Beers");
 
   // Init the div container names

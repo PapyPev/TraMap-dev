@@ -30,7 +30,63 @@ var listOD = [];
 function popup_getIntinerary(origin, destination) {
 
   console.log('popup_getIntinerary');
-  // TODO : algo
+  
+  $.ajax({
+    type: 'GET',
+    url: restProperties.getAddress() + '/ssp',
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+
+    success: function(data){
+      
+      // Test returned status
+      if (data.status == 'ok') {
+
+        // Init list of points
+        var pathPoints = [];
+
+        // For each polylines object
+        for (var i = data.result.features.length - 1; i >= 0; i--) {
+          
+          // For each point of polylines object
+          for (var i = data.result.features[i].coordinates.length - 1; i >= 0; i--) {
+            
+            pathPoints.add(new L.LatLng(
+              data.result.features[i].coordinates[i][0], //lat
+              data.result.features[i].coordinates[i][1] //lon
+            ));
+
+          } // end points of polyline object
+        } // end polyline object
+
+        // Create the new Layer to map
+        var layer = L.multiPolyline(pathPoints, {
+          color: 'red',
+          weight: 3,
+          opacity: 0.5,
+          smoothFactor: 1
+        });
+
+        // Add to map
+        layer.addTo(map);
+
+      } else{
+        alert('Something is wrong...');
+      }
+
+    },
+
+    error: function(jqXHR, exception){
+      if (jqXHR.status === 401) {
+        console.log('HTTP Error 401 Unauthorized.');
+      } else {
+        console.log('Uncaught Error.\n' + jqXHR.responseText);
+      }
+      alert('Something is wrong...');
+    },
+    async: false
+  });
+
 
 } //--- end popup_getIntinerary (origin, destination)
 

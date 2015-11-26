@@ -31,8 +31,6 @@ function popup_getIntinerary(origin, destination) {
 
   console.log('popup_getIntinerary');
 
-  console.log(destination)
-
   $.ajax({
     type: 'GET',
     url: restProperties.getAddress() + '/ssp?'
@@ -388,6 +386,9 @@ function popup_buttonSearchByPointer() {
 
   // Init list of marker OD
   listOD = [];
+
+  // Init previous itinerary
+  map.removeLayer(layerG);
 
   // --------------------
 

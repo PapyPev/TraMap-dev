@@ -110,13 +110,14 @@ function popup_getIntinerary(origin, destination) {
 
           // Add to list of polyline
           multipolylines.push(polyline);
+          polyline.addTo(map)
 
         }
 
         console.log(multipolylines)
 
-        var layerG = L.layerGroup(multipolylines);
-        layerG.addTo(map);
+        //var layerG = L.layerGroup(multipolylines);
+        //layerG.addTo(map);
 
 
         //-------------------------------------------------------

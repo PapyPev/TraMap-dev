@@ -31,7 +31,8 @@ function popup_getIntinerary(origin, destination) {
 
   console.log('popup_getIntinerary');
 
-  
+  // TODO get lat/lon from O/D
+
   $.ajax({
     type: 'GET',
     //url: restProperties.getAddress() + '/ssp?'
@@ -54,42 +55,13 @@ function popup_getIntinerary(origin, destination) {
           // For each point of polylines object
           for (var i = data.result.features[i].coordinates.length - 1; i >= 0; i--) {
             
-            pathPoints.push(new L.LatLng(
-              data.result.features[i].coordinates[i][0], //lat
-              data.result.features[i].coordinates[i][1] //lon
-            ));
+            // TODO something
 
           } // end points of polyline object
         } // end polyline object
 
 
-        //-----------
-        // BARBARIAN LOOP
-
-        for (var i = pathPoints.length - 1; i >= 1; i--) {
-          var pointA = new L.LatLng(pathPoints[i].lat, pathPoints[i].lng);
-          var pointB = new L.LatLng(pathPoints[i+1].lat, pathPoints[i+1].lng);
-          var pointList = [pointA, pointB];
-          
-          var firstpolyline = new L.Polyline(pointList, {
-            color: 'blue',
-            weight: 10,
-            opacity: 1,
-            smoothFactor: 1
-          });
-          firstpolyline.addTo(map);
-        };
-
-        // Create the new Layer to map
-        // var layer = L.polyline(pathPoints, {
-        //   color: 'red',
-        //   weight: 3,
-        //   opacity: 0.5,
-        //   smoothFactor: 1
-        // });
-
-        // Add to map
-        //layer.addTo(map);
+        //-------------------------------------------------------
         
         var pointA = new L.LatLng(60.634377, 24.841403);
         var pointB = new L.LatLng(60.630547, 24.868483);
@@ -101,8 +73,23 @@ function popup_getIntinerary(origin, destination) {
           opacity: 1,
           smoothFactor: 1
         });
-        firstpolyline.addTo(map);
+
+        pointA = new L.LatLng(60.634377, 24.851403);
+        pointB = new L.LatLng(60.630547, 24.878483);
+        pointList = [pointA, pointB];
+
+        var secondpolyline = new L.Polyline(pointList, {
+          color: 'blue',
+          weight: 10,
+          opacity: 1,
+          smoothFactor: 1
+        });
         
+        var multipolylines = [firstpolyline, secondpolyline];
+
+        //-------------------------------------------------------
+        var layerG = L.layerGroup(multipolylines);
+        layerG.addTo(map);
 
       } else{
         alert('Something is wrong...');

@@ -445,25 +445,25 @@ function map_init () {
 $(document).ready(function(){
 
   //---------- Determine if the server responding
-  var isRespond = false;
-  var wait = 5000; //ms
+  // var isRespond = false;
+  // var wait = 5000; //ms
 
-  // Ping the Server : load a simple image
-  $("#toc-title").html("<h3>Test server...</h3>")
-  $('<img src="http://172.18.138.171/TraMap/web/img/img-60x60.png">').load(function(){
-      // if load sucess
-      isRespond = true;
-  });
+  // // Ping the Server : load a simple image
+  // $("#toc-title").html("<h3>Test server...</h3>")
+  // $('<img src="http://172.18.138.171/TraMap/web/img/img-60x60.png">').load(function(){
+  //     // if load sucess
+  //     isRespond = true;
+  // });
 
-  // Wait the previous load, after [wait] if it's a success, load the map
-  setTimeout(function(){
-    if (isRespond) {
-      $("#toc-title").html("<h3>Loading Map... <small>(Be patient)</small></h3>")
-      map_init();
-    } else{
-      $("#toc-title").html("<h3>Server Down <small>(timeout)</small></h3>")
-    };
-  }, wait);
+  // // Wait the previous load, after [wait] if it's a success, load the map
+  // setTimeout(function(){
+  //   if (isRespond) {
+  //     $("#toc-title").html("<h3>Loading Map... <small>(Be patient)</small></h3>")
+       map_init();
+  //   } else{
+  //     $("#toc-title").html("<h3>Server Down <small>(timeout)</small></h3>")
+  //   };
+  // }, wait);
 
 
 }); //--$(document).ready()

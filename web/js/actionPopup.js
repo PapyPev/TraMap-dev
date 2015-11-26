@@ -63,7 +63,7 @@ function popup_getIntinerary(origin, destination) {
         } // end polyline object
 
         // Create the new Layer to map
-        var layer = L.polyline(pathPoints, {
+        var layer = L.multiPolyline(pathPoints, {
           color: 'red',
           weight: 3,
           opacity: 0.5,

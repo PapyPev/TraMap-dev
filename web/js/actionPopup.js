@@ -382,13 +382,11 @@ function popup_buttonSearchByPointer() {
     for (var i = 0; i < listOD.length; i++) {
       map.removeLayer(listOD[i]);
     }
+    map.removeLayer(layerG);
   }
 
   // Init list of marker OD
   listOD = [];
-
-  // Init previous itinerary
-  map.removeLayer(layerG);
 
   // --------------------
 

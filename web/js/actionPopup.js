@@ -31,7 +31,7 @@ function popup_getIntinerary(origin, destination) {
 
   console.log('popup_getIntinerary');
 
-  console.log(origin)
+  console.log(origin.getLat())
 
   $.ajax({
     type: 'GET',

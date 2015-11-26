@@ -46,72 +46,85 @@ function popup_getIntinerary(origin, destination) {
       // Test returned status
       if (data.status == 'ok') {
 
-        // Init list of lines
-        var pathLine = [];
+        // // Init list of lines
+        // var pathLine = [];
 
-        // For each polylines object
-        for (var i = data.result.features.length - 1; i >= 0; i--) {
+        // // For each polylines object
+        // for (var i = data.result.features.length - 1; i >= 0; i--) {
 
-          // Init list of points for multilines
-          var pathPoints = [];
+        //   // Init list of points for multilines
+        //   var pathPoints = [];
           
-          // For each point of polylines object
+        //   // For each point of polylines object
+        //   for (var j = data.result.features[i].coordinates.length - 1; j >= 0; j--) {
+            
+        //     pathPoints.push(new L.LatLng(
+        //       data.result.features[i].coordinates[j][0], //lat
+        //       data.result.features[i].coordinates[j][1] //lon
+        //     ));
+
+        //     console.log("Points", pathPoints);
+
+        //   } // end points of polyline object
+
+        //   pathLine.push(new L.Polyline(pathPoints, {
+        //     color: 'blue',
+        //     weight: 10,
+        //     opacity: 1,
+        //     smoothFactor: 1
+        //   }));
+
+        //   console.log("Line", pathLine)
+
+        // } // end polyline object
+
+        // var layerG = L.layerGroup(pathLine);
+        // layerG.addTo(map);
+
+        // All polylines
+        var multipolylines = [];
+
+        // Fore each feature
+        for (var i = data.result.features.length - 1; i >= 0; i--) {
+          
+          // Point for one polyline
+          var points = [];
+
+          // For each polyline
           for (var j = data.result.features[i].coordinates.length - 1; j >= 0; j--) {
             
-            pathPoints.push(new L.LatLng(
-              data.result.features[i].coordinates[j][0], //lat
-              data.result.features[i].coordinates[j][1] //lon
+            points.push(new L.LatLng(
+              data.result.features[i].coordinates[j][0],
+              data.result.features[i].coordinates[j][1]
             ));
 
-            console.log("Points", pathPoints);
+          }
 
-          } // end points of polyline object
+          console.log(points)
 
-          pathLine.push(new L.Polyline(pathPoints, {
-            color: 'blue',
-            weight: 10,
-            opacity: 1,
-            smoothFactor: 1
-          }));
+        }
 
-          console.log("Line", pathLine)
-
-        } // end polyline object
-
-        var layerG = L.layerGroup(pathLine);
-        layerG.addTo(map);
 
 
         //-------------------------------------------------------
         
-        // var pointA = new L.LatLng(60.634377, 24.841403);
-        // var pointB = new L.LatLng(60.630547, 24.868483);
-        // var pointList = [pointA, pointB];
+        pointA = new L.LatLng(60.634377, 24.851403);
+        pointB = new L.LatLng(60.630547, 24.878483);
+        pointC = new L.LatLng(60.640547, 24.878483);
+        pointList = [pointA, pointB, pointC];
 
-        // var firstpolyline = new L.Polyline(pointList, {
-        //   color: 'blue',
-        //   weight: 10,
-        //   opacity: 1,
-        //   smoothFactor: 1
-        // });
-
-        // pointA = new L.LatLng(60.634377, 24.851403);
-        // pointB = new L.LatLng(60.630547, 24.878483);
-        // pointC = new L.LatLng(60.640547, 24.878483);
-        // pointList = [pointA, pointB, pointC];
-
-        // var secondpolyline = new L.Polyline(pointList, {
-        //   color: 'blue',
-        //   weight: 10,
-        //   opacity: 1,
-        //   smoothFactor: 1
-        // });
+        var secondpolyline = new L.Polyline(pointList, {
+          color: 'blue',
+          weight: 10,
+          opacity: 1,
+          smoothFactor: 1
+        });
         
-        // var multipolylines = [firstpolyline, secondpolyline];
+        var multipolylines = [secondpolyline];
 
-        // //-------------------------------------------------------
-        // var layerG = L.layerGroup(multipolylines);
-        // layerG.addTo(map);
+        //-------------------------------------------------------
+        var layerG = L.layerGroup(multipolylines);
+        layerG.addTo(map);
 
       } else{
         alert('Something is wrong...');

@@ -31,6 +31,8 @@ function popup_getIntinerary(origin, destination) {
 
   console.log('popup_getIntinerary');
 
+  console.log(destination.getLatLng().lon)
+
   $.ajax({
     type: 'GET',
     url: restProperties.getAddress() + '/ssp?'

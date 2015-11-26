@@ -17,6 +17,7 @@
 
 // List : origin destination
 var listOD = [];
+var layerG; // layer OD
 
 // ============================================================================
 // FUNCTIONS CALCULATE
@@ -28,8 +29,6 @@ var listOD = [];
  * @param  {Marker} destination [Destination contains lat and long coordinates]
  */
 function popup_getIntinerary(origin, destination) {
-
-  console.log('popup_getIntinerary');
 
   $.ajax({
     type: 'GET',
@@ -80,7 +79,7 @@ function popup_getIntinerary(origin, destination) {
         }
 
         // Add to one layer Group
-        var layerG = L.layerGroup(multipolylines);
+        layerG = L.layerGroup(multipolylines);
         layerG.addTo(map);
 
       } else{
@@ -382,6 +381,10 @@ function popup_buttonSearchByPointer() {
     for (var i = 0; i < listOD.length; i++) {
       map.removeLayer(listOD[i]);
     }
+  }
+
+  if (layerG) {
+    map.removeLayer(layerG);
   }
 
   // Init list of marker OD

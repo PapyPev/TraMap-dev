@@ -94,8 +94,8 @@ function popup_getIntinerary(origin, destination) {
           for (var j = data.result.features[i].coordinates.length - 1; j >= 0; j--) {
             
             points.push(new L.LatLng(
-              data.result.features[i].coordinates[j][1],
-              data.result.features[i].coordinates[j][0]
+              data.result.features[i].coordinates[j][0],
+              data.result.features[i].coordinates[j][1]
             ));
 
           }
@@ -110,7 +110,6 @@ function popup_getIntinerary(origin, destination) {
 
           // Add to list of polyline
           multipolylines.push(polyline);
-          polyline.addTo(map)
 
         }
 

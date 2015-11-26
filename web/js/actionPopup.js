@@ -31,15 +31,13 @@ function popup_getIntinerary(origin, destination) {
 
   console.log('popup_getIntinerary');
 
-  console.log(origin.getLatLng().lat)
-
   $.ajax({
     type: 'GET',
     url: restProperties.getAddress() + '/ssp?'
-      + 'lon1='+origin._latlng.lon
-      +'&lat1='+origin._latlng.lat
-      +'&lon2='+destination._latlng.lon
-      +'&lat2='+destination._latlng.lat,
+      + 'lon1='+origin.getLatLng().lon
+      +'&lat1='+origin.getLatLng().lat
+      +'&lon2='+destination.getLatLng().lon
+      +'&lat2='+destination.getLatLng().lat,
     //url : './js/itinerary.json',
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',

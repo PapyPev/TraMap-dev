@@ -63,8 +63,13 @@ function popup_getIntinerary(origin, destination) {
 
           } // end points of polyline object
 
-          var onePolyline = new L.polyline(pointsOfFeature, {color: 'red'});
+          var onePolyline = new L.polyline(pointsOfFeature, {
+            color: 'red',
+            weight: 10
+          });
           onePolyline.addTo(map);
+
+          console.log(onePolyline);
 
         } // end polyline object
 

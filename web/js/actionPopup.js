@@ -70,6 +70,8 @@ function popup_getIntinerary(origin, destination) {
           smoothFactor: 1
         });
 
+        console.log(layer)
+
         // Add to map
         layer.addTo(map);
 

@@ -47,68 +47,78 @@ function popup_getIntinerary(origin, destination) {
       if (data.status == 'ok') {
 
         // All polylines
-        // var multipolylines = [];
+        var multipolylines = [];
 
-        // // Fore each feature
-        // for (var i = data.result.features.length - 1; i >= 0; i--) {
+        // Fore each feature
+        for (var i = data.result.features.length - 1; i >= 0; i--) {
           
-        //   // Point for one polyline
-        //   var points = [];
+          // Point for one polyline
+          var points = [];
 
-        //   // For each polyline
-        //   for (var j = data.result.features[i].coordinates.length - 1; j >= 0; j--) {
+          // For each polyline
+          for (var j = data.result.features[i].coordinates.length - 1; j >= 0; j--) {
             
-        //     points.push(new L.LatLng(
-        //       data.result.features[i].coordinates[j][0],
-        //       data.result.features[i].coordinates[j][1]
-        //     ));
+            points.push(new L.LatLng(
+              data.result.features[i].coordinates[j][0],
+              data.result.features[i].coordinates[j][1]
+            ));
 
-        //   }
+            console.log("Points", points)
 
-        //   // Create new polyline
-        //   var polyline = new L.Polyline(points, {
-        //     color: 'blue',
-        //     weight: 10,
-        //     opacity: 1,
-        //     smoothFactor: 1
-        //   });
+          }
 
-        //   // Add to list of polyline
-        //   multipolylines.push(polyline);
+          // Create new polyline
+          var polyline = new L.Polyline(points, {
+            color: 'blue',
+            weight: 10,
+            opacity: 1,
+            smoothFactor: 1
+          });
 
-        // }
+          console.log("Polyline", polyline)
 
+          // Add to list of polyline
+          multipolylines.push(polyline);
 
-      //  -------------------------------------------------------
-        
-        var pointA = new L.LatLng(60.634377, 24.851403);
-        var pointB = new L.LatLng(60.630547, 24.878483);
-        var pointC = new L.LatLng(60.640547, 24.878483);
-        var pointList = [pointA, pointB, pointC];
+          console.log("MultiPolylines", multipolylines)
 
-        var secondpolyline = new L.Polyline(pointList, {
-          color: 'blue',
-          weight: 10,
-          opacity: 1,
-          smoothFactor: 1
-        });
+        }
 
-        pointA = new L.LatLng(60.634377, 24.841403);
-        pointB = new L.LatLng(60.630547, 24.868483);
-        pointList = [pointA, pointB];
-
-        var firstline = new L.Polyline(pointList, {
-          color: 'blue',
-          weight: 10,
-          opacity: 1,
-          smoothFactor: 1
-        });
-        
-        var multipolylines = [secondpolyline, firstline];
-
-        //-------------------------------------------------------
         var layerG = L.layerGroup(multipolylines);
+        console.log("LayerG", layerG)
         layerG.addTo(map);
+
+
+        // //  -------------------------------------------------------
+        
+        // var pointA = new L.LatLng(60.634377, 24.851403);
+        // var pointB = new L.LatLng(60.630547, 24.878483);
+        // var pointC = new L.LatLng(60.640547, 24.878483);
+        // var pointList = [pointA, pointB, pointC];
+
+        // var secondpolyline = new L.Polyline(pointList, {
+        //   color: 'blue',
+        //   weight: 10,
+        //   opacity: 1,
+        //   smoothFactor: 1
+        // });
+
+        // pointA = new L.LatLng(60.634377, 24.841403);
+        // pointB = new L.LatLng(60.630547, 24.868483);
+        // pointList = [pointA, pointB];
+
+        // var firstline = new L.Polyline(pointList, {
+        //   color: 'blue',
+        //   weight: 10,
+        //   opacity: 1,
+        //   smoothFactor: 1
+        // });
+        
+        // var multipolylines = [secondpolyline, firstline];
+
+        // //-------------------------------------------------------
+        // var layerG = L.layerGroup(multipolylines);
+        // layerG.addTo(map);
 
       } else{
         alert('Something is wrong...');

@@ -100,7 +100,15 @@ function popup_getIntinerary(origin, destination) {
 
           }
 
-          console.log(points)
+          // Create new polyline
+          var polyline = new L.Polyline(points, {
+            color: 'blue',
+            weight: 10,
+            opacity: 1,
+            smoothFactor: 1
+          });
+
+          console.log(polyline)
 
         }
 

@@ -33,6 +33,8 @@ function popup_getIntinerary(origin, destination) {
 
   // TODO get lat/lon from O/D
 
+  console.log(origin)
+
   $.ajax({
     type: 'GET',
     url: restProperties.getAddress() + '/ssp?'
@@ -63,8 +65,6 @@ function popup_getIntinerary(origin, destination) {
               data.result.features[i].coordinates[j][0]
             ));
 
-            console.log("Points", points)
-
           }
 
           // Create new polyline
@@ -75,50 +75,14 @@ function popup_getIntinerary(origin, destination) {
             smoothFactor: 1
           });
 
-          console.log("Polyline", polyline)
-
           // Add to list of polyline
           multipolylines.push(polyline);
 
-          console.log("MultiPolylines", multipolylines)
-
         }
 
+        // Add to one layer Group
         var layerG = L.layerGroup(multipolylines);
-        console.log("LayerG", layerG)
         layerG.addTo(map);
-
-
-        // //  -------------------------------------------------------
-        
-        // var pointA = new L.LatLng(60.634377, 24.851403);
-        // var pointB = new L.LatLng(60.630547, 24.878483);
-        // var pointC = new L.LatLng(60.640547, 24.878483);
-        // var pointList = [pointA, pointB, pointC];
-
-        // var secondpolyline = new L.Polyline(pointList, {
-        //   color: 'blue',
-        //   weight: 10,
-        //   opacity: 1,
-        //   smoothFactor: 1
-        // });
-
-        // pointA = new L.LatLng(60.634377, 24.841403);
-        // pointB = new L.LatLng(60.630547, 24.868483);
-        // pointList = [pointA, pointB];
-
-        // var firstline = new L.Polyline(pointList, {
-        //   color: 'blue',
-        //   weight: 10,
-        //   opacity: 1,
-        //   smoothFactor: 1
-        // });
-        
-        // var multipolylines = [secondpolyline, firstline];
-
-        // //-------------------------------------------------------
-        // var layerG = L.layerGroup(multipolylines);
-        // layerG.addTo(map);
 
       } else{
         alert('Something is wrong...');

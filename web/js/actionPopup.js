@@ -50,30 +50,35 @@ function popup_getIntinerary(origin, destination) {
 
         // For each polylines object
         for (var i = data.result.features.length - 1; i >= 0; i--) {
+
+          var pointsOfFeature = [];
           
           // For each point of polylines object
           for (var i = data.result.features[i].coordinates.length - 1; i >= 0; i--) {
             
-            pathPoints.push(new L.LatLng(
+            pointsOfFeature.push(new L.LatLng(
               data.result.features[i].coordinates[i][0], //lat
               data.result.features[i].coordinates[i][1] //lon
             ));
 
           } // end points of polyline object
+
+          var onePolyline = L.polyline(pointsOfFeature, {color: 'red'}).addTo(map);
+
         } // end polyline object
 
         // Create the new Layer to map
-        var layer = L.multiPolyline(pathPoints, {
-          color: 'red',
-          weight: 3,
-          opacity: 0.5,
-          smoothFactor: 1
-        });
+        // var layer = L.multiPolyline(pathPoints, {
+        //   color: 'red',
+        //   weight: 3,
+        //   opacity: 0.5,
+        //   smoothFactor: 1
+        // });
 
-        console.log(layer)
+        // console.log(layer)
 
         // Add to map
-        layer.addTo(map);
+        //layer.addTo(map);
 
       } else{
         alert('Something is wrong...');

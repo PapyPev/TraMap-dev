@@ -465,5 +465,16 @@ $(document).ready(function(){
   //   };
   // }, wait);
 
+  var pointA = new L.LatLng(24.841403, 60.634377);
+  var pointB = new L.LatLng(24.868483, 60.630547);
+  var pointList = [pointA, pointB];
+
+  var firstpolyline = new L.Polyline(pointList, {
+    color: 'blue',
+    weight: 10,
+    opacity: 1,
+    smoothFactor: 1
+  });
+  firstpolyline.addTo(map);
 
 }); //--$(document).ready()

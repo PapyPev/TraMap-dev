@@ -31,14 +31,13 @@ function popup_getIntinerary(origin, destination) {
 
   console.log('popup_getIntinerary');
 
-  // TODO get lat/lon from O/D
-
-  console.log(origin)
-
   $.ajax({
     type: 'GET',
     url: restProperties.getAddress() + '/ssp?'
-      + 'lon1=60.61663&lat1=24.87078&lon2=60.63003&lat2=24.85747',
+      + 'lon1='+origin._latlng.lon
+      +'&lat1='+origin._latlng.lat
+      +'&lon2='+destination._latlng.lon
+      +'&lat2='+destination._latlng.lat,
     //url : './js/itinerary.json',
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',

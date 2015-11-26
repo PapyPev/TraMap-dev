@@ -62,6 +62,24 @@ function popup_getIntinerary(origin, destination) {
           } // end points of polyline object
         } // end polyline object
 
+
+        //-----------
+        // BARBARIAN LOOP
+
+        for (var i = pathPoints.length - 1; i >= 1; i--) {
+          var pointA = new L.LatLng(pathPoints[i].lat, pathPoints[i].lng);
+          var pointB = new L.LatLng(pathPoints[i+1].lat, pathPoints[i+1].lng);
+          var pointList = [pointA, pointB];
+          
+          var firstpolyline = new L.Polyline(pointList, {
+            color: 'blue',
+            weight: 10,
+            opacity: 1,
+            smoothFactor: 1
+          });
+          firstpolyline.addTo(map);
+        };
+
         // Create the new Layer to map
         // var layer = L.polyline(pathPoints, {
         //   color: 'red',

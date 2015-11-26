@@ -1,3 +1,67 @@
+/*
+|------------------------------------------------------------------------------
+| Statistics page.
+|------------------------------------------------------------------------------
+|
+| Get information from Server REST services and show summaries
+|
+| @author Pev
+| @verion 1.0.0
+|
+|------------------------------------------------------------------------------
+*/
+
+// ============================================================================
+// GLOBALS
+// ============================================================================
+
+var chartsJSON = {
+  "status": "ok",
+  "results": [
+
+    {
+      "title": "Beers in Country",
+      "alias": "Country",
+      "value": "nb of beers",
+      "data": [
+        {
+          "alias": "Czech Republic",
+          "value": 301.90
+        }, 
+        {
+          "alias": "Ireland",
+          "value": 201.10
+        }, 
+        {
+          "alias": "Germany",
+          "value": 165.80
+        }, 
+        {
+          "alias": "Australia",
+          "value": 139.90
+        }, 
+        {
+          "alias": "Austria",
+          "value": 128.30
+        }, 
+        {
+          "alias": "UK",
+          "value": 99.00
+        }, 
+        {
+          "alias": "Belgium",
+          "value": 60.00
+        }
+      ]
+    }
+
+  ]
+}
+
+
+
+
+var listStats = [];
 
 var chart;
 
@@ -94,3 +158,86 @@ AmCharts.ready(function () {
   // WRITE
   chart.write("chartdiv");
 });
+
+
+/**
+ * [Return json value from REST servies - Getting all charts possible]
+ * @return {json} [Json content with list of charts]
+ */
+function stats_getCharts() {
+
+  // Returned value
+  var charts = [];
+
+  // Get JSON
+  $.ajax({
+    type: 'GET',
+    url: restProperties.getAddress() + "/",
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success: function(data){
+      if (data.status === "ok") {
+        for (var i = data.response.length - 1; i >= 0; i--) {
+          charts.push(data.response[i]);
+        };
+      }
+    },
+    error: function(jqXHR, exception){
+      if (jqXHR.status === 401) {
+        console.log('HTTP Error 401 Unauthorized.');
+      } else {
+        console.log('Uncaught Error.\n' + jqXHR.responseText);
+      }
+    },
+    async: false
+
+  });
+
+  return charts;
+}
+
+// Default stat loader
+function stats_init() {
+
+  // Get list of statistics
+  //listStats = stats_getCharts();
+  listStats.push("Beers");
+
+  // Init the div container names
+  divListCharts = 'listCharts';
+
+  // Prepare the HTML content
+  var htmlContent = "";
+
+  // HTML content
+  var htmlContent = '<select class="selectpicker" id="llistOfCharts">' 
+    + '<optgroup label="default">'
+    + '<option value="default">-- All --</option>';
+
+  // Loop charts name
+  for (var i = listStats.length - 1; i >= 0; i--) {
+    htmlContent += '<option value=' + i + '>' + listStats[i] + '</option>';
+  }
+
+  // Close the list
+  htmlContent += '</optgroup></select>';
+
+  // Add to list of values
+  $("#"+divListCharts+"").html(htmlContent);
+
+}
+
+// ============================================================================
+// MAIN
+// ============================================================================
+
+/**
+ * Action performed when the page is fully loaded
+ */
+$(document).ready(function($) {
+
+  // Init 
+  stats_init();
+
+}); //--- end $(document).ready()
+

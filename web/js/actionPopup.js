@@ -6,7 +6,7 @@
 | All popup functions (load, refresh, actions, events, ...)
 |
 | @author Pev
-| @verion 1.1.4
+| @verion 1.1.5
 |
 |------------------------------------------------------------------------------
 */

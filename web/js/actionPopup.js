@@ -30,10 +30,12 @@ var listOD = [];
 function popup_getIntinerary(origin, destination) {
 
   console.log('popup_getIntinerary');
+
   
   $.ajax({
     type: 'GET',
-    url: restProperties.getAddress() + '/ssp',
+    url: restProperties.getAddress() + '/ssp?'
+      + 'lon1=60.61663&lat1=24.87078&lon2=60.63003&lat2=24.85747',
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
 

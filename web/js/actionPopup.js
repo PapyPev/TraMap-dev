@@ -36,10 +36,10 @@ function popup_getIntinerary(origin, destination) {
   $.ajax({
     type: 'GET',
     url: restProperties.getAddress() + '/ssp?'
-      + 'lon1='+origin.getLatLng().lng
-      +'&lat1='+origin.getLatLng().lat
-      +'&lon2='+destination.getLatLng().lng
-      +'&lat2='+destination.getLatLng().lat,
+      + 'lon1='+origin.getLatLng().lat
+      +'&lat1='+origin.getLatLng().lng
+      +'&lon2='+destination.getLatLng().lat
+      +'&lat2='+destination.getLatLng().lng,
     //url : './js/itinerary.json',
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',

@@ -58,7 +58,7 @@ function popup_getIntinerary(origin, destination) {
           // For each point of polylines object
           for (var j = data.result.features[i].coordinates.length - 1; j >= 0; j--) {
             
-            pathPoints.push(new LatLong(
+            pathPoints.push(new L.LatLong(
               data.result.features[i].coordinates[j][0], //lat
               data.result.features[i].coordinates[j][1] //lon
             ))

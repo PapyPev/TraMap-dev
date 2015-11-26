@@ -76,7 +76,8 @@ function popup_getIntinerary(origin, destination) {
 
         pointA = new L.LatLng(60.634377, 24.851403);
         pointB = new L.LatLng(60.630547, 24.878483);
-        pointList = [pointA, pointB];
+        pointC = new L.LatLng(60.640547, 24.878483);
+        pointList = [pointA, pointB, pointC];
 
         var secondpolyline = new L.Polyline(pointList, {
           color: 'blue',

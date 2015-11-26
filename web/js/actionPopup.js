@@ -75,19 +75,6 @@ function popup_getIntinerary(origin, destination) {
         //
         
 
-        var pointA = new L.LatLng(24.841403, 60.634377);
-        var pointB = new L.LatLng(24.868483, 60.630547);
-        var pointList = [pointA, pointB];
-
-        var firstpolyline = new L.Polyline(pointList, {
-        color: 'red',
-        weight: 10,
-        opacity: 0.5,
-        smoothFactor: 1
-
-        });
-        firstpolyline.addTo(map);
-
       } else{
         alert('Something is wrong...');
       }
@@ -105,6 +92,17 @@ function popup_getIntinerary(origin, destination) {
     async: false
   });
 
+  var pointA = new L.LatLng(24.841403, 60.634377);
+  var pointB = new L.LatLng(24.868483, 60.630547);
+  var pointList = [pointA, pointB];
+
+  var firstpolyline = new L.Polyline(pointList, {
+    color: 'blue',
+    weight: 10,
+    opacity: 1,
+    smoothFactor: 1
+  });
+  firstpolyline.addTo(map);
 
 } //--- end popup_getIntinerary (origin, destination)
 

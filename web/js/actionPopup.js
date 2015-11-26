@@ -81,10 +81,10 @@ function popup_getIntinerary(origin, destination) {
 
       //  -------------------------------------------------------
         
-        pointA = new L.LatLng(60.634377, 24.851403);
-        pointB = new L.LatLng(60.630547, 24.878483);
-        pointC = new L.LatLng(60.640547, 24.878483);
-        pointList = [pointA, pointB, pointC];
+        var pointA = new L.LatLng(60.634377, 24.851403);
+        var pointB = new L.LatLng(60.630547, 24.878483);
+        var pointC = new L.LatLng(60.640547, 24.878483);
+        var pointList = [pointA, pointB, pointC];
 
         var secondpolyline = new L.Polyline(pointList, {
           color: 'blue',
@@ -92,8 +92,19 @@ function popup_getIntinerary(origin, destination) {
           opacity: 1,
           smoothFactor: 1
         });
+
+        pointA = new L.LatLng(60.634377, 24.841403);
+        pointB = new L.LatLng(60.630547, 24.868483);
+        pointList = [pointA, pointB];
+
+        var firstline = new L.Polyline(pointList, {
+          color: 'blue',
+          weight: 10,
+          opacity: 1,
+          smoothFactor: 1
+        });
         
-        var multipolylines = [secondpolyline];
+        var multipolylines = [secondpolyline, firstline];
 
         //-------------------------------------------------------
         var layerG = L.layerGroup(multipolylines);

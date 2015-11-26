@@ -61,7 +61,9 @@ function popup_getIntinerary(origin, destination) {
             pathPoints.push(new L.LatLng(
               data.result.features[i].coordinates[j][0], //lat
               data.result.features[i].coordinates[j][1] //lon
-            ))
+            ));
+
+            console.log("Points", pathPoints);
 
           } // end points of polyline object
 
@@ -70,7 +72,9 @@ function popup_getIntinerary(origin, destination) {
             weight: 10,
             opacity: 1,
             smoothFactor: 1
-          }))
+          }));
+
+          console.log("Line", pathLine)
 
         } // end polyline object
 

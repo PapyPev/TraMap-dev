@@ -81,7 +81,7 @@ function popup_getIntinerary(origin, destination) {
         }
 
         // Add to one layer Group
-        _LAYER_G = L._LAYER_Group(multipolylines);
+        _LAYER_G = L.layerGroup(multipolylines);
         _LAYER_G.addTo(map);
 
       } else{

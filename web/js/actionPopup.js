@@ -91,7 +91,7 @@ function popup_getIntinerary(origin, destination) {
           }
 
           var htmlPopup = "Result: <br>" 
-            + data.result.distance + " meters"
+            + data.result.distance + " meters <br>"
             + data.result.time + " sec";
           console.log(htmlPopup)
 
@@ -101,7 +101,7 @@ function popup_getIntinerary(origin, destination) {
             weight: 10,
             opacity: 1,
             smoothFactor: 1,
-            bindPopup: htmlPopup
+            onEachFeature: htmlPopup
           });
 
           // Add to list of polyline

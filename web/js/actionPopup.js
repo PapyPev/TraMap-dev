@@ -90,19 +90,20 @@ function popup_getIntinerary(origin, destination) {
 
           }
 
-          var htmlPopup = "Result: <br>" 
-            + data.result.distance + " meters <br>"
-            + data.result.time + " sec";
-          console.log(htmlPopup)
-
           // Create new polyline
           var polyline = new L.Polyline(points, {
             color: 'blue',
             weight: 10,
             opacity: 1,
             smoothFactor: 1,
-            onEachFeature: htmlPopup
           });
+
+          // Create popup
+          var htmlPopup = "Result: <br>" 
+            + data.result.distance + " meters <br>"
+            + data.result.time + " sec";
+          console.log(htmlPopup)
+          polyline.bindPopup(htmlPopup);
 
           // Add to list of polyline
           multipolylines.push(polyline);

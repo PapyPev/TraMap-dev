@@ -93,6 +93,7 @@ function popup_getIntinerary(origin, destination) {
           var htmlPopup = "Result: <br>" 
             + data.result.distance + " meters"
             + data.result.time + " sec";
+          console.log(htmlPopup)
 
           // Create new polyline
           var polyline = new L.Polyline(points, {
